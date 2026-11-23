@@ -1,0 +1,3141 @@
+{
+ "count": 697,
+ "by_reason": {
+  "button": 15,
+  "door": 21,
+  "fence": 14,
+  "fence_gate": 13,
+  "sign": 52,
+  "leaves": 14,
+  "pressure_plate": 17,
+  "sapling": 20,
+  "non_full": 49,
+  "technical": 30,
+  "plant": 110,
+  "wall": 32,
+  "special_utility": 20,
+  "banner": 32,
+  "bed": 17,
+  "candle": 34,
+  "carpet": 18,
+  "shulker_box": 17,
+  "glass": 35,
+  "coral_fan": 10,
+  "redstone": 30,
+  "bars": 8,
+  "chain": 8,
+  "grate": 8,
+  "lantern": 10,
+  "torch": 7,
+  "head": 10,
+  "statue": 7,
+  "infested": 7,
+  "potted_plant": 28,
+  "skull": 4
+ },
+ "examples": {
+  "button": [
+   "acacia_button",
+   "bamboo_button",
+   "birch_button",
+   "cherry_button",
+   "crimson_button",
+   "dark_oak_button",
+   "jungle_button",
+   "mangrove_button"
+  ],
+  "door": [
+   "acacia_door",
+   "bamboo_door",
+   "birch_door",
+   "cherry_door",
+   "copper_door",
+   "crimson_door",
+   "dark_oak_door",
+   "exposed_copper_door"
+  ],
+  "fence": [
+   "acacia_fence",
+   "bamboo_fence",
+   "birch_fence",
+   "cherry_fence",
+   "crimson_fence",
+   "dark_oak_fence",
+   "jungle_fence",
+   "mangrove_fence"
+  ],
+  "fence_gate": [
+   "acacia_fence_gate",
+   "bamboo_fence_gate",
+   "birch_fence_gate",
+   "cherry_fence_gate",
+   "crimson_fence_gate",
+   "dark_oak_fence_gate",
+   "jungle_fence_gate",
+   "mangrove_fence_gate"
+  ],
+  "sign": [
+   "acacia_hanging_sign",
+   "acacia_sign",
+   "acacia_wall_hanging_sign",
+   "acacia_wall_sign",
+   "bamboo_hanging_sign",
+   "bamboo_sign",
+   "bamboo_wall_hanging_sign",
+   "bamboo_wall_sign"
+  ],
+  "leaves": [
+   "acacia_leaves",
+   "azalea_leaves",
+   "birch_leaves",
+   "cherry_leaves",
+   "dark_oak_leaves",
+   "flowering_azalea_leaves",
+   "jungle_leaves",
+   "mangrove_leaves"
+  ],
+  "pressure_plate": [
+   "acacia_pressure_plate",
+   "bamboo_pressure_plate",
+   "birch_pressure_plate",
+   "cherry_pressure_plate",
+   "crimson_pressure_plate",
+   "dark_oak_pressure_plate",
+   "heavy_weighted_pressure_plate",
+   "jungle_pressure_plate"
+  ],
+  "sapling": [
+   "acacia_sapling",
+   "birch_sapling",
+   "cherry_sapling",
+   "dark_oak_sapling",
+   "jungle_sapling",
+   "mangrove_propagule",
+   "oak_sapling",
+   "pale_oak_sapling"
+  ],
+  "stairs": [
+   "acacia_stairs",
+   "andesite_stairs",
+   "bamboo_mosaic_stairs",
+   "bamboo_stairs",
+   "birch_stairs",
+   "black_concrete_stairs",
+   "black_wool_stairs",
+   "blackstone_stairs"
+  ],
+  "non_full": [
+   "activator_rail",
+   "amethyst_cluster",
+   "anvil",
+   "bell",
+   "brewing_stand",
+   "cake",
+   "campfire",
+   "cauldron"
+  ],
+  "technical": [
+   "air",
+   "barrier",
+   "bubble_column",
+   "cave_air",
+   "chain_command_block",
+   "command_block",
+   "end_gateway",
+   "end_portal"
+  ],
+  "plant": [
+   "allium",
+   "attached_melon_stem",
+   "attached_pumpkin_stem",
+   "azalea",
+   "azure_bluet",
+   "bamboo",
+   "bamboo_sapling",
+   "beetroots"
+  ],
+  "wall": [
+   "andesite_wall",
+   "blackstone_wall",
+   "brick_wall",
+   "cinnabar_brick_wall",
+   "cinnabar_wall",
+   "cobbled_deepslate_wall",
+   "cobblestone_wall",
+   "deepslate_brick_wall"
+  ],
+  "special_utility": [
+   "beacon",
+   "chest",
+   "conduit",
+   "copper_chest",
+   "copper_golem_statue",
+   "decorated_pot",
+   "dragon_egg",
+   "dried_ghast"
+  ],
+  "banner": [
+   "black_banner",
+   "black_wall_banner",
+   "blue_banner",
+   "blue_wall_banner",
+   "brown_banner",
+   "brown_wall_banner",
+   "cyan_banner",
+   "cyan_wall_banner"
+  ],
+  "bed": [
+   "black_bed",
+   "blue_bed",
+   "brown_bed",
+   "cyan_bed",
+   "gray_bed",
+   "green_bed",
+   "light_blue_bed",
+   "light_gray_bed"
+  ],
+  "candle": [
+   "black_candle",
+   "black_candle_cake",
+   "blue_candle",
+   "blue_candle_cake",
+   "brown_candle",
+   "brown_candle_cake",
+   "candle",
+   "candle_cake"
+  ],
+  "carpet": [
+   "black_carpet",
+   "blue_carpet",
+   "brown_carpet",
+   "cyan_carpet",
+   "gray_carpet",
+   "green_carpet",
+   "light_blue_carpet",
+   "light_gray_carpet"
+  ],
+  "shulker_box": [
+   "black_shulker_box",
+   "blue_shulker_box",
+   "brown_shulker_box",
+   "cyan_shulker_box",
+   "gray_shulker_box",
+   "green_shulker_box",
+   "light_blue_shulker_box",
+   "light_gray_shulker_box"
+  ],
+  "glass": [
+   "black_stained_glass",
+   "black_stained_glass_pane",
+   "blue_stained_glass",
+   "blue_stained_glass_pane",
+   "brown_stained_glass",
+   "brown_stained_glass_pane",
+   "cyan_stained_glass",
+   "cyan_stained_glass_pane"
+  ],
+  "coral_fan": [
+   "brain_coral_wall_fan",
+   "bubble_coral_wall_fan",
+   "dead_brain_coral_wall_fan",
+   "dead_bubble_coral_wall_fan",
+   "dead_fire_coral_wall_fan",
+   "dead_horn_coral_wall_fan",
+   "dead_tube_coral_wall_fan",
+   "fire_coral_wall_fan"
+  ],
+  "redstone": [
+   "calibrated_sculk_sensor",
+   "comparator",
+   "copper_bulb",
+   "crafter",
+   "daylight_detector",
+   "deepslate_redstone_ore",
+   "dispenser",
+   "dropper"
+  ],
+  "bars": [
+   "copper_bars",
+   "exposed_copper_bars",
+   "oxidized_copper_bars",
+   "waxed_copper_bars",
+   "waxed_exposed_copper_bars",
+   "waxed_oxidized_copper_bars",
+   "waxed_weathered_copper_bars",
+   "weathered_copper_bars"
+  ],
+  "chain": [
+   "copper_chain",
+   "exposed_copper_chain",
+   "oxidized_copper_chain",
+   "waxed_copper_chain",
+   "waxed_exposed_copper_chain",
+   "waxed_oxidized_copper_chain",
+   "waxed_weathered_copper_chain",
+   "weathered_copper_chain"
+  ],
+  "grate": [
+   "copper_grate",
+   "exposed_copper_grate",
+   "oxidized_copper_grate",
+   "waxed_copper_grate",
+   "waxed_exposed_copper_grate",
+   "waxed_oxidized_copper_grate",
+   "waxed_weathered_copper_grate",
+   "weathered_copper_grate"
+  ],
+  "lantern": [
+   "copper_lantern",
+   "exposed_copper_lantern",
+   "lantern",
+   "oxidized_copper_lantern",
+   "soul_lantern",
+   "waxed_copper_lantern",
+   "waxed_exposed_copper_lantern",
+   "waxed_oxidized_copper_lantern"
+  ],
+  "torch": [
+   "copper_torch",
+   "copper_wall_torch",
+   "potted_torchflower",
+   "soul_torch",
+   "soul_wall_torch",
+   "torch",
+   "wall_torch"
+  ],
+  "head": [
+   "creeper_head",
+   "creeper_wall_head",
+   "dragon_head",
+   "dragon_wall_head",
+   "piglin_head",
+   "piglin_wall_head",
+   "player_head",
+   "player_wall_head"
+  ],
+  "statue": [
+   "exposed_copper_golem_statue",
+   "oxidized_copper_golem_statue",
+   "waxed_copper_golem_statue",
+   "waxed_exposed_copper_golem_statue",
+   "waxed_oxidized_copper_golem_statue",
+   "waxed_weathered_copper_golem_statue",
+   "weathered_copper_golem_statue"
+  ],
+  "infested": [
+   "infested_chiseled_stone_bricks",
+   "infested_cobblestone",
+   "infested_cracked_stone_bricks",
+   "infested_deepslate",
+   "infested_mossy_stone_bricks",
+   "infested_stone",
+   "infested_stone_bricks"
+  ],
+  "potted_plant": [
+   "potted_allium",
+   "potted_azalea_bush",
+   "potted_azure_bluet",
+   "potted_bamboo",
+   "potted_blue_orchid",
+   "potted_brown_mushroom",
+   "potted_cactus",
+   "potted_closed_eyeblossom"
+  ],
+  "skull": [
+   "skeleton_skull",
+   "skeleton_wall_skull",
+   "wither_skeleton_skull",
+   "wither_skeleton_wall_skull"
+  ]
+ },
+ "blocks": [
+  {
+   "id": "black_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "black_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "blue_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "blue_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "brown_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "brown_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "cyan_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "cyan_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "gray_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "gray_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "green_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "green_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "light_blue_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "light_blue_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "light_gray_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "light_gray_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "lime_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "lime_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "magenta_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "magenta_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "orange_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "orange_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "pink_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "pink_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "purple_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "purple_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "red_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "red_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "white_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "white_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "yellow_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "yellow_wall_banner",
+   "reason": "banner"
+  },
+  {
+   "id": "copper_bars",
+   "reason": "bars"
+  },
+  {
+   "id": "exposed_copper_bars",
+   "reason": "bars"
+  },
+  {
+   "id": "oxidized_copper_bars",
+   "reason": "bars"
+  },
+  {
+   "id": "waxed_copper_bars",
+   "reason": "bars"
+  },
+  {
+   "id": "waxed_exposed_copper_bars",
+   "reason": "bars"
+  },
+  {
+   "id": "waxed_oxidized_copper_bars",
+   "reason": "bars"
+  },
+  {
+   "id": "waxed_weathered_copper_bars",
+   "reason": "bars"
+  },
+  {
+   "id": "weathered_copper_bars",
+   "reason": "bars"
+  },
+  {
+   "id": "black_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "blue_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "brown_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "cyan_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "gray_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "green_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "light_blue_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "light_gray_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "lime_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "magenta_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "orange_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "pink_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "purple_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "red_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "straw_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "white_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "yellow_bed",
+   "reason": "bed"
+  },
+  {
+   "id": "acacia_button",
+   "reason": "button"
+  },
+  {
+   "id": "bamboo_button",
+   "reason": "button"
+  },
+  {
+   "id": "birch_button",
+   "reason": "button"
+  },
+  {
+   "id": "cherry_button",
+   "reason": "button"
+  },
+  {
+   "id": "crimson_button",
+   "reason": "button"
+  },
+  {
+   "id": "dark_oak_button",
+   "reason": "button"
+  },
+  {
+   "id": "jungle_button",
+   "reason": "button"
+  },
+  {
+   "id": "mangrove_button",
+   "reason": "button"
+  },
+  {
+   "id": "oak_button",
+   "reason": "button"
+  },
+  {
+   "id": "pale_oak_button",
+   "reason": "button"
+  },
+  {
+   "id": "polished_blackstone_button",
+   "reason": "button"
+  },
+  {
+   "id": "poplar_button",
+   "reason": "button"
+  },
+  {
+   "id": "spruce_button",
+   "reason": "button"
+  },
+  {
+   "id": "stone_button",
+   "reason": "button"
+  },
+  {
+   "id": "warped_button",
+   "reason": "button"
+  },
+  {
+   "id": "black_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "black_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "blue_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "blue_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "brown_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "brown_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "candle",
+   "reason": "candle"
+  },
+  {
+   "id": "candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "cyan_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "cyan_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "gray_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "gray_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "green_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "green_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "light_blue_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "light_blue_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "light_gray_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "light_gray_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "lime_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "lime_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "magenta_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "magenta_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "orange_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "orange_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "pink_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "pink_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "purple_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "purple_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "red_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "red_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "white_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "white_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "yellow_candle",
+   "reason": "candle"
+  },
+  {
+   "id": "yellow_candle_cake",
+   "reason": "candle"
+  },
+  {
+   "id": "black_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "blue_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "brown_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "cyan_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "gray_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "green_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "light_blue_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "light_gray_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "lime_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "magenta_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "moss_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "orange_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "pale_moss_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "pink_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "purple_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "red_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "white_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "yellow_carpet",
+   "reason": "carpet"
+  },
+  {
+   "id": "copper_chain",
+   "reason": "chain"
+  },
+  {
+   "id": "exposed_copper_chain",
+   "reason": "chain"
+  },
+  {
+   "id": "oxidized_copper_chain",
+   "reason": "chain"
+  },
+  {
+   "id": "waxed_copper_chain",
+   "reason": "chain"
+  },
+  {
+   "id": "waxed_exposed_copper_chain",
+   "reason": "chain"
+  },
+  {
+   "id": "waxed_oxidized_copper_chain",
+   "reason": "chain"
+  },
+  {
+   "id": "waxed_weathered_copper_chain",
+   "reason": "chain"
+  },
+  {
+   "id": "weathered_copper_chain",
+   "reason": "chain"
+  },
+  {
+   "id": "brain_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "bubble_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "dead_brain_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "dead_bubble_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "dead_fire_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "dead_horn_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "dead_tube_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "fire_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "horn_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "tube_coral_wall_fan",
+   "reason": "coral_fan"
+  },
+  {
+   "id": "acacia_door",
+   "reason": "door"
+  },
+  {
+   "id": "bamboo_door",
+   "reason": "door"
+  },
+  {
+   "id": "birch_door",
+   "reason": "door"
+  },
+  {
+   "id": "cherry_door",
+   "reason": "door"
+  },
+  {
+   "id": "copper_door",
+   "reason": "door"
+  },
+  {
+   "id": "crimson_door",
+   "reason": "door"
+  },
+  {
+   "id": "dark_oak_door",
+   "reason": "door"
+  },
+  {
+   "id": "exposed_copper_door",
+   "reason": "door"
+  },
+  {
+   "id": "jungle_door",
+   "reason": "door"
+  },
+  {
+   "id": "mangrove_door",
+   "reason": "door"
+  },
+  {
+   "id": "oak_door",
+   "reason": "door"
+  },
+  {
+   "id": "oxidized_copper_door",
+   "reason": "door"
+  },
+  {
+   "id": "pale_oak_door",
+   "reason": "door"
+  },
+  {
+   "id": "poplar_door",
+   "reason": "door"
+  },
+  {
+   "id": "spruce_door",
+   "reason": "door"
+  },
+  {
+   "id": "warped_door",
+   "reason": "door"
+  },
+  {
+   "id": "waxed_copper_door",
+   "reason": "door"
+  },
+  {
+   "id": "waxed_exposed_copper_door",
+   "reason": "door"
+  },
+  {
+   "id": "waxed_oxidized_copper_door",
+   "reason": "door"
+  },
+  {
+   "id": "waxed_weathered_copper_door",
+   "reason": "door"
+  },
+  {
+   "id": "weathered_copper_door",
+   "reason": "door"
+  },
+  {
+   "id": "acacia_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "bamboo_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "birch_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "cherry_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "crimson_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "dark_oak_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "jungle_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "mangrove_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "nether_brick_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "oak_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "pale_oak_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "poplar_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "spruce_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "warped_fence",
+   "reason": "fence"
+  },
+  {
+   "id": "acacia_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "bamboo_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "birch_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "cherry_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "crimson_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "dark_oak_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "jungle_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "mangrove_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "oak_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "pale_oak_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "poplar_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "spruce_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "warped_fence_gate",
+   "reason": "fence_gate"
+  },
+  {
+   "id": "black_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "black_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "blue_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "blue_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "brown_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "brown_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "cyan_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "cyan_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "glass",
+   "reason": "glass"
+  },
+  {
+   "id": "glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "gray_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "gray_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "green_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "green_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "light_blue_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "light_blue_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "light_gray_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "light_gray_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "lime_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "lime_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "magenta_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "magenta_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "orange_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "orange_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "pink_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "pink_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "purple_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "purple_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "red_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "red_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "tinted_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "white_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "white_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "yellow_stained_glass",
+   "reason": "glass"
+  },
+  {
+   "id": "yellow_stained_glass_pane",
+   "reason": "glass"
+  },
+  {
+   "id": "copper_grate",
+   "reason": "grate"
+  },
+  {
+   "id": "exposed_copper_grate",
+   "reason": "grate"
+  },
+  {
+   "id": "oxidized_copper_grate",
+   "reason": "grate"
+  },
+  {
+   "id": "waxed_copper_grate",
+   "reason": "grate"
+  },
+  {
+   "id": "waxed_exposed_copper_grate",
+   "reason": "grate"
+  },
+  {
+   "id": "waxed_oxidized_copper_grate",
+   "reason": "grate"
+  },
+  {
+   "id": "waxed_weathered_copper_grate",
+   "reason": "grate"
+  },
+  {
+   "id": "weathered_copper_grate",
+   "reason": "grate"
+  },
+  {
+   "id": "creeper_head",
+   "reason": "head"
+  },
+  {
+   "id": "creeper_wall_head",
+   "reason": "head"
+  },
+  {
+   "id": "dragon_head",
+   "reason": "head"
+  },
+  {
+   "id": "dragon_wall_head",
+   "reason": "head"
+  },
+  {
+   "id": "piglin_head",
+   "reason": "head"
+  },
+  {
+   "id": "piglin_wall_head",
+   "reason": "head"
+  },
+  {
+   "id": "player_head",
+   "reason": "head"
+  },
+  {
+   "id": "player_wall_head",
+   "reason": "head"
+  },
+  {
+   "id": "zombie_head",
+   "reason": "head"
+  },
+  {
+   "id": "zombie_wall_head",
+   "reason": "head"
+  },
+  {
+   "id": "infested_chiseled_stone_bricks",
+   "reason": "infested"
+  },
+  {
+   "id": "infested_cobblestone",
+   "reason": "infested"
+  },
+  {
+   "id": "infested_cracked_stone_bricks",
+   "reason": "infested"
+  },
+  {
+   "id": "infested_deepslate",
+   "reason": "infested"
+  },
+  {
+   "id": "infested_mossy_stone_bricks",
+   "reason": "infested"
+  },
+  {
+   "id": "infested_stone",
+   "reason": "infested"
+  },
+  {
+   "id": "infested_stone_bricks",
+   "reason": "infested"
+  },
+  {
+   "id": "copper_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "exposed_copper_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "oxidized_copper_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "soul_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "waxed_copper_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "waxed_exposed_copper_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "waxed_oxidized_copper_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "waxed_weathered_copper_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "weathered_copper_lantern",
+   "reason": "lantern"
+  },
+  {
+   "id": "acacia_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "azalea_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "birch_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "cherry_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "dark_oak_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "flowering_azalea_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "jungle_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "mangrove_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "oak_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "orange_poplar_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "pale_oak_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "red_poplar_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "spruce_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "yellow_poplar_leaves",
+   "reason": "leaves"
+  },
+  {
+   "id": "activator_rail",
+   "reason": "non_full"
+  },
+  {
+   "id": "amethyst_cluster",
+   "reason": "non_full"
+  },
+  {
+   "id": "anvil",
+   "reason": "non_full"
+  },
+  {
+   "id": "bell",
+   "reason": "non_full"
+  },
+  {
+   "id": "brewing_stand",
+   "reason": "non_full"
+  },
+  {
+   "id": "cake",
+   "reason": "non_full"
+  },
+  {
+   "id": "campfire",
+   "reason": "non_full"
+  },
+  {
+   "id": "cauldron",
+   "reason": "non_full"
+  },
+  {
+   "id": "chipped_anvil",
+   "reason": "non_full"
+  },
+  {
+   "id": "cobweb",
+   "reason": "non_full"
+  },
+  {
+   "id": "composter",
+   "reason": "non_full"
+  },
+  {
+   "id": "damaged_anvil",
+   "reason": "non_full"
+  },
+  {
+   "id": "detector_rail",
+   "reason": "non_full"
+  },
+  {
+   "id": "dirt_path",
+   "reason": "non_full"
+  },
+  {
+   "id": "enchanting_table",
+   "reason": "non_full"
+  },
+  {
+   "id": "end_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "exposed_lightning_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "farmland",
+   "reason": "non_full"
+  },
+  {
+   "id": "flower_pot",
+   "reason": "non_full"
+  },
+  {
+   "id": "glow_item_frame",
+   "reason": "non_full"
+  },
+  {
+   "id": "grindstone",
+   "reason": "non_full"
+  },
+  {
+   "id": "iron_bars",
+   "reason": "non_full"
+  },
+  {
+   "id": "iron_chain",
+   "reason": "non_full"
+  },
+  {
+   "id": "iron_door",
+   "reason": "non_full"
+  },
+  {
+   "id": "item_frame",
+   "reason": "non_full"
+  },
+  {
+   "id": "ladder",
+   "reason": "non_full"
+  },
+  {
+   "id": "large_amethyst_bud",
+   "reason": "non_full"
+  },
+  {
+   "id": "lava_cauldron",
+   "reason": "non_full"
+  },
+  {
+   "id": "lectern",
+   "reason": "non_full"
+  },
+  {
+   "id": "lightning_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "medium_amethyst_bud",
+   "reason": "non_full"
+  },
+  {
+   "id": "oxidized_lightning_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "pointed_dripstone",
+   "reason": "non_full"
+  },
+  {
+   "id": "powder_snow_cauldron",
+   "reason": "non_full"
+  },
+  {
+   "id": "powered_rail",
+   "reason": "non_full"
+  },
+  {
+   "id": "rail",
+   "reason": "non_full"
+  },
+  {
+   "id": "scaffolding",
+   "reason": "non_full"
+  },
+  {
+   "id": "sculk_vein",
+   "reason": "non_full"
+  },
+  {
+   "id": "small_amethyst_bud",
+   "reason": "non_full"
+  },
+  {
+   "id": "snow",
+   "reason": "non_full"
+  },
+  {
+   "id": "soul_campfire",
+   "reason": "non_full"
+  },
+  {
+   "id": "stonecutter",
+   "reason": "non_full"
+  },
+  {
+   "id": "sulfur_spike",
+   "reason": "non_full"
+  },
+  {
+   "id": "water_cauldron",
+   "reason": "non_full"
+  },
+  {
+   "id": "waxed_exposed_lightning_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "waxed_lightning_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "waxed_oxidized_lightning_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "waxed_weathered_lightning_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "weathered_lightning_rod",
+   "reason": "non_full"
+  },
+  {
+   "id": "allium",
+   "reason": "plant"
+  },
+  {
+   "id": "attached_melon_stem",
+   "reason": "plant"
+  },
+  {
+   "id": "attached_pumpkin_stem",
+   "reason": "plant"
+  },
+  {
+   "id": "azalea",
+   "reason": "plant"
+  },
+  {
+   "id": "azure_bluet",
+   "reason": "plant"
+  },
+  {
+   "id": "bamboo",
+   "reason": "plant"
+  },
+  {
+   "id": "bamboo_sapling",
+   "reason": "plant"
+  },
+  {
+   "id": "beetroots",
+   "reason": "plant"
+  },
+  {
+   "id": "big_dripleaf",
+   "reason": "plant"
+  },
+  {
+   "id": "big_dripleaf_stem",
+   "reason": "plant"
+  },
+  {
+   "id": "blue_orchid",
+   "reason": "plant"
+  },
+  {
+   "id": "brain_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "brain_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "brown_mushroom",
+   "reason": "plant"
+  },
+  {
+   "id": "bubble_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "bubble_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "bush",
+   "reason": "plant"
+  },
+  {
+   "id": "cactus",
+   "reason": "plant"
+  },
+  {
+   "id": "cactus_flower",
+   "reason": "plant"
+  },
+  {
+   "id": "carrots",
+   "reason": "plant"
+  },
+  {
+   "id": "cave_vines",
+   "reason": "plant"
+  },
+  {
+   "id": "cave_vines_plant",
+   "reason": "plant"
+  },
+  {
+   "id": "chorus_flower",
+   "reason": "plant"
+  },
+  {
+   "id": "chorus_plant",
+   "reason": "plant"
+  },
+  {
+   "id": "closed_eyeblossom",
+   "reason": "plant"
+  },
+  {
+   "id": "cocoa",
+   "reason": "plant"
+  },
+  {
+   "id": "cornflower",
+   "reason": "plant"
+  },
+  {
+   "id": "crimson_fungus",
+   "reason": "plant"
+  },
+  {
+   "id": "crimson_roots",
+   "reason": "plant"
+  },
+  {
+   "id": "dandelion",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_brain_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_brain_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_bubble_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_bubble_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_bush",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_fire_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_fire_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_horn_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_horn_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_tube_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "dead_tube_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "fern",
+   "reason": "plant"
+  },
+  {
+   "id": "fire_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "fire_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "firefly_bush",
+   "reason": "plant"
+  },
+  {
+   "id": "flowering_azalea",
+   "reason": "plant"
+  },
+  {
+   "id": "frogspawn",
+   "reason": "plant"
+  },
+  {
+   "id": "glow_lichen",
+   "reason": "plant"
+  },
+  {
+   "id": "golden_dandelion",
+   "reason": "plant"
+  },
+  {
+   "id": "hanging_roots",
+   "reason": "plant"
+  },
+  {
+   "id": "horn_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "horn_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "kelp",
+   "reason": "plant"
+  },
+  {
+   "id": "kelp_plant",
+   "reason": "plant"
+  },
+  {
+   "id": "large_fern",
+   "reason": "plant"
+  },
+  {
+   "id": "leaf_litter",
+   "reason": "plant"
+  },
+  {
+   "id": "lilac",
+   "reason": "plant"
+  },
+  {
+   "id": "lily_of_the_valley",
+   "reason": "plant"
+  },
+  {
+   "id": "lily_pad",
+   "reason": "plant"
+  },
+  {
+   "id": "mangrove_roots",
+   "reason": "plant"
+  },
+  {
+   "id": "melon_stem",
+   "reason": "plant"
+  },
+  {
+   "id": "nether_sprouts",
+   "reason": "plant"
+  },
+  {
+   "id": "nether_wart",
+   "reason": "plant"
+  },
+  {
+   "id": "open_eyeblossom",
+   "reason": "plant"
+  },
+  {
+   "id": "orange_tulip",
+   "reason": "plant"
+  },
+  {
+   "id": "oxeye_daisy",
+   "reason": "plant"
+  },
+  {
+   "id": "pale_hanging_moss",
+   "reason": "plant"
+  },
+  {
+   "id": "peony",
+   "reason": "plant"
+  },
+  {
+   "id": "pink_petals",
+   "reason": "plant"
+  },
+  {
+   "id": "pink_tulip",
+   "reason": "plant"
+  },
+  {
+   "id": "pitcher_crop",
+   "reason": "plant"
+  },
+  {
+   "id": "pitcher_plant",
+   "reason": "plant"
+  },
+  {
+   "id": "poppy",
+   "reason": "plant"
+  },
+  {
+   "id": "potatoes",
+   "reason": "plant"
+  },
+  {
+   "id": "pumpkin_stem",
+   "reason": "plant"
+  },
+  {
+   "id": "red_mushroom",
+   "reason": "plant"
+  },
+  {
+   "id": "red_shrub",
+   "reason": "plant"
+  },
+  {
+   "id": "red_tulip",
+   "reason": "plant"
+  },
+  {
+   "id": "resin_clump",
+   "reason": "plant"
+  },
+  {
+   "id": "rose_bush",
+   "reason": "plant"
+  },
+  {
+   "id": "sea_pickle",
+   "reason": "plant"
+  },
+  {
+   "id": "seagrass",
+   "reason": "plant"
+  },
+  {
+   "id": "shelf_mushroom",
+   "reason": "plant"
+  },
+  {
+   "id": "short_dry_grass",
+   "reason": "plant"
+  },
+  {
+   "id": "short_grass",
+   "reason": "plant"
+  },
+  {
+   "id": "small_dripleaf",
+   "reason": "plant"
+  },
+  {
+   "id": "sniffer_egg",
+   "reason": "plant"
+  },
+  {
+   "id": "spore_blossom",
+   "reason": "plant"
+  },
+  {
+   "id": "sugar_cane",
+   "reason": "plant"
+  },
+  {
+   "id": "sunflower",
+   "reason": "plant"
+  },
+  {
+   "id": "sweet_berry_bush",
+   "reason": "plant"
+  },
+  {
+   "id": "tall_dry_grass",
+   "reason": "plant"
+  },
+  {
+   "id": "tall_grass",
+   "reason": "plant"
+  },
+  {
+   "id": "tall_seagrass",
+   "reason": "plant"
+  },
+  {
+   "id": "torchflower",
+   "reason": "plant"
+  },
+  {
+   "id": "torchflower_crop",
+   "reason": "plant"
+  },
+  {
+   "id": "tube_coral",
+   "reason": "plant"
+  },
+  {
+   "id": "tube_coral_fan",
+   "reason": "plant"
+  },
+  {
+   "id": "turtle_egg",
+   "reason": "plant"
+  },
+  {
+   "id": "twisting_vines",
+   "reason": "plant"
+  },
+  {
+   "id": "twisting_vines_plant",
+   "reason": "plant"
+  },
+  {
+   "id": "vine",
+   "reason": "plant"
+  },
+  {
+   "id": "warped_fungus",
+   "reason": "plant"
+  },
+  {
+   "id": "warped_roots",
+   "reason": "plant"
+  },
+  {
+   "id": "weeping_vines",
+   "reason": "plant"
+  },
+  {
+   "id": "weeping_vines_plant",
+   "reason": "plant"
+  },
+  {
+   "id": "wheat",
+   "reason": "plant"
+  },
+  {
+   "id": "white_tulip",
+   "reason": "plant"
+  },
+  {
+   "id": "wildflowers",
+   "reason": "plant"
+  },
+  {
+   "id": "wither_rose",
+   "reason": "plant"
+  },
+  {
+   "id": "potted_allium",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_azalea_bush",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_azure_bluet",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_bamboo",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_blue_orchid",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_brown_mushroom",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_cactus",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_closed_eyeblossom",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_cornflower",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_crimson_fungus",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_crimson_roots",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_dandelion",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_dead_bush",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_fern",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_flowering_azalea_bush",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_golden_dandelion",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_lily_of_the_valley",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_open_eyeblossom",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_orange_tulip",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_oxeye_daisy",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_pink_tulip",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_poppy",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_red_mushroom",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_red_tulip",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_warped_fungus",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_warped_roots",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_white_tulip",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "potted_wither_rose",
+   "reason": "potted_plant"
+  },
+  {
+   "id": "acacia_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "bamboo_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "birch_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "cherry_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "crimson_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "dark_oak_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "heavy_weighted_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "jungle_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "light_weighted_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "mangrove_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "oak_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "pale_oak_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "polished_blackstone_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "poplar_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "spruce_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "stone_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "warped_pressure_plate",
+   "reason": "pressure_plate"
+  },
+  {
+   "id": "calibrated_sculk_sensor",
+   "reason": "redstone"
+  },
+  {
+   "id": "comparator",
+   "reason": "redstone"
+  },
+  {
+   "id": "copper_bulb",
+   "reason": "redstone"
+  },
+  {
+   "id": "crafter",
+   "reason": "redstone"
+  },
+  {
+   "id": "daylight_detector",
+   "reason": "redstone"
+  },
+  {
+   "id": "deepslate_redstone_ore",
+   "reason": "redstone"
+  },
+  {
+   "id": "dispenser",
+   "reason": "redstone"
+  },
+  {
+   "id": "dropper",
+   "reason": "redstone"
+  },
+  {
+   "id": "exposed_copper_bulb",
+   "reason": "redstone"
+  },
+  {
+   "id": "hopper",
+   "reason": "redstone"
+  },
+  {
+   "id": "lever",
+   "reason": "redstone"
+  },
+  {
+   "id": "observer",
+   "reason": "redstone"
+  },
+  {
+   "id": "oxidized_copper_bulb",
+   "reason": "redstone"
+  },
+  {
+   "id": "redstone_block",
+   "reason": "redstone"
+  },
+  {
+   "id": "redstone_lamp",
+   "reason": "redstone"
+  },
+  {
+   "id": "redstone_ore",
+   "reason": "redstone"
+  },
+  {
+   "id": "redstone_torch",
+   "reason": "redstone"
+  },
+  {
+   "id": "redstone_wall_torch",
+   "reason": "redstone"
+  },
+  {
+   "id": "redstone_wire",
+   "reason": "redstone"
+  },
+  {
+   "id": "repeater",
+   "reason": "redstone"
+  },
+  {
+   "id": "sculk_sensor",
+   "reason": "redstone"
+  },
+  {
+   "id": "sculk_shrieker",
+   "reason": "redstone"
+  },
+  {
+   "id": "target",
+   "reason": "redstone"
+  },
+  {
+   "id": "tripwire",
+   "reason": "redstone"
+  },
+  {
+   "id": "tripwire_hook",
+   "reason": "redstone"
+  },
+  {
+   "id": "waxed_copper_bulb",
+   "reason": "redstone"
+  },
+  {
+   "id": "waxed_exposed_copper_bulb",
+   "reason": "redstone"
+  },
+  {
+   "id": "waxed_oxidized_copper_bulb",
+   "reason": "redstone"
+  },
+  {
+   "id": "waxed_weathered_copper_bulb",
+   "reason": "redstone"
+  },
+  {
+   "id": "weathered_copper_bulb",
+   "reason": "redstone"
+  },
+  {
+   "id": "acacia_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "birch_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "cherry_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "dark_oak_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "jungle_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "mangrove_propagule",
+   "reason": "sapling"
+  },
+  {
+   "id": "oak_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "pale_oak_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "poplar_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_acacia_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_birch_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_cherry_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_dark_oak_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_jungle_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_mangrove_propagule",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_oak_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_pale_oak_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_poplar_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "potted_spruce_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "spruce_sapling",
+   "reason": "sapling"
+  },
+  {
+   "id": "black_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "blue_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "brown_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "cyan_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "gray_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "green_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "light_blue_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "light_gray_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "lime_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "magenta_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "orange_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "pink_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "purple_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "red_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "white_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "yellow_shulker_box",
+   "reason": "shulker_box"
+  },
+  {
+   "id": "acacia_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "acacia_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "acacia_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "acacia_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "bamboo_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "bamboo_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "bamboo_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "bamboo_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "birch_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "birch_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "birch_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "birch_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "cherry_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "cherry_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "cherry_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "cherry_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "crimson_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "crimson_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "crimson_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "crimson_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "dark_oak_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "dark_oak_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "dark_oak_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "dark_oak_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "jungle_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "jungle_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "jungle_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "jungle_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "mangrove_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "mangrove_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "mangrove_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "mangrove_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "oak_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "oak_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "oak_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "oak_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "pale_oak_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "pale_oak_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "pale_oak_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "pale_oak_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "poplar_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "poplar_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "poplar_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "poplar_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "spruce_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "spruce_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "spruce_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "spruce_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "warped_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "warped_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "warped_wall_hanging_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "warped_wall_sign",
+   "reason": "sign"
+  },
+  {
+   "id": "skeleton_skull",
+   "reason": "skull"
+  },
+  {
+   "id": "skeleton_wall_skull",
+   "reason": "skull"
+  },
+  {
+   "id": "wither_skeleton_skull",
+   "reason": "skull"
+  },
+  {
+   "id": "wither_skeleton_wall_skull",
+   "reason": "skull"
+  },
+  {
+   "id": "beacon",
+   "reason": "special_utility"
+  },
+  {
+   "id": "chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "conduit",
+   "reason": "special_utility"
+  },
+  {
+   "id": "copper_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "copper_golem_statue",
+   "reason": "special_utility"
+  },
+  {
+   "id": "decorated_pot",
+   "reason": "special_utility"
+  },
+  {
+   "id": "dragon_egg",
+   "reason": "special_utility"
+  },
+  {
+   "id": "dried_ghast",
+   "reason": "special_utility"
+  },
+  {
+   "id": "ender_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "exposed_copper_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "heavy_core",
+   "reason": "special_utility"
+  },
+  {
+   "id": "oxidized_copper_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "respawn_anchor",
+   "reason": "special_utility"
+  },
+  {
+   "id": "trapped_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "vault",
+   "reason": "special_utility"
+  },
+  {
+   "id": "waxed_copper_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "waxed_exposed_copper_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "waxed_oxidized_copper_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "waxed_weathered_copper_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "weathered_copper_chest",
+   "reason": "special_utility"
+  },
+  {
+   "id": "exposed_copper_golem_statue",
+   "reason": "statue"
+  },
+  {
+   "id": "oxidized_copper_golem_statue",
+   "reason": "statue"
+  },
+  {
+   "id": "waxed_copper_golem_statue",
+   "reason": "statue"
+  },
+  {
+   "id": "waxed_exposed_copper_golem_statue",
+   "reason": "statue"
+  },
+  {
+   "id": "waxed_oxidized_copper_golem_statue",
+   "reason": "statue"
+  },
+  {
+   "id": "waxed_weathered_copper_golem_statue",
+   "reason": "statue"
+  },
+  {
+   "id": "weathered_copper_golem_statue",
+   "reason": "statue"
+  },
+  {
+   "id": "air",
+   "reason": "technical"
+  },
+  {
+   "id": "barrier",
+   "reason": "technical"
+  },
+  {
+   "id": "bubble_column",
+   "reason": "technical"
+  },
+  {
+   "id": "cave_air",
+   "reason": "technical"
+  },
+  {
+   "id": "chain_command_block",
+   "reason": "technical"
+  },
+  {
+   "id": "command_block",
+   "reason": "technical"
+  },
+  {
+   "id": "end_gateway",
+   "reason": "technical"
+  },
+  {
+   "id": "end_portal",
+   "reason": "technical"
+  },
+  {
+   "id": "end_portal_frame",
+   "reason": "technical"
+  },
+  {
+   "id": "fire",
+   "reason": "technical"
+  },
+  {
+   "id": "frosted_ice",
+   "reason": "technical"
+  },
+  {
+   "id": "jigsaw",
+   "reason": "technical"
+  },
+  {
+   "id": "lava",
+   "reason": "technical"
+  },
+  {
+   "id": "light",
+   "reason": "technical"
+  },
+  {
+   "id": "moving_piston",
+   "reason": "technical"
+  },
+  {
+   "id": "nether_portal",
+   "reason": "technical"
+  },
+  {
+   "id": "piston",
+   "reason": "technical"
+  },
+  {
+   "id": "piston_head",
+   "reason": "technical"
+  },
+  {
+   "id": "powder_snow",
+   "reason": "technical"
+  },
+  {
+   "id": "repeating_command_block",
+   "reason": "technical"
+  },
+  {
+   "id": "soul_fire",
+   "reason": "technical"
+  },
+  {
+   "id": "spawner",
+   "reason": "technical"
+  },
+  {
+   "id": "sticky_piston",
+   "reason": "technical"
+  },
+  {
+   "id": "structure_block",
+   "reason": "technical"
+  },
+  {
+   "id": "structure_void",
+   "reason": "technical"
+  },
+  {
+   "id": "test_block",
+   "reason": "technical"
+  },
+  {
+   "id": "test_instance_block",
+   "reason": "technical"
+  },
+  {
+   "id": "trial_spawner",
+   "reason": "technical"
+  },
+  {
+   "id": "void_air",
+   "reason": "technical"
+  },
+  {
+   "id": "water",
+   "reason": "technical"
+  },
+  {
+   "id": "copper_torch",
+   "reason": "torch"
+  },
+  {
+   "id": "copper_wall_torch",
+   "reason": "torch"
+  },
+  {
+   "id": "potted_torchflower",
+   "reason": "torch"
+  },
+  {
+   "id": "soul_torch",
+   "reason": "torch"
+  },
+  {
+   "id": "soul_wall_torch",
+   "reason": "torch"
+  },
+  {
+   "id": "torch",
+   "reason": "torch"
+  },
+  {
+   "id": "wall_torch",
+   "reason": "torch"
+  },
+  {
+   "id": "andesite_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "blackstone_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "cinnabar_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "cinnabar_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "cobbled_deepslate_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "cobblestone_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "deepslate_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "deepslate_tile_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "diorite_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "end_stone_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "granite_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "mossy_cobblestone_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "mossy_stone_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "mud_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "nether_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "polished_blackstone_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "polished_blackstone_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "polished_cinnabar_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "polished_deepslate_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "polished_sulfur_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "polished_tuff_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "prismarine_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "red_nether_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "red_sandstone_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "resin_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "sandstone_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "stone_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "sulfur_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "sulfur_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "tuff_brick_wall",
+   "reason": "wall"
+  },
+  {
+   "id": "tuff_wall",
+   "reason": "wall"
+  }
+ ]
+}

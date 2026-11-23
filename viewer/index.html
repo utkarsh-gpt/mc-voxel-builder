@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Voxel Viewer — object study</title>
+  <meta name="description" content="Orbit, zoom and inspect voxel art models, including Minecraft-style slabs and stairs." />
+  <meta name="theme-color" content="#0f0e0c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body data-state="loading" data-ready="0">
+  <a class="skip" href="#model-select">Skip to model picker</a>
+
+  <div id="app">
+    <aside id="sidebar" aria-label="Model and details">
+      <header id="brand">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 3 28 10v12L16 29 4 22V10z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M4 10l12 7 12-7M16 17v12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M16 17 28 10v6l-12 7z" fill="currentColor" opacity=".35"/>
+        </svg>
+        <div>
+          <h1>Voxel Viewer</h1>
+          <p class="tagline">Turn it over. Check the shape from every side.</p>
+        </div>
+      </header>
+
+      <section class="block" aria-labelledby="featured-label">
+        <h2 class="eyebrow" id="featured-label">Featured <span class="eyebrow-note">newest finals</span></h2>
+        <ul id="featured" class="chips" role="list"></ul>
+      </section>
+
+      <section class="block">
+        <label class="eyebrow" for="model-select">All models</label>
+        <div class="select-wrap">
+          <select id="model-select"></select>
+        </div>
+        <p class="legend" aria-hidden="true"><span class="star">★</span> featured · <span class="diamond">◆</span> highlight</p>
+      </section>
+
+      <section class="block" aria-labelledby="stats-label">
+        <h2 class="eyebrow" id="stats-label">Measurements</h2>
+        <dl id="stats">
+          <div class="stat stat-name">
+            <dt>Name</dt>
+            <dd id="stat-name">—</dd>
+          </div>
+          <div class="stat stat-blocks">
+            <dt>Blocks</dt>
+            <dd id="stat-blocks">—</dd>
+          </div>
+          <div class="stat stat-size">
+            <dt>Grid <span class="unit">W × H × D</span></dt>
+            <dd id="stat-size">—</dd>
+          </div>
+          <div class="stat stat-sub">
+            <dt>Sub-blocks <span class="unit">slabs · stairs</span></dt>
+            <dd>
+              <span id="stat-sub">—</span>
+              <span class="meter" aria-hidden="true"><span id="sub-meter"></span></span>
+              <span id="stat-sub-count" class="stat-note"></span>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="block" id="palette-section" aria-labelledby="palette-label" hidden>
+        <h2 class="eyebrow" id="palette-label">Block palette <span class="eyebrow-note" id="palette-note"></span></h2>
+        <div id="block-info" class="block-info" aria-live="polite">
+          <p class="block-info-hint">Hover a block to read it, click to pin it here.</p>
+        </div>
+        <ul id="palette-list" class="palette-list" role="list"></ul>
+      </section>
+
+      <section class="block dropzone" aria-labelledby="drop-label">
+        <h2 class="eyebrow" id="drop-label">Your own model</h2>
+        <p class="drop-copy">Drop a voxel <code>.json</code> anywhere on the page. It is read in your browser and never uploaded.</p>
+        <label class="btn btn-ghost file-btn">
+          <input type="file" id="file-input" accept=".json,application/json" />
+          <span>Choose file…</span>
+        </label>
+      </section>
+    </aside>
+
+    <main id="viewport" aria-label="3D view">
+      <canvas id="view" tabindex="0" aria-label="Voxel model. Drag to orbit, scroll to zoom, right-drag to pan."></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+      <div id="block-tip" class="block-tip" aria-hidden="true" hidden></div>
+
+      <header class="plate" aria-live="off">
+        <p class="plate-eyebrow" id="plate-subject">—</p>
+        <p class="plate-title" id="plate-title">Loading…</p>
+        <p class="plate-badges" id="plate-badges"></p>
+      </header>
+
+      <figure id="ref-wrap" hidden>
+        <a id="ref-link" href="#" target="_blank" rel="noopener" title="Open full-size reference">
+          <img id="ref-thumb" alt="Reference photo" hidden />
+        </a>
+        <figcaption><span>Reference</span> <span id="ref-caption"></span></figcaption>
+      </figure>
+
+      <div class="veil" aria-hidden="true">
+        <div class="veil-card veil-loading">
+          <div class="stack"><i></i><i></i><i></i></div>
+          <p class="veil-title" id="veil-title">Loading…</p>
+          <p class="veil-sub" id="veil-sub"></p>
+        </div>
+        <div class="veil-card veil-error">
+          <p class="veil-kicker">Couldn’t open that</p>
+          <p class="veil-title" id="veil-error-msg"></p>
+          <p class="veil-sub">Pick another model, or drop a different file.</p>
+          <div class="veil-actions">
+            <button type="button" class="btn" id="btn-retry">Try again</button>
+            <button type="button" class="btn btn-ghost" id="btn-dismiss">Dismiss</button>
+          </div>
+        </div>
+        <div class="veil-card veil-idle">
+          <p class="veil-kicker">Empty bench</p>
+          <p class="veil-title">Drop a voxel <code>.json</code> to begin</p>
+          <p class="veil-sub">Or use “Choose file…” in the panel.</p>
+        </div>
+      </div>
+
+      <div class="dock">
+        <p id="hint" class="hint">
+          <span><kbd>Drag</kbd> orbit</span>
+          <span><kbd>Scroll</kbd> zoom</span>
+          <span><kbd>Right-drag</kbd> pan</span>
+        </p>
+        <p id="status" role="status" aria-live="polite"></p>
+        <div class="toolbar" role="group" aria-label="View options">
+          <label class="tool" title="Wireframe (W)">
+            <input type="checkbox" id="toggle-wireframe" aria-label="Wireframe" aria-keyshortcuts="W" />
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5 17 6.5v7L10 17.5 3 13.5v-7zM3 6.5l7 4 7-4M10 10.5v7" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            <span>Wireframe</span>
+          </label>
+          <label class="tool" title="Floor grid (G)">
+            <input type="checkbox" id="toggle-grid" checked aria-label="Floor grid" aria-keyshortcuts="G" />
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 14.5 10 18l8-3.5L10 11zM6 12.75l8 3.5M14 12.75l-8 3.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            <span>Grid</span>
+          </label>
+          <button type="button" class="tool" id="btn-reset" title="Reset camera (R)" aria-label="Reset camera" aria-keyshortcuts="R">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 1 0 1.8-4.3M4 3.5v3h3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Reset</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="drop-overlay" hidden>
+    <div class="drop-frame">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M24 5 41 15v18L24 43 7 33V15z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M24 16v14M18 24l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="drop-title">Release to inspect</p>
+      <p class="drop-sub">Voxel <code>.json</code> · read locally, never uploaded</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

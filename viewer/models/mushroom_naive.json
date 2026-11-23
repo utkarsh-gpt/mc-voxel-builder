@@ -1,0 +1,4 @@
+{"name":"naive_mushroom","size":[32,32,32],"camera":{"azim":0,"elev":-20},
+ "palette":{"c":"#8a7f5a","s":"#d98a9a"},
+ "shapes":[{"type":"cylinder","base":[16,0,16],"radius":3,"height":18,"c":"s"},
+           {"type":"ellipsoid","center":[16,20,16],"radius":[13,7,11],"c":"c"}]}

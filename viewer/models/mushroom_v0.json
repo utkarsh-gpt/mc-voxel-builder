@@ -1,0 +1,218 @@
+{
+ "name": "bolete",
+ "size": [
+  32,
+  32,
+  32
+ ],
+ "camera": {
+  "azim": 0,
+  "elev": -25
+ },
+ "palette": {
+  "o": [
+   "#8a8250",
+   "#7f774a",
+   "#938a58"
+  ],
+  "d": [
+   "#5e5638",
+   "#665d3c",
+   "#554e34"
+  ],
+  "p": [
+   "#a39a62",
+   "#b0a76d",
+   "#9a915a"
+  ],
+  "t": [
+   "#9c9460",
+   "#a49c68"
+  ],
+  "c": [
+   "#e8dfc0",
+   "#efe6c8"
+  ],
+  "k": [
+   "#d9a0a0",
+   "#cc8c96",
+   "#d69aa0"
+  ],
+  "r": [
+   "#c0607a",
+   "#b85470",
+   "#c8687e"
+  ],
+  "s": "#3a3022"
+ },
+ "shapes": [
+  {
+   "type": "ellipsoid",
+   "center": [
+    15,
+    19,
+    16
+   ],
+   "radius": [
+    14,
+    10,
+    13
+   ],
+   "c": "o"
+  },
+  {
+   "type": "ellipsoid",
+   "center": [
+    13,
+    17,
+    16
+   ],
+   "radius": [
+    13,
+    9,
+    12
+   ],
+   "c": "o"
+  },
+  {
+   "type": "box",
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    31,
+    10,
+    31
+   ],
+   "c": "."
+  },
+  {
+   "type": "shell_shade",
+   "c_from": "o",
+   "c_to": "t",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "depth": 2
+  },
+  {
+   "type": "shell_shade",
+   "c_from": "o",
+   "c_to": "d",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "depth": 2
+  },
+  {
+   "type": "shell_shade",
+   "c_from": "d",
+   "c_to": "p",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "depth": 1
+  },
+  {
+   "type": "cylinder",
+   "base": [
+    18,
+    0,
+    16
+   ],
+   "radius": 3,
+   "height": 14,
+   "axis": "y",
+   "c": "k",
+   "r_top": 4
+  },
+  {
+   "type": "cylinder",
+   "base": [
+    18,
+    10,
+    16
+   ],
+   "radius": 4,
+   "height": 4,
+   "axis": "y",
+   "c": "c",
+   "r_top": 4
+  },
+  {
+   "type": "cylinder",
+   "base": [
+    18,
+    0,
+    16
+   ],
+   "radius": 3,
+   "height": 4,
+   "axis": "y",
+   "c": "r",
+   "r_top": 3
+  },
+  {
+   "type": "shell_shade",
+   "c_from": "k",
+   "c_to": "r",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "depth": 1
+  },
+  {
+   "type": "shell_shade",
+   "c_from": "c",
+   "c_to": "k",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "depth": 1
+  }
+ ],
+ "voxels": [
+  {
+   "x": 2,
+   "y": 14,
+   "z": 22,
+   "c": "s"
+  },
+  {
+   "x": 3,
+   "y": 18,
+   "z": 24,
+   "c": "s"
+  },
+  {
+   "x": 10,
+   "y": 11,
+   "z": 24,
+   "c": "s"
+  },
+  {
+   "x": 22,
+   "y": 22,
+   "z": 27,
+   "c": "s"
+  },
+  {
+   "x": 6,
+   "y": 13,
+   "z": 25,
+   "c": "s"
+  }
+ ]
+}

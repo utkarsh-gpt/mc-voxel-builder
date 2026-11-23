@@ -1,0 +1,465 @@
+{
+ "name": "cosy_medieval_cottage",
+ "size": [
+  16,
+  16,
+  16
+ ],
+ "palette": {
+  "C": "minecraft:cobblestone",
+  "L": "minecraft:oak_log[axis=y]",
+  "W": "minecraft:white_terracotta",
+  "G": "minecraft:glass_pane",
+  "P": "minecraft:oak_planks",
+  "D": "minecraft:oak_door[facing=north,half=lower,hinge=left]",
+  "d": "minecraft:oak_door[facing=north,half=upper,hinge=left]",
+  "a": "minecraft:spruce_stairs[facing=west,half=bottom]",
+  "b": "minecraft:spruce_stairs[facing=east,half=bottom]",
+  "s": "minecraft:spruce_planks",
+  "l": "minecraft:spruce_slab[type=top]",
+  "n": "minecraft:lantern[hanging=true]",
+  "B": "minecraft:bricks",
+  ".": "minecraft:air"
+ },
+ "boxes": [
+  {
+   "from": [
+    2,
+    0,
+    3
+   ],
+   "to": [
+    10,
+    0,
+    12
+   ],
+   "block": "C",
+   "hollow": false
+  },
+  {
+   "from": [
+    3,
+    0,
+    4
+   ],
+   "to": [
+    9,
+    0,
+    11
+   ],
+   "block": "P",
+   "hollow": false
+  },
+  {
+   "from": [
+    2,
+    1,
+    3
+   ],
+   "to": [
+    10,
+    4,
+    12
+   ],
+   "block": "W",
+   "hollow": true
+  },
+  {
+   "from": [
+    3,
+    5,
+    3
+   ],
+   "to": [
+    9,
+    5,
+    3
+   ],
+   "block": "W",
+   "hollow": false
+  },
+  {
+   "from": [
+    4,
+    6,
+    3
+   ],
+   "to": [
+    8,
+    6,
+    3
+   ],
+   "block": "W",
+   "hollow": false
+  },
+  {
+   "from": [
+    5,
+    7,
+    3
+   ],
+   "to": [
+    7,
+    7,
+    3
+   ],
+   "block": "W",
+   "hollow": false
+  },
+  {
+   "from": [
+    3,
+    5,
+    12
+   ],
+   "to": [
+    9,
+    5,
+    12
+   ],
+   "block": "W",
+   "hollow": false
+  },
+  {
+   "from": [
+    4,
+    6,
+    12
+   ],
+   "to": [
+    8,
+    6,
+    12
+   ],
+   "block": "W",
+   "hollow": false
+  },
+  {
+   "from": [
+    5,
+    7,
+    12
+   ],
+   "to": [
+    7,
+    7,
+    12
+   ],
+   "block": "W",
+   "hollow": false
+  },
+  {
+   "from": [
+    2,
+    1,
+    3
+   ],
+   "to": [
+    2,
+    4,
+    3
+   ],
+   "block": "L",
+   "hollow": false
+  },
+  {
+   "from": [
+    10,
+    1,
+    3
+   ],
+   "to": [
+    10,
+    4,
+    3
+   ],
+   "block": "L",
+   "hollow": false
+  },
+  {
+   "from": [
+    2,
+    1,
+    12
+   ],
+   "to": [
+    2,
+    4,
+    12
+   ],
+   "block": "L",
+   "hollow": false
+  },
+  {
+   "from": [
+    10,
+    1,
+    12
+   ],
+   "to": [
+    10,
+    4,
+    12
+   ],
+   "block": "L",
+   "hollow": false
+  },
+  {
+   "from": [
+    1,
+    4,
+    2
+   ],
+   "to": [
+    1,
+    4,
+    13
+   ],
+   "block": "a",
+   "hollow": false
+  },
+  {
+   "from": [
+    2,
+    5,
+    2
+   ],
+   "to": [
+    2,
+    5,
+    13
+   ],
+   "block": "a",
+   "hollow": false
+  },
+  {
+   "from": [
+    3,
+    6,
+    2
+   ],
+   "to": [
+    3,
+    6,
+    13
+   ],
+   "block": "a",
+   "hollow": false
+  },
+  {
+   "from": [
+    4,
+    7,
+    2
+   ],
+   "to": [
+    4,
+    7,
+    13
+   ],
+   "block": "a",
+   "hollow": false
+  },
+  {
+   "from": [
+    5,
+    8,
+    2
+   ],
+   "to": [
+    5,
+    8,
+    13
+   ],
+   "block": "a",
+   "hollow": false
+  },
+  {
+   "from": [
+    11,
+    4,
+    2
+   ],
+   "to": [
+    11,
+    4,
+    13
+   ],
+   "block": "b",
+   "hollow": false
+  },
+  {
+   "from": [
+    10,
+    5,
+    2
+   ],
+   "to": [
+    10,
+    5,
+    13
+   ],
+   "block": "b",
+   "hollow": false
+  },
+  {
+   "from": [
+    9,
+    6,
+    2
+   ],
+   "to": [
+    9,
+    6,
+    13
+   ],
+   "block": "b",
+   "hollow": false
+  },
+  {
+   "from": [
+    8,
+    7,
+    2
+   ],
+   "to": [
+    8,
+    7,
+    13
+   ],
+   "block": "b",
+   "hollow": false
+  },
+  {
+   "from": [
+    7,
+    8,
+    2
+   ],
+   "to": [
+    7,
+    8,
+    13
+   ],
+   "block": "b",
+   "hollow": false
+  },
+  {
+   "from": [
+    6,
+    8,
+    2
+   ],
+   "to": [
+    6,
+    8,
+    13
+   ],
+   "block": "s",
+   "hollow": false
+  },
+  {
+   "from": [
+    11,
+    0,
+    7
+   ],
+   "to": [
+    12,
+    9,
+    8
+   ],
+   "block": "B",
+   "hollow": false
+  },
+  {
+   "from": [
+    6,
+    0,
+    0
+   ],
+   "to": [
+    6,
+    0,
+    2
+   ],
+   "block": "C",
+   "hollow": false
+  }
+ ],
+ "layers": [],
+ "blocks": [
+  {
+   "x": 6,
+   "y": 1,
+   "z": 3,
+   "block": "D"
+  },
+  {
+   "x": 6,
+   "y": 2,
+   "z": 3,
+   "block": "d"
+  },
+  {
+   "x": 6,
+   "y": 4,
+   "z": 2,
+   "block": "l"
+  },
+  {
+   "x": 6,
+   "y": 3,
+   "z": 2,
+   "block": "n"
+  },
+  {
+   "x": 4,
+   "y": 2,
+   "z": 3,
+   "block": "G"
+  },
+  {
+   "x": 8,
+   "y": 2,
+   "z": 3,
+   "block": "G"
+  },
+  {
+   "x": 4,
+   "y": 2,
+   "z": 12,
+   "block": "G"
+  },
+  {
+   "x": 8,
+   "y": 2,
+   "z": 12,
+   "block": "G"
+  },
+  {
+   "x": 2,
+   "y": 2,
+   "z": 5,
+   "block": "G"
+  },
+  {
+   "x": 2,
+   "y": 2,
+   "z": 10,
+   "block": "G"
+  },
+  {
+   "x": 10,
+   "y": 2,
+   "z": 5,
+   "block": "G"
+  },
+  {
+   "x": 10,
+   "y": 2,
+   "z": 10,
+   "block": "G"
+  }
+ ]
+}

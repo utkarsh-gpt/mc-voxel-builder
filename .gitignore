@@ -1,0 +1,41 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Node / deploy
+node_modules/
+.vercel/
+.DS_Store
+Thumbs.db
+
+# Secrets and local env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa*
+
+# Official Minecraft client and extracted vanilla assets (© Mojang / Microsoft).
+# Do not commit these. Fetch the client yourself and extract locally if you
+# need to regenerate the colour dataset or texture previews.
+mc-blocks/raw/
+mc-blocks/assets/
+**/*.jar
+
+# Intermediate mesh / tool caches
+pipeline/out/*
+!pipeline/out/.gitkeep
+!pipeline/out/README.md
+*.glb
+!pipeline/samples/Duck.glb
+
+# Oversized generated artefacts (GitHub file limit is 100 MB; we keep a 25 MB cap)
+*landscape*_fine.json
+*_mc_baked_fine.json
