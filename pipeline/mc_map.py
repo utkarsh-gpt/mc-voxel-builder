@@ -145,6 +145,13 @@ def stairs_of(bid):
     b = BL[bid]; return TEX_STAIRS.get((tuple(b["textures"]["side"]), tuple(b["textures"]["top"])))
 stairs_exists = stairs_of
 FACE_OPP = {"south": "north", "north": "south", "east": "west", "west": "east"}
+def nearest_shelf(target):
+    """wooden shelves are the vertical plate. Stone has none, so the closest shelf colour is used."""
+    alt = sorted((dE(target, lab_of(b, "side")), b["id"]) for b in BL.values() if b.get("shape") == "shelf")
+    return alt[0][1] if alt else None
+def shelf_props(shape):
+    # the plate sits on `align` (against the parent). The shelf faces away from that face.
+    return {"facing": FACE_OPP.get(shape.get("align"), "north"), "powered": "false", "side_chain": "unconnected", "waterlogged": "false"}
 _PLACE = {}
 def place(bid, shape, mat_blocks, target, mat=None):
     key = (bid, json.dumps(shape, sort_keys=True), tuple(mat_blocks), tuple(np.round(np.asarray(target)/2)), mat)
@@ -174,6 +181,8 @@ def _place(bid, shape, mat_blocks, target, mat=None):
                           and BL[t]["family"] in FAMILIES.get(mat, set())])     # only trapdoor families that suit this material
             if alt and alt[0][0] <= 10: td = alt[0][1]
         if td: return td, {"open": "true", "facing": FACE_OPP.get(shape.get("align"), "north"), "half": "bottom"}, "trapdoor (vertical)"
+        sid = nearest_shelf(target)
+        if sid: return sid, shelf_props(shape), "shelf"
         return bid, {}, "full (no vertical piece)"
     if t == "stairs":
         props = {"facing": shape["facing"], "half": shape.get("half", "bottom"), "shape": shape.get("shape", "straight")}
@@ -221,18 +230,22 @@ def run(n):
         elif lstd <= 3.5: role = "smooth"
         else: role = "plain"
         v["role"] = role
-    # slots
+    # slots. Part id makes pier_ring a different job from pier even when both are stone.
+    # Subjects with no part notes keep material as the group, so this is the old key.
+    def group_of(v):
+        return v.get("p") or v["m"]
     slots = collections.defaultdict(list)
     for v in F:
-        key = (v["m"], "blend:" + v["blend"][0] + f"{v['blend'][1]}/{v['blend'][2]}" if v.get("blend") else v["sh"], v["role"]); slots[key].append(v)
+        key = (group_of(v), "blend:" + v["blend"][0] + f"{v['blend'][1]}/{v['blend'][2]}" if v.get("blend") else v["sh"], v["role"]); slots[key].append(v)
     S = {}
     for k, vs in slots.items():
-        S[k] = {"m": k[0], "sh": k[1] if isinstance(k[1], int) else 0, "blend": not isinstance(k[1], int), "role": k[2], "n": len(vs),
+        S[k] = {"m": vs[0]["m"], "sh": k[1] if isinstance(k[1], int) else 0, "blend": not isinstance(k[1], int), "role": k[2], "n": len(vs),
                 "lab": np.mean([v["lab"] for v in vs], 0), "lstd": float(np.mean([v["lstd"] for v in vs])),
                 "f_top": float(np.mean([v["top_open"] for v in vs]))}
     mats = sorted({v["m"] for v in F}, key=lambda m: -sum(1 for v in F if v["m"] == m))
+    groups = sorted({group_of(v) for v in F}, key=lambda g: -sum(1 for v in F if group_of(v) == g))
     choice, base_of, used_by_mat, log = {}, {}, {}, []
-    for m in mats:
+    for m in groups:
         ks = [k for k in S if k[0] == m and not S[k]["blend"]]
         if not ks: continue
         k0 = max([k for k in ks if S[k]["sh"] == 0] or ks, key=lambda k: S[k]["n"])
@@ -255,6 +268,10 @@ def run(n):
             for k in ks:
                 if choice[k] == drop: choice[k] = choose(S[k], keep, bL, set(keep)) or base
         used_by_mat[m] = sorted({choice[k] for k in ks}, key=lambda b: lab_of(BL[b], "side")[0])
+        mat_name = S[k0]["m"]
+        if mat_name != m:   # part groups still share a family ramp under the material name (blends look that up)
+            base_of.setdefault(mat_name, base)
+            used_by_mat[mat_name] = sorted(set(used_by_mat.get(mat_name, [])) | set(used_by_mat[m]), key=lambda b: lab_of(BL[b], "side")[0])
     # blends: pick from both materials' blocks + chain blocks between their bases (max 2 new per pair)
     for k in [k for k in S if S[k]["blend"]]:
         A = k[0]; Bm = k[1][6:].split("/")[0].rstrip("0123456789"); pool = set(used_by_mat.get(A, [])) | set(used_by_mat.get(Bm, []))
@@ -288,11 +305,12 @@ def run(n):
     # per-voxel placement with shapes
     pal, vox_out, shape_log, tech_use = {}, [], collections.Counter(), collections.defaultdict(collections.Counter)
     for v in F:
-        key = (v["m"], "blend:" + v["blend"][0] + f"{v['blend'][1]}/{v['blend'][2]}" if v.get("blend") else v["sh"], v["role"]); bid = choice[key]
+        key = (group_of(v), "blend:" + v["blend"][0] + f"{v['blend'][1]}/{v['blend'][2]}" if v.get("blend") else v["sh"], v["role"]); bid = choice[key]
         wi = warm_info.get(v["m"])
         if wi and wi["accent"] and bid == wi["base"] and v["role"] in ("plain", "rough") and not v["s"] and BAYER(v["x"], v["y"], v["z"]) < wi["fraction"]: bid = wi["accent"]
         if v["m"] in NATURAL_TOP and v["top_open"] >= 0.5 and dE(v["lab"], face_lab(BL[NATURAL_TOP[v["m"]]], 1.0)) <= 25: bid = NATURAL_TOP[v["m"]]   # vanilla terrain: grass_block wherever the grass layer sees the sky
-        pid, props, note = place(bid, v["s"], used_by_mat.get(v["m"], [bid]), v["lab"], v["m"]); shape_log[note] += 1
+        pool = used_by_mat.get(group_of(v), used_by_mat.get(v["m"], [bid]))
+        pid, props, note = place(bid, v["s"], pool, v["lab"], v["m"]); shape_log[note] += 1
         state = "minecraft:" + pid + ("[" + ",".join(f"{a}={b}" for a, b in sorted(props.items())) + "]" if props else "")
         if state not in pal:
             pal[state] = {"key": f"b{len(pal)}", "id": pid, "props": props, "state": state, "material": v["m"], "count": 0, "techniques_served": collections.Counter()}

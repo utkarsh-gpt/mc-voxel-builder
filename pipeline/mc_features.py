@@ -27,7 +27,7 @@ def features(n):
         ex = [k for k, e in exposed.items() if e[x, y, z]]; axes = {k[0] for k in ex}
         sl = (slice(max(x-1, 0), x+2), slice(max(y-1, 0), y+2), slice(max(z-1, 0), z+2))
         others = set(mat[sl][occ[sl]]) - {L["m"]}
-        out.append({"x": x, "y": y, "z": z, "s": v.get("s"), "hex": T["palette"][v["c"]], "m": L["m"], "sh": L["sh"], "surf": L["surf"], "blend": L.get("blend"),
+        out.append({"x": x, "y": y, "z": z, "s": v.get("s"), "hex": T["palette"][v["c"]], "m": L["m"], "p": L.get("p") or v.get("p"), "sh": L["sh"], "surf": L["surf"], "blend": L.get("blend"),
                     "noise": nz.get((x, y, z)), "open": float(openness[x, y, z]), "up": float(max(0, Nrm[x, y, z, 1])), "sun": float(Nrm[x, y, z] @ SUN),
                     "n_exposed": len(ex), "edge": len(axes) >= 2, "corner": len(axes) >= 3, "boundary": sorted(others),
                     "under_open": bool((1, -1) in ex), "top_open": bool((1, 1) in ex)})

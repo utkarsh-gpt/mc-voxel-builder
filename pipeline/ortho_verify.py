@@ -25,10 +25,15 @@ SPEC = {
    "canopy; the trunk is clearly visible below the canopy for about one third of the total height. A shallow OVAL glossy OXBLOOD-RED pot (about #7A2418) whose width is about "
    "0.55 of the canopy width, filled with dark brown soil. No stand, table or label.")}
 SPEC.update({
- "cathedral": ("Gothic stone cathedral", "Specifics: warm honey limestone/sandstone (about #C9A46A, shadows #8A6A40) Gothic cathedral. FRONT = the west facade: two tall square towers "
-   "each with a slender pointed spire (spire tips are the highest points, about 1.6x the nave roof ridge height), a round rose window between the towers, three pointed portals. "
-   "The nave runs straight back from the facade; it is about 2.2x as long as the facade is wide, with a steep dark grey slate pitched roof, buttresses and pinnacles on the sides. "
-   "RIGHT SIDE: the long nave elevation with the towers at the LEFT (front) end. TOP: towers at the bottom (front), the long roof ridge running up the panel. Include the thin flat plinth."),
+ "cathedral": ("Gothic stone cathedral", "Specifics, placed from the ground up. Honey limestone about #C9A46A, blue-grey glass, dark slate roof. "
+   "Two square west towers, each with a smooth cone spire. The spire tips are the highest points, about 1.6 times the nave roof ridge. "
+   "One long nave, about 2.2 times as long as the facade is wide, on a thin flat plinth. "
+   "WEST FRONT, bottom band: three separate pointed door openings. The centre door is the widest, about twice a side door, with its own pointed gable. One narrower pointed door sits in the base of the left tower and one in the base of the right tower. Each door is a dark hole. Do not merge them. "
+   "WEST FRONT, middle band: one large circular rose window centred between the towers, its middle about halfway up the wall under the belfries. Stone spokes, blue glass, a real opening. Immediately left of the rose, on the inner face of the left tower, one tall pointed window. Immediately right of the rose, one matching pointed window. "
+   "WEST FRONT, upper band: each tower has two storeys of paired narrow pointed belfry openings, then a crenellated cap, then the spire. A small gable and cross sit above the rose, between the towers. "
+   "RIGHT SIDE: the towers are at the LEFT end. The nave wall is about eight bays. Each bay is separated by a stone pier and a flying buttress. In the lower half of every bay, one tall pointed window, a dark glass slit with a pointed top, stone between it and the next window. Do not join these windows into one dark stripe. Above them, one smaller pointed arch per bay, between the flying buttresses. A pinnacle tops each buttress. The steep slate roof sits above that row. "
+   "BACK is the east end: one large pointed window, no second pair of spires. "
+   "TOP: towers at the bottom of the panel, roof ridge running up, buttresses sticking out on both sides."),
  "landscape": ("coastal cliff terrain diorama block", "Specifics: a rectangular terrain block about 2x as wide as tall and about 1.2x as wide as deep: green grass top, layered grey and "
    "ochre rock strata on the cut sides, a stream on top flowing to the front edge where a white waterfall falls down the front cliff face into a turquoise pool and sea at the front-right, "
    "a small sandy beach, a sea cave. The cut-away sides are straight vertical. TOP: grass with the stream, the sea area turquoise along the front."),

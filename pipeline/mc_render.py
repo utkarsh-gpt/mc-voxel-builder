@@ -36,6 +36,9 @@ def boxes(bid, props):
     if shape == "slab":
         ty = props.get("type", "bottom")
         return [(0, 0, 0, 1, .5, 1)] if ty == "bottom" else [(0, .5, 0, 1, 1, 1)] if ty == "top" else [(0, 0, 0, 1, 1, 1)]
+    if shape == "shelf":
+        f = props.get("facing", "north"); d = 5/16   # about five pixels, flush to the face opposite facing
+        return [{"north": (0, 0, 1-d, 1, 1, 1), "south": (0, 0, 0, 1, 1, d), "west": (1-d, 0, 0, 1, 1, 1), "east": (0, 0, 0, d, 1, 1)}[f]]
     if shape == "trapdoor":
         if props.get("open") == "true":   # panel against the side opposite to 'facing'
             f = props.get("facing", "north")

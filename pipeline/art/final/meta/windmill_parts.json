@@ -1,0 +1,95 @@
+{
+ "subject": "windmill",
+ "summary": "Dressed stone piers carry an open arcade. A ring below each capital marks the springing of the arches. A lip separates the dome from the drum. One dark window sits in the drum. The sails stay thin plates on the front of the cap.",
+ "parts": {
+  "pier": {
+   "kind": "existing",
+   "note": "square stone columns under the arcade",
+   "material": "stone"
+  },
+  "drum": {
+   "kind": "existing",
+   "note": "the stone cylinder between the arcade and the dome",
+   "material": "stone"
+  },
+  "cap": {
+   "kind": "existing",
+   "note": "the dome above the drum",
+   "material": "cap_slate"
+  },
+  "sail": {
+   "kind": "existing",
+   "note": "the sail plates already in the build",
+   "material": "sail_white"
+  },
+  "window": {
+   "kind": "existing",
+   "note": "the dark opening in the drum, cleared one block deep",
+   "material": "stone",
+   "op": {
+    "type": "opening",
+    "target": "window",
+    "depth": 1
+   }
+  },
+  "arch": {
+   "kind": "void",
+   "note": "empty cells inside the arcade, used by the check"
+  },
+  "pier_ring": {
+   "kind": "stamp",
+   "note": "a vertical plate, two thirds of the way up each pier, flush to the pier",
+   "material": "stone",
+   "parent": "pier",
+   "op": {
+    "type": "shell",
+    "target": "pier",
+    "height": 0.66,
+    "proud": 1,
+    "shape": {
+     "type": "vslab",
+     "size": 0.25
+    }
+   }
+  },
+  "pier_plinth": {
+   "kind": "stamp",
+   "note": "a vertical plate around the foot of each pier, flush to the pier",
+   "material": "stone",
+   "parent": "pier",
+   "op": {
+    "type": "plinth",
+    "target": "pier",
+    "proud": 1,
+    "shape": {
+     "type": "vslab",
+     "size": 0.25
+    }
+   }
+  },
+  "cap_lip": {
+   "kind": "stamp",
+   "note": "a vertical plate around the lower edge of the dome, flush to the cap",
+   "material": "cap_slate",
+   "parent": "cap",
+   "op": {
+    "type": "lip",
+    "target": "cap",
+    "proud": 1,
+    "shape": {
+     "type": "vslab",
+     "size": 0.25
+    }
+   }
+  }
+ },
+ "spring": 6,
+ "columns": 4,
+ "arch_cells": 84,
+ "check": "passed",
+ "grid_errors": [],
+ "building": {
+  "pass": true,
+  "issues": []
+ }
+}
