@@ -21,6 +21,20 @@ CFG = {
     "roof_slate":  ("#4a4f57", (-2, 1, 5, 6, "neutral"), dict(db_up=-1.0, db_dn=0.5), dict(DEF, w_h=0.2), "high"),
     "window_dark": ("#2e2a2a", (-1, 0, 5, 0, "neutral"), dict(db_dn=0.5), None, "dark")},
    "blend": [("limestone", "roof_slate", -1)], "crisp": [("limestone", "window_dark"), ("roof_slate", "window_dark")]},
+ "hagia": {"src": "art/hagia_shapefit.json", "mats": {   # shape_fit.py voxels (was art/hagia_lowpoly_half_sub.json, saved as hagia_p0_*)
+    "masonry":     ("#8c6a5e", (-2, 2, 6, 5, "chromatic"), dict(dh=4, cd=0.05, cu=0.04), DEF, None),
+    "drum_render": ("#b07a6e", (-1, 1, 6, 5, "chromatic"), dict(dh=4, cd=0.05, cu=0.04), DEF, "high"),
+    "lead_roof":   ("#8e9497", (-2, 1, 5, 6, "neutral"), dict(db_up=-1.0, db_dn=0.5), dict(DEF, w_h=0.2), "high"),
+    "window_dark": ("#2e2a2a", (-1, 0, 5, 0, "neutral"), dict(db_dn=0.5), None, "dark")},
+   "blend": [("masonry", "lead_roof", -1)], "crisp": [("masonry", "window_dark"), ("drum_render", "window_dark"), ("drum_render", "lead_roof")]},
+ "house": {"src": "art/house_shapefit.json", "mats": {   # two-storey Foursquare-style house (refs/house_SOURCE.txt)
+    "siding":       ("#ede3a6", (-2, 2, 6, 5, "chromatic"), dict(dh=4, cd=0.05, cu=0.04), DEF, None),
+    "trim_brown":   ("#4a2c22", (-1, 1, 5, 4, "chromatic"), dict(dh=3, cd=0.04, cu=0.03), DEF, None),
+    "roof_shingle": ("#7c5040", (-2, 1, 5, 6, "chromatic"), dict(dh=3, cd=0.04, cu=0.04), dict(DEF, w_h=0.2), "high"),
+    "window_dark":  ("#2e2a2a", (-1, 0, 5, 0, "neutral"), dict(db_dn=0.5), None, "dark")},
+   "hint_only": ("roof_shingle", "trim_brown"),
+   "max_share": {"trim_brown": 0.15},   # dark-painted wall voxels (shadow, glass, porch) otherwise zone as trim and turn the walls brown   # photo roof is sun-faded (measures #a78271 vs the painted #7c5040) and trim pixels mix with shadow
+   "blend": [], "crisp": [("siding", "trim_brown"), ("siding", "window_dark"), ("siding", "roof_shingle"), ("trim_brown", "roof_shingle")]},
  "landscape": {"src": "art/landscape_lowpoly_half_sub.json", "mats": {
     "grass":       ("#7da343", (-2, 2, 7, 6, "chromatic"), dict(dh=7, cd=0.06, cu=0.06), ORG, "top"),
     "rock_grey":   ("#7d7a72", (-2, 2, 6, 5, "neutral"), dict(db_up=1.2, db_dn=0.8), DEF, None),
@@ -40,7 +54,7 @@ CFG = {
    "blend": [("shell", "algae", 0)], "crisp": [("shell", "coral"), ("shell", "coral_pink"), ("shell", "fan")]}}
 DETAIL_MAX = 0.12   # detail materials may cover at most 12% of the surface (keeps accents accents)
 
-def photo_bases(n, mats):
+def photo_bases(n, mats, hint_only=()):
     im = Image.open(f"refs/{n}.jpg"); m = scorer.ref_mask(im)
     lab = skc.rgb2lab(np.asarray(im.convert("RGB"))[m].astype(float)[None]/255)[0]
     names = list(mats); H = np.array([PT.hex2lab(mats[k][0]) for k in names])
@@ -48,16 +62,20 @@ def photo_bases(n, mats):
     out, info = {}, {}
     for i, k in enumerate(names):
         px = lab[idx == i]
+        if k in hint_only:   # photo colour unreliable for this material (e.g. sun-faded roof): use the hint as the base
+            out[k] = mats[k][0]; info[k] = {"hint": mats[k][0], "base": mats[k][0], "hint_only": True, "photo_share": round(len(px)/len(lab), 3)}; continue
         if len(px) < 0.003*len(lab): out[k] = mats[k][0]; info[k] = {"hint": mats[k][0], "base": mats[k][0], "photo_share": round(len(px)/len(lab), 3)}; continue
         base = np.array([np.percentile(px[:, 0], 62), np.median(px[:, 1]), np.median(px[:, 2])])
         _, Ch, hh = PT.lch(H[i]); _, Cm, hm = PT.lch(base)
         guard = (Ch < 10 and Cm > max(Ch + 4, 8)) or (Ch >= 10 and abs((hm - hh + 180) % 360 - 180) > 40)   # photo cluster polluted by another material
+        desat = (not guard) and Ch >= 10 and Cm < 0.6*Ch      # flat/overcast light greys a coloured material (Hagia brick read as C 6 vs hint 14)
+        if desat: base = np.array([base[0], Ch*np.cos(np.radians(hm)), Ch*np.sin(np.radians(hm))])   # keep measured L and hue, restore the hint's chroma
         out[k] = mats[k][0] if guard else PT.lab2hex(base)
-        info[k] = {"hint": mats[k][0], "base": out[k], "measured": PT.lab2hex(base), "guard_used_hint": bool(guard), "photo_share": round(len(px)/len(lab), 3)}
+        info[k] = {"hint": mats[k][0], "base": out[k], "measured": PT.lab2hex(base), "guard_used_hint": bool(guard), "chroma_restored": bool(desat), "photo_share": round(len(px)/len(lab), 3)}
     return out, info
 
 def run(n):
-    C = CFG[n]; mats = C["mats"]; bases, binfo = photo_bases(n, mats)
+    C = CFG[n]; mats = C["mats"]; bases, binfo = photo_bases(n, mats, C.get("hint_only", ()))
     d, occ, occw, lab0 = PT.load(C["src"]); W, H, D = occ.shape; X, Y, Z = np.indices(occ.shape)
     lab_s = PT.smooth_lab(lab0, occ, passes=1); surf = PT.surface(occ)
     g = ndimage.gaussian_filter(occ.astype(float), 1.0); Nrm = -np.stack(np.gradient(g), -1); Nrm /= np.linalg.norm(Nrm, axis=-1, keepdims=True) + 1e-9
@@ -110,6 +128,15 @@ def run(n):
             comp = lab_ == j
             if comp.sum() < 2 or (mats[k][4] == "dark" and comp.sum() > 12):   # windows are small openings, not dark walls
                 for i in nondet: M[comp & (alt == i)] = names[i]
+    # per-subject share caps (e.g. trim): keep the voxels closest to the material's colour, the rest -> next best other material
+    for k, cap in C.get("max_share", {}).items():
+        mk = M == k; lim = cap*surf.sum()
+        if mk.sum() > lim:
+            others = [i for i, kk in enumerate(names) if kk != k and mats[kk][4] not in ("dark", "detail", "detail_top", "foam")]
+            alt_k = np.array(others)[dist[..., others].argmin(-1)]
+            thr = np.quantile(dist[..., names.index(k)][mk & surf], min(1.0, lim/max((mk & surf).sum(), 1)))
+            drop = mk & (dist[..., names.index(k)] > thr)
+            for i in others: M[drop & (alt_k == i)] = names[i]
     M2 = PT.mode_filter_labels(M, occ, names, {})
     for k in det: M2[M == k] = k
     M = PT.mode_filter_labels(M2, occ, names, {k: 2 for k in det}, majority=False)

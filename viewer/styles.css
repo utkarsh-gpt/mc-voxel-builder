@@ -632,3 +632,8 @@ body[data-state="idle"] .veil-idle {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .stack i { opacity: 1; }
 }
+
+/* attribution under the reference photo (CC BY-SA photos) */
+.ref-credit { display: block; margin-top: 0.25rem; font-size: 0.7rem; line-height: 1.3; opacity: 0.75; }
+.ref-credit[hidden] { display: none; }
+.ref-credit a { color: inherit; }

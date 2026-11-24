@@ -140,7 +140,10 @@ def expand(src, dst):
     d = json.load(open(src)); W, H, D = d["size"]; lut = {json.dumps(s, sort_keys=True): t for s, t in SHAPES}
     vs = []
     for v in d["voxels"]:
-        t = lut[json.dumps(v.get("s", {"type": "full"}), sort_keys=True)]
+        k = json.dumps(v.get("s", {"type": "full"}), sort_keys=True)
+        if k not in lut:   # shape_fit.py shapes (stair corners, 3/16 quarters, walls, fences): rasterise the real geometry
+            import shape_fit; lut[k] = shape_fit.raster(shape_fit.boxes01(v["s"]), F) >= 0.5
+        t = lut[k]
         for a, b, c in np.argwhere(t): vs.append({"x": v["x"]*F+int(a), "y": v["y"]*F+int(b), "z": v["z"]*F+int(c), "c": v["c"]})
     json.dump({"name": d["name"] + "_fine", "size": [W*F, H*F, D*F], "camera": d["camera"], "palette": d["palette"], "voxels": vs}, open(dst, "w"))
 

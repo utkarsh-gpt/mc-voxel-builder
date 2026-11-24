@@ -3,7 +3,7 @@
 Generates a sheet, verifies, regenerates up to 2x with the found issues appended to the prompt, picks the best attempt and
 drops views still flagged bad. usage: python ortho_verify.py NAME [--tries 3]   -> out/NAME_verify.json (+ ortho/NAME_v{k}_* files)
 Only nano-banana/edit (~$0.039/sheet) is spent here."""
-import argparse, json, os, re, subprocess, numpy as np
+import argparse, json, os, re, subprocess, sys, numpy as np
 from PIL import Image
 from skimage.transform import resize
 import ortho_carve, ortho_clean
@@ -29,6 +29,24 @@ SPEC.update({
    "each with a slender pointed spire (spire tips are the highest points, about 1.6x the nave roof ridge height), a round rose window between the towers, three pointed portals. "
    "The nave runs straight back from the facade; it is about 2.2x as long as the facade is wide, with a steep dark grey slate pitched roof, buttresses and pinnacles on the sides. "
    "RIGHT SIDE: the long nave elevation with the towers at the LEFT (front) end. TOP: towers at the bottom (front), the long roof ridge running up the panel. Include the thin flat plinth."),
+ "house": ("two-storey American suburban house", "Specifics: the two-and-a-half-storey wood-frame house exactly as in the photo. A rectangular main block whose front "
+   "facade (the long side with the porch, on the RIGHT of the photo) is about 1.25x as wide as the side wall is deep. Walls of pale butter-yellow horizontal lap siding (about #EDE3A6) "
+   "with dark chocolate-brown trim (about #5A3428) at the corners, window frames, fascia and eaves. Side-gabled roof of red-brown asphalt shingles (about #8E5444), ridge parallel to the "
+   "front, moderate pitch, deep eave overhangs, a gable end on each narrow side with one small attic window in each gable. Two front-facing gabled dormers on the front roof slope, "
+   "each with one window. One red brick chimney (about #9A4B3C) on the ridge near the left gable. Upper floor front: two pairs of tall double-hung windows. A full-width one-storey "
+   "front porch with a shallow shed roof in the same shingles, carried by five square dark-brown posts on low red-brick piers, a front door and a large window behind it, and a few "
+   "concrete steps up to the porch at the right end. Side walls: two windows per floor. Plain grey concrete foundation strip. "
+   "FRONT = the porch facade viewed straight on; RIGHT SIDE = the right gable end with the porch projecting on the LEFT (front); BACK = the plain rear wall; "
+   "TOP = the roof with the ridge running left-right, the two dormers on the lower (front) slope and the porch roof along the bottom (front) edge. "
+   "Draw ONLY the house: no detached garage, hedge, bushes, trees, power lines, lawn, driveway or sidewalk; complete the parts the garage and hedge hide."),
+ "hagia": ("Byzantine domed church (Little Hagia Sophia)", "Specifics: the Little Hagia Sophia in Istanbul exactly as in the photo, seen from the east. A nearly square two-storey main block "
+   "of mixed red-brown brick and pale grey stone courses (about #8C6A5E brick, #9A8F84 stone), with thin projecting brick cornices at the roof line, rows of rectangular windows in pale stone frames "
+   "and a few round-arched windows with white lattice grilles on the narrow end. Above it a low OCTAGONAL DRUM in pinkish rendered brick (about #B07A6E) with a flat buttress pier at every corner, "
+   "one round-arched window between each pair of piers, and stepped cornices on top of each pier; on the drum a shallow ribbed lead-grey dome (about #8E9497) with a small gold finial. "
+   "On the narrow end a lower lead-grey half-dome leans against the drum, and shallow lead-grey roofs cover the rest of the block. "
+   "FRONT = the narrow end on the LEFT of the photo (two large arched grilled windows, half-dome above); RIGHT SIDE = the long flank with the front end on the LEFT; "
+   "BACK = the opposite narrow end; TOP = square block with the round dome in the middle and the half-dome toward the bottom (front). "
+   "Draw ONLY the church: no small tiled-roof tomb building, minaret, fences, walls, trees, lamp posts, lawn or graves."),
  "landscape": ("coastal cliff terrain diorama block", "Specifics: a rectangular terrain block about 2x as wide as tall and about 1.2x as wide as deep: green grass top, layered grey and "
    "ochre rock strata on the cut sides, a stream on top flowing to the front edge where a white waterfall falls down the front cliff face into a turquoise pool and sea at the front-right, "
    "a small sandy beach, a sea cave. The cut-away sides are straight vertical. TOP: grass with the stream, the sea area turquoise along the front."),
@@ -74,7 +92,7 @@ def llm_check(n, prefix, geo, model=VERIFY_MODEL):
 
 def gen(n, tag, extra):
     hint, spec = SPEC[n]
-    r = subprocess.run(["python", "ortho_gen.py", n, hint, "--tag", tag, "--with-photo", "--extra", f"{COM} {spec}{extra}"], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, "ortho_gen.py", n, hint, "--tag", tag, "--with-photo", "--extra", f"{COM} {spec}{extra}"], capture_output=True, text=True)
     if r.returncode: raise SystemExit(r.stderr[-800:])
     for v in VIEWS: ortho_clean.clean(f"ortho/{n}{tag}_{v}.png")
 

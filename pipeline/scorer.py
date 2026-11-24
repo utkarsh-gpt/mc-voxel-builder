@@ -185,7 +185,20 @@ def score(ref, model, out, azim=None, elev=None, fit=False, use_judge=False):
            "view": v, "craft": c, "multiview_min_area_ratio": mv, "warnings": warn[:10],
            "files": {"compare": cmp, "sheet": sh, "render": out + "_render.png"}}
     if use_judge: res["judge"] = judge(ref, cmp, sh)
+    res.update(geometric_detail(model))
     json.dump(res, open(out + "_score.json", "w"), indent=2); return res
+
+def geometric_detail(model):
+    """Shape-detail metrics (detail_metrics.py) for Minecraft-block models, reported next to the colour rubric. The rubric's
+    'detail density' is colour-only; this is what tells a flat build from one with cornices, hoods, panes and walls.
+    Works on an mc_blocks JSON or on the *_mc_blocks.json that sits next to a baked/fine model."""
+    import detail_metrics
+    path = model if isinstance(model, str) else None
+    if path and not path.endswith("_mc_blocks.json"):
+        path = path.replace("_mc_baked_fine.json", "_mc_blocks.json")
+    if not path or not path.endswith("_mc_blocks.json") or not os.path.exists(path): return {}
+    m = detail_metrics.metrics(detail_metrics.cells_of(path))
+    return {"geometric_detail": m, "geometric_detail_target": detail_metrics.TARGET}
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("ref"); ap.add_argument("model"); ap.add_argument("--out", default="out/score")

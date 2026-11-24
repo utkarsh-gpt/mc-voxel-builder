@@ -18,37 +18,52 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
  * Returns one or two axis-aligned boxes {sx,sy,sz, ox,oy,oz} (size + centre).
  */
 export function shapeToBoxes(s) {
-  if (!s || !s.type || s.type === "full") {
-    return [{ sx: 1, sy: 1, sz: 1, ox: 0.5, oy: 0.5, oz: 0.5 }];
-  }
-  if (s.type === "slab") {
-    const size = s.size === 0.25 ? 0.25 : 0.5;
-    const oy = s.align === "top" ? 1 - size / 2 : size / 2;
-    return [{ sx: 1, sy: size, sz: 1, ox: 0.5, oy, oz: 0.5 }];
-  }
+  // box from min/max corners (block units)
+  const bx = (x0, y0, z0, x1, y1, z1) => ({ sx: x1 - x0, sy: y1 - y0, sz: z1 - z0, ox: (x0 + x1) / 2, oy: (y0 + y1) / 2, oz: (z0 + z1) / 2 });
+  if (!s || !s.type || s.type === "full") return [bx(0, 0, 0, 1, 1, 1)];
+  const size = typeof s.size === "number" && s.size > 0 && s.size < 1 ? s.size : 0.5;   // 0.5, 0.25, or 3/16 (trapdoor)
+  if (s.type === "slab") return [s.align === "top" ? bx(0, 1 - size, 0, 1, 1, 1) : bx(0, 0, 0, 1, size, 1)];
   if (s.type === "vslab") {
-    const size = s.size === 0.25 ? 0.25 : 0.5;
-    const axis = s.axis === "z" ? "z" : "x";
-    if (axis === "x") {
-      const ox = s.align === "east" ? 1 - size / 2 : size / 2;
-      return [{ sx: size, sy: 1, sz: 1, ox, oy: 0.5, oz: 0.5 }];
-    }
-    const oz = s.align === "south" ? 1 - size / 2 : size / 2;
-    return [{ sx: 1, sy: 1, sz: size, ox: 0.5, oy: 0.5, oz }];
+    const k = size;
+    return [{ west: bx(0, 0, 0, k, 1, 1), east: bx(1 - k, 0, 0, 1, 1, 1), north: bx(0, 0, 0, 1, 1, k), south: bx(0, 0, 1 - k, 1, 1, 1) }[s.align] || bx(0, 0, 0, k, 1, 1)];
   }
   if (s.type === "stairs") {
-    const half = s.half === "top" ? "top" : "bottom";
-    const facing = s.facing || "east";
-    const mainOy = half === "bottom" ? 0.25 : 0.75;
-    const stepOy = half === "bottom" ? 0.75 : 0.25;
-    const boxes = [{ sx: 1, sy: 0.5, sz: 1, ox: 0.5, oy: mainOy, oz: 0.5 }];
-    if (facing === "east") boxes.push({ sx: 0.5, sy: 0.5, sz: 1, ox: 0.75, oy: stepOy, oz: 0.5 });
-    else if (facing === "west") boxes.push({ sx: 0.5, sy: 0.5, sz: 1, ox: 0.25, oy: stepOy, oz: 0.5 });
-    else if (facing === "south") boxes.push({ sx: 1, sy: 0.5, sz: 0.5, ox: 0.5, oy: stepOy, oz: 0.75 });
-    else boxes.push({ sx: 1, sy: 0.5, sz: 0.5, ox: 0.5, oy: stepOy, oz: 0.25 }); // north
-    return boxes;
+    // Minecraft stairs: half-block base + step on the 'facing' side; outer = quarter step at facing+left/right,
+    // inner = facing half + the left/right quarter at the back. left = counter-clockwise of facing (seen from above).
+    const top = s.half === "top", f = s.facing || "east", sh = s.shape || "straight";
+    const cw = { north: "east", east: "south", south: "west", west: "north" }, ccw = { east: "north", south: "east", west: "south", north: "west" };
+    const opp = { north: "south", south: "north", east: "west", west: "east" };
+    const half = { north: [0, 0, 1, 0.5], south: [0, 0.5, 1, 1], west: [0, 0, 0.5, 1], east: [0.5, 0, 1, 1] };   // x0,z0,x1,z1
+    const isect = (p, q) => [Math.max(p[0], q[0]), Math.max(p[1], q[1]), Math.min(p[2], q[2]), Math.min(p[3], q[3])];
+    const y0 = top ? 0 : 0.5, y1 = top ? 0.5 : 1;
+    const out = [top ? bx(0, 0.5, 0, 1, 1, 1) : bx(0, 0, 0, 1, 0.5, 1)];
+    const side = sh.endsWith("left") ? ccw[f] : cw[f];
+    let steps = [half[f]];
+    if (sh.startsWith("outer")) steps = [isect(half[f], half[side])];
+    else if (sh.startsWith("inner")) steps = [half[f], isect(half[side], half[opp[f]])];
+    for (const r of steps) out.push(bx(r[0], y0, r[1], r[2], y1, r[3]));
+    return out;
   }
-  return [{ sx: 1, sy: 1, sz: 1, ox: 0.5, oy: 0.5, oz: 0.5 }];
+  if (s.type === "wall" || s.type === "fence") {
+    // vanilla geometry: wall post 4..12/16, arms 5..11 wide x 14 (16 = tall); fence post 6..10, bars 7..9 at y 6..9 and 12..15
+    const p = 1 / 16, wall = s.type === "wall";
+    const post = wall ? [4 * p, 12 * p] : [6 * p, 10 * p], arm = wall ? [5 * p, 11 * p] : [7 * p, 9 * p];
+    const out = [];
+    if (!wall || s.up !== false) out.push(bx(post[0], 0, post[0], post[1], 1, post[1]));
+    for (const d of ["north", "east", "south", "west"]) {
+      const v = s[d];
+      if (!v || v === "none" || v === "false") continue;
+      const ys = wall ? [[0, v === "tall" ? 1 : 14 * p]] : [[6 * p, 9 * p], [12 * p, 15 * p]];
+      for (const [ya, yb] of ys) {
+        if (d === "east") out.push(bx(post[1], ya, arm[0], 1, yb, arm[1]));
+        else if (d === "west") out.push(bx(0, ya, arm[0], post[0], yb, arm[1]));
+        else if (d === "south") out.push(bx(arm[0], ya, post[1], arm[1], yb, 1));
+        else out.push(bx(arm[0], ya, 0, arm[1], yb, post[0]));
+      }
+    }
+    return out.length ? out : [bx(post[0], 0, post[0], post[1], 1, post[1])];
+  }
+  return [bx(0, 0, 0, 1, 1, 1)];
 }
 
 function neighbourAo(voxels) {

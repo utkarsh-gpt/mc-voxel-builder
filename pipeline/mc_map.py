@@ -6,7 +6,7 @@ usage: python mc_map.py [windmill cottage bonsai]"""
 import json, sys, collections, os, numpy as np
 from pathlib import Path
 from skimage import color as skc
-import mc_features, mc_render
+import mc_features, mc_render, detail_metrics
 _REPO = Path(__file__).resolve().parent.parent
 MC = os.environ.get("MC_BLOCKS", str(_REPO / "mc-blocks"))
 D = json.load(open(f"{MC}/blocks.json")); BL = {b["id"]: b for b in D["blocks"]}
@@ -54,13 +54,23 @@ FAMILIES = {
  "coral": {"terracotta", "wool", "concrete", "copper", "resin", "brick", "granite"},
  "coral_pink": {"terracotta", "wool", "concrete", "granite", "brick", "cherry", "wood"},
  "algae": {"moss", "terracotta", "wool", "concrete", "organic"},
- "fan": {"purpur", "terracotta", "wool", "concrete", "amethyst"}}
+ "fan": {"purpur", "terracotta", "wool", "concrete", "amethyst"},
+ # Little Hagia Sophia (brick + stone masonry, rendered drum, lead roofs)
+ "masonry": {"brick", "mud", "terracotta", "granite", "stone", "andesite", "tuff", "dripstone", "nether_brick"},
+ "drum_render": {"terracotta", "brick", "granite", "mud", "concrete", "dripstone"},
+ "lead_roof": {"stone", "andesite", "tuff", "deepslate", "concrete", "terracotta", "basalt", "calcite", "diorite"},
+ # suburban house (painted lap siding, dark wood trim, asphalt shingles)
+ "siding": {"wood", "sandstone", "end_stone", "terracotta", "wool", "concrete", "calcite", "quartz"},
+ "trim_brown": {"wood", "terracotta", "mud", "brick", "granite", "soil"},
+ "roof_shingle": {"brick", "terracotta", "granite", "mud", "nether_brick", "wood", "red_sandstone", "resin"}}
 W_FAM = 10.0
+LEGACY = os.environ.get("MC_LEGACY", "0") == "1"   # A/B switch: 1 = the mapper as it was before DETAIL_DISCOVERY P0
+ACCENT_MAX_DE = float(os.environ.get("MC_ACCENT_MAX_DE", 20.0 if LEGACY else 10.0))   # was 20: white_terracotta on sandstone (16 dE) read as pink patches
 NATURAL_OK = {"grass_block"}                  # biome-tinted, but the dataset stores its plains-tinted colours; only used via NATURAL
 NATURAL = {"grass": {"grass_block": 10.0}}
 NATURAL_TOP = {"grass": "grass_block"}   # top-exposed voxels of the material use the natural block (its top face is what is seen)    # builder prior (dE bonus): terrain materials prefer the vanilla natural block
 SAT_CAP = False                               # new set: reject blocks far more saturated than the target (no garish lime/orange)
-STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"}}
+STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "hagia": {"masonry", "drum_render", "lead_roof", "window_dark"}, "house": {"siding", "trim_brown", "roof_shingle", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"}}
 STRICT_NOW = set()   # set per run: materials whose out-of-family blocks are not allowed at all
 MAX_STEP = 15.0   # a new ramp block must be within this dE2000 of a block already in the material's ramp
 TECH = {"trim": ["outline"], "shadow": ["hatching", "cross_hatching"], "rough": ["stippling", "scumbling"], "smooth": ["glazing"], "plain": []}
@@ -112,7 +122,8 @@ def slot_cost(b, s, base_L=None, used=()):
     if SAT_CAP:
         Ct, Cb = float(np.hypot(*s["lab"][1:])), float(np.hypot(*c[1:]))
         if Ct >= 12 and Cb > 1.6*Ct + 8: return 1e9, de
-    return de + noise + tech + mono + reuse + fam, de - NATURAL.get(s["m"], {}).get(b["id"], 0.0)   # the natural-block prior also counts in the technique slack
+    sp = shape_pen(b["id"], s.get("need"))
+    return de + noise + tech + mono + reuse + fam + sp, de - NATURAL.get(s["m"], {}).get(b["id"], 0.0) + sp   # natural prior + shape penalty count in the technique slack
 def choose(s, pool, base_L=None, used=()):
     sc = [(slot_cost(BL[i], s, base_L, used), i) for i in pool if i in BL and allowed(BL[i])]
     ok = [x for x in sc if x[0][0] < 1e8]
@@ -144,6 +155,32 @@ for b in D["blocks"]:
 def stairs_of(bid):
     b = BL[bid]; return TEX_STAIRS.get((tuple(b["textures"]["side"]), tuple(b["textures"]["top"])))
 stairs_exists = stairs_of
+TEX_WALL = {}
+for b in D["blocks"]:
+    if b["shape"] == "wall": TEX_WALL.setdefault(b["textures"]["side"][0], b["id"])
+def wall_of(bid):
+    b = BL[bid]; return TEX_WALL.get(b["textures"]["side"][0]) if b["shape"] in ("full_block", "slab", "stairs") else None
+PANES = [b["id"] for b in D["blocks"] if b["shape"] == "pane"]
+# ---------- shape-aware block choice (DETAIL_DISCOVERY.md P0.1) ----------
+# A block that cannot take the shapes its voxels need flattens them to full cubes (white_terracotta has no stairs/slabs).
+# Each slot records the share of its voxels that need a slab / stairs / thin vertical piece; a block pays W_SHAPE per unit of
+# share it cannot realise. The penalty also counts inside the technique slack, so a shape-capable block may win over a
+# slightly closer colour.
+W_SHAPE = 0.0 if LEGACY else float(os.environ.get("MC_W_SHAPE", 30.0))
+def shape_kind(s):
+    if not s: return None
+    t = s.get("type")
+    if t == "slab": return "slab"
+    if t == "stairs": return "stairs"
+    if t == "vslab" and not s.get("backed"): return "vthin"
+    return None
+def can_shape(bid, kind):
+    if kind == "slab": return slab_of(bid) is not None or trapdoor_of(bid) is not None
+    if kind == "stairs": return stairs_of(bid) is not None
+    if kind == "vthin": return wall_of(bid) is not None or trapdoor_of(bid) is not None
+    return True
+def shape_pen(bid, need):
+    return W_SHAPE*sum(f for k, f in (need or {}).items() if not can_shape(bid, k))
 FACE_OPP = {"south": "north", "north": "south", "east": "west", "west": "east"}
 _PLACE = {}
 def place(bid, shape, mat_blocks, target, mat=None):
@@ -166,7 +203,22 @@ def _place(bid, shape, mat_blocks, target, mat=None):
                 if alt and alt[0][0] <= 6: sl = slab_of(alt[0][1]); break
         return (sl, {"type": half}, "slab") if sl else (bid, {}, "full (no slab)")
     if t == "vslab":
-        if size > 0.3: return bid, {}, "full (half-width vertical piece)"      # a 3/16 panel would lose >60% of a half-width piece
+        if LEGACY:
+            if size > 0.3: return bid, {}, "full (half-width vertical piece)"
+        elif shape.get("backed"):
+            # a skin layer on a wall (solid cell behind its flush side): round to the nearest whole block instead of
+            # inflating a 1/4 skin into a full cube (that inflation is what made surfaces lumpy)
+            if size <= 0.3 and not trapdoor_of(bid): return None, {}, "dropped (1/4 skin)"
+            if size > 0.3: return bid, {}, "full (half-width skin)"
+        else:
+            # free-standing thin piece (mullion, pinnacle, spire edge, fin): stone gets its wall block, centred
+            wl = wall_of(bid)
+            if not wl:
+                for pool in (set(mat_blocks), {b["id"] for b in CAND if b["family"] in FAMILIES.get(mat, set())}):
+                    alt = sorted([(dE(target, lab_of(BL[m], "side")), m) for m in pool if wall_of(m)])
+                    if alt and alt[0][0] <= 10: wl = wall_of(alt[0][1]); break
+            if wl and not trapdoor_of(bid): return wl, {}, "wall (thin piece)"
+            if size > 0.3: return bid, {}, "full (half-width vertical piece)"
         td = trapdoor_of(bid)
         if td and dE(target, lab_of(BL[td], "side")) > 10: td = None
         if not td:   # a trapdoor of a close-coloured wood/copper block (e.g. pale oak for white sails)
@@ -184,7 +236,93 @@ def _place(bid, shape, mat_blocks, target, mat=None):
                 alt = sorted([(dE(target, lab_of(BL[m], "side")), m) for m in pool if stairs_of(m)])
                 if alt and alt[0][0] <= 12: st = stairs_of(alt[0][1]); break
         return (st, props, "stairs") if st else (bid, {}, "full (no stairs for material)")
+    if t in ("wall", "fence"):   # shape_fit.py thin posts; connect() sets the arms afterwards
+        if t == "wall":
+            wl = wall_of(bid)
+            if not wl:
+                for pool in (set(mat_blocks), {b["id"] for b in CAND if b["family"] in FAMILIES.get(mat, set())}):
+                    alt = sorted([(dE(target, lab_of(BL[m], "side")), m) for m in pool if wall_of(m)])
+                    if alt and alt[0][0] <= 10: wl = wall_of(alt[0][1]); break
+            if wl: return wl, {}, "wall"
+        fences = sorted([(dE(target, lab_of(BL[f], "side")), f) for f in BL if BL[f]["shape"] == "fence"])
+        if fences and fences[0][0] <= 12: return fences[0][1], {}, "fence"
+        return None, {}, "dropped (no thin block close in colour)"
     return bid, {}, "full"
+# ---------- window kit (DETAIL_DISCOVERY.md P0.3) ----------
+# A dark window cluster at least 2 blocks tall becomes: glass pane in the wall plane (2/16 thick, so it reads recessed),
+# a dark backing block behind it, an upside-down stair hood above (in the wall plane, step toward the inside) and a
+# top-slab sill one block out under it. Single dark specks are noise from the paint stage and go back to the wall block.
+WINDOW_KIT = not LEGACY and os.environ.get("MC_WINDOW_KIT", "1") == "1"
+WINDOW_MATS = {"window_dark", "glass_dark"}
+BACKING = "polished_blackstone"
+DIR4 = {(1, 0, 0): "east", (-1, 0, 0): "west", (0, 0, 1): "south", (0, 0, -1): "north"}
+N6 = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
+def _add(p, d): return (p[0]+d[0], p[1]+d[1], p[2]+d[2])
+def _components(cells):
+    cells, seen, out = set(cells), set(), []
+    for p in cells:
+        if p in seen: continue
+        st, comp = [p], []; seen.add(p)
+        while st:
+            q = st.pop(); comp.append(q)
+            for d in N6:
+                r = _add(q, d)
+                if r in cells and r not in seen: seen.add(r); st.append(r)
+        out.append(comp)
+    return out
+def window_kit(G, base_of, mat_blocks, size):
+    W, H, D = size; log = collections.Counter()
+    def inb(p): return 0 <= p[0] < W and 0 <= p[1] < H and 0 <= p[2] < D
+    def full(g): return BL[g["id"]]["shape"] == "full_block" and not g["props"]
+    for comp in _components([p for p, g in G.items() if g["m"] in WINDOW_MATS]):
+        ys = [p[1] for p in comp]; out = collections.Counter(d for p in comp for d in DIR4 if _add(p, d) not in G)
+        if max(ys) - min(ys) + 1 < 2 or not out:      # speck: back to the surrounding wall material
+            for p in comp:
+                nb = collections.Counter(G[_add(p, d)]["m"] for d in N6 if _add(p, d) in G and G[_add(p, d)]["m"] not in WINDOW_MATS)
+                m2 = nb.most_common(1)[0][0] if nb else None
+                if m2 and m2 in base_of: G[p] = dict(G[p], id=base_of[m2], props={}, m=m2); log["specks_reverted"] += 1
+            continue
+        d_out = out.most_common(1)[0][0]; d_in = (-d_out[0], 0, -d_out[2]); inward = DIR4[d_in]
+        lab = np.mean([G[p]["lab"] for p in comp], 0)
+        pane = min(PANES, key=lambda b: dE(lab, lab_of(BL[b], "side")))
+        cs = set(comp)
+        for p in comp:
+            G[p] = dict(G[p], id=pane, props={}, m="glass"); log["panes"] += 1
+            q = _add(p, d_in)
+            if q in G and q not in cs and all(_add(q, d) in G for d in N6) and BACKING in BL:
+                G[q] = dict(G[q], id=BACKING, props={}); log["backing"] += 1
+        for p in comp:
+            a = _add(p, (0, 1, 0))
+            if a in cs or a not in G or G[a]["m"] in WINDOW_MATS or not full(G[a]) or _add(a, d_out) in G: continue
+            st, props, note = place(G[a]["id"], {"type": "stairs", "facing": inward, "half": "top"}, mat_blocks.get(G[a]["m"], [G[a]["id"]]), G[a]["lab"], G[a]["m"])
+            if note == "stairs": G[a] = dict(G[a], id=st, props=props); log["hoods"] += 1
+        for p in comp:
+            b = _add(p, (0, -1, 0)); s_ = _add(b, d_out)
+            if b in cs or b not in G or s_ in G or not inb(s_) or not full(G[b]): continue
+            sl, props, note = place(G[b]["id"], {"type": "slab", "size": 0.5, "align": "top"}, mat_blocks.get(G[b]["m"], [G[b]["id"]]), G[b]["lab"], G[b]["m"])
+            if note == "slab": G[s_] = dict(G[b], id=sl, props=props); log["sills"] += 1
+        log["windows"] += 1
+    return dict(log)
+CONN = {"wall", "pane", "bars", "fence"}
+def connect(G):
+    """Blockstate props for connecting blocks from their neighbours (Minecraft's rules, simplified: full blocks + same group)."""
+    n = 0
+    for (x, y, z), g in G.items():
+        sh = BL[g["id"]]["shape"]
+        if sh not in CONN: continue
+        props, above = {}, G.get((x, y+1, z))
+        tall = bool(above) and BL[above["id"]]["shape"] in ("full_block", "wall")
+        for side, (dx, dz) in (("north", (0, -1)), ("south", (0, 1)), ("west", (-1, 0)), ("east", (1, 0))):
+            q = G.get((x+dx, y, z+dz)); c = False
+            if q:
+                qs = BL[q["id"]]["shape"]
+                c = (qs == "full_block" and not q["props"]) or qs == sh or ({qs, sh} <= {"pane", "bars", "wall"})
+            props[side] = (("tall" if tall else "low") if c else "none") if sh == "wall" else ("true" if c else "false")
+        if sh == "wall":
+            arms = {s for s in ("north", "south", "west", "east") if props[s] != "none"}
+            props["up"] = "false" if arms in ({"north", "south"}, {"east", "west"}) and not (above and BL[above["id"]]["shape"] == "wall") else "true"
+        props["waterlogged"] = "false"; g["props"] = props; n += 1
+    return n
 def tech_label(b, role):
     """which technique this block actually serves in this role (only if its texture scores >= 0.25 for it)"""
     if not TECH[role]: return "colour match"
@@ -192,7 +330,7 @@ def tech_label(b, role):
     return f"{t} ({sc:.2f})" if sc >= 0.25 else f"colour only (wanted {'/'.join(TECH[role])}, best {sc:.2f})"
 # ---------- main ----------
 WARM = {"windmill": {"stone": ("#958f81", "#a89f8c")}}   # (palette base, photo stone tone): chroma shift only, L ramp kept
-ACCENT_ALL = {"cathedral", "landscape", "turtle"}   # every material may get a low-contrast accent toward its photo base
+ACCENT_ALL = {"cathedral", "landscape", "turtle", "hagia", "house"}   # every material may get a low-contrast accent toward its photo base
 def run(n):
     global STRICT_NOW, SAT_CAP; STRICT_NOW = STRICT.get(n, set()); SAT_CAP = n in ACCENT_ALL
     T, F = mc_features.features(n)
@@ -207,6 +345,12 @@ def run(n):
         shift = hex2lab(dst) - hex2lab(src); shift[0] = 0
         for v in F:
             if v["m"] == mm: v["warm_shift"] = shift.tolist()
+    # vslab context: 'backed' = the cell behind its flush side is solid (skin layer), otherwise a free-standing thin piece
+    occ_set = {(v["x"], v["y"], v["z"]) for v in F}; AXV = {"east": (1, 0), "west": (-1, 0), "south": (0, 1), "north": (0, -1)}
+    for v in F:
+        s = v.get("s")
+        if s and s.get("type") == "vslab":
+            dx, dz = AXV[s["align"]]; v["s"] = dict(s, backed=(v["x"]+dx, v["y"], v["z"]+dz) in occ_set)
     LBL = json.load(open(f"art/final/meta/{n}_texture_labels.json")); zones = LBL["zones"]
     crisp = CRISP.get(n) or {tuple(p) for p in LBL.get("crisp", [])}
     for v in F:
@@ -229,14 +373,18 @@ def run(n):
     for k, vs in slots.items():
         S[k] = {"m": k[0], "sh": k[1] if isinstance(k[1], int) else 0, "blend": not isinstance(k[1], int), "role": k[2], "n": len(vs),
                 "lab": np.mean([v["lab"] for v in vs], 0), "lstd": float(np.mean([v["lstd"] for v in vs])),
-                "f_top": float(np.mean([v["top_open"] for v in vs]))}
+                "f_top": float(np.mean([v["top_open"] for v in vs])),
+                "need": {kk: c/max(1, sum(1 for v in vs if v["surf"])) for kk, c in collections.Counter(shape_kind(v["s"]) for v in vs).items() if kk}}   # share of the slot's visible voxels
     mats = sorted({v["m"] for v in F}, key=lambda m: -sum(1 for v in F if v["m"] == m))
     choice, base_of, used_by_mat, log = {}, {}, {}, []
     for m in mats:
         ks = [k for k in S if k[0] == m and not S[k]["blend"]]
         if not ks: continue
         k0 = max([k for k in ks if S[k]["sh"] == 0] or ks, key=lambda k: S[k]["n"])
-        base = choose(S[k0], [b["id"] for b in CAND]); base_of[m] = base; used = {base}; choice[k0] = base
+        # the base block serves the whole material, so it is judged on the material's shape needs (not just its own slot's)
+        vis = [v for v in F if v["m"] == m and v["surf"]]
+        need_m = {kk: c/max(1, len(vis)) for kk, c in collections.Counter(shape_kind(v["s"]) for v in vis).items() if kk}
+        base = choose(dict(S[k0], need=need_m), [b["id"] for b in CAND]); base_of[m] = base; used = {base}; choice[k0] = base
         bL = face_lab(BL[base], S[k0]["f_top"])[0]; hood = ramp_hood(base)
         for k in sorted(ks, key=lambda k: (abs(S[k]["sh"]), -S[k]["n"])):     # grow the ramp outward from the base
             if k in choice: continue
@@ -277,7 +425,7 @@ def run(n):
         best = (dE(bl, tgt), None, 0.0)
         for b in CAND:
             if b["family"] not in FAMILIES[mm] or b["id"] == base or abs(lab_of(b, "side")[0] - bl[0]) > 12: continue   # low-contrast accents only (no spots)
-            if dE(lab_of(b, "side"), bl) > 20 or dE(lab_of(b, "side"), tgt) > 20: continue   # an accent must sit between base and target, not a new colour
+            if dE(lab_of(b, "side"), bl) > ACCENT_MAX_DE or dE(lab_of(b, "side"), tgt) > 20: continue   # an accent must sit between base and target and stay low-contrast (a 16 dE accent reads as patches)
             if not hue_ok(tgt, lab_of(b, "side")): continue   # never grey out (or recolour) the material
             if b["id"] in NATURAL_OK: continue
             for p in (0.1, 0.15, 0.2, 0.25, 0.3, 0.35):
@@ -285,20 +433,28 @@ def run(n):
                 if e < best[0] - 0.3: best = (e, b["id"], p)
         warm_info[mm] = {"target_lab": [round(float(c), 1) for c in tgt], "base": base, "base_dE": round(dE(bl, tgt), 1), "accent": best[1], "fraction": best[2], "mix_dE": round(best[0], 1)}
     BAYER = lambda x, y, z: ((x*7 + y*3 + z*5) % 8 + 0.5)/8 if False else (((x*37 + y*61 + z*17) * 2654435761) % 1000)/1000
-    # per-voxel placement with shapes
-    pal, vox_out, shape_log, tech_use = {}, [], collections.Counter(), collections.defaultdict(collections.Counter)
+    # per-voxel placement with shapes -> block grid G (post-passes edit G before the palette is built)
+    shape_log, tech_use, G = collections.Counter(), collections.defaultdict(collections.Counter), {}
     for v in F:
         key = (v["m"], "blend:" + v["blend"][0] + f"{v['blend'][1]}/{v['blend'][2]}" if v.get("blend") else v["sh"], v["role"]); bid = choice[key]
         wi = warm_info.get(v["m"])
         if wi and wi["accent"] and bid == wi["base"] and v["role"] in ("plain", "rough") and not v["s"] and BAYER(v["x"], v["y"], v["z"]) < wi["fraction"]: bid = wi["accent"]
         if v["m"] in NATURAL_TOP and v["top_open"] >= 0.5 and dE(v["lab"], face_lab(BL[NATURAL_TOP[v["m"]]], 1.0)) <= 25: bid = NATURAL_TOP[v["m"]]   # vanilla terrain: grass_block wherever the grass layer sees the sky
         pid, props, note = place(bid, v["s"], used_by_mat.get(v["m"], [bid]), v["lab"], v["m"]); shape_log[note] += 1
+        if pid is None: continue
+        tech_use[(v["m"], bid)][v["role"]] += 1
+        G[(v["x"], v["y"], v["z"])] = {"id": pid, "props": dict(props), "m": v["m"], "role": v["role"], "lab": v["lab"]}
+    detail_log = {}
+    if WINDOW_KIT: detail_log["windows"] = window_kit(G, base_of, used_by_mat, T["size"])
+    detail_log["connected"] = connect(G)
+    pal, vox_out = {}, []
+    for (x, y, z), g in sorted(G.items()):
+        pid, props = g["id"], g["props"]
         state = "minecraft:" + pid + ("[" + ",".join(f"{a}={b}" for a, b in sorted(props.items())) + "]" if props else "")
         if state not in pal:
-            pal[state] = {"key": f"b{len(pal)}", "id": pid, "props": props, "state": state, "material": v["m"], "count": 0, "techniques_served": collections.Counter()}
-        p = pal[state]; p["count"] += 1; p["techniques_served"][v["role"]] += 1
-        tech_use[(v["m"], bid)][v["role"]] += 1
-        vox_out.append({"x": v["x"], "y": v["y"], "z": v["z"], "b": p["key"]})
+            pal[state] = {"key": f"b{len(pal)}", "id": pid, "props": props, "state": state, "material": g["m"], "count": 0, "techniques_served": collections.Counter()}
+        p = pal[state]; p["count"] += 1; p["techniques_served"][g["role"]] += 1
+        vox_out.append({"x": x, "y": y, "z": z, "b": p["key"]})
     palette = {}
     for st, p in pal.items():
         k = p.pop("key"); ts = p.pop("techniques_served"); p["roles"] = dict(ts)
@@ -306,7 +462,7 @@ def run(n):
         p["technique"] = tech_label(p["id"], role)
         palette[k] = p
     # summary: ramps + jumps + stairs availability
-    summary = {"materials": {}, "shapes": dict(shape_log), "stairs": {"placed": shape_log.get("stairs", 0), "detected": T.get("stairs_added", 0),
+    summary = {"materials": {}, "shapes": dict(shape_log), "detail_pass": detail_log, "w_shape": W_SHAPE, "stairs": {"placed": shape_log.get("stairs", 0), "detected": T.get("stairs_added", 0),
                "by_shape": dict(collections.Counter(p["props"]["shape"] for p in palette.values() for _ in range(p["count"]) if p["props"].get("shape")))},
                "warm": warm_info, "noise_scale": NOISE_SCALE, "weights": {"W_N": W_N, "W_T": W_T, "tech_slack_dE": TECH_SLACK}}
     for mm, wi in warm_info.items():
@@ -321,10 +477,13 @@ def run(n):
     summary["blends"] = {f"{k[0]}<-{k[1][6:]}": choice[k] for k in S if S[k]["blend"]}
     out = {"name": f"{n}_mc_blocks", "minecraft_version": "26.3", "size": T["size"], "camera": T.get("camera", {"azim": 30, "elev": 20}),
            "palette": palette, "voxels": vox_out, "summary": summary, "source": f"art/final/{n}_voxels_textured.json", "rules": "MC_BLOCK_RULES.md"}
+    out["summary"]["detail_metrics"] = detail_metrics.metrics(detail_metrics.cells_of(out))
     out = mc_render.attach_bake(out)
     json.dump(out, open(f"art/final/{n}_mc_blocks.json", "w"))
+    mc_render.export(f"art/final/{n}_mc_blocks.json", f"art/final/schematics/{n}_mc_blocks")
     nb = len({p["id"] for p in palette.values()})
-    print(n, "blockstates", len(palette), "block ids", nb, "shapes", dict(shape_log))
+    print(n, "blockstates", len(palette), "block ids", nb, "shapes", dict(shape_log), "detail", detail_log)
+    print("   detail metrics", out["summary"]["detail_metrics"])
     for m, s in summary["materials"].items(): print("  ", m, s["ramp_dark_to_light"], "dE", s["adjacent_dE"], s["techniques"])
     print("   blends", summary["blends"])
     return out

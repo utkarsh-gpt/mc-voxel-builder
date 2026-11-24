@@ -13,15 +13,12 @@ def get_mesh(name):
     res = fal_client.subscribe("fal-ai/trellis", arguments={"image_url": url, "texture_size": 1024, "mesh_simplify": 0.95})
     urllib.request.urlretrieve(res["model_mesh"]["url"], glb); return glb
 
-def voxelize(glb, grid=40, k=32):
-    sc = trimesh.load(glb); mesh = sc.to_geometry() if isinstance(sc, trimesh.Scene) else sc
-    pitch = mesh.extents.max() / (grid - 1)
-    vg = mesh.voxelized(pitch).fill()
-    idx = vg.sparse_indices; pts = vg.points
+def surface_colours(mesh, n=200000, seed=None):
+    """dense, even surface samples of a textured mesh -> (points, colours[n,3] 0..255, face index)"""
     try: vcol = np.asarray(mesh.visual.to_color().vertex_colors)[:, :3].astype(float)
     except Exception: vcol = np.full((len(mesh.vertices), 3), 160.)
     # colour each voxel from the nearest *surface* sample (dense surface samples -> better texture detail)
-    sp, fi = trimesh.sample.sample_surface_even(mesh, 200000)
+    sp, fi = trimesh.sample.sample_surface_even(mesh, n, seed=seed)
     try:
         uv = mesh.visual.uv; tri = mesh.faces[fi]
         bc = trimesh.triangles.points_to_barycentric(mesh.triangles[fi], sp)
@@ -36,6 +33,14 @@ def voxelize(glb, grid=40, k=32):
             scol = np.asarray(mat.to_color(suv))[:, :3].astype(float)
     except Exception:
         scol = vcol[cKDTree(mesh.vertices).query(sp)[1]]
+    return sp, scol, fi
+
+def voxelize(glb, grid=40, k=32):
+    sc = trimesh.load(glb); mesh = sc.to_geometry() if isinstance(sc, trimesh.Scene) else sc
+    pitch = mesh.extents.max() / (grid - 1)
+    vg = mesh.voxelized(pitch).fill()
+    idx = vg.sparse_indices; pts = vg.points
+    sp, scol, _ = surface_colours(mesh)
     cols = scol[cKDTree(sp).query(pts)[1]]
     pal, _ = scorer.kmeans_palette(cols, k=k); lab = ((cols[:, None]-pal[None])**2).sum(-1).argmin(1)
     keys = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

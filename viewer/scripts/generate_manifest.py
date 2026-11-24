@@ -60,6 +60,11 @@ def ref_for(subject):
             return f"refs/{name}"
     return None
 
+def credit_for(subject):
+    """optional refs/<subject>_credit.json {text, url, license_url}: attribution shown under the reference photo"""
+    p = REFS / f"{subject}_credit.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
 def is_derived(stem):
     """4x fine expansions and baked intermediates: never featured or highlighted."""
     return "_fine" in stem or "_baked" in stem
@@ -121,6 +126,7 @@ def main():
             "highlight": is_highlight(stem),
             "featured": False,
             "ref": ref_for(subj),
+            **({"refCredit": credit_for(subj)} if credit_for(subj) else {}),
             "mtime": int(mtime),
             "bytes": path.stat().st_size,
         })
@@ -135,7 +141,7 @@ def main():
             # exact suffix match, never the 4x fine expansion or baked intermediates
             hits = [g for g in group if g["id"].endswith(suf) and not is_derived(g["id"])]
             if hits:
-                chosen = hits[0]
+                chosen = max(hits, key=lambda g: g["mtime"])   # newest final wins (e.g. house_mc_blocks over house_1m_mc_blocks)
                 break
         if not chosen:
             non_fine = [g for g in group if not is_derived(g["id"])]

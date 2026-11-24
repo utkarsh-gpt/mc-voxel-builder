@@ -39,3 +39,10 @@ pipeline/out/*
 # Oversized generated artefacts (GitHub file limit is 100 MB; we keep a 25 MB cap)
 *landscape*_fine.json
 *_mc_baked_fine.json
+
+# Hagia 4x fine passes are ~76 MB (over the 25 MB cap)
+*hagia*_fine.json
+
+# Official Minecraft assets (Mojang/Microsoft): never redistribute
+/assets/
+mc_*_vanilla_block_assets.zip

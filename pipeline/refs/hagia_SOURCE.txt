@@ -1,0 +1,4 @@
+refs/hagia.jpg: "Istanbul Little Hagia Sophia exterior in 2009 5737.jpg" by Dosseman, Wikimedia Commons, CC BY-SA 4.0
+https://commons.wikimedia.org/wiki/File:Istanbul_Little_Hagia_Sophia_exterior_in_2009_5737.jpg  (1280 px derivative)
+https://creativecommons.org/licenses/by-sa/4.0/
+Benchmark schematic for comparison (not in repo): Little Hagia Sophia by Skyman0 (Planet Minecraft / BawkBlock), 39x24x34.

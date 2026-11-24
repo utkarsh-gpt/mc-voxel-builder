@@ -139,9 +139,26 @@ function setRef(meta) {
     const link = $("ref-link");
     if (link) link.href = meta.ref;
     setText("ref-caption", meta.subject || meta.ref.split("/").pop());
+    const cap = $("ref-credit");
+    if (cap) {
+      const c = meta.refCredit;
+      cap.hidden = !c;
+      cap.textContent = "";
+      if (c) {
+        const a = document.createElement("a");
+        a.href = c.url; a.target = "_blank"; a.rel = "noopener"; a.textContent = c.text;
+        cap.append(a);
+        if (c.license_url) {
+          const l = document.createElement("a");
+          l.href = c.license_url; l.target = "_blank"; l.rel = "noopener license"; l.textContent = " (licence)";
+          cap.append(l);
+        }
+      }
+    }
   } else {
     img.removeAttribute("src");
     img.hidden = true;
+    if ($("ref-credit")) $("ref-credit").hidden = true;
     if (wrap) wrap.hidden = true;
   }
 }

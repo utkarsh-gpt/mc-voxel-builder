@@ -45,10 +45,12 @@ def run(n):
     _, occ, col, _ = vox.load(T, seed=0); keys, vid = region_ids(L, occ.shape[1])
     ids = np.zeros(occ.shape, int)
     for (x, y, z), i in vid.items(): ids[x, y, z] = i
-    prev = json.load(open("out/textured_pass_scores.json"))
+    import os
+    prev = json.load(open("out/textured_pass_scores.json")) if os.path.exists("out/textured_pass_scores.json") else {}   # out/ is not checked in
     if n in prev: cam = prev[n]["camera"]
     else:   # new subjects: fit the photo camera on the textured fine model
-        import run_fal; _, o_, c_, _ = vox.load(f"art/final/{n}_voxels_textured_fine.json", seed=0); cam = list(run_fal.fit_cardinal(Image.open(f"refs/{n}.jpg"), o_, c_))
+        # camera fit on the block grid: the 4x fine model gives the same azimuth/elevation but took ~30 min to render face by face
+        import run_fal; _, o_, c_, _ = vox.load(T, seed=0); cam = list(run_fal.fit_cardinal(Image.open(f"refs/{n}.jpg"), o_, c_))
     if n not in ORTHO: ORTHO[n] = f"ortho/{n}{json.load(open(f'out/{n}_verify.json'))['chosen']}_front.png"
     ref = Image.open(f"refs/{n}.jpg"); rmask = scorer.ref_mask(ref)
     om = Image.open(ORTHO[n]).convert("RGB"); oarr = np.asarray(om).astype(int); omask = ndimage.binary_opening((oarr.min(-1) < 235), np.ones((5, 5)))

@@ -42,7 +42,24 @@ def boxes(bid, props):
             return [{"north": (0, 0, 1-t, 1, 1, 1), "south": (0, 0, 0, 1, 1, t), "west": (1-t, 0, 0, 1, 1, 1), "east": (0, 0, 0, t, 1, 1)}[f]]
         return [(0, 0, 0, 1, t, 1)] if props.get("half", "bottom") == "bottom" else [(0, 1-t, 0, 1, 1, 1)]
     if shape == "stairs": return stair_boxes(props)
+    if shape in ("wall", "pane", "bars", "fence"): return connect_boxes(shape, props)
     return [(0, 0, 0, 1, 1, 1)]
+SIDES = {"north": (0, -1), "south": (0, 1), "west": (-1, 0), "east": (1, 0)}
+def connect_boxes(shape, props):
+    """Connecting blocks: centre post + an arm toward every connected side (wall: low/tall arms; pane/bars/fence: true)."""
+    p = 1/16
+    post, arm_w, arms_y = {"wall": ((4*p, 12*p), (5*p, 11*p), [(0, 14*p)]), "pane": ((7*p, 9*p), (7*p, 9*p), [(0, 1)]),
+                           "bars": ((7*p, 9*p), (7*p, 9*p), [(0, 1)]), "fence": ((6*p, 10*p), (7*p, 9*p), [(6*p, 9*p), (12*p, 15*p)])}[shape]
+    out = []
+    if shape != "wall" or props.get("up", "true") == "true": out.append((post[0], 0, post[0], post[1], 1, post[1]))
+    for side, (dx, dz) in SIDES.items():
+        v = props.get(side, "false")
+        if v in ("false", "none"): continue
+        ys = [(0, 1)] if (shape == "wall" and v == "tall") else arms_y
+        for y0, y1 in ys:
+            if dx: x0, x1 = (post[1], 1) if dx > 0 else (0, post[0]); out.append((x0, y0, arm_w[0], x1, y1, arm_w[1]))
+            else: z0, z1 = (post[1], 1) if dz > 0 else (0, post[0]); out.append((arm_w[0], y0, z0, arm_w[1], y1, z1))
+    return out or [(post[0], 0, post[0], post[1], 1, post[1])]
 def stair_boxes(props):
     """Minecraft stairs: half-block base + the step on the 'facing' side; outer = one quarter step at facing+left/right corner,
     inner = facing half + the left/right half. half=top mirrors vertically."""

@@ -1,37 +1,36 @@
 {
- "count": 697,
+ "count": 635,
  "by_reason": {
-  "button": 15,
-  "door": 21,
-  "fence": 14,
-  "fence_gate": 13,
-  "sign": 52,
-  "leaves": 14,
-  "pressure_plate": 17,
-  "sapling": 20,
-  "non_full": 49,
-  "technical": 30,
-  "plant": 110,
-  "wall": 32,
-  "special_utility": 20,
   "banner": 32,
+  "bars": 8,
   "bed": 17,
+  "button": 15,
   "candle": 34,
   "carpet": 18,
-  "shulker_box": 17,
-  "glass": 35,
-  "coral_fan": 10,
-  "redstone": 30,
-  "bars": 8,
   "chain": 8,
+  "coral_fan": 10,
+  "door": 21,
+  "fence": 1,
+  "fence_gate": 13,
+  "glass": 18,
   "grate": 8,
-  "lantern": 10,
-  "torch": 7,
   "head": 10,
-  "statue": 7,
   "infested": 7,
+  "lantern": 10,
+  "leaves": 14,
+  "non_full": 49,
+  "plant": 110,
   "potted_plant": 28,
-  "skull": 4
+  "pressure_plate": 17,
+  "redstone": 30,
+  "sapling": 20,
+  "shulker_box": 17,
+  "sign": 52,
+  "skull": 4,
+  "special_utility": 20,
+  "statue": 7,
+  "technical": 30,
+  "torch": 7
  },
  "examples": {
   "button": [
@@ -1002,59 +1001,7 @@
    "reason": "door"
   },
   {
-   "id": "acacia_fence",
-   "reason": "fence"
-  },
-  {
    "id": "bamboo_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "birch_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "cherry_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "crimson_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "dark_oak_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "jungle_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "mangrove_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "nether_brick_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "oak_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "pale_oak_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "poplar_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "spruce_fence",
-   "reason": "fence"
-  },
-  {
-   "id": "warped_fence",
    "reason": "fence"
   },
   {
@@ -1114,15 +1061,7 @@
    "reason": "glass"
   },
   {
-   "id": "black_stained_glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "blue_stained_glass",
-   "reason": "glass"
-  },
-  {
-   "id": "blue_stained_glass_pane",
    "reason": "glass"
   },
   {
@@ -1130,15 +1069,7 @@
    "reason": "glass"
   },
   {
-   "id": "brown_stained_glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "cyan_stained_glass",
-   "reason": "glass"
-  },
-  {
-   "id": "cyan_stained_glass_pane",
    "reason": "glass"
   },
   {
@@ -1146,15 +1077,7 @@
    "reason": "glass"
   },
   {
-   "id": "glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "gray_stained_glass",
-   "reason": "glass"
-  },
-  {
-   "id": "gray_stained_glass_pane",
    "reason": "glass"
   },
   {
@@ -1162,15 +1085,7 @@
    "reason": "glass"
   },
   {
-   "id": "green_stained_glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "light_blue_stained_glass",
-   "reason": "glass"
-  },
-  {
-   "id": "light_blue_stained_glass_pane",
    "reason": "glass"
   },
   {
@@ -1178,15 +1093,7 @@
    "reason": "glass"
   },
   {
-   "id": "light_gray_stained_glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "lime_stained_glass",
-   "reason": "glass"
-  },
-  {
-   "id": "lime_stained_glass_pane",
    "reason": "glass"
   },
   {
@@ -1194,15 +1101,7 @@
    "reason": "glass"
   },
   {
-   "id": "magenta_stained_glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "orange_stained_glass",
-   "reason": "glass"
-  },
-  {
-   "id": "orange_stained_glass_pane",
    "reason": "glass"
   },
   {
@@ -1210,23 +1109,11 @@
    "reason": "glass"
   },
   {
-   "id": "pink_stained_glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "purple_stained_glass",
    "reason": "glass"
   },
   {
-   "id": "purple_stained_glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "red_stained_glass",
-   "reason": "glass"
-  },
-  {
-   "id": "red_stained_glass_pane",
    "reason": "glass"
   },
   {
@@ -1238,15 +1125,7 @@
    "reason": "glass"
   },
   {
-   "id": "white_stained_glass_pane",
-   "reason": "glass"
-  },
-  {
    "id": "yellow_stained_glass",
-   "reason": "glass"
-  },
-  {
-   "id": "yellow_stained_glass_pane",
    "reason": "glass"
   },
   {
@@ -3008,134 +2887,6 @@
   {
    "id": "wall_torch",
    "reason": "torch"
-  },
-  {
-   "id": "andesite_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "blackstone_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "cinnabar_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "cinnabar_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "cobbled_deepslate_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "cobblestone_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "deepslate_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "deepslate_tile_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "diorite_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "end_stone_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "granite_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "mossy_cobblestone_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "mossy_stone_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "mud_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "nether_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "polished_blackstone_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "polished_blackstone_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "polished_cinnabar_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "polished_deepslate_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "polished_sulfur_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "polished_tuff_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "prismarine_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "red_nether_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "red_sandstone_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "resin_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "sandstone_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "stone_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "sulfur_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "sulfur_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "tuff_brick_wall",
-   "reason": "wall"
-  },
-  {
-   "id": "tuff_wall",
-   "reason": "wall"
   }
  ]
 }
