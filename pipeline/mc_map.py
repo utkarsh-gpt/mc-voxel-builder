@@ -556,6 +556,9 @@ def tech_label(b, role):
 # ---------- main ----------
 WARM = {"windmill": {"stone": ("#958f81", "#a89f8c")}}   # (palette base, photo stone tone): chroma shift only, L ramp kept
 ACCENT_ALL = {"cathedral", "landscape", "turtle", "hagia", "house"}   # every material may get a low-contrast accent toward its photo base
+MAX_BLOCKS_PER_MAT = int(os.environ.get("MC_MAX_BLOCKS", 5))   # colour_proto.py experiments; default unchanged
+ACCENTS = os.environ.get("MC_ACCENTS", "1") == "1"                 # warm/accent dither on (default)
+ROLE_POOLS = os.environ.get("MC_ROLE_POOLS", "1") == "1"           # shadow/trim/rough roles may pull blocks from outside the ramp neighbourhood (default)
 def run(n):
     global STRICT_NOW, SAT_CAP; STRICT_NOW = STRICT.get(n, set()); SAT_CAP = n in ACCENT_ALL
     T, F = mc_features.features(n)
@@ -613,17 +616,17 @@ def run(n):
         bL = face_lab(BL[base], S[k0]["f_top"])[0]; hood = ramp_hood(base)
         for k in sorted(ks, key=lambda k: (abs(S[k]["sh"]), -S[k]["n"])):     # grow the ramp outward from the base
             if k in choice: continue
-            pool = hood | (HATCH_POOL if S[k]["role"] == "shadow" else set())
-            pool |= {b["id"] for b in CAND if S[k]["role"] in ("trim", "rough", "smooth") and dE(S[k]["lab"], lab_of(b, "side")) < 12}
+            pool = hood | (HATCH_POOL if S[k]["role"] == "shadow" and ROLE_POOLS else set())
+            if ROLE_POOLS: pool |= {b["id"] for b in CAND if S[k]["role"] in ("trim", "rough", "smooth") and dE(S[k]["lab"], lab_of(b, "side")) < 12}
             pool = {p for p in pool if p in BL and (p in used or min(dE(lab_of(BL[p], "side"), lab_of(BL[u], "side")) for u in used) <= MAX_STEP)}
             prevs = [kk for kk in ks if kk in choice and S[kk]["sh"] == S[k]["sh"] - np.sign(S[k]["sh"])]
             refL = float(np.mean([face_lab(BL[choice[kk]], S[kk]["f_top"])[0] for kk in prevs])) if prevs and S[k]["sh"] != 0 else bL
             choice[k] = choose(S[k], pool, refL, used) or base; used.add(choice[k])
-        # cap: <= 5 blocks per material (drop the least used, reassign its slots)
+        # cap: <= MAX_BLOCKS_PER_MAT (5) blocks per material (drop the least used, reassign its slots)
         while True:
             cnt = collections.Counter()
             for k in ks: cnt[choice[k]] += S[k]["n"]
-            if len(cnt) <= 5: break
+            if len(cnt) <= MAX_BLOCKS_PER_MAT: break
             drop = min((b for b in cnt if b != base), key=lambda b: cnt[b]); keep = [b for b in cnt if b != drop]
             for k in ks:
                 if choice[k] == drop: choice[k] = choose(S[k], keep, bL, set(keep)) or base
@@ -639,6 +642,7 @@ def run(n):
     # base block's plain/rough voxels (ordered 3D dither, fraction p) so the wall's average colour moves toward the photo tone
     warm_info = {}
     acc_mats = list(WARM.get(n, {})) + ([mm for mm in base_of if any(v["m"] == mm and "accent_target" in v for v in F)] if n in ACCENT_ALL else [])
+    if not ACCENTS: acc_mats = []
     for mm in acc_mats:
         vs = [v for v in F if v["m"] == mm and ("warm_shift" in v or "accent_target" in v)]
         if len(vs) < 30 or mm not in base_of: continue
