@@ -8,8 +8,9 @@ arched top, not a black fill.
 apply(d, spec) rebuilds each bay from a clean neighbouring column, then:
   - cuts an arched opening through the wall/eave (z >= wall_z) so the door/window plane sits 1 block back (z = wall_z - 1)
   - door bay: red stripped_mangrove_log leaf with a mangrove door, arched top; dark recess ring above the arch
-  - window bay: red frame ring + centre mullion + sill (top slab), 2x3 panes as a recess (air) with a soft cool-grey
-    back (cyan_terracotta / polished_deepslate) one block deeper: no glass, no panes, no flat black box
+  - window bay: red frame ring + cross bars + sill (top slab); 4 panes recessed with a soft cool-grey back
+    (cyan_terracotta / polished_deepslate) one block deeper, glazed in the frame plane when the bay has "glass"
+    (a stained glass pane, material "glass"), never a flat black box
   - a thatch eyebrow lip over the arch (z wall_z .. wall_z + 2, one row above the opening), filled behind so it reads
     as a hood; lip undersides and thatch reveals become "soffit" (tuff, protected), the arch ring "recess" (deepslate_tiles)
 spec (from art/final/meta/<n>_parts.json "eyebrows"):
@@ -25,7 +26,7 @@ def _state(bid, props=None):
     props = props or {}
     return "minecraft:" + bid + ("[" + ",".join(f"{a}={b}" for a, b in sorted(props.items())) + "]" if props else "")
 
-def _profile(kind):
+def _profile(kind, glass=None):
     """opening cells (dx, y) cut through the front, and what goes on the recessed plane"""
     O, plane, back = {}, {}, {}
     if kind == "door":
@@ -48,8 +49,10 @@ def _profile(kind):
             plane[(0, y)] = ("mangrove_planks", {}, "frame")                                   # centre mullion
         for dx in (-1, 1):
             plane[(dx, 3)] = ("mangrove_planks", {}, "frame")                                  # transom: red cross bars
-            back[(dx, 4)] = ("cyan_terracotta", {}, "glass")                                    # 4 panes = open recess with a
-            back[(dx, 2)] = ("polished_deepslate", {}, "glass")                                 # soft back (sky-lit top, darker low)
+            back[(dx, 4)] = ("cyan_terracotta", {}, "glass")                                    # 4 panes recessed with a soft back
+            back[(dx, 2)] = ("polished_deepslate", {}, "glass")                                 # (sky-lit top, darker low)
+            if glass:   # glazing in the frame plane, held between jamb and mullion (east/west arms), back one block deeper
+                for y in (2, 4): plane[(dx, y)] = (glass, {"east": "true", "west": "true", "north": "false", "south": "false", "waterlogged": "false"}, "glass")
         for dx in (-1, 0, 1): plane[(dx, 5)] = ("stripped_mangrove_log", {}, "frame")          # arched head
         for c in ((-2, 5), (2, 5), (-1, 6), (0, 6), (1, 6)): plane[c] = ("deepslate_tiles", {}, "recess")
     return O, plane, back
@@ -76,7 +79,7 @@ def apply(d, spec, log=print):
                     if src is None: g.pop((x, y, z), None)
                     else: g[(x, y, z)] = src
         th = thatch_like(rx); th_id = th["id"]
-        O, plane, back = _profile(kind)
+        O, plane, back = _profile(kind, bay.get("glass"))
         top = {}
         for (dx, y) in O: top[dx] = max(top.get(dx, -1), y)
         # 2. eyebrow hood: the clean eave profile of the reference column, lifted so its lip sits one row above the
@@ -102,7 +105,7 @@ def apply(d, spec, log=print):
                 p = (cx + dx, y, z); g.pop(p, None); new.pop(p, None)
         for (dx, y), (bid, props, mat) in plane.items(): put((cx + dx, y, wz - 1), bid, props, mat)
         for (dx, y), (bid, props, mat) in back.items():
-            g.pop((cx + dx, y, wz - 1), None); new.pop((cx + dx, y, wz - 1), None)          # pane = open recess
+            if (dx, y) not in plane: g.pop((cx + dx, y, wz - 1), None); new.pop((cx + dx, y, wz - 1), None)   # open recess
             put((cx + dx, y, wz - 2), bid, props, mat)
         if kind == "window":
             for dx in range(-2, 3): put((cx + dx, 1, wz), "mangrove_slab", {"type": "top", "waterlogged": "false"}, "frame")  # sill lip
@@ -130,5 +133,5 @@ def apply(d, spec, log=print):
         else: continue
         vox.append({"x": p[0], "y": p[1], "z": p[2], "b": b})
     d["palette"] = {e["key"]: e for e in states.values()}; d["voxels"] = vox
-    assert not any("pane" in e["id"] for e in states.values())
+    assert not any(("pane" in e["id"] or "glass" in e["id"]) and e["material"] != "glass" for e in states.values())
     return d

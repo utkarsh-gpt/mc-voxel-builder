@@ -190,6 +190,17 @@ PANE_IDS = {b["id"] for b in D["blocks"] if b["shape"] == "pane"}
 ALLOW_PANES = os.environ.get("MC_ALLOW_PANES", "0") == "1"
 WINDOW_FILL_FAM = {"concrete", "terracotta", "wool", "deepslate", "blackstone", "obsidian", "basalt", "tuff"}
 PANES = sorted(PANE_IDS) if ALLOW_PANES else [b["id"] for b in CAND if b["family"] in WINDOW_FILL_FAM]
+# MC_GLASS=windows (SME-14): glass comes back ONLY in explicit window openings built by the feature pass (detected / hand
+# windows with a kit). Paint-stage dark clusters (window_kit), door transoms and everything else stay solid, and the
+# safety sweep below still removes any pane that is not one of those feature-window cells, so glass cannot leak onto
+# walls or roofs again. Neutral / dark / warm stained panes only (no lime, magenta ... tints).
+GLASS_WINDOWS = os.environ.get("MC_GLASS", "") == "windows" and not ALLOW_PANES
+GLASS_OK = [b for b in ("glass_pane", "black_stained_glass_pane", "gray_stained_glass_pane", "light_gray_stained_glass_pane",
+                        "brown_stained_glass_pane", "yellow_stained_glass_pane", "orange_stained_glass_pane",
+                        "cyan_stained_glass_pane", "light_blue_stained_glass_pane") if b in PANE_IDS]
+KIT_PANES = GLASS_OK if GLASS_WINDOWS else PANES
+LIT_BACK = "shroomlight"   # warm light block behind lit-window glass (MC_GLASS=windows only)
+KIT_GLASS = set()   # cells where the feature pass put window glass (the only cells a pane may survive in)
 # ---------- shape-aware block choice (DETAIL_DISCOVERY.md P0.1) ----------
 # A block that cannot take the shapes its voxels need flattens them to full cubes (white_terracotta has no stairs/slabs).
 # Each slot records the share of its voxels that need a slab / stairs / thin vertical piece; a block pays W_SHAPE per unit of
@@ -353,7 +364,7 @@ UDIR = {"z": (1, 0, 0), "x": (0, 0, 1)}
 DIR4_INV = {"east": (1, 0, 0), "west": (-1, 0, 0), "south": (0, 0, 1), "north": (0, 0, -1)}            # along-facade axis for a rect on a z-plane / x-plane
 def feature_pass(G, fj, base_of, mat_blocks, size):
     feats = fj["features"]; kits = fj.get("kits", {})
-    W, H, D = size; log = collections.Counter(); kit_pane = {}; built = set()
+    W, H, D = size; log = collections.Counter(); kit_pane = {}; kit_lit = {}; built = set()
     def full(g): return BL[g["id"]]["shape"] == "full_block" and not g["props"]
     def inb(p): return 0 <= p[0] < W and 0 <= p[1] < H and 0 <= p[2] < D
     def skin(rect, out, u, y):
@@ -382,14 +393,15 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
         fc = kits.get(f"{gk[0]}|{int(gk[1])}|{gk[2]}|{gk[3]}", {}).get("fill_colour")
         if fc: tgt = hex2lab(fc)   # a hand fill colour from the parts list (lit windows are bright, not darkened glass)
         # glass reads darker than the drawn window (frame + glazing average): the pane nearest a darkened version
-        kit_pane[gk] = min(PANES, key=lambda b: dE(tgt, lab_of(BL[b], "side")))
+        kit_pane[gk] = min(KIT_PANES, key=lambda b: dE(tgt, lab_of(BL[b], "side")))
+        kit_lit[gk] = bool(fc) and GLASS_WINDOWS and hex2lab(fc)[0] > 55   # lit window behind glass: a warm light block
     def trim(q, facing, blk, what):
         """an open trapdoor flush against the wall face (panel on the side opposite to 'facing' = the wall side)"""
         if q in G or not inb(q) or not blk: return False
         G[q] = {"id": blk, "props": {"facing": facing, "half": "bottom", "open": "true", "powered": "false", "waterlogged": "false"}, "m": "frame", "role": "trim", "lab": lab_of(BL[blk], "side")}
         built.add(q); log[what] += 1; return True
     for gk, fs in groups.items():
-        kind, arch = gk[0], gk[1]; pane = kit_pane[gk]
+        kind, arch = gk[0], gk[1]; pane = kit_pane[gk]; lit = kit_lit.get(gk, False)
         for f in fs:
             r = f["rect"]; out = tuple(f["out"]); d_out = out; d_in = (-out[0], 0, -out[2]); inward, outward = DIR4[d_in], DIR4[d_out]
             ua = UDIR[r["axis"]]; u0, u1 = r["u"]; y0, y1 = r["y"]; ki = kit_of(f); fr = frame.get(f.get("kit") or "", None) if f.get("kit") else None
@@ -411,7 +423,7 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
             if recess:
                 td = fr["trapdoor"]; uneg, upos = DIR4[tuple(-c for c in ua)], DIR4[ua]
                 for (u, y), p in cells.items():
-                    q = _add(p, d_in); G[q] = dict(G[q], id=pane, props={}, m="glass"); built.add(q); log["panes"] += 1
+                    q = _add(p, d_in); G[q] = dict(G[q], id=pane, props={}, m="glass"); built.add(q); log["panes"] += 1; KIT_GLASS.add(q)
                     q2 = _add(q, d_in)
                     if q2 in G and all(_add(q2, d) in G for d in N6) and BACKING in BL: G[q2] = dict(G[q2], id=BACKING, props={}); log["backing"] += 1
                     pr = None
@@ -430,9 +442,11 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
                         side = DIR4[tuple(-c for c in ua)] if u == u0 else DIR4[ua]   # solid half toward the wall beside it
                         st, props, note = place(G[p]["id"], {"type": "stairs", "facing": side, "half": "top"}, mat_blocks.get(G[p]["m"], [G[p]["id"]]), G[p]["lab"], G[p]["m"])
                         if note == "stairs": G[p] = dict(G[p], id=st, props=props); log["arch_corners"] += 1; built.add(p); continue
-                    G[p] = dict(G[p], id=pane, props={}, m="glass"); log["panes"] += 1; built.add(p)
+                    G[p] = dict(G[p], id=pane, props={}, m="glass"); log["panes"] += 1; built.add(p); KIT_GLASS.add(p)
                     q = _add(p, d_in)
-                    if q in G and all(_add(q, d) in G for d in N6) and BACKING in BL: G[q] = dict(G[q], id=BACKING, props={}); log["backing"] += 1
+                    if lit and q in G and q not in built and all(_add(q, d) in G for d in N6) and LIT_BACK in BL:   # enclosed: only seen through the glass   # lit window: warm light behind the yellow glass
+                        G[q] = dict(G[q], id=LIT_BACK, props={}, m="window_lit"); built.add(q); log["lit_backing"] += 1
+                    elif q in G and all(_add(q, d) in G for d in N6) and BACKING in BL: G[q] = dict(G[q], id=BACKING, props={}); log["backing"] += 1
             else:
                 # real doors: 2 tall at the bottom of the opening; 2+ wide -> double door (centred), extra width -> glass sidelights,
                 # extra height -> glass transom. Leaf flush with the inner face (facing = outward), so the door reads recessed.
@@ -720,8 +734,9 @@ def run(n):
     if WINDOW_KIT: detail_log["windows"] = window_kit(G, base_of, used_by_mat, T["size"], fbuilt)
     if not ALLOW_PANES:   # safety sweep: nothing may leave this function as a glass pane
         for p_, g_ in G.items():
-            if g_["id"] in PANE_IDS:
+            if g_["id"] in PANE_IDS and not (GLASS_WINDOWS and p_ in KIT_GLASS and g_["m"] == "glass"):
                 G[p_] = dict(g_, id=min(PANES, key=lambda b: dE(g_["lab"], lab_of(BL[b], "side"))), props={}); detail_log["panes_swept"] = detail_log.get("panes_swept", 0) + 1
+    if GLASS_WINDOWS: detail_log["window_glass"] = sum(1 for p_ in KIT_GLASS if G.get(p_, {}).get("id") in PANE_IDS)
     detail_log["connected"] = connect(G)
     pal, vox_out = {}, []
     for (x, y, z), g in sorted(G.items()):
@@ -755,8 +770,11 @@ def run(n):
            "palette": palette, "voxels": vox_out, "summary": summary, "source": f"art/final/{n}_voxels_textured.json", "rules": "MC_BLOCK_RULES.md"}
     out["summary"]["detail_metrics"] = detail_metrics.metrics(detail_metrics.cells_of(out))
     out = mc_render.attach_bake(out)
-    open(f"art/final/{n}_mc_blocks.json", "w").write(json.dumps(out))
-    mc_render.export(f"art/final/{n}_mc_blocks.json", f"art/final/schematics/{n}_mc_blocks")
+    dst = os.environ.get("MC_MAP_OUT")   # SME-14: write a variant (e.g. the glass rerun) without touching the subject's model
+    if dst: out["summary"]["glass_mode"] = "windows" if GLASS_WINDOWS else "off"; open(dst, "w").write(json.dumps(out))
+    else:
+        open(f"art/final/{n}_mc_blocks.json", "w").write(json.dumps(out))
+        mc_render.export(f"art/final/{n}_mc_blocks.json", f"art/final/schematics/{n}_mc_blocks")
     nb = len({p["id"] for p in palette.values()})
     print(n, "blockstates", len(palette), "block ids", nb, "shapes", dict(shape_log), "detail", detail_log)
     print("   detail metrics", out["summary"]["detail_metrics"])

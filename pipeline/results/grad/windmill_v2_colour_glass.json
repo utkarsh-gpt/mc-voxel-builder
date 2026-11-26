@@ -1,0 +1,139 @@
+{
+ "subject": "windmill_v2",
+ "model": "art/final/windmill_grad_mc_blocks.json",
+ "sheet": "_s2",
+ "outlier_de": 20.0,
+ "views": {
+  "front": {
+   "drawing": "ortho/windmill_v2_s2_front.png",
+   "mirrored": true,
+   "iou": 0.78,
+   "de_mean_block": 12.22,
+   "de_median_block": 10.2,
+   "de_p90_block": 22.14,
+   "outlier_pct_block": 3.75,
+   "palette_emd_block": 10.99,
+   "de_mean": 13.05,
+   "de_median": 10.48,
+   "de_p90": 23.43,
+   "outlier_pct": 5.62,
+   "palette_emd": 11.99,
+   "cells_compared": 372,
+   "outliers": 24
+  },
+  "right": {
+   "drawing": "ortho/windmill_v2_s2_right.png",
+   "mirrored": false,
+   "iou": 0.652,
+   "de_mean_block": 13.53,
+   "de_median_block": 13.46,
+   "de_p90_block": 24.45,
+   "outlier_pct_block": 5.65,
+   "palette_emd_block": 14.55,
+   "de_mean": 14.07,
+   "de_median": 13.41,
+   "de_p90": 24.07,
+   "outlier_pct": 4.92,
+   "palette_emd": 13.59,
+   "cells_compared": 194,
+   "outliers": 12
+  },
+  "back": {
+   "drawing": "ortho/windmill_v2_s2_back.png",
+   "mirrored": true,
+   "iou": 0.733,
+   "de_mean_block": 12.13,
+   "de_median_block": 10.45,
+   "de_p90_block": 24.11,
+   "outlier_pct_block": 7.26,
+   "palette_emd_block": 12.41,
+   "de_mean": 12.04,
+   "de_median": 10.45,
+   "de_p90": 21.15,
+   "outlier_pct": 5.39,
+   "palette_emd": 12.53,
+   "cells_compared": 364,
+   "outliers": 23
+  },
+  "left": {
+   "drawing": "ortho/windmill_v2_s2_right.png",
+   "mirrored": true,
+   "iou": 0.652,
+   "de_mean_block": 12.01,
+   "de_median_block": 10.77,
+   "de_p90_block": 16.91,
+   "outlier_pct_block": 3.63,
+   "palette_emd_block": 12.32,
+   "de_mean": 14.07,
+   "de_median": 13.41,
+   "de_p90": 24.07,
+   "outlier_pct": 4.92,
+   "palette_emd": 13.69,
+   "cells_compared": 194,
+   "outliers": 12
+  }
+ },
+ "summary": {
+  "de_mean": 13.05,
+  "de_median": 11.45,
+  "de_p90": 22.88,
+  "outlier_pct": 5.31,
+  "palette_emd": 12.7,
+  "de_mean_block": 12.63,
+  "de_p90_block": 23.57,
+  "outlier_pct_block": 5.55,
+  "palette_emd_block": 12.65
+ },
+ "outliers_by_block": [
+  [
+   "tuff_bricks",
+   24,
+   63.2
+  ],
+  [
+   "pale_oak_trapdoor",
+   14,
+   4.7
+  ],
+  [
+   "deepslate",
+   12,
+   40.0
+  ],
+  [
+   "birch_wood",
+   7,
+   4.0
+  ],
+  [
+   "dark_oak_shelf",
+   2,
+   100.0
+  ]
+ ],
+ "outliers_by_material": [
+  [
+   "stone",
+   36
+  ],
+  [
+   "sail_white",
+   21
+  ],
+  [
+   "frame",
+   2
+  ]
+ ],
+ "photo": {
+  "camera": [
+   193,
+   5
+  ],
+  "pixel_deltaE": 25.5,
+  "palette_deltaE": 12.0,
+  "lab_hist_intersection": 0.241,
+  "luminance_corr": 0.267,
+  "silhouette_iou": 0.545
+ }
+}

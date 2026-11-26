@@ -316,13 +316,15 @@ def stage_zones(n):
     if r.returncode: print(r.stderr[-1500:]); raise SystemExit("noise_measure failed")
     print(n, "zones", dict(cnt), "wall planes x", sorted(xw), "z", sorted(zw))
 
-def stage_map(n):
-    r = subprocess.run([sys.executable, "mc_map.py", n], capture_output=True, text=True); print(r.stdout[-1500:], r.stderr[-2500:])
+def stage_map(n, out=None, env=None):
+    """out: write the mapped model to this path instead of art/final/<n>_mc_blocks.json (no schematics); env: extra env"""
+    e = dict(os.environ, **(env or {}), **({"MC_MAP_OUT": out} if out else {}))
+    r = subprocess.run([sys.executable, "mc_map.py", n], capture_output=True, text=True, env=e); print(r.stdout[-1500:], r.stderr[-2500:])
     if r.returncode: raise SystemExit("mc_map failed")
     P = json.load(open(f"art/final/meta/{n}_parts.json"))
     if P.get("drop_lone_posts"):   # thin wall/fence posts the shape fit left standing alone on a roof edge (not spires)
         import mc_render
-        p = f"art/final/{n}_mc_blocks.json"; d = json.load(open(p)); occ = {(v["x"], v["y"], v["z"]) for v in d["voxels"]}; gone = []
+        p = out or f"art/final/{n}_mc_blocks.json"; d = json.load(open(p)); occ = {(v["x"], v["y"], v["z"]) for v in d["voxels"]}; gone = []
         for v in d["voxels"]:
             q = d["palette"][v["b"]]
             if (q["id"].endswith("_wall") or q["id"].endswith("_fence")) and q.get("material") != "spire":
@@ -333,9 +335,10 @@ def stage_map(n):
             used = {v["b"] for v in d["voxels"]}
             for k_, q in d["palette"].items(): q["count"] = sum(1 for v in d["voxels"] if v["b"] == k_) if k_ in used else 0
             d["summary"]["lone_posts_dropped"] = len(gone); d.pop("bake", None); d = mc_render.attach_bake(d)
-            open(p, "w").write(json.dumps(d)); mc_render.export(p, f"art/final/schematics/{n}_mc_blocks")
+            open(p, "w").write(json.dumps(d))
+            if not out: mc_render.export(p, f"art/final/schematics/{n}_mc_blocks")
         print(n, "lone posts dropped", len(gone))
-    if os.environ.get("MC_SHADE_GRADIENT") == "1": stage_grad(n)   # SME-14: also write the <n>_grad gradient variant
+    if os.environ.get("MC_SHADE_GRADIENT") == "1" and not out: stage_grad(n)   # SME-14: also write the <n>_grad gradient variant
 
 GRAD = {"windmill_v2": ("windmill_grad", 0.5, 0.5), "cottage_v2": ("cottage_grad", 0.25, 0.75), "gate": ("gate_grad", 0.5, 0.5)}
 def stage_grad(n):
@@ -345,8 +348,14 @@ def stage_grad(n):
     import shade_gradient
     out, wt, wg = GRAD.get(n, (n.replace("_v2", "") + "_grad", 0.5, 0.5))
     pp = f"art/final/meta/{n}_parts.json"; g = json.load(open(pp)).get("grad", {}) if os.path.exists(pp) else {}
-    # optional per-subject extras: "photo" = front-photo shadow projection, "eyebrows" = recessed eyebrow-arch rebuild
-    shade_gradient.run(n, out, wt, wg, photo=g.get("photo"), eyebrows=g.get("eyebrows"))
+    # glass (default on; MC_GLASS=off for the solid-fill windows): re-run the colour mapping with MC_GLASS=windows into
+    # out/glass/<n>_mc_blocks.json (glass panes only in feature-pass window openings), and shade that model
+    src = None
+    if os.environ.get("MC_GLASS", "windows") == "windows":
+        os.makedirs("out/glass", exist_ok=True); src = f"out/glass/{n}_mc_blocks.json"; stage_map(n, out=src, env={"MC_GLASS": "windows"})
+    # optional per-subject extras: "eyebrows" = recessed eyebrow-arch rebuild; "photo" = front-photo projection (special
+    # case, not used by the general pipeline: shadows come from the shaded ortho sheets + 3D geometry)
+    shade_gradient.run(n, out, wt, wg, photo=g.get("photo"), eyebrows=g.get("eyebrows"), model=src)
 
 def stage_check(n):
     import blueprint, colour_score, shape_compare

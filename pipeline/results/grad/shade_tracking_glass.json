@@ -1,0 +1,48 @@
+{
+ "windmill_grad": {
+  "sail_white": {
+   "n": 109,
+   "r_sheetL": 0.38,
+   "r_shade": 0.433
+  },
+  "stone": {
+   "n": 366,
+   "r_sheetL": 0.462,
+   "r_shade": 0.887
+  },
+  "cap_slate": {
+   "n": 141,
+   "r_sheetL": 0.193,
+   "r_shade": 0.829
+  }
+ },
+ "cottage_grad": {
+  "thatch": {
+   "n": 636,
+   "r_sheetL": 0.264,
+   "r_shade": 0.538
+  },
+  "wall_white": {
+   "n": 260,
+   "r_sheetL": 0.422,
+   "r_shade": 0.813
+  },
+  "chimney_brick": {
+   "n": 21,
+   "r_sheetL": -0.201,
+   "r_shade": 0.469
+  }
+ },
+ "gate_grad": {
+  "gate_stone": {
+   "n": 2064,
+   "r_sheetL": 0.661,
+   "r_shade": 0.914
+  },
+  "roof_slate": {
+   "n": 806,
+   "r_sheetL": 0.396,
+   "r_shade": 0.84
+  }
+ }
+}

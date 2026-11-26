@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T18:26:23",
+  "generated_at": "2026-11-26T18:37:19",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -583,16 +583,16 @@
         16,
         18
       ],
-      "voxelCount": 3927,
+      "voxelCount": 3931,
       "hasShapes": false,
-      "subCount": 494,
-      "subPct": 12.6,
-      "paletteSize": 47,
+      "subCount": 498,
+      "subPct": 12.7,
+      "paletteSize": 45,
       "highlight": true,
       "featured": false,
       "ref": "refs/cottage.jpg",
-      "mtime": 1795735581,
-      "bytes": 161262
+      "mtime": 1795736236,
+      "bytes": 159569
     },
     {
       "id": "cottage_hymv",
@@ -851,14 +851,14 @@
       ],
       "voxelCount": 10390,
       "hasShapes": false,
-      "subCount": 1160,
-      "subPct": 11.2,
-      "paletteSize": 137,
+      "subCount": 1425,
+      "subPct": 13.7,
+      "paletteSize": 152,
       "highlight": true,
       "featured": false,
       "ref": null,
-      "mtime": 1795734762,
-      "bytes": 447953
+      "mtime": 1795736236,
+      "bytes": 460919
     },
     {
       "id": "hagia_fd_mc_blocks",
@@ -1310,14 +1310,14 @@
       ],
       "voxelCount": 1886,
       "hasShapes": false,
-      "subCount": 414,
-      "subPct": 22.0,
-      "paletteSize": 70,
+      "subCount": 442,
+      "subPct": 23.4,
+      "paletteSize": 73,
       "highlight": true,
       "featured": false,
       "ref": "refs/windmill.jpg",
-      "mtime": 1795734762,
-      "bytes": 121568
+      "mtime": 1795736236,
+      "bytes": 124390
     },
     {
       "id": "windmill_hymv",

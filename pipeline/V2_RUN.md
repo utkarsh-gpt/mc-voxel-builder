@@ -129,3 +129,16 @@ Spend: fal $0, Haiku $0.
   (no glass, no panes, no black box).
 - Sheet score: dE mean 10.23 -> 9.55, outliers 7.35% -> 4.52%, EMD 9.69 -> 9.05. Photo (scorer camera) pixel dE 17.5 -> 18.1.
   Front-aligned photo check: thatch r(block L, photo L) -0.17 -> 0.68, wall 0.01 -> 0.84, front dE 15.35 -> 13.57. Panes 0. Spend $0.
+
+### SME-14 rerun: glass back in window openings only + ortho-only shadow sampling (all three)
+
+- Reference-photo projection is a special case and is OFF (removed from `cottage_v2_parts.json`); all three models shade from the
+  shaded ortho sheets + 3D geometry. The cottage keeps the recessed eyebrow arches.
+- `MC_GLASS=windows` (mc_map.py, default for the `grad` stage): stained glass panes only in feature-pass window openings
+  (`KIT_GLASS` cells); paint-stage dark clusters, door transoms and everything else stay solid, and the safety sweep removes any
+  pane outside those cells. Neutral/dark/warm panes only. Lit kits (gate) get an enclosed shroomlight behind yellow glass.
+  `MC_MAP_OUT` writes the rerun to `out/glass/<n>_mc_blocks.json`, so the flat v2 models are untouched.
+- shade_gradient asserts every pane/glass block carries material `glass`; eyebrow_arch glazes the cottage window (`"glass"` per bay).
+- Glass: windmill 28 light_gray_stained_glass_pane (3 drum windows), cottage 4 gray_stained_glass_pane (right window, behind the red
+  cross bars), gate 265 yellow_stained_glass_pane (58 window openings) + 218 shroomlight behind; 0 stray.
+- Sheet dE mean / photo pixel dE: windmill 13.05 / 25.5, cottage 9.85 / 17.5, gate 13.86 / 24.7. $0 fal, $0 Haiku.

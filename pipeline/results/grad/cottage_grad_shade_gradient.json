@@ -1,5 +1,5 @@
 {
- "source": "art/final/cottage_v2_mc_blocks.json",
+ "source": "out/glass/cottage_v2_mc_blocks.json",
  "weights": {
   "tex": 0.25,
   "geo": 0.75
@@ -19,24 +19,23 @@
    ],
    "base_index": 2,
    "surface_split_pct": {
-    "shadow": 30.6,
-    "base": 69.4,
+    "shadow": 29.6,
+    "base": 70.4,
     "highlight": 0.0
    },
    "blocks": {
-    "light_gray_wool": 557,
-    "light_gray_wool_stairs": 326,
-    "tuff": 306,
-    "light_gray_wool_slab": 91,
-    "light_gray_concrete": 66,
-    "light_gray_concrete_stairs": 40,
-    "tuff_stairs": 15,
-    "light_gray_concrete_slab": 2
+    "light_gray_wool": 521,
+    "light_gray_wool_stairs": 360,
+    "tuff": 288,
+    "light_gray_concrete": 99,
+    "light_gray_wool_slab": 92,
+    "light_gray_concrete_stairs": 21,
+    "light_gray_concrete_slab": 1
    },
    "counts": {
-    "base": 974,
-    "shadow": 429,
-    "interior": 2136
+    "base": 973,
+    "shadow": 409,
+    "interior": 2157
    }
   },
   "wall_white": {
@@ -55,21 +54,20 @@
    ],
    "base_index": 2,
    "surface_split_pct": {
-    "shadow": 23.6,
-    "base": 60.9,
-    "highlight": 15.5
+    "shadow": 12.5,
+    "base": 69.4,
+    "highlight": 18.2
    },
    "blocks": {
-    "white_wool": 179,
-    "calcite": 57,
-    "snow_block": 46,
-    "white_concrete": 13,
+    "white_wool": 204,
+    "snow_block": 54,
+    "calcite": 37,
     "white_wool_stairs": 2
    },
    "counts": {
-    "base": 181,
-    "shadow": 70,
-    "highlight": 46
+    "base": 206,
+    "highlight": 54,
+    "shadow": 37
    }
   },
   "chimney_brick": {
@@ -99,53 +97,5 @@
     "shadow": 3
    }
   }
- },
- "photo": {
-  "path": "refs/cottage_v2.jpg",
-  "x_anchors": [
-   [
-    1.0,
-    333
-   ],
-   [
-    15.5,
-    570
-   ],
-   [
-    26.5,
-    750
-   ],
-   [
-    31.0,
-    935
-   ]
-  ],
-  "y_anchors": [
-   [
-    0,
-    362
-   ],
-   [
-    3,
-    309
-   ],
-   [
-    12,
-    162
-   ],
-   [
-    15,
-    120
-   ]
-  ],
-  "w_photo": 0.55,
-  "w_geo": 0.45,
-  "keep": 0.6,
-  "shrink": 0.15,
-  "zones": [
-   "thatch",
-   "wall_white"
-  ],
-  "front_blocks_sampled": 358
  }
 }

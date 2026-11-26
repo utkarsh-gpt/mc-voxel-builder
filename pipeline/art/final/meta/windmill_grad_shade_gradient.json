@@ -1,5 +1,5 @@
 {
- "source": "art/final/windmill_v2_mc_blocks.json",
+ "source": "out/glass/windmill_v2_mc_blocks.json",
  "weights": {
   "tex": 0.5,
   "geo": 0.5
@@ -25,34 +25,34 @@
    ],
    "base_index": 3,
    "surface_split_pct": {
-    "shadow": 29.2,
-    "base": 51.4,
-    "highlight": 19.4
+    "shadow": 29.1,
+    "base": 52.1,
+    "highlight": 18.8
    },
    "blocks": {
-    "andesite": 197,
-    "smooth_stone": 164,
-    "stone_bricks": 81,
-    "tuff_bricks": 48,
-    "polished_andesite": 42,
-    "andesite_slab": 32,
-    "deepslate": 31,
-    "stone_brick_slab": 27,
+    "andesite": 202,
+    "smooth_stone": 161,
+    "stone_bricks": 82,
+    "tuff_bricks": 44,
+    "polished_andesite": 40,
+    "andesite_slab": 34,
+    "deepslate": 33,
     "andesite_stairs": 25,
-    "diorite": 12,
-    "polished_andesite_stairs": 12,
-    "stone_brick_stairs": 8,
+    "stone_brick_slab": 24,
+    "diorite": 13,
+    "polished_andesite_stairs": 10,
+    "stone_brick_stairs": 10,
     "diorite_slab": 7,
     "diorite_stairs": 5,
-    "tuff_brick_slab": 4,
-    "tuff_brick_stairs": 4,
-    "cobbled_deepslate_stairs": 2,
-    "polished_andesite_slab": 1
+    "tuff_brick_slab": 5,
+    "tuff_brick_stairs": 5,
+    "polished_andesite_slab": 1,
+    "cobbled_deepslate_stairs": 1
    },
    "counts": {
-    "highlight": 136,
-    "shadow": 205,
-    "base": 361,
+    "highlight": 132,
+    "shadow": 204,
+    "base": 366,
     "kept": 14,
     "interior": 466
    }
@@ -80,14 +80,14 @@
     "highlight": 13.4
    },
    "blocks": {
-    "cobbled_deepslate": 75,
-    "cobbled_deepslate_stairs": 47,
+    "cobbled_deepslate": 73,
+    "cobbled_deepslate_stairs": 49,
+    "deepslate_tiles": 34,
     "cobbled_deepslate_slab": 32,
-    "deepslate_tiles": 31,
     "polished_basalt": 23,
-    "polished_blackstone_bricks": 14,
+    "polished_blackstone_bricks": 13,
     "tuff_slab": 9,
-    "deepslate_tile_stairs": 7
+    "deepslate_tile_stairs": 5
    },
    "counts": {
     "base": 154,
@@ -109,17 +109,17 @@
    "base_index": 0,
    "surface_split_pct": {
     "shadow": 0.0,
-    "base": 91.1,
-    "highlight": 8.9
+    "base": 88.9,
+    "highlight": 11.1
    },
    "blocks": {
     "pale_oak_trapdoor": 162,
-    "birch_wood": 105,
-    "stripped_pale_oak_wood": 3
+    "birch_wood": 104,
+    "stripped_pale_oak_wood": 4
    },
    "counts": {
-    "base": 246,
-    "highlight": 24,
+    "base": 240,
+    "highlight": 30,
     "interior": 4
    }
   }

@@ -1,0 +1,174 @@
+{
+ "subject": "gate",
+ "model": "art/final/gate_grad_mc_blocks.json",
+ "sheet": "_s1",
+ "outlier_de": 20.0,
+ "views": {
+  "front": {
+   "drawing": "ortho/gate_s1_front.png",
+   "mirrored": false,
+   "iou": 0.652,
+   "de_mean_block": 13.56,
+   "de_median_block": 11.49,
+   "de_p90_block": 23.4,
+   "outlier_pct_block": 3.84,
+   "palette_emd_block": 19.03,
+   "de_mean": 13.92,
+   "de_median": 11.61,
+   "de_p90": 24.12,
+   "outlier_pct": 5.02,
+   "palette_emd": 18.92,
+   "cells_compared": 1274,
+   "outliers": 68
+  },
+  "right": {
+   "drawing": "ortho/gate_s1_right.png",
+   "mirrored": false,
+   "iou": 0.776,
+   "de_mean_block": 12.98,
+   "de_median_block": 11.83,
+   "de_p90_block": 21.04,
+   "outlier_pct_block": 1.81,
+   "palette_emd_block": 14.39,
+   "de_mean": 14.62,
+   "de_median": 12.59,
+   "de_p90": 26.07,
+   "outlier_pct": 4.42,
+   "palette_emd": 14.28,
+   "cells_compared": 468,
+   "outliers": 22
+  },
+  "back": {
+   "drawing": "ortho/gate_s1_back.png",
+   "mirrored": false,
+   "iou": 0.665,
+   "de_mean_block": 13.03,
+   "de_median_block": 11.47,
+   "de_p90_block": 22.31,
+   "outlier_pct_block": 2.81,
+   "palette_emd_block": 18.97,
+   "de_mean": 13.05,
+   "de_median": 11.49,
+   "de_p90": 21.0,
+   "outlier_pct": 2.36,
+   "palette_emd": 18.36,
+   "cells_compared": 1292,
+   "outliers": 32
+  },
+  "left": {
+   "drawing": "ortho/gate_s1_right.png",
+   "mirrored": false,
+   "iou": 0.776,
+   "de_mean_block": 12.76,
+   "de_median_block": 11.57,
+   "de_p90_block": 21.66,
+   "outlier_pct_block": 2.21,
+   "palette_emd_block": 13.48,
+   "de_mean": 14.98,
+   "de_median": 12.68,
+   "de_p90": 25.69,
+   "outlier_pct": 4.02,
+   "palette_emd": 14.3,
+   "cells_compared": 468,
+   "outliers": 20
+  }
+ },
+ "summary": {
+  "de_mean": 13.86,
+  "de_median": 11.9,
+  "de_p90": 23.73,
+  "outlier_pct": 3.93,
+  "palette_emd": 17.19,
+  "de_mean_block": 13.19,
+  "de_p90_block": 22.25,
+  "outlier_pct_block": 2.82,
+  "palette_emd_block": 17.46
+ },
+ "outliers_by_block": [
+  [
+   "yellow_stained_glass_pane",
+   54,
+   20.8
+  ],
+  [
+   "andesite_stairs",
+   15,
+   7.5
+  ],
+  [
+   "andesite",
+   9,
+   1.5
+  ],
+  [
+   "andesite_wall",
+   8,
+   14.0
+  ],
+  [
+   "deepslate_tile_stairs",
+   6,
+   2.4
+  ],
+  [
+   "deepslate_tile_slab",
+   5,
+   14.3
+  ],
+  [
+   "smooth_stone",
+   5,
+   1.5
+  ],
+  [
+   "diorite",
+   4,
+   1.7
+  ],
+  [
+   "deepslate_bricks",
+   4,
+   6.5
+  ],
+  [
+   "stone_bricks",
+   3,
+   1.0
+  ],
+  [
+   "diorite_wall",
+   2,
+   25.0
+  ],
+  [
+   "stone_brick_stairs",
+   2,
+   6.9
+  ]
+ ],
+ "outliers_by_material": [
+  [
+   "glass",
+   54
+  ],
+  [
+   "gate_stone",
+   50
+  ],
+  [
+   "roof_slate",
+   18
+  ]
+ ],
+ "photo": {
+  "camera": [
+   3,
+   5
+  ],
+  "pixel_deltaE": 24.7,
+  "palette_deltaE": 12.0,
+  "lab_hist_intersection": 0.136,
+  "luminance_corr": 0.309,
+  "silhouette_iou": 0.812
+ }
+}

@@ -120,9 +120,14 @@ def variant(full, shape):
     if shape == "full_block": return full
     return f(full) if f else None
 
-def run(src, out, w_tex=0.5, w_geo=0.5, log=print, photo=None, eyebrows=None):
-    """photo: front-photo shadow projection spec (path, x_anchors, y_anchors, w_photo, w_geo, keep); eyebrows: eyebrow_arch spec"""
-    d = json.load(open(f"art/final/{src}_mc_blocks.json")); W, H, D = d["size"]; pal = d["palette"]
+GLASS_MATS = {"glass"}   # the only material a glass pane may carry (feature-pass / eyebrow window glazing)
+
+def run(src, out, w_tex=0.5, w_geo=0.5, log=print, photo=None, eyebrows=None, model=None):
+    """photo: front-photo shadow projection spec (path, x_anchors, y_anchors, w_photo, w_geo, keep) - off by default, the
+    general pipeline samples shadows from the shaded ortho sheets + 3D geometry only; eyebrows: eyebrow_arch spec;
+    model: alternative source model file (e.g. the MC_GLASS=windows colour-mapping rerun) instead of art/final/SRC_mc_blocks.json"""
+    model = model or f"art/final/{src}_mc_blocks.json"
+    d = json.load(open(model)); W, H, D = d["size"]; pal = d["palette"]
     if eyebrows:
         import eyebrow_arch; d = eyebrow_arch.apply(d, eyebrows, log=log); pal = d["palette"]
     occ = np.zeros((W, H, D), bool)
@@ -177,7 +182,7 @@ def run(src, out, w_tex=0.5, w_geo=0.5, log=print, photo=None, eyebrows=None):
         q = pal[v["b"]]; mats[(v["x"], v["y"], v["z"])] = q.get("material")
     M = np.full(occ.shape, "", object)
     for (x, y, z), m in mats.items(): M[x, y, z] = m or ""
-    report = {"source": f"art/final/{src}_mc_blocks.json", "weights": {"tex": w_tex, "geo": w_geo}, "zones": {}}
+    report = {"source": model, "weights": {"tex": w_tex, "geo": w_geo}, "zones": {}}
     Lph, front = (photo_front_L(occ, photo) if photo else (np.full(occ.shape, np.nan), np.zeros(occ.shape, bool)))
     if photo: report["photo"] = {k: v for k, v in photo.items()}; report["photo"]["front_blocks_sampled"] = int(front.sum())
     S = np.zeros(occ.shape)
@@ -248,7 +253,8 @@ def run(src, out, w_tex=0.5, w_geo=0.5, log=print, photo=None, eyebrows=None):
             states[sk] = {"key": f"b{len(states)}", "id": bid, "props": props, "state": st, "material": m, "count": 0,
                           "roles": q.get("roles", {}), "technique": q.get("technique")}
         states[sk]["count"] += 1; newvox.append({"x": x, "y": y, "z": z, "b": states[sk]["key"]})
-    assert not any("pane" in s["id"] for s in states.values()), "glass pane in gradient output"
+    stray = [s["state"] for s in states.values() if ("pane" in s["id"] or "glass" in s["id"]) and s["material"] not in GLASS_MATS]
+    assert not stray, f"glass outside window openings: {stray}"
     for m in ladders:
         c = stats[m]; tot = sum(c[b] for b in ("shadow", "base", "highlight"))
         ladders[m]["surface_split_pct"] = {b: round(100*c[b]/tot, 1) for b in ("shadow", "base", "highlight")} if tot else {}
