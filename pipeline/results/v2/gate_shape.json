@@ -1,0 +1,12 @@
+{
+ "new": {
+  "front": 0.803,
+  "front_aspect_err_pct": 1.4,
+  "right": 0.321,
+  "right_aspect_err_pct": 18.5,
+  "top": 0.467,
+  "top_aspect_err_pct": 49.5,
+  "mean_iou": 0.53,
+  "speckle_pct": 0.0
+ }
+}

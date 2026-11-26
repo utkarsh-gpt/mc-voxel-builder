@@ -106,3 +106,5 @@ Typical detail_missing on the best A build: rose "circular recess, raised ring, 
 - Judge "open" parts at the mesh or sheet stage (or carve them as voxel templates after voxelizing), since the lowpoly mesh never keeps holes.
 - Make Haiku count without the blueprint counts visible, or count on depth-map crops per face, to remove the count parroting.
 - Use ≥3 meshes per prompt, scored by median, before concluding on prompt effects.
+
+> Note (Nov 25): `blueprint.count_openings` was later changed (ground-closed outline, open vs recess labelled separately); the counts above come from the old version. See V2_RUN.md.

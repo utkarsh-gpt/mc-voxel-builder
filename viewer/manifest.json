@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T21:44:32",
+  "generated_at": "2026-11-25T23:38:48",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -70,6 +70,29 @@
       "ref": "refs/cottage.jpg",
       "mtime": 1795470715,
       "bytes": 134927
+    },
+    {
+      "id": "gate_mc_blocks",
+      "file": "models/gate_mc_blocks.json",
+      "name": "gate_mc_blocks",
+      "subject": "gate",
+      "kind": "mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        59,
+        51,
+        29
+      ],
+      "voxelCount": 20840,
+      "hasShapes": false,
+      "subCount": 2096,
+      "subPct": 10.1,
+      "paletteSize": 118,
+      "highlight": true,
+      "featured": true,
+      "ref": null,
+      "mtime": 1795667904,
+      "bytes": 946180
     },
     {
       "id": "hagia_frames_mc_blocks",
@@ -725,6 +748,29 @@
       "bytes": 523133
     },
     {
+      "id": "cottage_v2_mc_blocks",
+      "file": "models/cottage_v2_mc_blocks.json",
+      "name": "cottage_v2_mc_blocks",
+      "subject": "cottage",
+      "kind": "v2_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        27,
+        13,
+        15
+      ],
+      "voxelCount": 1959,
+      "hasShapes": false,
+      "subCount": 431,
+      "subPct": 22.0,
+      "paletteSize": 48,
+      "highlight": true,
+      "featured": false,
+      "ref": "refs/cottage.jpg",
+      "mtime": 1795667904,
+      "bytes": 122716
+    },
+    {
       "id": "cottage_voxels_subblocks",
       "file": "models/cottage_voxels_subblocks.json",
       "name": "cottage_voxels_subblocks",
@@ -1335,6 +1381,29 @@
       "ref": "refs/windmill.jpg",
       "mtime": 1795470697,
       "bytes": 259006
+    },
+    {
+      "id": "windmill_v2_mc_blocks",
+      "file": "models/windmill_v2_mc_blocks.json",
+      "name": "windmill_v2_mc_blocks",
+      "subject": "windmill",
+      "kind": "v2_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        27,
+        37,
+        17
+      ],
+      "voxelCount": 1954,
+      "hasShapes": false,
+      "subCount": 553,
+      "subPct": 28.3,
+      "paletteSize": 69,
+      "highlight": true,
+      "featured": false,
+      "ref": "refs/windmill.jpg",
+      "mtime": 1795667904,
+      "bytes": 147368
     },
     {
       "id": "windmill_voxels_subblocks",

@@ -155,18 +155,22 @@ def count_openings(occ):
     res = {}
     for view in ("front", "right", "back", "left"):
         dep, hit = depth_map(occ, view)
-        sil = ndimage.binary_fill_holes(hit); open_ = sil & ~hit
+        # close the outline along the ground (last row) so an arch standing on the ground counts as an enclosed opening
+        sil = ndimage.binary_fill_holes(np.vstack([hit, np.ones((1, hit.shape[1]), bool)]))[:-1]
+        cols = np.flatnonzero(hit.any(0)); sil[:, :cols.min()] = False; sil[:, cols.max() + 1:] = False
+        open_ = sil & ~hit
         d = np.where(hit, dep, np.nan); ref = ndimage.generic_filter(np.nan_to_num(d, nan=1e3), lambda w: np.percentile(w[w < 1e3], 30) if (w < 1e3).any() else 1e3, size=7)
         rec = hit & (dep - ref >= 1) & (dep - ref <= 6)
-        inner = ndimage.binary_erosion(sil, np.ones((3, 3)))
-        lab, n = ndimage.label(rec | open_); comps = []
-        for i, sl in enumerate(ndimage.find_objects(lab), 1):
-            m = lab[sl] == i; a = int(m.sum())
-            if a < 2: continue
-            if not inner[sl][m].all(): continue                                 # touches the outline: a setback of the mass, not an opening
-            if a > 0.08*sil.sum(): continue
-            kind = "open" if open_[sl][m].mean() > 0.5 else "recess"
-            comps.append({"kind": kind, "cells": a, "row": int((sl[0].start + sl[0].stop)//2), "col": int((sl[1].start + sl[1].stop)//2), "h": sl[0].stop - sl[0].start, "w": sl[1].stop - sl[1].start})
+        inner = ndimage.binary_erosion(np.vstack([sil, sil[-1:]]), np.ones((3, 3)))[:-1]   # the ground edge is not an outline
+        comps = []
+        for kind, M_, cap in (("open", open_, 0.35), ("recess", rec & ~open_, 0.08)):   # labelled apart: a recessed jamb must not merge an arch into the outline
+            lab, n = ndimage.label(M_)
+            for i, sl in enumerate(ndimage.find_objects(lab), 1):
+                m = lab[sl] == i; a = int(m.sum())
+                if a < 2: continue
+                if not inner[sl][m].all(): continue                             # touches the outline: a setback of the mass, not an opening
+                if a > cap*sil.sum(): continue
+                comps.append({"kind": kind, "cells": a, "row": int((sl[0].start + sl[0].stop)//2), "col": int((sl[1].start + sl[1].stop)//2), "h": sl[0].stop - sl[0].start, "w": sl[1].stop - sl[1].start})
         res[view] = {"patches": len(comps), "recess": sum(c["kind"] == "recess" for c in comps), "open": sum(c["kind"] == "open" for c in comps),
                      "image_hw": list(dep.shape), "list": comps}
     return res

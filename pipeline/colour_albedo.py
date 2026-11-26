@@ -83,7 +83,7 @@ def toned_blocks(T, occ, toned, deshade, bases, info):
     out = np.full(occ.shape + (3,), np.nan); out[tuple(keys.T)] = skc.rgb2lab(col[None]/255.0)[0]
     return out
 
-def build(n, sheet=None, deshade=True, toned=None, variant=None, mesh=None):
+def build(n, sheet=None, deshade=True, toned=None, variant=None, mesh=None, dark_rules=False):
     sheet = sheet or json.load(open(f"art/final/meta/{n}_views.json"))["chosen"]
     T = json.load(open(f"art/final/{n}_voxels_textured.json")); Lb = json.load(open(f"art/final/meta/{n}_texture_labels.json"))
     W, H, D = T["size"]; occ = np.zeros((W, H, D), bool)
@@ -124,9 +124,13 @@ def build(n, sheet=None, deshade=True, toned=None, variant=None, mesh=None):
             if kl.sum() >= 10: B[i] = np.median(X[kl], 0)
             elif k.sum() >= 10: B[i] = np.median(X[k], 0)
     dist = np.linalg.norm(tgt[..., None, :] - B, axis=-1)
-    gi = len(names); wi = names.index(dark[0]) if dark else None; si = names.index("siding") if "siding" in names else 0
+    gi = len(names); si = names.index("siding") if "siding" in names else 0
+    if dark_rules:   # v2 runs (--dark-rules): panes go to window_dark only, and only where the albedo really is dark
+        wi = names.index("window_dark") if "window_dark" in names else None   # a lit-window hint never takes the panes
+    else: wi = names.index(dark[0]) if dark else None
     A0 = dist.argmin(-1); dist = dist[..., :gi]; B = B[:gi]
-    if wi is not None: dist[..., wi] = np.where(A0 == gi, -1, dist[..., wi])
+    # (dark rules) the free dark grey only means "pane" when the albedo is dark (L < 40): a shaded mid-grey thatch/stone stays its material
+    if wi is not None: dist[..., wi] = np.where((A0 == gi) & ((tgt[..., 0] < 40) if dark_rules else True), -1, dist[..., wi])
     dist[..., si] = np.where(A0 == gi + 1, -1, dist[..., si])
     M = np.full(occ.shape, "", object); A = dist.argmin(-1)
     for i, k in enumerate(names): M[occ & (A == i)] = k
@@ -139,6 +143,13 @@ def build(n, sheet=None, deshade=True, toned=None, variant=None, mesh=None):
             comp = lab_ == j; others = [i for i, q in enumerate(names) if q != k and q not in dark]
             alt = np.array(others)[dist[..., others].argmin(-1)]
             for i in others: M[comp & (alt == i)] = names[i]
+    # dark panes are small: a big connected dark patch is a drawn shadow (eave underside, roof in shade), not a window
+    if dark_rules and wi is not None:
+        others = [i for i, q in enumerate(names) if q not in dark]
+        lab_, _ = ndimage.label((M == "window_dark") & surf, np.ones((3, 3, 3))); sz = np.bincount(lab_.ravel()); big = np.flatnonzero(sz[1:] > 12) + 1
+        comp = np.isin(lab_, big); alt = np.array(others)[np.maximum(dist[..., others], 0).argmin(-1)]
+        for i in others: M[comp & (alt == i)] = names[i]
+        info["dark_patches_reassigned"] = int(comp.sum())
     _, ii = ndimage.distance_transform_edt(~surf, return_indices=True); M = np.where(occ & ~surf, M[ii[0], ii[1], ii[2]], M)
     # shade slots only for real albedo variation (weathering, a darker base course): target L smoothed over the surface
     # neighbourhood, >= SH_STEP away from the base. Lighting is Minecraft's job, so most blocks stay on the base shade.
@@ -188,5 +199,6 @@ def build(n, sheet=None, deshade=True, toned=None, variant=None, mesh=None):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("name"); ap.add_argument("--sheet"); ap.add_argument("--no-deshade", action="store_true")
-    ap.add_argument("--toned"); ap.add_argument("--variant"); ap.add_argument("--mesh"); a = ap.parse_args()
-    build(a.name, a.sheet, not a.no_deshade, a.toned, a.variant, a.mesh)
+    ap.add_argument("--toned"); ap.add_argument("--variant"); ap.add_argument("--mesh")
+    ap.add_argument("--dark-rules", action="store_true", help="window_dark takes panes only where L < 40, big dark patches go back to their material (v2 runs; off keeps the house as deployed)")
+    a = ap.parse_args(); build(a.name, a.sheet, not a.no_deshade, a.toned, a.variant, a.mesh, a.dark_rules)

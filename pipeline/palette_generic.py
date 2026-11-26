@@ -35,6 +35,27 @@ CFG = {
    "hint_only": ("roof_shingle", "trim_brown"),
    "max_share": {"trim_brown": 0.15},   # dark-painted wall voxels (shadow, glass, porch) otherwise zone as trim and turn the walls brown   # photo roof is sun-faded (measures #a78271 vs the painted #7c5040) and trim pixels mix with shadow
    "blend": [], "crisp": [("siding", "trim_brown"), ("siding", "window_dark"), ("siding", "roof_shingle"), ("trim_brown", "roof_shingle")]},
+ # v2 reruns (2026-11-25): windmill / cottage through shape_fit + colour_albedo (materials as palette_texture.MAT; dark parts named window_* for colour_albedo)
+ "windmill_v2": {"src": "art/windmill_v2_shapefit.json", "mats": {
+    "stone":        ("#a89f8c", (-2, 2, 6, 5, "neutral"), dict(db_up=1.5, db_dn=1.0), DEF, None),
+    "cap_slate":    ("#4f555c", (-2, 1, 5, 6, "neutral"), dict(db_up=-1.5, db_dn=0.5), dict(DEF, w_h=0.2), "high"),
+    "sail_white":   ("#e2dfd4", (-2, 1, 5, 3, "neutral"), dict(db_up=1.0, db_dn=1.5), DEF, None),
+    "window_dark":  ("#34312d", (-1, 0, 5, 0, "neutral"), dict(db_dn=0.5), None, "dark")},
+   "blend": [], "crisp": [("stone", "window_dark"), ("cap_slate", "sail_white"), ("stone", "sail_white")]},
+ "cottage_v2": {"src": "art/cottage_v2_shapefit.json", "mats": {
+    "wall_white":   ("#e6e3dc", (-2, 1, 6, 3, "neutral"), dict(db_up=1.5, db_dn=2.0), DEF, None),
+    "thatch":       ("#8d8c74", (-2, 2, 6, 6, "chromatic"), dict(dh=6, cd=0.05, cu=0.08), dict(DEF, w_h=0.2), "high"),
+    "door_red":     ("#7d3426", (-1, 1, 6, 5, "chromatic"), dict(dh=4, cd=0.06, cu=0.03), None, None),   # as drawn in the chosen sheet (photo door #a1392d)
+    "chimney_brick": ("#8a4e3e", (-2, 1, 6, 5, "chromatic"), dict(dh=5, cd=0.08, cu=0.03), None, None),
+    "window_dark":  ("#3a3e44", (-1, 0, 5, 0, "neutral"), dict(db_dn=1.0), None, "dark")},
+   "hint_only": ("door_red", "chimney_brick"),
+   "blend": [], "crisp": [("wall_white", "door_red"), ("wall_white", "window_dark"), ("thatch", "door_red"), ("door_red", "window_dark"), ("thatch", "chimney_brick")]},
+ "gate": {"src": "art/gate_shapefit.json", "mats": {   # user-provided reference image (not in the repo)
+    "gate_stone":   ("#b8a99c", (-2, 2, 6, 5, "neutral"), dict(db_up=1.0, db_dn=1.0), DEF, None),
+    "roof_slate":   ("#4a403a", (-2, 1, 5, 6, "neutral"), dict(db_up=-1.0, db_dn=0.5), dict(DEF, w_h=0.2), "high"),
+    "window_lit":   ("#e8b860", (-1, 0, 5, 0, "chromatic"), dict(dh=3, cd=0.04, cu=0.03), None, None)},   # no dark panes: the slit windows are lit; the dark material is the slate
+   "hint_only": ("window_lit",),
+   "blend": [], "crisp": [("gate_stone", "roof_slate"), ("gate_stone", "window_lit")]},
  "landscape": {"src": "art/landscape_lowpoly_half_sub.json", "mats": {
     "grass":       ("#7da343", (-2, 2, 7, 6, "chromatic"), dict(dh=7, cd=0.06, cu=0.06), ORG, "top"),
     "rock_grey":   ("#7d7a72", (-2, 2, 6, 5, "neutral"), dict(db_up=1.2, db_dn=0.8), DEF, None),

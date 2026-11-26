@@ -23,6 +23,9 @@ HIGHLIGHT_SUFFIXES = (
     "_rendered_toned",
     "_fal_refined",
 )
+# Reruns shown in the viewer but never featured over the original build of their subject.
+NOT_FEATURED = {"windmill_v2_mc_blocks", "cottage_v2_mc_blocks"}
+
 # Prefer these as the default featured model per subject (first match wins).
 FEATURED_PRIORITY = (
     "_mc_blocks",
@@ -139,7 +142,7 @@ def main():
         chosen = None
         for suf in FEATURED_PRIORITY:
             # exact suffix match, never the 4x fine expansion or baked intermediates
-            hits = [g for g in group if g["id"].endswith(suf) and not is_derived(g["id"])]
+            hits = [g for g in group if g["id"].endswith(suf) and not is_derived(g["id"]) and g["id"] not in NOT_FEATURED]
             if hits:
                 chosen = max(hits, key=lambda g: g["mtime"])   # newest final wins (e.g. house_mc_blocks over house_1m_mc_blocks)
                 break

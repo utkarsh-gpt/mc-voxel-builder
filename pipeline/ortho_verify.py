@@ -54,6 +54,19 @@ SPEC.update({
  "turtle": ("coral-encrusted sea turtle", "Specifics: a sea turtle seen as a sculpture-like single animal: domed olive-brown shell (about #7A6A45) with hexagonal scutes, patches of orange/pink coral, "
    "purple sea fans and green algae on top; grey-green scaly head pointing to the FRONT; two long front flippers spread sideways, two short back flippers. FRONT view = looking at the "
    "head; RIGHT SIDE = profile with the head on the LEFT; TOP = the shell from above with the head at the bottom of the panel, flippers spread left and right. The BACK panel is a REAR elevation at the same eye level as the FRONT (looking at the tail end, shell dome seen edge-on, same height as FRONT); it is NOT a view from above.")})
+# v2 reruns (2026-11-25) and the gate: same subjects as windmill / cottage from the same reference photos, new sheets
+SPEC["windmill_v2"] = (SPEC["windmill"][0], SPEC["windmill"][1] + " The lower arcade arches are OPEN passages: you can see straight through them, so draw the "
+   "white background inside each arch opening (no dark interior).")
+SPEC["cottage_v2"] = SPEC["cottage"]
+SPEC["gate"] = ("fantasy gothic stone gatehouse", "Specifics: a Minecraft-style fantasy gothic GATEHOUSE, symmetric, drawn as a free-standing structure. "
+   "Pale warm-grey stone walls (about #B8A99C) with darker stone trim. In the middle a very tall POINTED ARCHWAY that is an OPEN passage you can see straight through "
+   "(draw the white background inside it, from the ground up to the point of the arch), under a steep stone gable with a small pointed gable window and tracery. "
+   "The gable is flanked by two slim square towers with pointed dark slate caps (about #5A4E48) that are the highest points. Left and right of the towers a lower side wing "
+   "with a dark slate roof, a smaller OPEN pointed arch (white background visible through it) and a slim corner tower with a pointed slate cap at each outer end. "
+   "Many small narrow slit windows lit warm yellow (about #E8B860) in the towers and wings. The gatehouse is THIN: its depth is about one fifth of its width. "
+   "FRONT and BACK = the arch facade viewed straight on; RIGHT SIDE = the narrow end (an end tower and the wing roof end, depth about 1/5 of the width); "
+   "TOP = a long thin plan with the slate caps as squares. Draw ONLY the gatehouse: NO trees, branches, leaves, grass, ground, rocks, cliffs, sky or clouds, "
+   "and nothing behind the open arches.")
 LLM_PROMPT = """You are checking an AI-generated orthographic reference sheet before it is used to build a 3D model.
 Read the sheet image {sheet} (2x2 panels: top-left FRONT, top-right RIGHT SIDE, bottom-left BACK, bottom-right TOP plan with the front at the bottom)
 and the reference photo {photo} of the real object ({hint}).

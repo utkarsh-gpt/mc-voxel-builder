@@ -1,0 +1,50 @@
+{
+ "note": "hand-written from refs/cottage.jpg",
+ "carve_axes": [],
+ "parts": [
+  {
+   "id": "door",
+   "count": 1,
+   "faces": [
+    "front"
+   ],
+   "built_as": "set_back",
+   "where": "red arched door left of centre under a thatch eyebrow"
+  },
+  {
+   "id": "window",
+   "count": 1,
+   "faces": [
+    "front"
+   ],
+   "built_as": "set_back",
+   "where": "red multi-pane window right of centre under a thatch eyebrow"
+  },
+  {
+   "id": "eyebrow",
+   "count": 2,
+   "faces": [
+    "front"
+   ],
+   "built_as": "outline",
+   "where": "arched thatch eyebrows over door and window"
+  },
+  {
+   "id": "chimney",
+   "count": 1,
+   "faces": [
+    "front",
+    "right",
+    "back",
+    "left"
+   ],
+   "built_as": "proud",
+   "where": "dark brick chimney on the ridge near the middle"
+  }
+ ],
+ "feature_kinds": {
+  "window": 2,
+  "door": 1,
+  "chimney": 1
+ }
+}

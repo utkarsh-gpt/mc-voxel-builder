@@ -1,0 +1,71 @@
+{
+ "fal_usd": 1.151,
+ "haiku_usd": 0.0,
+ "items": [
+  {
+   "item": "fal sheet gate_s1",
+   "usd": 0.039,
+   "t": "23:18:39"
+  },
+  {
+   "item": "fal sheet windmill_v2_s1",
+   "usd": 0.039,
+   "t": "23:18:40"
+  },
+  {
+   "item": "fal sheet cottage_v2_s1",
+   "usd": 0.039,
+   "t": "23:18:40"
+  },
+  {
+   "item": "fal sheet gate_s2",
+   "usd": 0.039,
+   "t": "23:18:52"
+  },
+  {
+   "item": "fal sheet cottage_v2_s2",
+   "usd": 0.039,
+   "t": "23:18:53"
+  },
+  {
+   "item": "fal sheet windmill_v2_s2",
+   "usd": 0.039,
+   "t": "23:18:55"
+  },
+  {
+   "item": "fal deshade-edit gate_s2e",
+   "usd": 0.039,
+   "t": "23:19:05"
+  },
+  {
+   "item": "fal deshade-edit cottage_v2_s1e",
+   "usd": 0.039,
+   "t": "23:19:06"
+  },
+  {
+   "item": "fal deshade-edit windmill_v2_s2e",
+   "usd": 0.039,
+   "t": "23:19:09"
+  },
+  {
+   "item": "fal mesh gate",
+   "usd": 0.2,
+   "t": "23:20:14"
+  },
+  {
+   "item": "fal mesh cottage_v2",
+   "usd": 0.2,
+   "t": "23:20:14"
+  },
+  {
+   "item": "fal mesh windmill_v2",
+   "usd": 0.2,
+   "t": "23:20:14"
+  },
+  {
+   "item": "fal mesh cottage_v2 re-roll (first mesh: front facade came back as a detached vertical sheet)",
+   "usd": 0.2,
+   "t": "23:27:51"
+  }
+ ]
+}

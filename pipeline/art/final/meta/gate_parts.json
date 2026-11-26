@@ -1,0 +1,63 @@
+{
+ "note": "hand-written from the user-provided gate image (credit noted locally, not in repo); back assumed to mirror the front",
+ "carve_axes": [
+  "z"
+ ],
+ "parts": [
+  {
+   "id": "main_arch",
+   "count": 1,
+   "faces": [
+    "front",
+    "back"
+   ],
+   "built_as": "open",
+   "where": "tall pointed central archway, see-through, ground to under the gable"
+  },
+  {
+   "id": "wing_arch",
+   "count": 2,
+   "faces": [
+    "front",
+    "back"
+   ],
+   "built_as": "open",
+   "where": "one smaller pointed see-through arch in each side wing"
+  },
+  {
+   "id": "gable_window",
+   "count": 1,
+   "faces": [
+    "front",
+    "back"
+   ],
+   "built_as": "set_back",
+   "where": "small pointed window with tracery in the steep gable"
+  },
+  {
+   "id": "slit_window",
+   "count": 12,
+   "faces": [
+    "front",
+    "back"
+   ],
+   "built_as": "set_back",
+   "where": "lit slit windows in the four towers and the wings (counted as groups: about 3 per tower)"
+  },
+  {
+   "id": "tower_cap",
+   "count": 4,
+   "faces": [
+    "front",
+    "back"
+   ],
+   "built_as": "outline",
+   "where": "pointed slate caps: 2 tall flanking the gable, 2 lower at the wing ends"
+  }
+ ],
+ "feature_kinds": {
+  "window": 80,
+  "arcade": 4,
+  "spire": 4
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "note": "hand-written from refs/windmill.jpg (Chesterton-type arcade windmill)",
+ "carve_axes": [
+  "z",
+  "x"
+ ],
+ "parts": [
+  {
+   "id": "arcade_arch",
+   "count": 2,
+   "faces": [
+    "front",
+    "back"
+   ],
+   "built_as": "open",
+   "where": "lower half, pointed/round arches between square piers, see-through"
+  },
+  {
+   "id": "arcade_arch_side",
+   "count": 2,
+   "faces": [
+    "right",
+    "left"
+   ],
+   "built_as": "open",
+   "where": "the same arcade seen from the side"
+  },
+  {
+   "id": "drum_window",
+   "count": 1,
+   "faces": [
+    "front"
+   ],
+   "built_as": "set_back",
+   "where": "small dark window on the upper drum, left of centre"
+  },
+  {
+   "id": "sails",
+   "count": 4,
+   "faces": [
+    "front"
+   ],
+   "built_as": "proud",
+   "where": "four lattice sails in an X on a hub at the front of the cap"
+  },
+  {
+   "id": "cap",
+   "count": 1,
+   "faces": [
+    "front",
+    "right",
+    "back",
+    "left"
+   ],
+   "built_as": "outline",
+   "where": "shallow dark slate dome"
+  }
+ ],
+ "feature_kinds": {
+  "window": 4,
+  "arcade": 20
+ }
+}

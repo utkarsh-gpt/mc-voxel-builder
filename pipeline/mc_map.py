@@ -63,13 +63,18 @@ FAMILIES = {
  # suburban house (painted lap siding, dark wood trim, asphalt shingles)
  "siding": {"wood", "sandstone", "end_stone", "terracotta", "wool", "concrete", "calcite", "quartz"},
  "trim_brown": {"wood", "terracotta", "mud", "brick", "granite", "soil"},
- "roof_shingle": {"brick", "terracotta", "granite", "mud", "nether_brick", "wood", "red_sandstone", "resin"}}
+ "roof_shingle": {"brick", "terracotta", "granite", "mud", "nether_brick", "wood", "red_sandstone", "resin"},
+ # gate (pale fantasy stone, slate roofs, lit slit windows)
+ "gate_stone": {"stone", "andesite", "diorite", "calcite", "tuff", "end_stone", "sandstone", "mud", "dripstone"},
+ "window_lit": {"terracotta", "concrete", "wool", "wood", "sandstone", "honeycomb"}}
 W_FAM = 10.0
 # role-suited families: when another block is within PREF_SLACK dE of the best colour match, take the one a builder would use
 # for that role (a brown roof in brick/terracotta rather than granite, trim in wood). Not for siding: pale paint has no
 # natural family and sandstone (L 81) was picked over end_stone_bricks (L 87) for a L 94 wall
 PREFER = {"roof_shingle": {"brick", "terracotta", "nether_brick", "mud"}, "trim_brown": {"wood"},
-          "roof_slate": {"deepslate", "blackstone", "stone"}, "chimney_brick": {"brick"}}
+          "roof_slate": {"deepslate", "blackstone", "stone"}, "chimney_brick": {"brick"},
+          # buff-grey limestone / pale fantasy stone: a grey stone block when one is within PREF_SLACK (was yellow sandstone on the v2 windmill and the gate)
+          "stone": {"stone", "andesite", "tuff", "diorite"}, "gate_stone": {"stone", "andesite", "tuff", "diorite", "calcite"}}
 PREF_SLACK = 4.0
 LEGACY = os.environ.get("MC_LEGACY", "0") == "1"   # A/B switch: 1 = the mapper as it was before DETAIL_DISCOVERY P0
 ACCENT_MAX_DE = float(os.environ.get("MC_ACCENT_MAX_DE", 20.0 if LEGACY else 10.0))   # was 20: white_terracotta on sandstone (16 dE) read as pink patches
@@ -77,7 +82,9 @@ NATURAL_OK = {"grass_block"}                  # biome-tinted, but the dataset st
 NATURAL = {"grass": {"grass_block": 10.0}}
 NATURAL_TOP = {"grass": "grass_block"}   # top-exposed voxels of the material use the natural block (its top face is what is seen)    # builder prior (dE bonus): terrain materials prefer the vanilla natural block
 SAT_CAP = False                               # new set: reject blocks far more saturated than the target (no garish lime/orange)
-STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "hagia": {"masonry", "drum_render", "lead_roof", "window_dark"}, "house": {"siding", "trim_brown", "roof_shingle", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"}}
+STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "hagia": {"masonry", "drum_render", "lead_roof", "window_dark"}, "house": {"siding", "trim_brown", "roof_shingle", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"},
+          "windmill_v2": {"stone", "cap_slate", "window_dark"}, "cottage_v2": {"wall_white", "window_dark", "chimney_brick"},
+          "gate": {"gate_stone", "roof_slate"}}
 STRICT_NOW = set()   # set per run: materials whose out-of-family blocks are not allowed at all
 MAX_STEP = 15.0   # a new ramp block must be within this dE2000 of a block already in the material's ramp
 TECH = {"trim": ["outline"], "shadow": ["hatching", "cross_hatching"], "rough": ["stippling", "scumbling"], "smooth": ["glazing"], "plain": []}
@@ -91,9 +98,10 @@ def lab_of(b, face): return np.array(b["faces"][face]["lab"] if face in b.get("f
 def dE(a, b): return float(skc.deltaE_ciede2000(np.asarray(a, float)[None], np.asarray(b, float)[None])[0])
 def hex2lab(h): return skc.rgb2lab(np.array([[[int(h[i:i+2], 16) for i in (1, 3, 5)]]], float)/255)[0, 0]
 def lch(l): return l[0], float(np.hypot(l[1], l[2])), float(np.degrees(np.arctan2(l[2], l[1])) % 360)
-def hue_ok(t, c):
+GREYISH = {"stone", "gate_stone"}   # warm-grey stones: a tinted albedo (C* 12-16) may still take a grey stone block
+def hue_ok(t, c, neutral=12):
     _, Ct, ht = lch(t); _, Cb, hb = lch(c)
-    if Ct < 12:                                   # near-neutral target: greys, or low-chroma blocks of a similar hue
+    if Ct < neutral:                                   # near-neutral target: greys, or low-chroma blocks of a similar hue
         return Cb < Ct + 10 and (Cb < 6 or abs((hb - ht + 180) % 360 - 180) < 50)
     if Cb < 0.35*Ct: return False                 # do not grey out a coloured material
     return abs((hb - ht + 180) % 360 - 180) < 40
@@ -114,7 +122,7 @@ HATCH_POOL = {b["id"] for b in CAND if max(b.get("pattern", {}).get("techniques"
 def slot_cost(b, s, base_L=None, used=()):
     """base_L: L* of the block chosen for the next shade toward the base (same sign), so the ramp stays monotonic"""
     c = face_lab(b, s["f_top"]); de = dE(s["lab"], c)
-    if not hue_ok(s["lab"], c): return 1e9, de
+    if not hue_ok(s["lab"], c, 16 if s["m"] in GREYISH else 12): return 1e9, de
     noise = W_N*min(3.0, abs(s["lstd"] - b["overall"]["l_stddev"])/3.0)
     ts = tech_score(b, s["role"]); tech = W_T*(1 - ts) if ts is not None else 0.0
     mono = 0.0

@@ -1,0 +1,18 @@
+{
+ "tag": "_s2",
+ "axes": {
+  "z": {
+   "view": "front",
+   "cells": 14,
+   "components": 2,
+   "align_iou": 0.756
+  },
+  "x": {
+   "view": "right",
+   "cells": 28,
+   "components": 2,
+   "align_iou": 0.629
+  }
+ },
+ "voxels_removed": 56
+}

@@ -1,0 +1,1402 @@
+{
+ "subject": "windmill_v2",
+ "sheet": "_s2",
+ "blocks_per_metre": 1.0,
+ "K": 8,
+ "method": "haiku+image",
+ "llm": {
+  "calls": 5,
+  "cached": 5,
+  "cost_usd": 0.0
+ },
+ "views": {
+  "front": {
+   "drawing": "ortho/windmill_v2_s2_front.png",
+   "iou": 0.756,
+   "mirrored": false,
+   "openings": 4,
+   "protrusions": 6
+  },
+  "right": {
+   "drawing": "ortho/windmill_v2_s2_right.png",
+   "iou": 0.589,
+   "mirrored": false,
+   "openings": 3,
+   "protrusions": 1
+  },
+  "back": {
+   "drawing": "ortho/windmill_v2_s2_back.png",
+   "iou": 0.814,
+   "mirrored": false,
+   "openings": 3,
+   "protrusions": 7
+  },
+  "left": {
+   "drawing": "ortho/windmill_v2_s2_right.png",
+   "iou": 0.589,
+   "mirrored": true,
+   "openings": 4,
+   "protrusions": 0
+  }
+ },
+ "rows": {
+  "front": [
+   {
+    "row": 0,
+    "kind": "window",
+    "arch": false,
+    "count": 1,
+    "h": 4,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 1,
+    "kind": "arcade",
+    "arch": false,
+    "count": 3,
+    "h": 3,
+    "w": 3,
+    "period": 4.0,
+    "inferred": 0
+   }
+  ],
+  "right": [
+   {
+    "row": 0,
+    "kind": "window",
+    "arch": false,
+    "count": 1,
+    "h": 5,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 1,
+    "kind": "arcade",
+    "arch": false,
+    "count": 2,
+    "h": 4,
+    "w": 4,
+    "period": null,
+    "inferred": 0
+   }
+  ],
+  "back": [
+   {
+    "row": 0,
+    "kind": "window",
+    "arch": false,
+    "count": 1,
+    "h": 4,
+    "w": 1,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 1,
+    "kind": "arcade",
+    "arch": false,
+    "count": 2,
+    "h": 4,
+    "w": 3,
+    "period": null,
+    "inferred": 0
+   }
+  ],
+  "left": [
+   {
+    "row": 0,
+    "kind": "window",
+    "arch": false,
+    "count": 1,
+    "h": 5,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 1,
+    "kind": "arcade",
+    "arch": false,
+    "count": 3,
+    "h": 9,
+    "w": 3,
+    "period": 3.5,
+    "inferred": 0
+   }
+  ]
+ },
+ "style": {
+  "window_frame": "surround",
+  "frame_colour": "#3f352b",
+  "arched_surround": false,
+  "door_material": null,
+  "door_colour": null,
+  "door_double": false,
+  "door_frame": "stone",
+  "notes": "The single small window has a dark brown timber sash frame on all sides, with no shutters and no arch; the ground floor has no door leaf, only open stone arches on piers, so the door fields are null and door_frame is the stone arch."
+ },
+ "kits": {
+  "window|0|2|4": {
+   "kind": "window",
+   "count": 1,
+   "style": "surround",
+   "haiku_style": "surround",
+   "ring_confirmed": 1.0,
+   "subject_ring_confirmed": 0.25,
+   "frame_colour": "#3f352b"
+  },
+  "window|0|2|5": {
+   "kind": "window",
+   "count": 2,
+   "style": "none",
+   "haiku_style": "surround",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.25,
+   "frame_colour": null
+  },
+  "window|0|1|4": {
+   "kind": "window",
+   "count": 1,
+   "style": "none",
+   "haiku_style": "surround",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.25,
+   "frame_colour": null
+  }
+ },
+ "counts": {
+  "window": 4,
+  "arcade": 10
+ },
+ "inferred": 0,
+ "features": [
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 18,
+    "u": [
+     7,
+     8
+    ],
+    "y": [
+     11,
+     15
+    ]
+   },
+   "kind": "window",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 2,
+   "h": 5,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 7.01,
+   "ring": {
+    "frame": "#938e79",
+    "wall": "#aaa48c",
+    "dE": 8.5
+   },
+   "row": "right:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#5d5a4f",
+   "cells": [
+    [
+     18,
+     15,
+     7
+    ],
+    [
+     18,
+     14,
+     7
+    ],
+    [
+     18,
+     13,
+     7
+    ],
+    [
+     18,
+     12,
+     8
+    ],
+    [
+     18,
+     12,
+     7
+    ],
+    [
+     18,
+     11,
+     8
+    ],
+    [
+     18,
+     11,
+     7
+    ]
+   ],
+   "img_box": [
+    19,
+    7,
+    5,
+    2
+   ],
+   "kit": "window|0|2|5"
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 7,
+    "u": [
+     7,
+     8
+    ],
+    "y": [
+     11,
+     15
+    ]
+   },
+   "kind": "window",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 2,
+   "h": 5,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 6.82,
+   "ring": {
+    "frame": "#938e79",
+    "wall": "#aaa48c",
+    "dE": 8.5
+   },
+   "row": "left:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#5d5a4f",
+   "cells": [
+    [
+     7,
+     15,
+     7
+    ],
+    [
+     7,
+     15,
+     8
+    ],
+    [
+     7,
+     14,
+     7
+    ],
+    [
+     7,
+     14,
+     8
+    ],
+    [
+     7,
+     13,
+     7
+    ],
+    [
+     7,
+     13,
+     8
+    ],
+    [
+     7,
+     12,
+     7
+    ],
+    [
+     7,
+     12,
+     8
+    ],
+    [
+     7,
+     11,
+     7
+    ],
+    [
+     7,
+     11,
+     8
+    ]
+   ],
+   "img_box": [
+    19,
+    5,
+    5,
+    2
+   ],
+   "kit": "window|0|2|5"
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 13,
+    "u": [
+     12,
+     13
+    ],
+    "y": [
+     12,
+     15
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 2,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 6.16,
+   "ring": {
+    "frame": "#858270",
+    "wall": "#a9a38d",
+    "dE": 13.0
+   },
+   "row": "front:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#4d4c45",
+   "cells": [
+    [
+     12,
+     15,
+     13
+    ],
+    [
+     13,
+     15,
+     13
+    ],
+    [
+     12,
+     14,
+     13
+    ],
+    [
+     13,
+     14,
+     13
+    ],
+    [
+     12,
+     13,
+     13
+    ],
+    [
+     13,
+     13,
+     13
+    ],
+    [
+     12,
+     12,
+     13
+    ],
+    [
+     13,
+     12,
+     13
+    ]
+   ],
+   "img_box": [
+    19,
+    11,
+    4,
+    2
+   ],
+   "kit": "window|0|2|4"
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     18,
+     18
+    ],
+    "y": [
+     12,
+     15
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 1,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 3.05,
+   "ring": {
+    "frame": "#a8a08a",
+    "wall": "#aaa38c",
+    "dE": 1.2
+   },
+   "row": "back:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#938d7a",
+   "cells": [
+    [
+     18,
+     15,
+     7
+    ],
+    [
+     18,
+     14,
+     7
+    ],
+    [
+     18,
+     13,
+     7
+    ],
+    [
+     18,
+     12,
+     7
+    ]
+   ],
+   "img_box": [
+    19,
+    6,
+    4,
+    1
+   ],
+   "kit": "window|0|1|4"
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 8,
+    "u": [
+     10,
+     12
+    ],
+    "y": [
+     1,
+     9
+    ]
+   },
+   "kind": "arcade",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 3,
+   "h": 9,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 2.8,
+   "ring": {
+    "frame": "#b2ab96",
+    "wall": "#afac96",
+    "dE": 1.8
+   },
+   "row": "left:1",
+   "period": 3.5,
+   "bay": 2,
+   "inferred": false,
+   "colour": "#c0bcaf",
+   "cells": [
+    [
+     8,
+     9,
+     10
+    ],
+    [
+     8,
+     9,
+     12
+    ],
+    [
+     8,
+     8,
+     11
+    ],
+    [
+     8,
+     8,
+     12
+    ],
+    [
+     8,
+     7,
+     11
+    ],
+    [
+     8,
+     7,
+     12
+    ],
+    [
+     8,
+     6,
+     11
+    ],
+    [
+     8,
+     6,
+     12
+    ],
+    [
+     8,
+     5,
+     11
+    ],
+    [
+     8,
+     5,
+     12
+    ],
+    [
+     8,
+     4,
+     11
+    ],
+    [
+     8,
+     4,
+     12
+    ],
+    [
+     8,
+     3,
+     11
+    ],
+    [
+     8,
+     3,
+     12
+    ],
+    [
+     8,
+     2,
+     11
+    ],
+    [
+     8,
+     2,
+     12
+    ],
+    [
+     8,
+     1,
+     11
+    ],
+    [
+     8,
+     1,
+     12
+    ]
+   ],
+   "img_box": [
+    25,
+    8,
+    9,
+    3
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 17,
+    "u": [
+     9,
+     12
+    ],
+    "y": [
+     7,
+     10
+    ]
+   },
+   "kind": "arcade",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 4,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 0.31,
+   "ring": {
+    "frame": "#aca58e",
+    "wall": "#a9a28a",
+    "dE": 1.3
+   },
+   "row": "right:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#a8a291",
+   "cells": [
+    [
+     17,
+     10,
+     11
+    ],
+    [
+     17,
+     10,
+     10
+    ],
+    [
+     17,
+     10,
+     9
+    ],
+    [
+     17,
+     9,
+     12
+    ],
+    [
+     17,
+     9,
+     11
+    ],
+    [
+     17,
+     9,
+     10
+    ],
+    [
+     17,
+     9,
+     9
+    ],
+    [
+     17,
+     8,
+     12
+    ],
+    [
+     17,
+     8,
+     9
+    ],
+    [
+     17,
+     7,
+     12
+    ]
+   ],
+   "img_box": [
+    24,
+    3,
+    4,
+    4
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 17,
+    "u": [
+     3,
+     6
+    ],
+    "y": [
+     7,
+     10
+    ]
+   },
+   "kind": "arcade",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 4,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 0.05,
+   "ring": {
+    "frame": "#aba48c",
+    "wall": "#aaa38c",
+    "dE": 0.6
+   },
+   "row": "right:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#a59f8d",
+   "cells": [
+    [
+     17,
+     10,
+     6
+    ],
+    [
+     17,
+     10,
+     5
+    ],
+    [
+     17,
+     9,
+     6
+    ],
+    [
+     17,
+     9,
+     5
+    ],
+    [
+     17,
+     8,
+     5
+    ],
+    [
+     17,
+     8,
+     4
+    ],
+    [
+     17,
+     7,
+     4
+    ]
+   ],
+   "img_box": [
+    24,
+    9,
+    4,
+    4
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 4,
+    "u": [
+     9,
+     11
+    ],
+    "y": [
+     7,
+     10
+    ]
+   },
+   "kind": "arcade",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 3,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -0.14,
+   "ring": {
+    "frame": "#aaa38e",
+    "wall": "#aaa38d",
+    "dE": 0.4
+   },
+   "row": "back:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#b1ac9d",
+   "cells": [
+    [
+     11,
+     10,
+     4
+    ],
+    [
+     10,
+     10,
+     4
+    ],
+    [
+     9,
+     10,
+     4
+    ],
+    [
+     11,
+     9,
+     4
+    ],
+    [
+     10,
+     9,
+     4
+    ],
+    [
+     9,
+     9,
+     4
+    ],
+    [
+     9,
+     8,
+     4
+    ],
+    [
+     9,
+     7,
+     4
+    ]
+   ],
+   "img_box": [
+    24,
+    13,
+    4,
+    3
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 8,
+    "u": [
+     3,
+     5
+    ],
+    "y": [
+     1,
+     9
+    ]
+   },
+   "kind": "arcade",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 3,
+   "h": 9,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -0.26,
+   "ring": {
+    "frame": "#aea892",
+    "wall": "#aea791",
+    "dE": 0.4
+   },
+   "row": "left:1",
+   "period": 3.5,
+   "bay": 0,
+   "inferred": false,
+   "colour": "#b4afa0",
+   "cells": [
+    [
+     8,
+     9,
+     5
+    ],
+    [
+     8,
+     8,
+     4
+    ],
+    [
+     8,
+     7,
+     4
+    ],
+    [
+     8,
+     6,
+     4
+    ],
+    [
+     8,
+     5,
+     4
+    ],
+    [
+     8,
+     4,
+     4
+    ],
+    [
+     8,
+     3,
+     4
+    ],
+    [
+     8,
+     2,
+     4
+    ],
+    [
+     8,
+     1,
+     4
+    ]
+   ],
+   "img_box": [
+    25,
+    1,
+    9,
+    3
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 4,
+    "u": [
+     15,
+     17
+    ],
+    "y": [
+     7,
+     10
+    ]
+   },
+   "kind": "arcade",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 3,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -0.36,
+   "ring": {
+    "frame": "#aba48e",
+    "wall": "#a9a38b",
+    "dE": 1.3
+   },
+   "row": "back:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#b3ae9f",
+   "cells": [
+    [
+     16,
+     10,
+     4
+    ],
+    [
+     15,
+     10,
+     4
+    ],
+    [
+     16,
+     9,
+     4
+    ],
+    [
+     15,
+     9,
+     4
+    ],
+    [
+     17,
+     8,
+     4
+    ],
+    [
+     16,
+     8,
+     4
+    ],
+    [
+     17,
+     7,
+     4
+    ],
+    [
+     16,
+     7,
+     4
+    ]
+   ],
+   "img_box": [
+    24,
+    7,
+    4,
+    3
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 13,
+    "u": [
+     16,
+     18
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "arcade",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 3,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -1.72,
+   "ring": {
+    "frame": "#a7a08c",
+    "wall": "#aba590",
+    "dE": 1.7
+   },
+   "row": "front:1",
+   "period": 4.0,
+   "bay": 2,
+   "inferred": false,
+   "colour": "#a09b8c",
+   "cells": [
+    [
+     16,
+     9,
+     13
+    ],
+    [
+     16,
+     8,
+     13
+    ],
+    [
+     16,
+     7,
+     13
+    ]
+   ],
+   "img_box": [
+    25,
+    15,
+    3,
+    3
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 7,
+    "u": [
+     6,
+     8
+    ],
+    "y": [
+     1,
+     9
+    ]
+   },
+   "kind": "arcade",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 3,
+   "h": 9,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -1.76,
+   "ring": {
+    "frame": "#b2aa92",
+    "wall": "#fafbf8",
+    "dE": 31.2
+   },
+   "row": "left:1",
+   "period": 3.5,
+   "bay": 1,
+   "inferred": false,
+   "colour": "#b6b19f",
+   "cells": [
+    [
+     7,
+     9,
+     7
+    ],
+    [
+     7,
+     9,
+     8
+    ],
+    [
+     7,
+     8,
+     8
+    ],
+    [
+     7,
+     7,
+     8
+    ],
+    [
+     7,
+     6,
+     8
+    ],
+    [
+     7,
+     5,
+     8
+    ],
+    [
+     7,
+     4,
+     8
+    ],
+    [
+     7,
+     3,
+     8
+    ],
+    [
+     7,
+     2,
+     8
+    ],
+    [
+     7,
+     1,
+     8
+    ]
+   ],
+   "img_box": [
+    25,
+    4,
+    9,
+    3
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 12,
+    "u": [
+     8,
+     10
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "arcade",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 3,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -1.8,
+   "ring": {
+    "frame": "#aba48e",
+    "wall": "#aca48e",
+    "dE": 0.4
+   },
+   "row": "front:1",
+   "period": 4.0,
+   "bay": 0,
+   "inferred": false,
+   "colour": "#aaa493",
+   "cells": [
+    [
+     8,
+     9,
+     12
+    ],
+    [
+     9,
+     9,
+     12
+    ],
+    [
+     10,
+     9,
+     12
+    ],
+    [
+     8,
+     8,
+     12
+    ],
+    [
+     9,
+     8,
+     12
+    ],
+    [
+     8,
+     7,
+     12
+    ],
+    [
+     9,
+     7,
+     12
+    ]
+   ],
+   "img_box": [
+    25,
+    7,
+    3,
+    3
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 13,
+    "u": [
+     12,
+     14
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "arcade",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 3,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -3.82,
+   "ring": {
+    "frame": "#ada68e",
+    "wall": "#ada68e",
+    "dE": 0.0
+   },
+   "row": "front:1",
+   "period": 4.0,
+   "bay": 1,
+   "inferred": false,
+   "colour": "#b1ab97",
+   "cells": [
+    [
+     12,
+     9,
+     13
+    ],
+    [
+     13,
+     9,
+     13
+    ],
+    [
+     14,
+     9,
+     13
+    ],
+    [
+     12,
+     8,
+     13
+    ],
+    [
+     13,
+     8,
+     13
+    ],
+    [
+     12,
+     7,
+     13
+    ],
+    [
+     13,
+     7,
+     13
+    ]
+   ],
+   "img_box": [
+    25,
+    11,
+    3,
+    3
+   ]
+  }
+ ],
+ "parts_filter": {
+  "allowed": {
+   "window": 4,
+   "arcade": 20
+  },
+  "dropped": {
+   "spire": 8,
+   "antenna": 1
+  }
+ }
+}

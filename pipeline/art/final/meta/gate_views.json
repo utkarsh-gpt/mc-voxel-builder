@@ -1,0 +1,54 @@
+{
+ "chosen": "_s1",
+ "views_used": [
+  "front",
+  "right",
+  "back"
+ ],
+ "views_dropped": [
+  "top"
+ ],
+ "candidates": {
+  "_s1": {
+   "top_vs_front_dL": -27.9,
+   "shadow_share": 0.35,
+   "gradient_std": 8.861,
+   "shaded": true,
+   "score": 0.8062,
+   "geo_issues": [
+    "top view width 235px differs from front/back width 471/456px",
+    "side-view depth 131px does not match top-view depth 389px",
+    "lighting is not flat: the same material is 28 L darker in the TOP plan than in the FRONT view; draw every view with the same flat, evenly lit colour and no directional light",
+    "cast shadows / shading: 35% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)",
+    "lighting gradients inside flat materials (std 8.9 L); use uniform flat colour per material"
+   ]
+  },
+  "_s2": {
+   "top_vs_front_dL": -27.2,
+   "shadow_share": 0.359,
+   "gradient_std": 8.469,
+   "shaded": true,
+   "score": 0.8004,
+   "geo_issues": [
+    "lighting is not flat: the same material is 27 L darker in the TOP plan than in the FRONT view; draw every view with the same flat, evenly lit colour and no directional light",
+    "cast shadows / shading: 36% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)",
+    "lighting gradients inside flat materials (std 8.5 L); use uniform flat colour per material"
+   ]
+  },
+  "_s2e": {
+   "top_vs_front_dL": -27.1,
+   "shadow_share": 0.341,
+   "gradient_std": 9.15,
+   "shaded": true,
+   "score": 0.795,
+   "geo_issues": [
+    "side-view depth 294px does not match top-view depth 430px",
+    "lighting is not flat: the same material is 27 L darker in the TOP plan than in the FRONT view; draw every view with the same flat, evenly lit colour and no directional light",
+    "cast shadows / shading: 34% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)",
+    "lighting gradients inside flat materials (std 9.2 L); use uniform flat colour per material"
+   ]
+  }
+ },
+ "note": "v2 run: sheets _s1.._sK with the STRONG lighting rule, _sKe = nano-banana edit pass (remove shading) on the flattest; chosen = flattest by shading_check",
+ "override": "_s1 instead of the flattest-by-score _s2e (0.806 vs 0.795, inside the noise of shading_check on pixel-art block textures): _s2/_s2e draw the right side as a long nave and a cross-shaped plan; _s1's right side is the narrow end tower (depth ~1/4 of the width) as in the photo. Top dropped (plan too deep)."
+}

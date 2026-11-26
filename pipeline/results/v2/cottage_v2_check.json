@@ -1,0 +1,137 @@
+{
+ "sheet": "_s1e",
+ "shading": {
+  "materials": [
+   {
+    "ab": [
+     -2.5,
+     7.0
+    ],
+    "share": 0.445,
+    "top_vs_front_dL": -1.1,
+    "L60": {
+     "front": 59.5,
+     "right": 57.2,
+     "back": 59.3,
+     "top": 58.4
+    }
+   },
+   {
+    "ab": [
+     -3.2,
+     9.4
+    ],
+    "share": 0.111,
+    "L60": {
+     "front": 59.0,
+     "right": 55.3,
+     "back": 58.6,
+     "top": 58.3
+    }
+   }
+  ],
+  "top_vs_front_dL": -1.1,
+  "shadow_share": 0.233,
+  "gradient_std": 6.323,
+  "issues": [
+   "cast shadows / shading: 23% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)",
+   "lighting gradients inside flat materials (std 6.3 L); use uniform flat colour per material"
+  ],
+  "shaded": true
+ },
+ "depth_count": {
+  "front": {
+   "found_recess": 1,
+   "found_open": 0,
+   "listed_recess": 2,
+   "listed_open": 0
+  },
+  "right": {
+   "found_recess": 1,
+   "found_open": 0,
+   "listed_recess": 0,
+   "listed_open": 0
+  },
+  "back": {
+   "found_recess": 0,
+   "found_open": 0,
+   "listed_recess": 0,
+   "listed_open": 0
+  },
+  "left": {
+   "found_recess": 1,
+   "found_open": 0,
+   "listed_recess": 0,
+   "listed_open": 0
+  }
+ },
+ "depth_detail": {
+  "front": {
+   "patches": 1,
+   "recess": 1,
+   "open": 0,
+   "image_hw": [
+    13,
+    27
+   ],
+   "list": [
+    {
+     "kind": "recess",
+     "cells": 2,
+     "row": 9,
+     "col": 13,
+     "h": 1,
+     "w": 2
+    }
+   ]
+  },
+  "right": {
+   "patches": 1,
+   "recess": 1,
+   "open": 0,
+   "image_hw": [
+    13,
+    15
+   ],
+   "list": [
+    {
+     "kind": "recess",
+     "cells": 2,
+     "row": 9,
+     "col": 9,
+     "h": 2,
+     "w": 1
+    }
+   ]
+  },
+  "back": {
+   "patches": 0,
+   "recess": 0,
+   "open": 0,
+   "image_hw": [
+    13,
+    27
+   ],
+   "list": []
+  },
+  "left": {
+   "patches": 1,
+   "recess": 1,
+   "open": 0,
+   "image_hw": [
+    13,
+    15
+   ],
+   "list": [
+    {
+     "kind": "recess",
+     "cells": 5,
+     "row": 8,
+     "col": 6,
+     "h": 3,
+     "w": 2
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "tag": "_s1",
+ "axes": {
+  "z": {
+   "view": "front",
+   "cells": 420,
+   "components": 3,
+   "align_iou": 0.667
+  }
+ },
+ "voxels_removed": 40
+}
