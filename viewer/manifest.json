@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T20:25:41",
+  "generated_at": "2026-11-25T20:31:50",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -33,20 +33,20 @@
       "kind": "mc_blocks",
       "format": "mc_blocks",
       "size": [
-        13,
-        26,
-        32
+        45,
+        80,
+        84
       ],
-      "voxelCount": 3581,
+      "voxelCount": 78377,
       "hasShapes": false,
-      "subCount": 457,
-      "subPct": 12.8,
-      "paletteSize": 63,
+      "subCount": 4611,
+      "subPct": 5.9,
+      "paletteSize": 124,
       "highlight": true,
       "featured": true,
       "ref": "refs/cathedral.jpg",
-      "mtime": 1795650260,
-      "bytes": 200995
+      "mtime": 1795656705,
+      "bytes": 3234564
     },
     {
       "id": "cottage_mc_blocks",
