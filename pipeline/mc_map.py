@@ -21,7 +21,8 @@ BAN_ID = {"bookshelf", "chiseled_bookshelf", "tnt", "jukebox", "note_block", "sp
           "pumpkin", "carved_pumpkin", "jack_o_lantern", "slime_block", "honey_block", "magma_block", "shroomlight", "crying_obsidian",
           "gold_block", "diamond_block", "emerald_block", "lapis_block", "iron_block", "netherite_block", "raw_gold_block", "raw_iron_block",
           "raw_copper_block", "lodestone", "reinforced_deepslate", "bedrock", "budding_amethyst", "suspicious_sand", "suspicious_gravel",
-          "dried_kelp_block", "crimson_nylium", "warped_nylium", "mycelium", "podzol", "respawn_anchor", "potent_sulfur", "chiseled_resin_bricks", "petrified_oak_slab"}
+          "dried_kelp_block", "crimson_nylium", "warped_nylium", "mycelium", "podzol", "respawn_anchor", "potent_sulfur", "chiseled_resin_bricks", "petrified_oak_slab",
+          "creaking_heart"}   # creaking_heart: a mob-spawner log with a face texture, never a building block
 # material -> block families builders would use for it (out-of-family blocks pay W_FAM; keeps stone looking like stone)
 FAMILIES = {
  "stone": {"stone", "andesite", "tuff", "diorite", "calcite", "deepslate", "dripstone", "sandstone", "mud", "basalt", "granite", "end_stone"},
@@ -64,6 +65,12 @@ FAMILIES = {
  "trim_brown": {"wood", "terracotta", "mud", "brick", "granite", "soil"},
  "roof_shingle": {"brick", "terracotta", "granite", "mud", "nether_brick", "wood", "red_sandstone", "resin"}}
 W_FAM = 10.0
+# role-suited families: when another block is within PREF_SLACK dE of the best colour match, take the one a builder would use
+# for that role (a brown roof in brick/terracotta rather than granite, trim in wood). Not for siding: pale paint has no
+# natural family and sandstone (L 81) was picked over end_stone_bricks (L 87) for a L 94 wall
+PREFER = {"roof_shingle": {"brick", "terracotta", "nether_brick", "mud"}, "trim_brown": {"wood"},
+          "roof_slate": {"deepslate", "blackstone", "stone"}, "chimney_brick": {"brick"}}
+PREF_SLACK = 4.0
 LEGACY = os.environ.get("MC_LEGACY", "0") == "1"   # A/B switch: 1 = the mapper as it was before DETAIL_DISCOVERY P0
 ACCENT_MAX_DE = float(os.environ.get("MC_ACCENT_MAX_DE", 20.0 if LEGACY else 10.0))   # was 20: white_terracotta on sandstone (16 dE) read as pink patches
 NATURAL_OK = {"grass_block"}                  # biome-tinted, but the dataset stores its plains-tinted colours; only used via NATURAL
@@ -132,6 +139,10 @@ def choose(s, pool, base_L=None, used=()):
         return min(((x[0][1], x[1]) for x in fam_ok), default=(None, None))[1]
     sc = ok
     best_de = min(x[0][1] for x in sc)
+    pref = PREFER.get(s["m"])
+    if pref:
+        pr = [x for x in sc if BL[x[1]]["family"] in pref and x[0][1] <= best_de + PREF_SLACK]
+        if pr: sc = pr; best_de = min(x[0][1] for x in sc)
     sc = [x for x in sc if x[0][1] <= best_de + TECH_SLACK]          # technique may never cost more than +8 dE
     return min(sc)[1]
 # ---------- shapes ----------
@@ -561,6 +572,10 @@ ACCENTS = os.environ.get("MC_ACCENTS", "1") == "1"                 # warm/accent
 ROLE_POOLS = os.environ.get("MC_ROLE_POOLS", "1") == "1"           # shadow/trim/rough roles may pull blocks from outside the ramp neighbourhood (default)
 def run(n):
     global STRICT_NOW, SAT_CAP; STRICT_NOW = STRICT.get(n, set()); SAT_CAP = n in ACCENT_ALL
+    # colour_albedo.py output (labels colour_mode = albedo): the colours are already clean albedo per material, so no accent
+    # dither, <= 3 blocks per material and roles stay inside the material's own ramp
+    albedo = json.load(open(f"art/final/meta/{n}_texture_labels.json")).get("colour_mode") == "albedo"
+    maxb = 3 if albedo else MAX_BLOCKS_PER_MAT; accents = ACCENTS and not albedo; role_pools = ROLE_POOLS and not albedo
     T, F = mc_features.features(n)
     if n in ACCENT_ALL:
         bases = json.load(open(f"art/final/meta/{n}_texture_labels.json")).get("bases", {})
@@ -616,8 +631,8 @@ def run(n):
         bL = face_lab(BL[base], S[k0]["f_top"])[0]; hood = ramp_hood(base)
         for k in sorted(ks, key=lambda k: (abs(S[k]["sh"]), -S[k]["n"])):     # grow the ramp outward from the base
             if k in choice: continue
-            pool = hood | (HATCH_POOL if S[k]["role"] == "shadow" and ROLE_POOLS else set())
-            if ROLE_POOLS: pool |= {b["id"] for b in CAND if S[k]["role"] in ("trim", "rough", "smooth") and dE(S[k]["lab"], lab_of(b, "side")) < 12}
+            pool = hood | (HATCH_POOL if S[k]["role"] == "shadow" and role_pools else set())
+            if role_pools: pool |= {b["id"] for b in CAND if S[k]["role"] in ("trim", "rough", "smooth") and dE(S[k]["lab"], lab_of(b, "side")) < 12}
             pool = {p for p in pool if p in BL and (p in used or min(dE(lab_of(BL[p], "side"), lab_of(BL[u], "side")) for u in used) <= MAX_STEP)}
             prevs = [kk for kk in ks if kk in choice and S[kk]["sh"] == S[k]["sh"] - np.sign(S[k]["sh"])]
             refL = float(np.mean([face_lab(BL[choice[kk]], S[kk]["f_top"])[0] for kk in prevs])) if prevs and S[k]["sh"] != 0 else bL
@@ -626,7 +641,7 @@ def run(n):
         while True:
             cnt = collections.Counter()
             for k in ks: cnt[choice[k]] += S[k]["n"]
-            if len(cnt) <= MAX_BLOCKS_PER_MAT: break
+            if len(cnt) <= maxb: break
             drop = min((b for b in cnt if b != base), key=lambda b: cnt[b]); keep = [b for b in cnt if b != drop]
             for k in ks:
                 if choice[k] == drop: choice[k] = choose(S[k], keep, bL, set(keep)) or base
@@ -642,7 +657,7 @@ def run(n):
     # base block's plain/rough voxels (ordered 3D dither, fraction p) so the wall's average colour moves toward the photo tone
     warm_info = {}
     acc_mats = list(WARM.get(n, {})) + ([mm for mm in base_of if any(v["m"] == mm and "accent_target" in v for v in F)] if n in ACCENT_ALL else [])
-    if not ACCENTS: acc_mats = []
+    if not accents: acc_mats = []
     for mm in acc_mats:
         vs = [v for v in F if v["m"] == mm and ("warm_shift" in v or "accent_target" in v)]
         if len(vs) < 30 or mm not in base_of: continue

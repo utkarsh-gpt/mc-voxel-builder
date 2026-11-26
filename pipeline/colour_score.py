@@ -73,10 +73,10 @@ def textured_view(d, view, al, P, box, K):
             if best is None or iou > best[0]: best = (iou, a2, m2)
     return best
 
-def score(n, model=None, label="run", photo=True, K=8, log=print):
+def score(n, model=None, label="run", photo=True, K=8, log=print, sheet=None):
     model = model or f"art/final/{n}_mc_blocks.json"
     d, occ, bid, mat, blab = load_build(model); W, H, D = occ.shape
-    tag = json.load(open(f"art/final/meta/{n}_views.json"))["chosen"] if os.path.exists(f"art/final/meta/{n}_views.json") else "_v1"
+    tag = sheet or (json.load(open(f"art/final/meta/{n}_views.json"))["chosen"] if os.path.exists(f"art/final/meta/{n}_views.json") else "_v1")
     os.makedirs("out/colour", exist_ok=True)
     res = {"subject": n, "model": model, "sheet": tag, "outlier_de": OUTLIER_DE, "views": {}}
     blame_b, blame_m, vis_b = collections.Counter(), collections.Counter(), collections.Counter()
@@ -167,4 +167,5 @@ def score(n, model=None, label="run", photo=True, K=8, log=print):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("name"); ap.add_argument("--model"); ap.add_argument("--label", default="run"); ap.add_argument("--no-photo", action="store_true")
-    a = ap.parse_args(); score(a.name, a.model, a.label, not a.no_photo)
+    ap.add_argument("--sheet", help="drawing sheet tag to score against (default: the chosen sheet in meta/NAME_views.json)")
+    a = ap.parse_args(); score(a.name, a.model, a.label, not a.no_photo, sheet=a.sheet)

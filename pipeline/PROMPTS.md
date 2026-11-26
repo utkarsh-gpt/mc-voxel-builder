@@ -129,6 +129,15 @@ Tip: keep `--size` 24-64; bright, flat colours voxelize best; organic shapes > b
 
 ---
 
+### C1. Ortho reference sheets: lighting rule (ortho_gen.py / ortho_verify.py, 2026-11-25)
+Every sheet prompt carries: *flat ALBEDO colour only, as if lit evenly from every direction: no cast shadows (none under
+eaves, roof overhangs, porches, sills or dormers), no ambient occlusion or darkened corners and crevices, no gradients, no
+highlights and NO directional lighting. One material has exactly the same colour on every face and in every panel: the roof
+in the TOP plan is as bright as the roof in the FRONT view, and a wall under an overhang is the same colour as the rest of that
+wall. Keep genuinely dark materials (dark trim, glass, soot, stains, dark wood) and thin outlines as they are.*
+Why: Minecraft lights the build itself, so drawn shading turns into wrong (grey/brown) blocks. `shading_check.py` flags
+shaded sheets for free (see COLOUR.md) and `deshade.py` removes what is left.
+
 ## Sources
 - T2BM, "3D Building Generation in Minecraft via LLMs" (JSON interlayer + repair): https://arxiv.org/html/2406.08751
 - APT, "Architectural Planning and Text-to-Blueprint Construction Using LLMs" (layout synopsis -> code): https://arxiv.org/pdf/2411.17255v2.pdf

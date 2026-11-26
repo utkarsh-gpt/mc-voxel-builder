@@ -6,9 +6,10 @@ Only nano-banana/edit (~$0.039/sheet) is spent here."""
 import argparse, json, os, re, subprocess, sys, numpy as np
 from PIL import Image
 from skimage.transform import resize
-import ortho_carve, ortho_clean
+import ortho_carve, ortho_clean, shading_check
 COM = ("Match the photo EXACTLY in shape, proportions, number of parts and colours; do not stylise, simplify, beautify or add anything. "
-       "Draw ONLY the main object: no props, ground lines, walls or base plates. Colours must be sampled from the photo. No labels, text or panel frames.")
+       "Draw ONLY the main object: no props, ground lines, walls or base plates. Colours must be sampled from the photo. No labels, text or panel frames. "
+       "Flat albedo colours with NO shadows, shading, ambient occlusion or directional light: the same material has the same colour in every panel.")
 SPEC = {
  "windmill": ("stone tower windmill", "Specifics: cylindrical buff-grey limestone tower (about #A89F8C), height about 1.3x its diameter; lower half an open arcade of arches on "
    "square stone piers; one small dark window on the upper drum; shallow dark slate-grey dome cap. Four WHITE open-lattice sails in an X in the FRONT and BACK views only, "
@@ -61,7 +62,8 @@ Check physical and semantic sense, mutual consistency and faithfulness:
 - heights agree between front/side/back, widths agree between front/back/top, the side-view depth equals the top-view depth;
 - the back view is the mirror silhouette of the front;
 - each panel is a straight-on orthographic view (not perspective/oblique), the top view really looks straight down;
-- no extra props, ground, labels, frames; proportions and colours match the photo.
+- no extra props, ground, labels, frames; proportions and colours match the photo;
+- colours are flat albedo: no cast shadows (e.g. under eaves or a porch roof), no darkened corners, no gradients, no directional light; the same material is equally bright in every panel (the TOP plan roof is as bright as the FRONT roof).
 Automatic geometric checks already found: {geo}
 Reply with ONLY a JSON object: {{"pass": true/false, "bad_views": [subset of "front","right","back","top"], "issues": ["short specific fix instructions for the image generator"]}}"""
 VIEWS = ("front", "right", "back", "top")
@@ -79,7 +81,10 @@ def geo_checks(prefix):
     fb = resize(M["back"][:, ::-1].astype(float), M["front"].shape, order=1) > .5
     iou = float((fb & M["front"]).sum() / (fb | M["front"]).sum())
     if iou < 0.75: issues.append(f"back silhouette is not the mirror of the front (IoU {iou:.2f})"); bad.add("back")
-    return {"sizes_hw": {v: list(map(int, hw[v])) for v in VIEWS}, "front_back_mirror_iou": round(iou, 3), "issues": issues, "bad_views": sorted(bad)}
+    sc = shading_check.check(prefix.rsplit("_", 1)[0], "_" + prefix.rsplit("_", 1)[1])   # flat-albedo check (image only, free)
+    issues += sc["issues"]
+    return {"sizes_hw": {v: list(map(int, hw[v])) for v in VIEWS}, "front_back_mirror_iou": round(iou, 3), "issues": issues, "bad_views": sorted(bad),
+            "shading": {k: sc[k] for k in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")}}
 
 VERIFY_MODEL = "claude-haiku-5-5"   # Haiku-only verification (Sonnet confirm pass removed for cost)
 def llm_check(n, prefix, geo, model=VERIFY_MODEL):
@@ -97,14 +102,16 @@ def gen(n, tag, extra):
     for v in VIEWS: ortho_clean.clean(f"ortho/{n}{tag}_{v}.png")
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(); ap.add_argument("name"); ap.add_argument("--tries", type=int, default=3); ap.add_argument("--start", type=int, default=1); a = ap.parse_args(); n = a.name
+    ap = argparse.ArgumentParser(); ap.add_argument("name"); ap.add_argument("--tries", type=int, default=3); ap.add_argument("--start", type=int, default=1)
+    ap.add_argument("--tag-base", default="_v", help="sheet tag prefix: _v -> _v1, _v2 ...; e.g. _a for a fresh albedo series that keeps the old sheets")
+    a = ap.parse_args(); n = a.name
     attempts, extra = [], ""
     if a.start > 1:   # continue an earlier run: keep its attempts, feed the last attempt's fixes into the next sheet
         attempts = json.load(open(f"out/{n}_verify.json"))["attempts"]; last = attempts[-1]
         fixes = last["geo"]["issues"] + last["llm"].get("issues", [])
         extra = " FIX THESE PROBLEMS FOUND IN THE PREVIOUS ATTEMPT: " + " ".join(f"({i+1}) {f}." for i, f in enumerate(fixes[:8]))
     for k in range(a.start, a.start + a.tries):
-        tag = f"_v{k}"; gen(n, tag, extra); prefix = n + tag
+        tag = f"{a.tag_base}{k}"; gen(n, tag, extra); prefix = n + tag
         geo = geo_checks(prefix); llm = llm_check(n, prefix, geo)
         bad = sorted(set(geo["bad_views"]) | set(v for v in llm.get("bad_views", []) if v in VIEWS))
         ok = bool(llm.get("pass")) and not geo["issues"]

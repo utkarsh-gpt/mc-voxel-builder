@@ -508,11 +508,11 @@ def sheet_aspect_fix(mesh, n, tag, log=print):
     log(f"  drawing proportions: stretch x*{kx:.3f}, z*{kz:.3f} (y fixed)")
     mesh.apply_scale([kx, 1.0, kz]); return kx, kz
 
-def painted_colours(n_stem, mesh_path, ctr, rot, stretch, s, translate):
+def painted_colours(n_stem, mesh_path, ctr, rot, stretch, s, translate, path=None):
     """colour block centres from the painted model (art/<stem>_rendered_toned.json: ortho-painted + toned to the photo, the
     48-grid voxelisation of the same mesh) instead of the raw mesh texture; None if that model does not exist"""
     import vox
-    path = f"art/{n_stem}_rendered_toned.json"
+    path = path or f"art/{n_stem}_rendered_toned.json"
     if not os.path.exists(path): return None
     sc = trimesh.load(mesh_path); m0 = sc.to_geometry() if isinstance(sc, trimesh.Scene) else sc
     d48, occ48, col48, _ = vox.load(path, seed=0)

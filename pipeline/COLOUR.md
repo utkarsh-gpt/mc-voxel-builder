@@ -59,3 +59,57 @@ Tiles: drawing | build as seen (magenta = outlier) | dE map (green 0 .. red 40).
 Remaining outliers in the prototype are mostly feature frames (dark_oak_shelf/trapdoor, 18 of 24).
 Open points: the roof picks granite (closest to the drawing's #825949) instead of bricks; creaking_heart still enters
 the roof ramp through ramp_hood (deny-list candidate); the left view (mirrored right drawing) gets worse.
+
+## Albedo round (2026-11-25): lighting belongs to Minecraft, not to block choice
+Diagnosis (review): colours were used too literally. Drawn shadows (under the roof overhang, porch) make colours greyer
+and darker, so the mapped block went grey/brown. Minecraft shades the build itself (sky light, AO, face shading).
+
+What changed
+* **Ortho prompt rule** (`ortho_gen.PROMPT`, `ortho_verify.COM` + the Haiku checklist): flat albedo only, no cast shadows,
+  AO, gradients, highlights or directional light; same material = same colour in every panel (top as bright as front);
+  genuinely dark materials stay. `ortho_verify --tag-base _a` starts a fresh sheet series without touching `_v*`.
+* **`shading_check.py`** (free, image only, part of `ortho_verify.geo_checks`): same-hue material clusters per panel;
+  flags `|top_vs_front_dL| > 8`, `shadow_share > 0.10` (pixels >= 8 L below their material median), `gradient_std > 3.0`
+  (blurred L residual). Old `_v1/_v2/_v3`: shadow 0.18 / 0.17 / 0.18 (all flagged); new `_a1` 0.03, `_a3` 0.07 (pass),
+  `_a2` 0.15 (flagged).
+* **`deshade.py`**: per sampled face, ray-marched visibility V (AO) and sky visibility Vsky (overhangs) from the geometry;
+  a robust fit of how shaded THIS sheet is (`ln(Y/Y_lit) = b_view - kA(1-V) - kS(1-Vsky) - kD down`, same for chroma),
+  then divided out (clamped 0.45..1.6). Also applied to the photo-toned 48-grid colours (voxelised mesh) that fill blocks
+  no drawing sees. Fitted overhang term kS: old `_v1` 0.245, new `_a3` 0.11 (old mesh) / 0.083 (new mesh): the new
+  prompt halves the drawn shading; kA ~ 0 on both.
+* **`colour_albedo.py`** (the colour stage for the house): colour_proto's ortho sampling + de-shade, material bases from
+  well-lit samples only (V > 0.8, Vsky > 0.85), guarded majority filter (a block only flips to the neighbourhood
+  material if its colour is within 6 dE of it too: the one-block porch roof row stays roof), lone specks reassigned,
+  shade slots only for real albedo variation (material-local smoothed L >= 12 from the base: the house ends up with one
+  shade per material), labels `colour_mode = albedo`.
+* **`mc_map.py`**: `colour_mode = albedo` -> no accent dither, <= 3 blocks per material, roles stay in the ramp;
+  `creaking_heart` banned everywhere; `PREFER` role families within 4 dE (roof_shingle: brick/terracotta/nether_brick/mud,
+  trim_brown: wood, roof_slate, chimney_brick). Siding is not preferred (it pushed sandstone L 81 over end_stone_bricks
+  L 87 for a L 94 wall). Hagia output unchanged (checked).
+
+Numbers (house; colour_score mean over front/right/back; "as seen" = textured render per block cell)
+| build | sheet scored | dE mean | median | p90 | outliers | EMD | photo px dE |
+|---|---|---|---|---|---|---|---|
+| current default (HEAD) | _v1 | 18.52 | 13.51 | 42.38 | 7.84 % | 12.86 | 31.8 |
+| last round prototype | _v1 | 14.31 | 8.22 | 33.61 | 2.97 % | 11.56 | 31.5 |
+| albedo pipeline, no de-shade, _v1 ("neither") | _v1 | 14.16 | 7.83 | 34.57 | 3.25 % | 11.24 | 31.9 |
+| **de-shade only, _v1 (FINAL, deployed)** | _v1 | 14.18 | **7.60** | 34.19 | 3.36 % | **10.95** | 32.0 |
+| new prompt only (_a3 on old mesh) | _a3 | 17.20 | 8.81 | 41.78 | 10.47 % | 14.39 | 31.6 |
+| both (_a3 + de-shade, old mesh) | _a3 | 17.23 | 8.98 | 41.78 | 10.47 % | 14.53 | 31.8 |
+| new mesh from _a3, palette_generic colours | _a3 | 19.31 | 15.85 | 45.68 | 10.24 % | 16.85 | 34.0 |
+| new mesh from _a3, albedo no de-shade | _a3 | 16.54 | 11.09 | 35.26 | 9.39 % | 14.30 | 32.0 |
+| new mesh from _a3, albedo + de-shade | _a3 | 16.50 | 11.09 | 34.90 | 9.49 % | 14.48 | 32.0 |
+| (default HEAD scored on _a3 for reference) | _a3 | 19.26 | 11.08 | 44.39 | 9.52 % | 16.17 | 31.8 |
+
+Shape (shape_compare IoU front / right / top, mean): old mesh vs _v1 0.772 / 0.487 / 0.835 = 0.698 (unchanged by
+colour); new _a3 mesh vs _a3 0.742 / 0.388 / 0.953 = 0.694, vs _v1 0.730 / 0.483 / 0.790 = 0.668; renders of the new
+mesh show holes and ragged roof edges, so it was not adopted.
+
+Reading
+* Sampling a new sheet onto geometry built from another sheet misplaces features (porch, window columns): "new prompt
+  only" / "both" lose to the old sheet. A new sheet needs its own mesh; the `_a3` mesh fixed the colours (flat walls,
+  no brown) but regressed the shape, so the deployed house keeps the `_v1` geometry with de-shaded `_v1` colours.
+* De-shade on `_v1` moves 56 of 1077 seen blocks by > 5 dE (mean 1.3), reassigns ~45 blocks (22 trim -> siding, 7 roof
+  -> siding under eaves) and shifts the trim base; small on the score because last round's ortho-locked palette and
+  cleanup already removed most of the damage.
+* Remaining outliers are feature placements (frames, panes, window backing), not material choice.

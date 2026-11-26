@@ -11,7 +11,8 @@ Layout: one square image split into a 2x2 grid of four equal square panels, pure
 - Bottom-right panel: TOP plan view, looking straight down, with the front of the object pointing to the bottom of the panel.
 Rules: true orthographic projection with no perspective and no foreshortening. Exactly the same scale in all four panels.
 In the three elevations the base sits on the same horizontal line and the top is at the same height. Each object is centred in its panel with a small margin and fully visible.
-Show only the object: no ground, sky, shadows, people or background. Use flat, even lighting and flat colours that match the photo's materials.
+Show only the object: no ground, sky, shadows, people or background. Colours match the photo's materials.
+LIGHTING RULE: draw flat ALBEDO colour only, as if the object were lit evenly from every direction: no cast shadows (none under eaves, roof overhangs, porches, sills or dormers), no ambient occlusion or darkened corners and crevices, no gradients, no highlights and NO directional lighting. One material has exactly the same colour on every face and in every panel: the roof in the TOP plan is as bright as the roof in the FRONT view, and a wall under an overhang is the same colour as the rest of that wall. Keep genuinely dark materials (dark trim, glass, soot, stains, dark wood) and thin outlines as they are.
 Keep every thin part (sails, legs, branches, foliage clumps) with the same proportions as in the photo.
 The four views must describe ONE consistent 3D object: widths in the front view equal widths in the top view, depths in the right view equal depths in the top view.
 The TOP view is a true plan seen from directly overhead, not tilted: anything lying in a vertical plane (such as windmill sails) appears as a thin straight line.

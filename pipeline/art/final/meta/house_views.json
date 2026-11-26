@@ -1,1 +1,16 @@
-{"chosen": "_v1", "note": "ortho sheet tag the house build was painted from (recovered by reproducing art/house_lowpoly_rendered.json exactly)"}
+{
+ "chosen": "_v1",
+ "views_used": [
+  "front",
+  "right",
+  "back",
+  "top"
+ ],
+ "views_dropped": [],
+ "albedo_sheets": [
+  "_a1",
+  "_a2",
+  "_a3"
+ ],
+ "note": "_v1 stays the build sheet: the house geometry (mesh out/proxy/house_lowpoly.glb) was made from it. The no-shadow albedo series _a1-_a3 was generated 2026-11-25; a new mesh from _a3 (meta/house_mesh_a3.json) gave a messier shape, and _a3 colours sampled onto the _v1 geometry misalign, so colours come from _v1 + deshade.py (COLOUR.md)."
+}
