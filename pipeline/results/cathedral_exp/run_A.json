@@ -1,0 +1,7000 @@
+{
+ "run": "A",
+ "attempts": [
+  {
+   "tag": "bpA1",
+   "named_missing": [],
+   "sheet": "ortho/cathedral_bpA1_sheet.png",
+   "prompt_chars": 26596,
+   "shading": {
+    "top_vs_front_dL": 8.4,
+    "shadow_share": 0.406,
+    "gradient_std": 9.751,
+    "shaded": true
+   },
+   "mesh_url": "https://v3b.fal.media/files/b/0ab3f680/5UEgKs1jkKv0qol0fFPif_base_basic_shaded.glb",
+   "grids": [
+    {
+     "grid": 48,
+     "size": [
+      25,
+      48,
+      42
+     ],
+     "voxels": 19198,
+     "renders": {
+      "front": "out/cathedral_exp/bpA1_g48_grey_front.png",
+      "right": "out/cathedral_exp/bpA1_g48_grey_right.png",
+      "back": "out/cathedral_exp/bpA1_g48_grey_back.png",
+      "left": "out/cathedral_exp/bpA1_g48_grey_left.png",
+      "three_quarter": "out/cathedral_exp/bpA1_g48_grey_3q.png"
+     },
+     "missing": [
+      "plinth",
+      "rose",
+      "front_window",
+      "gallery_balustrade",
+      "belfry_opening",
+      "parapet",
+      "aisle_window",
+      "clerestory_window",
+      "pinnacle",
+      "apse_window",
+      "apse_flying_buttress",
+      "aisle_window_left",
+      "clerestory_window_left",
+      "pinnacle_left"
+     ],
+     "detail_missing": {
+      "plinth": [
+       "margin slab beyond the walls",
+       "shallow step at the west portals"
+      ],
+      "west_front": [
+       "string courses",
+       "sills under windows",
+       "teeth band under the centre string course"
+      ],
+      "tower": [
+       "corner buttress set-offs"
+      ],
+      "belfry": [
+       "angled shoulders at the corners"
+      ],
+      "nave": [
+       "aisle roof lean-tos under each clerestory window"
+      ],
+      "roof": [
+       "cross at the hipped east cap"
+      ],
+      "apse": [
+       "three apse windows",
+       "fan of apse flying buttresses"
+      ],
+      "portal_main": [
+       "two doors",
+       "gable crockets",
+       "gable medallion"
+      ],
+      "portal_side": [
+       "doors",
+       "gable finials"
+      ],
+      "gallery_arcade": [
+       "five separate pointed lights",
+       "columns between lights"
+      ],
+      "rose": [
+       "circular recess",
+       "raised ring",
+       "twelve-spoke tracery"
+      ],
+      "front_window": [
+       "stacked pair of four",
+       "mullions",
+       "head tracery"
+      ],
+      "front_gable": [
+       "three narrow slits",
+       "cross at tip"
+      ],
+      "gallery_balustrade": [
+       "row of open balusters",
+       "top rail"
+      ],
+      "belfry_opening": [
+       "two openings per face",
+       "horizontal louvre slots"
+      ],
+      "parapet": [
+       "square merlons",
+       "gaps between teeth"
+      ],
+      "aisle_window": [
+       "eleven pointed recesses",
+       "quatrefoil heads"
+      ],
+      "clerestory_window": [
+       "ten clerestory recesses",
+       "sloping sills"
+      ],
+      "side_buttress": [
+       "set-offs at each step"
+      ],
+      "flying_buttress": [
+       "thin arch under each arm"
+      ],
+      "pinnacle": [
+       "pointed spike on each pier",
+       "side gablets"
+      ],
+      "apse_window": [
+       "three pointed apse openings"
+      ],
+      "apse_flying_buttress": [
+       "fan of curved arms",
+       "pinnacles on arm ends"
+      ],
+      "aisle_window_left": [
+       "eleven pointed recesses",
+       "quatrefoil heads"
+      ],
+      "clerestory_window_left": [
+       "ten clerestory recesses",
+       "sloping sills"
+      ],
+      "side_buttress_left": [
+       "set-offs at each step"
+      ],
+      "flying_buttress_left": [
+       "thin arch under each arm"
+      ],
+      "pinnacle_left": [
+       "pointed spike on each pier",
+       "side gablets"
+      ]
+     },
+     "parts": {
+      "plinth": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "margin slab beyond the walls",
+        "shallow step at the west portals"
+       ]
+      },
+      "west_front": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "string courses",
+        "sills under windows",
+        "teeth band under the centre string course"
+       ]
+      },
+      "tower": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "corner buttress set-offs"
+       ]
+      },
+      "belfry": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "angled shoulders at the corners"
+       ]
+      },
+      "spire": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "nave": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "aisle roof lean-tos under each clerestory window"
+       ]
+      },
+      "roof": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "cross at the hipped east cap"
+       ]
+      },
+      "apse": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "three apse windows",
+        "fan of apse flying buttresses"
+       ]
+      },
+      "portal_main": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "two doors",
+        "gable crockets",
+        "gable medallion"
+       ]
+      },
+      "portal_side": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "doors",
+        "gable finials"
+       ]
+      },
+      "gallery_arcade": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "five separate pointed lights",
+        "columns between lights"
+       ]
+      },
+      "rose": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "circular recess",
+        "raised ring",
+        "twelve-spoke tracery"
+       ]
+      },
+      "front_window": {
+       "present": false,
+       "count": 4,
+       "count_seen": 2,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "stacked pair of four",
+        "mullions",
+        "head tracery"
+       ]
+      },
+      "front_gable": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "set_back"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "three narrow slits",
+        "cross at tip"
+       ]
+      },
+      "gallery_balustrade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "row of open balusters",
+        "top rail"
+       ]
+      },
+      "belfry_opening": {
+       "present": false,
+       "count": 16,
+       "count_seen": 0,
+       "built_as": [
+        "open"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "two openings per face",
+        "horizontal louvre slots"
+       ]
+      },
+      "parapet": {
+       "present": false,
+       "count": 2,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "square merlons",
+        "gaps between teeth"
+       ]
+      },
+      "aisle_window": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "eleven pointed recesses",
+        "quatrefoil heads"
+       ]
+      },
+      "clerestory_window": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten clerestory recesses",
+        "sloping sills"
+       ]
+      },
+      "side_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "set-offs at each step"
+       ]
+      },
+      "flying_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": [
+        "thin arch under each arm"
+       ]
+      },
+      "pinnacle": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed spike on each pier",
+        "side gablets"
+       ]
+      },
+      "apse_window": {
+       "present": false,
+       "count": 3,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "three pointed apse openings"
+       ]
+      },
+      "apse_flying_buttress": {
+       "present": false,
+       "count": 7,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "fan of curved arms",
+        "pinnacles on arm ends"
+       ]
+      },
+      "aisle_window_left": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "eleven pointed recesses",
+        "quatrefoil heads"
+       ]
+      },
+      "clerestory_window_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten clerestory recesses",
+        "sloping sills"
+       ]
+      },
+      "side_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "set-offs at each step"
+       ]
+      },
+      "flying_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": [
+        "thin arch under each arm"
+       ]
+      },
+      "pinnacle_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed spike on each pier",
+        "side gablets"
+       ]
+      }
+     },
+     "depth_count": {
+      "front": {
+       "patches": 10,
+       "recess": 10,
+       "open": 0,
+       "image_hw": [
+        48,
+        25
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 19,
+         "row": 18,
+         "col": 5,
+         "h": 9,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 18,
+         "row": 18,
+         "col": 20,
+         "h": 9,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 26,
+         "col": 7,
+         "h": 9,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 23,
+         "col": 16,
+         "h": 2,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 11,
+         "row": 27,
+         "col": 18,
+         "h": 7,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 38,
+         "row": 30,
+         "col": 12,
+         "h": 9,
+         "w": 7
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 35,
+         "col": 2,
+         "h": 2,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 35,
+         "col": 23,
+         "h": 2,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 38,
+         "col": 9,
+         "h": 4,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 38,
+         "col": 15,
+         "h": 4,
+         "w": 1
+        }
+       ]
+      },
+      "right": {
+       "patches": 2,
+       "recess": 2,
+       "open": 0,
+       "image_hw": [
+        48,
+        42
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 32,
+         "col": 33,
+         "h": 5,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 40,
+         "col": 33,
+         "h": 6,
+         "w": 1
+        }
+       ]
+      },
+      "back": {
+       "patches": 2,
+       "recess": 2,
+       "open": 0,
+       "image_hw": [
+        48,
+        25
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 25,
+         "row": 30,
+         "col": 12,
+         "h": 9,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 23,
+         "row": 41,
+         "col": 13,
+         "h": 10,
+         "w": 4
+        }
+       ]
+      },
+      "left": {
+       "patches": 3,
+       "recess": 3,
+       "open": 0,
+       "image_hw": [
+        48,
+        42
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 13,
+         "row": 27,
+         "col": 24,
+         "h": 3,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 32,
+         "col": 8,
+         "h": 5,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 40,
+         "col": 8,
+         "h": 6,
+         "w": 1
+        }
+       ]
+      }
+     },
+     "haiku_usd": 0.011,
+     "haiku_summary": "The grey renders show the two towers with belfries and spires, the west front with its three portal recesses, the front gable, the centre-section gallery and the nave roof, plus the ten side buttresses and flying buttresses on each side; the plinth, rose, balustrade, belfry openings, parapets, all aisle and clerestory windows, apse windows and apse buttresses, and pinnacles do not resolve as their own shapes at this resolution."
+    },
+    {
+     "grid": 72,
+     "size": [
+      37,
+      72,
+      64
+     ],
+     "voxels": 61075,
+     "renders": {
+      "front": "out/cathedral_exp/bpA1_g72_grey_front.png",
+      "right": "out/cathedral_exp/bpA1_g72_grey_right.png",
+      "back": "out/cathedral_exp/bpA1_g72_grey_back.png",
+      "left": "out/cathedral_exp/bpA1_g72_grey_left.png",
+      "three_quarter": "out/cathedral_exp/bpA1_g72_grey_3q.png"
+     },
+     "missing": [
+      "plinth",
+      "rose",
+      "gallery_balustrade",
+      "belfry_opening",
+      "parapet",
+      "aisle_window",
+      "clerestory_window",
+      "side_buttress",
+      "flying_buttress",
+      "pinnacle",
+      "apse_window",
+      "apse_flying_buttress",
+      "aisle_window_left",
+      "clerestory_window_left",
+      "side_buttress_left",
+      "flying_buttress_left",
+      "pinnacle_left"
+     ],
+     "detail_missing": {
+      "plinth": [
+       "separate slab with a visible margin of ground around the walls"
+      ],
+      "nave": [
+       "aisle and clerestory levels not separately resolved"
+      ],
+      "apse": [
+       "rounded many-sided plan not resolved"
+      ],
+      "portal_main": [
+       "crockets on gable",
+       "medallion in gable",
+       "fan ribbing above doors"
+      ],
+      "portal_side": [
+       "gable spikes",
+       "medallions"
+      ],
+      "gallery_arcade": [
+       "five separate pointed heads not resolved"
+      ],
+      "rose": [
+       "circular recess",
+       "twelve-spoke tracery",
+       "petal lobes",
+       "raised stone ring"
+      ],
+      "front_window": [
+       "mullions",
+       "tracery in pointed heads"
+      ],
+      "front_gable": [
+       "cross at tip"
+      ],
+      "gallery_balustrade": [
+       "row of balusters",
+       "top rail"
+      ],
+      "belfry_opening": [
+       "louvre slats",
+       "openings on back and side faces not resolvable, only the front-face pair is countable"
+      ],
+      "parapet": [
+       "square merlons",
+       "gaps between teeth"
+      ],
+      "aisle_window": [
+       "pointed window heads in lower side wall",
+       "mullions"
+      ],
+      "clerestory_window": [
+       "pointed windows in clerestory wall",
+       "sloping sills"
+      ],
+      "pinnacle": [
+       "spikes on pier tops"
+      ],
+      "apse_window": [
+       "three pointed openings on apse wall"
+      ],
+      "apse_flying_buttress": [
+       "fan of curved arms round apse",
+       "pinnacles on arm ends"
+      ],
+      "aisle_window_left": [
+       "pointed window heads in lower side wall",
+       "mullions"
+      ],
+      "clerestory_window_left": [
+       "pointed windows in clerestory wall",
+       "sloping sills"
+      ],
+      "pinnacle_left": [
+       "spikes on pier tops"
+      ]
+     },
+     "parts": {
+      "plinth": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "separate slab with a visible margin of ground around the walls"
+       ]
+      },
+      "west_front": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "tower": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "belfry": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "spire": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "nave": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "aisle and clerestory levels not separately resolved"
+       ]
+      },
+      "roof": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "apse": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "rounded many-sided plan not resolved"
+       ]
+      },
+      "portal_main": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back",
+        "proud"
+       ],
+       "detail_missing": [
+        "crockets on gable",
+        "medallion in gable",
+        "fan ribbing above doors"
+       ]
+      },
+      "portal_side": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "gable spikes",
+        "medallions"
+       ]
+      },
+      "gallery_arcade": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "five separate pointed heads not resolved"
+       ]
+      },
+      "rose": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "circular recess",
+        "twelve-spoke tracery",
+        "petal lobes",
+        "raised stone ring"
+       ]
+      },
+      "front_window": {
+       "present": true,
+       "count": 4,
+       "count_seen": 4,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "mullions",
+        "tracery in pointed heads"
+       ]
+      },
+      "front_gable": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "set_back"
+       ],
+       "built_as_seen": [
+        "outline",
+        "set_back"
+       ],
+       "detail_missing": [
+        "cross at tip"
+       ]
+      },
+      "gallery_balustrade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "row of balusters",
+        "top rail"
+       ]
+      },
+      "belfry_opening": {
+       "present": false,
+       "count": 16,
+       "count_seen": 4,
+       "built_as": [
+        "open"
+       ],
+       "built_as_seen": [
+        "open"
+       ],
+       "detail_missing": [
+        "louvre slats",
+        "openings on back and side faces not resolvable, only the front-face pair is countable"
+       ]
+      },
+      "parapet": {
+       "present": false,
+       "count": 2,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "square merlons",
+        "gaps between teeth"
+       ]
+      },
+      "aisle_window": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed window heads in lower side wall",
+        "mullions"
+       ]
+      },
+      "clerestory_window": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed windows in clerestory wall",
+        "sloping sills"
+       ]
+      },
+      "side_buttress": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "spikes on pier tops"
+       ]
+      },
+      "apse_window": {
+       "present": false,
+       "count": 3,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "three pointed openings on apse wall"
+       ]
+      },
+      "apse_flying_buttress": {
+       "present": false,
+       "count": 7,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "fan of curved arms round apse",
+        "pinnacles on arm ends"
+       ]
+      },
+      "aisle_window_left": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed window heads in lower side wall",
+        "mullions"
+       ]
+      },
+      "clerestory_window_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed windows in clerestory wall",
+        "sloping sills"
+       ]
+      },
+      "side_buttress_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "spikes on pier tops"
+       ]
+      }
+     },
+     "depth_count": {
+      "front": {
+       "patches": 11,
+       "recess": 11,
+       "open": 0,
+       "image_hw": [
+        72,
+        37
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 28,
+         "row": 29,
+         "col": 7,
+         "h": 10,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 28,
+         "row": 29,
+         "col": 29,
+         "h": 10,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 25,
+         "row": 40,
+         "col": 11,
+         "h": 10,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 38,
+         "col": 7,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 38,
+         "col": 29,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 41,
+         "col": 26,
+         "h": 6,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 18,
+         "row": 40,
+         "col": 18,
+         "h": 3,
+         "w": 9
+        },
+        {
+         "kind": "recess",
+         "cells": 25,
+         "row": 48,
+         "col": 15,
+         "h": 10,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 25,
+         "row": 48,
+         "col": 21,
+         "h": 10,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 10,
+         "row": 57,
+         "col": 7,
+         "h": 7,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 10,
+         "row": 57,
+         "col": 30,
+         "h": 7,
+         "w": 2
+        }
+       ]
+      },
+      "right": {
+       "patches": 16,
+       "recess": 16,
+       "open": 0,
+       "image_hw": [
+        72,
+        64
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 31,
+         "row": 28,
+         "col": 51,
+         "h": 14,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 36,
+         "col": 22,
+         "h": 1,
+         "w": 6
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 36,
+         "col": 32,
+         "h": 1,
+         "w": 6
+        },
+        {
+         "kind": "recess",
+         "cells": 33,
+         "row": 45,
+         "col": 51,
+         "h": 17,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 12,
+         "row": 42,
+         "col": 15,
+         "h": 6,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 40,
+         "col": 19,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 40,
+         "col": 24,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 40,
+         "col": 29,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 40,
+         "col": 34,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 40,
+         "col": 38,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 41,
+         "col": 43,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 44,
+         "col": 20,
+         "h": 2,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 44,
+         "col": 24,
+         "h": 2,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 44,
+         "col": 30,
+         "h": 2,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 44,
+         "col": 33,
+         "h": 2,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 22,
+         "row": 60,
+         "col": 51,
+         "h": 11,
+         "w": 2
+        }
+       ]
+      },
+      "back": {
+       "patches": 3,
+       "recess": 3,
+       "open": 0,
+       "image_hw": [
+        72,
+        37
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 36,
+         "row": 49,
+         "col": 18,
+         "h": 8,
+         "w": 7
+        },
+        {
+         "kind": "recess",
+         "cells": 22,
+         "row": 57,
+         "col": 18,
+         "h": 5,
+         "w": 7
+        },
+        {
+         "kind": "recess",
+         "cells": 17,
+         "row": 64,
+         "col": 18,
+         "h": 3,
+         "w": 7
+        }
+       ]
+      },
+      "left": {
+       "patches": 11,
+       "recess": 11,
+       "open": 0,
+       "image_hw": [
+        72,
+        64
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 31,
+         "row": 28,
+         "col": 13,
+         "h": 14,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 33,
+         "row": 45,
+         "col": 13,
+         "h": 17,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 41,
+         "col": 21,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 17,
+         "row": 40,
+         "col": 27,
+         "h": 3,
+         "w": 7
+        },
+        {
+         "kind": "recess",
+         "cells": 18,
+         "row": 40,
+         "col": 37,
+         "h": 3,
+         "w": 8
+        },
+        {
+         "kind": "recess",
+         "cells": 23,
+         "row": 42,
+         "col": 47,
+         "h": 7,
+         "w": 8
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 44,
+         "col": 30,
+         "h": 3,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 44,
+         "col": 34,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 44,
+         "col": 40,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 44,
+         "col": 43,
+         "h": 3,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 22,
+         "row": 60,
+         "col": 13,
+         "h": 11,
+         "w": 2
+        }
+       ]
+      }
+     },
+     "haiku_usd": 0.012,
+     "haiku_summary": "The main massing is present (two towers with stepped belfries and spires, west front, nave with roof, side piers and flying buttresses), but the rose, gallery balustrade, parapet, pinnacles, the clerestory and aisle windows, and the apse windows and buttresses do not show as their own shapes at this grey resolution, and the plinth is not distinguishable."
+    }
+   ],
+   "grid_used": 48,
+   "missing": [
+    "plinth",
+    "rose",
+    "front_window",
+    "gallery_balustrade",
+    "belfry_opening",
+    "parapet",
+    "aisle_window",
+    "clerestory_window",
+    "pinnacle",
+    "apse_window",
+    "apse_flying_buttress",
+    "aisle_window_left",
+    "clerestory_window_left",
+    "pinnacle_left"
+   ],
+   "detail_missing": {
+    "plinth": [
+     "margin slab beyond the walls",
+     "shallow step at the west portals"
+    ],
+    "west_front": [
+     "string courses",
+     "sills under windows",
+     "teeth band under the centre string course"
+    ],
+    "tower": [
+     "corner buttress set-offs"
+    ],
+    "belfry": [
+     "angled shoulders at the corners"
+    ],
+    "nave": [
+     "aisle roof lean-tos under each clerestory window"
+    ],
+    "roof": [
+     "cross at the hipped east cap"
+    ],
+    "apse": [
+     "three apse windows",
+     "fan of apse flying buttresses"
+    ],
+    "portal_main": [
+     "two doors",
+     "gable crockets",
+     "gable medallion"
+    ],
+    "portal_side": [
+     "doors",
+     "gable finials"
+    ],
+    "gallery_arcade": [
+     "five separate pointed lights",
+     "columns between lights"
+    ],
+    "rose": [
+     "circular recess",
+     "raised ring",
+     "twelve-spoke tracery"
+    ],
+    "front_window": [
+     "stacked pair of four",
+     "mullions",
+     "head tracery"
+    ],
+    "front_gable": [
+     "three narrow slits",
+     "cross at tip"
+    ],
+    "gallery_balustrade": [
+     "row of open balusters",
+     "top rail"
+    ],
+    "belfry_opening": [
+     "two openings per face",
+     "horizontal louvre slots"
+    ],
+    "parapet": [
+     "square merlons",
+     "gaps between teeth"
+    ],
+    "aisle_window": [
+     "eleven pointed recesses",
+     "quatrefoil heads"
+    ],
+    "clerestory_window": [
+     "ten clerestory recesses",
+     "sloping sills"
+    ],
+    "side_buttress": [
+     "set-offs at each step"
+    ],
+    "flying_buttress": [
+     "thin arch under each arm"
+    ],
+    "pinnacle": [
+     "pointed spike on each pier",
+     "side gablets"
+    ],
+    "apse_window": [
+     "three pointed apse openings"
+    ],
+    "apse_flying_buttress": [
+     "fan of curved arms",
+     "pinnacles on arm ends"
+    ],
+    "aisle_window_left": [
+     "eleven pointed recesses",
+     "quatrefoil heads"
+    ],
+    "clerestory_window_left": [
+     "ten clerestory recesses",
+     "sloping sills"
+    ],
+    "side_buttress_left": [
+     "set-offs at each step"
+    ],
+    "flying_buttress_left": [
+     "thin arch under each arm"
+    ],
+    "pinnacle_left": [
+     "pointed spike on each pier",
+     "side gablets"
+    ]
+   }
+  },
+  {
+   "tag": "bpA2",
+   "named_missing": [
+    "plinth",
+    "rose",
+    "front_window",
+    "gallery_balustrade",
+    "belfry_opening",
+    "parapet",
+    "aisle_window",
+    "clerestory_window",
+    "pinnacle",
+    "apse_window",
+    "apse_flying_buttress",
+    "aisle_window_left",
+    "clerestory_window_left",
+    "pinnacle_left"
+   ],
+   "sheet": "ortho/cathedral_bpA2_sheet.png",
+   "prompt_chars": 28581,
+   "shading": {
+    "top_vs_front_dL": 23.5,
+    "shadow_share": 0.353,
+    "gradient_std": 8.227,
+    "shaded": true
+   },
+   "mesh_url": "https://v3b.fal.media/files/b/0ab3f69c/UZialYEN8Sx73eY-flqNt_base_basic_shaded.glb",
+   "grids": [
+    {
+     "grid": 48,
+     "size": [
+      31,
+      48,
+      30
+     ],
+     "voxels": 6596,
+     "renders": {
+      "front": "out/cathedral_exp/bpA2_g48_grey_front.png",
+      "right": "out/cathedral_exp/bpA2_g48_grey_right.png",
+      "back": "out/cathedral_exp/bpA2_g48_grey_back.png",
+      "left": "out/cathedral_exp/bpA2_g48_grey_left.png",
+      "three_quarter": "out/cathedral_exp/bpA2_g48_grey_3q.png"
+     },
+     "missing": [
+      "roof",
+      "rose",
+      "gallery_balustrade",
+      "belfry_opening",
+      "parapet",
+      "aisle_window",
+      "clerestory_window",
+      "aisle_window_left",
+      "clerestory_window_left"
+     ],
+     "detail_missing": {
+      "west_front": [
+       "stepped buttress piers standing proud of the front are only faintly resolved"
+      ],
+      "belfry": [
+       "angled shoulders read only as steps"
+      ],
+      "roof": [
+       "long slate gable roof planes",
+       "ridge",
+       "hipped east cap",
+       "cross at apse peak"
+      ],
+      "portal_main": [
+       "crockets on gable",
+       "medallion",
+       "doors at back of recess"
+      ],
+      "portal_side": [
+       "finials",
+       "medallions"
+      ],
+      "gallery_arcade": [
+       "five separate pointed recesses with columns between them"
+      ],
+      "rose": [
+       "circular ring",
+       "twelve-spoke tracery",
+       "round recess outline"
+      ],
+      "front_window": [
+       "mullion between lights",
+       "pointed heads"
+      ],
+      "front_gable": [
+       "three narrow slits",
+       "cross at tip"
+      ],
+      "gallery_balustrade": [
+       "row of separate balusters",
+       "open gaps under top rail"
+      ],
+      "belfry_opening": [
+       "louvred openings on belfry faces",
+       "two openings per face"
+      ],
+      "parapet": [
+       "square battlement teeth",
+       "corbels"
+      ],
+      "aisle_window": [
+       "eleven recessed pointed windows on the right side wall",
+       "pointed heads"
+      ],
+      "clerestory_window": [
+       "ten recessed pointed windows on the right clerestory",
+       "sloping sills"
+      ],
+      "apse_window": [
+       "pointed heads"
+      ],
+      "apse_flying_buttress": [
+       "pinnacles on arm ends"
+      ],
+      "aisle_window_left": [
+       "eleven recessed pointed windows on the left side wall"
+      ],
+      "clerestory_window_left": [
+       "ten recessed pointed windows on the left clerestory"
+      ]
+     },
+     "parts": {
+      "plinth": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "west_front": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "stepped buttress piers standing proud of the front are only faintly resolved"
+       ]
+      },
+      "tower": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "belfry": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "angled shoulders read only as steps"
+       ]
+      },
+      "spire": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "nave": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "roof": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "long slate gable roof planes",
+        "ridge",
+        "hipped east cap",
+        "cross at apse peak"
+       ]
+      },
+      "apse": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "portal_main": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back",
+        "proud"
+       ],
+       "detail_missing": [
+        "crockets on gable",
+        "medallion",
+        "doors at back of recess"
+       ]
+      },
+      "portal_side": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back",
+        "proud"
+       ],
+       "detail_missing": [
+        "finials",
+        "medallions"
+       ]
+      },
+      "gallery_arcade": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "five separate pointed recesses with columns between them"
+       ]
+      },
+      "rose": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "circular ring",
+        "twelve-spoke tracery",
+        "round recess outline"
+       ]
+      },
+      "front_window": {
+       "present": true,
+       "count": 4,
+       "count_seen": 4,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back",
+        "proud"
+       ],
+       "detail_missing": [
+        "mullion between lights",
+        "pointed heads"
+       ]
+      },
+      "front_gable": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "set_back"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "three narrow slits",
+        "cross at tip"
+       ]
+      },
+      "gallery_balustrade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "row of separate balusters",
+        "open gaps under top rail"
+       ]
+      },
+      "belfry_opening": {
+       "present": false,
+       "count": 16,
+       "count_seen": 0,
+       "built_as": [
+        "open"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "louvred openings on belfry faces",
+        "two openings per face"
+       ]
+      },
+      "parapet": {
+       "present": false,
+       "count": 2,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "square battlement teeth",
+        "corbels"
+       ]
+      },
+      "aisle_window": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "eleven recessed pointed windows on the right side wall",
+        "pointed heads"
+       ]
+      },
+      "clerestory_window": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten recessed pointed windows on the right clerestory",
+        "sloping sills"
+       ]
+      },
+      "side_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud",
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "apse_window": {
+       "present": true,
+       "count": 3,
+       "count_seen": 3,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "pointed heads"
+       ]
+      },
+      "apse_flying_buttress": {
+       "present": true,
+       "count": 7,
+       "count_seen": 7,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": [
+        "pinnacles on arm ends"
+       ]
+      },
+      "aisle_window_left": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "eleven recessed pointed windows on the left side wall"
+       ]
+      },
+      "clerestory_window_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten recessed pointed windows on the left clerestory"
+       ]
+      },
+      "side_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud",
+        "outline"
+       ],
+       "detail_missing": []
+      }
+     },
+     "depth_count": {
+      "front": {
+       "patches": 8,
+       "recess": 8,
+       "open": 0,
+       "image_hw": [
+        48,
+        31
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 17,
+         "row": 18,
+         "col": 23,
+         "h": 9,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 22,
+         "row": 19,
+         "col": 8,
+         "h": 8,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 23,
+         "col": 13,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 45,
+         "row": 35,
+         "col": 8,
+         "h": 21,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 38,
+         "row": 30,
+         "col": 15,
+         "h": 11,
+         "w": 7
+        },
+        {
+         "kind": "recess",
+         "cells": 63,
+         "row": 35,
+         "col": 22,
+         "h": 21,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 34,
+         "col": 18,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 35,
+         "row": 42,
+         "col": 15,
+         "h": 7,
+         "w": 7
+        }
+       ]
+      },
+      "right": {
+       "patches": 5,
+       "recess": 5,
+       "open": 0,
+       "image_hw": [
+        48,
+        30
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 15,
+         "row": 27,
+         "col": 11,
+         "h": 7,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 33,
+         "col": 20,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 34,
+         "col": 11,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 33,
+         "col": 16,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 12,
+         "row": 41,
+         "col": 19,
+         "h": 12,
+         "w": 1
+        }
+       ]
+      },
+      "back": {
+       "patches": 2,
+       "recess": 2,
+       "open": 0,
+       "image_hw": [
+        48,
+        31
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 22,
+         "col": 9,
+         "h": 2,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 27,
+         "col": 12,
+         "h": 2,
+         "w": 1
+        }
+       ]
+      },
+      "left": {
+       "patches": 3,
+       "recess": 3,
+       "open": 0,
+       "image_hw": [
+        48,
+        30
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 19,
+         "col": 23,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 25,
+         "row": 29,
+         "col": 24,
+         "h": 9,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 31,
+         "col": 14,
+         "h": 6,
+         "w": 2
+        }
+       ]
+      }
+     },
+     "haiku_usd": 0.0113,
+     "haiku_summary": "The grey renders show the main masses (plinth, towers, spires, nave, apse, west front, buttress piers, flying buttresses and pinnacles) and the front portals, gable and front windows, but the rose, roof planes, parapets, belfry louvres, balustrade and all side-wall window rows do not resolve as their own shapes."
+    },
+    {
+     "grid": 72,
+     "size": [
+      45,
+      72,
+      44
+     ],
+     "voxels": 15088,
+     "renders": {
+      "front": "out/cathedral_exp/bpA2_g72_grey_front.png",
+      "right": "out/cathedral_exp/bpA2_g72_grey_right.png",
+      "back": "out/cathedral_exp/bpA2_g72_grey_back.png",
+      "left": "out/cathedral_exp/bpA2_g72_grey_left.png",
+      "three_quarter": "out/cathedral_exp/bpA2_g72_grey_3q.png"
+     },
+     "missing": [
+      "gallery_arcade",
+      "rose",
+      "gallery_balustrade",
+      "belfry_opening",
+      "aisle_window",
+      "clerestory_window",
+      "flying_buttress",
+      "pinnacle",
+      "apse_window",
+      "apse_flying_buttress",
+      "aisle_window_left",
+      "clerestory_window_left",
+      "flying_buttress_left",
+      "pinnacle_left"
+     ],
+     "detail_missing": {
+      "nave": [
+       "aisle and clerestory windows not resolved"
+      ],
+      "apse": [
+       "apse windows not resolved"
+      ],
+      "portal_main": [
+       "crockets on gable edges",
+       "gable medallion",
+       "fan-ribbed panel above doors"
+      ],
+      "portal_side": [
+       "gable finials",
+       "gable medallions"
+      ],
+      "gallery_arcade": [
+       "five separate pointed recesses",
+       "columns between recesses"
+      ],
+      "rose": [
+       "circular recess and raised ring",
+       "twelve-spoke tracery"
+      ],
+      "front_window": [
+       "centre mullions",
+       "tracery in pointed heads"
+      ],
+      "front_gable": [
+       "three narrow slits",
+       "cross at tip"
+      ],
+      "gallery_balustrade": [
+       "row of separate balusters",
+       "gaps between posts"
+      ],
+      "belfry_opening": [
+       "horizontal louvre slats",
+       "second opening per face"
+      ],
+      "parapet": [
+       "square merlon teeth",
+       "gaps between teeth"
+      ],
+      "aisle_window": [
+       "eleven separate pointed recesses"
+      ],
+      "clerestory_window": [
+       "ten separate pointed recesses",
+       "sloped sills"
+      ],
+      "flying_buttress": [
+       "ten separate sloping arms",
+       "open air under each arm"
+      ],
+      "pinnacle": [
+       "one pinnacle on each pier"
+      ],
+      "apse_window": [
+       "three separate pointed openings"
+      ],
+      "apse_flying_buttress": [
+       "seven fanned arms",
+       "pinnacles on arm ends"
+      ],
+      "aisle_window_left": [
+       "eleven separate pointed recesses"
+      ],
+      "clerestory_window_left": [
+       "ten separate pointed recesses",
+       "sloped sills"
+      ],
+      "flying_buttress_left": [
+       "ten separate sloping arms",
+       "open air under each arm"
+      ],
+      "pinnacle_left": [
+       "one pinnacle on each pier"
+      ]
+     },
+     "parts": {
+      "plinth": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "west_front": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "tower": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "belfry": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "spire": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "nave": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "aisle and clerestory windows not resolved"
+       ]
+      },
+      "roof": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "apse": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "apse windows not resolved"
+       ]
+      },
+      "portal_main": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "crockets on gable edges",
+        "gable medallion",
+        "fan-ribbed panel above doors"
+       ]
+      },
+      "portal_side": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "gable finials",
+        "gable medallions"
+       ]
+      },
+      "gallery_arcade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "five separate pointed recesses",
+        "columns between recesses"
+       ]
+      },
+      "rose": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "circular recess and raised ring",
+        "twelve-spoke tracery"
+       ]
+      },
+      "front_window": {
+       "present": true,
+       "count": 4,
+       "count_seen": 4,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "centre mullions",
+        "tracery in pointed heads"
+       ]
+      },
+      "front_gable": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "set_back"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "three narrow slits",
+        "cross at tip"
+       ]
+      },
+      "gallery_balustrade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "row of separate balusters",
+        "gaps between posts"
+       ]
+      },
+      "belfry_opening": {
+       "present": false,
+       "count": 16,
+       "count_seen": 8,
+       "built_as": [
+        "open"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "horizontal louvre slats",
+        "second opening per face"
+       ]
+      },
+      "parapet": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "square merlon teeth",
+        "gaps between teeth"
+       ]
+      },
+      "aisle_window": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "eleven separate pointed recesses"
+       ]
+      },
+      "clerestory_window": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten separate pointed recesses",
+        "sloped sills"
+       ]
+      },
+      "side_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten separate sloping arms",
+        "open air under each arm"
+       ]
+      },
+      "pinnacle": {
+       "present": false,
+       "count": 10,
+       "count_seen": 3,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "one pinnacle on each pier"
+       ]
+      },
+      "apse_window": {
+       "present": false,
+       "count": 3,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "three separate pointed openings"
+       ]
+      },
+      "apse_flying_buttress": {
+       "present": false,
+       "count": 7,
+       "count_seen": 4,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "seven fanned arms",
+        "pinnacles on arm ends"
+       ]
+      },
+      "aisle_window_left": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "eleven separate pointed recesses"
+       ]
+      },
+      "clerestory_window_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten separate pointed recesses",
+        "sloped sills"
+       ]
+      },
+      "side_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten separate sloping arms",
+        "open air under each arm"
+       ]
+      },
+      "pinnacle_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 3,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "one pinnacle on each pier"
+       ]
+      }
+     },
+     "depth_count": {
+      "front": {
+       "patches": 11,
+       "recess": 11,
+       "open": 0,
+       "image_hw": [
+        72,
+        45
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 36,
+         "row": 41,
+         "col": 12,
+         "h": 9,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 38,
+         "col": 26,
+         "h": 3,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 129,
+         "row": 53,
+         "col": 33,
+         "h": 32,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 20,
+         "row": 42,
+         "col": 23,
+         "h": 6,
+         "w": 8
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 40,
+         "col": 28,
+         "h": 3,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 43,
+         "col": 17,
+         "h": 5,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 46,
+         "col": 21,
+         "h": 2,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 71,
+         "row": 58,
+         "col": 12,
+         "h": 22,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 51,
+         "col": 19,
+         "h": 7,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 14,
+         "row": 51,
+         "col": 26,
+         "h": 7,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 76,
+         "row": 63,
+         "col": 23,
+         "h": 11,
+         "w": 10
+        }
+       ]
+      },
+      "right": {
+       "patches": 6,
+       "recess": 6,
+       "open": 0,
+       "image_hw": [
+        72,
+        44
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 42,
+         "col": 14,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 43,
+         "col": 22,
+         "h": 3,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 48,
+         "col": 17,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 50,
+         "col": 32,
+         "h": 4,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 52,
+         "col": 17,
+         "h": 2,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 51,
+         "col": 24,
+         "h": 1,
+         "w": 2
+        }
+       ]
+      },
+      "back": {
+       "patches": 13,
+       "recess": 13,
+       "open": 0,
+       "image_hw": [
+        72,
+        45
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 17,
+         "row": 26,
+         "col": 11,
+         "h": 5,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 17,
+         "row": 26,
+         "col": 33,
+         "h": 5,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 12,
+         "row": 38,
+         "col": 10,
+         "h": 4,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 11,
+         "row": 38,
+         "col": 33,
+         "h": 4,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 39,
+         "row": 45,
+         "col": 29,
+         "h": 14,
+         "w": 6
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 41,
+         "col": 25,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 10,
+         "row": 43,
+         "col": 9,
+         "h": 5,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 10,
+         "row": 43,
+         "col": 34,
+         "h": 5,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 45,
+         "col": 18,
+         "h": 2,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 48,
+         "col": 8,
+         "h": 3,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 19,
+         "row": 49,
+         "col": 22,
+         "h": 5,
+         "w": 8
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 49,
+         "col": 35,
+         "h": 4,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 45,
+         "row": 62,
+         "col": 22,
+         "h": 16,
+         "w": 8
+        }
+       ]
+      },
+      "left": {
+       "patches": 7,
+       "recess": 7,
+       "open": 0,
+       "image_hw": [
+        72,
+        44
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 41,
+         "col": 26,
+         "h": 6,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 41,
+         "col": 30,
+         "h": 5,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 47,
+         "col": 15,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 48,
+         "col": 26,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 51,
+         "col": 20,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 52,
+         "col": 26,
+         "h": 2,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 23,
+         "row": 61,
+         "col": 27,
+         "h": 8,
+         "w": 3
+        }
+       ]
+      }
+     },
+     "haiku_usd": 0.0125,
+     "haiku_summary": "The towers, spires, nave, roof, apse, main and side portals, front windows, front gable, parapets, plinth and side buttress piers are present, while the rose, gallery arcade, balustrade, belfry louvres, nave and apse windows, flying buttresses and pinnacles do not show as separate countable shapes at their listed counts in these grey renders."
+    }
+   ],
+   "grid_used": 48,
+   "missing": [
+    "roof",
+    "rose",
+    "gallery_balustrade",
+    "belfry_opening",
+    "parapet",
+    "aisle_window",
+    "clerestory_window",
+    "aisle_window_left",
+    "clerestory_window_left"
+   ],
+   "detail_missing": {
+    "west_front": [
+     "stepped buttress piers standing proud of the front are only faintly resolved"
+    ],
+    "belfry": [
+     "angled shoulders read only as steps"
+    ],
+    "roof": [
+     "long slate gable roof planes",
+     "ridge",
+     "hipped east cap",
+     "cross at apse peak"
+    ],
+    "portal_main": [
+     "crockets on gable",
+     "medallion",
+     "doors at back of recess"
+    ],
+    "portal_side": [
+     "finials",
+     "medallions"
+    ],
+    "gallery_arcade": [
+     "five separate pointed recesses with columns between them"
+    ],
+    "rose": [
+     "circular ring",
+     "twelve-spoke tracery",
+     "round recess outline"
+    ],
+    "front_window": [
+     "mullion between lights",
+     "pointed heads"
+    ],
+    "front_gable": [
+     "three narrow slits",
+     "cross at tip"
+    ],
+    "gallery_balustrade": [
+     "row of separate balusters",
+     "open gaps under top rail"
+    ],
+    "belfry_opening": [
+     "louvred openings on belfry faces",
+     "two openings per face"
+    ],
+    "parapet": [
+     "square battlement teeth",
+     "corbels"
+    ],
+    "aisle_window": [
+     "eleven recessed pointed windows on the right side wall",
+     "pointed heads"
+    ],
+    "clerestory_window": [
+     "ten recessed pointed windows on the right clerestory",
+     "sloping sills"
+    ],
+    "apse_window": [
+     "pointed heads"
+    ],
+    "apse_flying_buttress": [
+     "pinnacles on arm ends"
+    ],
+    "aisle_window_left": [
+     "eleven recessed pointed windows on the left side wall"
+    ],
+    "clerestory_window_left": [
+     "ten recessed pointed windows on the left clerestory"
+    ]
+   }
+  },
+  {
+   "tag": "bpA3",
+   "named_missing": [
+    "roof",
+    "rose",
+    "gallery_balustrade",
+    "belfry_opening",
+    "parapet",
+    "aisle_window",
+    "clerestory_window",
+    "aisle_window_left",
+    "clerestory_window_left"
+   ],
+   "sheet": "ortho/cathedral_bpA3_sheet.png",
+   "prompt_chars": 28109,
+   "shading": {
+    "top_vs_front_dL": 23.0,
+    "shadow_share": 0.347,
+    "gradient_std": 8.892,
+    "shaded": true
+   },
+   "mesh_url": "https://v3b.fal.media/files/b/0ab3f6ad/imaZTzDtKFoSRwjU633Mp_base_basic_shaded.glb",
+   "grids": [
+    {
+     "grid": 48,
+     "size": [
+      23,
+      45,
+      48
+     ],
+     "voxels": 7153,
+     "renders": {
+      "front": "out/cathedral_exp/bpA3_g48_grey_front.png",
+      "right": "out/cathedral_exp/bpA3_g48_grey_right.png",
+      "back": "out/cathedral_exp/bpA3_g48_grey_back.png",
+      "left": "out/cathedral_exp/bpA3_g48_grey_left.png",
+      "three_quarter": "out/cathedral_exp/bpA3_g48_grey_3q.png"
+     },
+     "missing": [
+      "plinth",
+      "apse",
+      "portal_main",
+      "portal_side",
+      "gallery_arcade",
+      "rose",
+      "front_window",
+      "gallery_balustrade",
+      "belfry_opening",
+      "parapet",
+      "clerestory_window",
+      "apse_window",
+      "apse_flying_buttress",
+      "clerestory_window_left"
+     ],
+     "detail_missing": {
+      "plinth": [
+       "slab margin standing out past the walls on every side"
+      ],
+      "west_front": [
+       "sills and string courses"
+      ],
+      "belfry": [
+       "angled stone shoulders"
+      ],
+      "apse": [
+       "rounded many-sided east end",
+       "apse windows"
+      ],
+      "portal_main": [
+       "deep arched recess",
+       "two doors",
+       "gable with crockets"
+      ],
+      "portal_side": [
+       "recessed side portals",
+       "gables over doors"
+      ],
+      "gallery_arcade": [
+       "row of five pointed recesses"
+      ],
+      "rose": [
+       "circular recess with raised ring",
+       "twelve-spoke tracery"
+      ],
+      "front_window": [
+       "stacked pointed tower windows as recesses"
+      ],
+      "front_gable": [
+       "three slits",
+       "cross at tip"
+      ],
+      "gallery_balustrade": [
+       "row of balusters under top rail"
+      ],
+      "belfry_opening": [
+       "tall pointed belfry openings",
+       "louvre slats"
+      ],
+      "parapet": [
+       "square merlons round belfry top"
+      ],
+      "clerestory_window": [
+       "pointed clerestory recesses",
+       "sloping sills"
+      ],
+      "pinnacle": [
+       "side finials"
+      ],
+      "apse_window": [
+       "three pointed apse openings"
+      ],
+      "apse_flying_buttress": [
+       "fan of curved arms round apse"
+      ],
+      "clerestory_window_left": [
+       "pointed clerestory recesses",
+       "sloping sills"
+      ],
+      "pinnacle_left": [
+       "side finials"
+      ]
+     },
+     "parts": {
+      "plinth": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "slab margin standing out past the walls on every side"
+       ]
+      },
+      "west_front": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "sills and string courses"
+       ]
+      },
+      "tower": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "belfry": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "angled stone shoulders"
+       ]
+      },
+      "spire": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "nave": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "roof": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "apse": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "rounded many-sided east end",
+        "apse windows"
+       ]
+      },
+      "portal_main": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "deep arched recess",
+        "two doors",
+        "gable with crockets"
+       ]
+      },
+      "portal_side": {
+       "present": false,
+       "count": 2,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "recessed side portals",
+        "gables over doors"
+       ]
+      },
+      "gallery_arcade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "row of five pointed recesses"
+       ]
+      },
+      "rose": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "circular recess with raised ring",
+        "twelve-spoke tracery"
+       ]
+      },
+      "front_window": {
+       "present": false,
+       "count": 4,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "stacked pointed tower windows as recesses"
+       ]
+      },
+      "front_gable": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "set_back"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "three slits",
+        "cross at tip"
+       ]
+      },
+      "gallery_balustrade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "row of balusters under top rail"
+       ]
+      },
+      "belfry_opening": {
+       "present": false,
+       "count": 16,
+       "count_seen": 0,
+       "built_as": [
+        "open"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "tall pointed belfry openings",
+        "louvre slats"
+       ]
+      },
+      "parapet": {
+       "present": false,
+       "count": 2,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "square merlons round belfry top"
+       ]
+      },
+      "aisle_window": {
+       "present": true,
+       "count": 11,
+       "count_seen": 11,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": []
+      },
+      "clerestory_window": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed clerestory recesses",
+        "sloping sills"
+       ]
+      },
+      "side_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud",
+        "outline"
+       ],
+       "detail_missing": [
+        "side finials"
+       ]
+      },
+      "apse_window": {
+       "present": false,
+       "count": 3,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "three pointed apse openings"
+       ]
+      },
+      "apse_flying_buttress": {
+       "present": false,
+       "count": 7,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "fan of curved arms round apse"
+       ]
+      },
+      "aisle_window_left": {
+       "present": true,
+       "count": 11,
+       "count_seen": 11,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": []
+      },
+      "clerestory_window_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed clerestory recesses",
+        "sloping sills"
+       ]
+      },
+      "side_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud",
+        "outline"
+       ],
+       "detail_missing": [
+        "side finials"
+       ]
+      }
+     },
+     "depth_count": {
+      "front": {
+       "patches": 5,
+       "recess": 5,
+       "open": 0,
+       "image_hw": [
+        45,
+        23
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 13,
+         "row": 25,
+         "col": 7,
+         "h": 6,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 13,
+         "row": 25,
+         "col": 15,
+         "h": 6,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 17,
+         "row": 29,
+         "col": 11,
+         "h": 7,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 29,
+         "col": 4,
+         "h": 2,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 29,
+         "col": 19,
+         "h": 2,
+         "w": 2
+        }
+       ]
+      },
+      "right": {
+       "patches": 18,
+       "recess": 18,
+       "open": 0,
+       "image_hw": [
+        45,
+        48
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 26,
+         "col": 40,
+         "h": 5,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 11,
+         "row": 30,
+         "col": 16,
+         "h": 8,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 29,
+         "col": 28,
+         "h": 7,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 21,
+         "row": 30,
+         "col": 11,
+         "h": 6,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 29,
+         "col": 19,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 30,
+         "col": 25,
+         "h": 6,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 30,
+         "col": 32,
+         "h": 6,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 10,
+         "row": 30,
+         "col": 22,
+         "h": 5,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 32,
+         "col": 41,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 33,
+         "col": 27,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 33,
+         "col": 30,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 33,
+         "col": 33,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 14,
+         "row": 38,
+         "col": 5,
+         "h": 6,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 9,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 12,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 15,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 18,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 31,
+         "h": 6,
+         "w": 1
+        }
+       ]
+      },
+      "back": {
+       "patches": 5,
+       "recess": 5,
+       "open": 0,
+       "image_hw": [
+        45,
+        23
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 27,
+         "row": 33,
+         "col": 5,
+         "h": 15,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 27,
+         "row": 33,
+         "col": 17,
+         "h": 15,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 30,
+         "col": 11,
+         "h": 6,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 37,
+         "col": 5,
+         "h": 5,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 37,
+         "col": 17,
+         "h": 4,
+         "w": 1
+        }
+       ]
+      },
+      "left": {
+       "patches": 18,
+       "recess": 18,
+       "open": 0,
+       "image_hw": [
+        45,
+        48
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 5,
+         "row": 26,
+         "col": 7,
+         "h": 5,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 29,
+         "col": 19,
+         "h": 7,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 11,
+         "row": 30,
+         "col": 32,
+         "h": 8,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 30,
+         "col": 16,
+         "h": 6,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 30,
+         "col": 23,
+         "h": 6,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 12,
+         "row": 30,
+         "col": 26,
+         "h": 6,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 30,
+         "col": 29,
+         "h": 6,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 21,
+         "row": 30,
+         "col": 36,
+         "h": 6,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 32,
+         "col": 7,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 33,
+         "col": 15,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 33,
+         "col": 18,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 33,
+         "col": 21,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 16,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 29,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 32,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 35,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 38,
+         "col": 38,
+         "h": 6,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 14,
+         "row": 38,
+         "col": 42,
+         "h": 6,
+         "w": 3
+        }
+       ]
+      }
+     },
+     "haiku_usd": 0.0111,
+     "haiku_summary": "Towers, spires, nave, roof, front wall, front gable, the aisle and buttress rows on both sides are visible at their counts, while the front portals, rose, arcade, balustrade, belfry openings, parapet, clerestory windows, apse and plinth do not show as their own shapes in these coarse grey renders."
+    },
+    {
+     "grid": 72,
+     "size": [
+      33,
+      67,
+      72
+     ],
+     "voxels": 17231,
+     "renders": {
+      "front": "out/cathedral_exp/bpA3_g72_grey_front.png",
+      "right": "out/cathedral_exp/bpA3_g72_grey_right.png",
+      "back": "out/cathedral_exp/bpA3_g72_grey_back.png",
+      "left": "out/cathedral_exp/bpA3_g72_grey_left.png",
+      "three_quarter": "out/cathedral_exp/bpA3_g72_grey_3q.png"
+     },
+     "missing": [
+      "plinth",
+      "gallery_arcade",
+      "rose",
+      "gallery_balustrade",
+      "belfry_opening",
+      "parapet",
+      "clerestory_window",
+      "clerestory_window_left"
+     ],
+     "detail_missing": {
+      "plinth": [
+       "margin of ground around the walls",
+       "stepped foot under the west portals"
+      ],
+      "roof": [
+       "hipped east cap with cross"
+      ],
+      "portal_main": [
+       "crockets on gable",
+       "medallion in gable"
+      ],
+      "portal_side": [
+       "finials on gables"
+      ],
+      "gallery_arcade": [
+       "five separate pointed recesses"
+      ],
+      "rose": [
+       "circular recess",
+       "twelve-spoke tracery"
+      ],
+      "front_window": [
+       "mullions readable as separate lights"
+      ],
+      "front_gable": [
+       "three slits readable",
+       "cross at tip"
+      ],
+      "gallery_balustrade": [
+       "row of separate balusters",
+       "top rail"
+      ],
+      "belfry_opening": [
+       "sixteen louvred openings",
+       "slotted louvre texture"
+      ],
+      "parapet": [
+       "square merlons with gaps",
+       "battlement teeth at tower tops"
+      ],
+      "clerestory_window": [
+       "ten clerestory openings",
+       "sloped sills over aisle roof"
+      ],
+      "apse_window": [
+       "three separate openings clearly separated"
+      ],
+      "clerestory_window_left": [
+       "ten clerestory openings",
+       "sloped sills over aisle roof"
+      ]
+     },
+     "parts": {
+      "plinth": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "margin of ground around the walls",
+        "stepped foot under the west portals"
+       ]
+      },
+      "west_front": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "tower": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "belfry": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "spire": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "nave": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "roof": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "hipped east cap with cross"
+       ]
+      },
+      "apse": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "portal_main": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "crockets on gable",
+        "medallion in gable"
+       ]
+      },
+      "portal_side": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "finials on gables"
+       ]
+      },
+      "gallery_arcade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "five separate pointed recesses"
+       ]
+      },
+      "rose": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "circular recess",
+        "twelve-spoke tracery"
+       ]
+      },
+      "front_window": {
+       "present": true,
+       "count": 4,
+       "count_seen": 4,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "mullions readable as separate lights"
+       ]
+      },
+      "front_gable": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "set_back"
+       ],
+       "built_as_seen": [
+        "outline",
+        "set_back"
+       ],
+       "detail_missing": [
+        "three slits readable",
+        "cross at tip"
+       ]
+      },
+      "gallery_balustrade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "row of separate balusters",
+        "top rail"
+       ]
+      },
+      "belfry_opening": {
+       "present": false,
+       "count": 16,
+       "count_seen": 0,
+       "built_as": [
+        "open"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "sixteen louvred openings",
+        "slotted louvre texture"
+       ]
+      },
+      "parapet": {
+       "present": false,
+       "count": 2,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "square merlons with gaps",
+        "battlement teeth at tower tops"
+       ]
+      },
+      "aisle_window": {
+       "present": true,
+       "count": 11,
+       "count_seen": 11,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": []
+      },
+      "clerestory_window": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten clerestory openings",
+        "sloped sills over aisle roof"
+       ]
+      },
+      "side_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud",
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "apse_window": {
+       "present": true,
+       "count": 3,
+       "count_seen": 3,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "three separate openings clearly separated"
+       ]
+      },
+      "apse_flying_buttress": {
+       "present": true,
+       "count": 7,
+       "count_seen": 7,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "aisle_window_left": {
+       "present": true,
+       "count": 11,
+       "count_seen": 11,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": []
+      },
+      "clerestory_window_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "ten clerestory openings",
+        "sloped sills over aisle roof"
+       ]
+      },
+      "side_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud",
+        "outline"
+       ],
+       "detail_missing": []
+      }
+     },
+     "depth_count": {
+      "front": {
+       "patches": 8,
+       "recess": 8,
+       "open": 0,
+       "image_hw": [
+        67,
+        33
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 32,
+         "row": 27,
+         "col": 6,
+         "h": 11,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 32,
+         "row": 27,
+         "col": 26,
+         "h": 11,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 33,
+         "col": 16,
+         "h": 1,
+         "w": 7
+        },
+        {
+         "kind": "recess",
+         "cells": 40,
+         "row": 45,
+         "col": 16,
+         "h": 10,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 42,
+         "col": 31,
+         "h": 2,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 43,
+         "col": 5,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 43,
+         "col": 28,
+         "h": 3,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 15,
+         "row": 53,
+         "col": 16,
+         "h": 3,
+         "w": 5
+        }
+       ]
+      },
+      "right": {
+       "patches": 14,
+       "recess": 14,
+       "open": 0,
+       "image_hw": [
+        67,
+        72
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 25,
+         "col": 61,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 35,
+         "row": 49,
+         "col": 55,
+         "h": 26,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 39,
+         "col": 53,
+         "h": 4,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 39,
+         "col": 23,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 39,
+         "col": 28,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 39,
+         "col": 33,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 39,
+         "col": 38,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 10,
+         "row": 40,
+         "col": 43,
+         "h": 4,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 39,
+         "col": 48,
+         "h": 3,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 63,
+         "row": 47,
+         "col": 23,
+         "h": 6,
+         "w": 21
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 49,
+         "col": 37,
+         "h": 4,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 49,
+         "col": 43,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 49,
+         "col": 48,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 49,
+         "col": 53,
+         "h": 4,
+         "w": 2
+        }
+       ]
+      },
+      "back": {
+       "patches": 3,
+       "recess": 3,
+       "open": 0,
+       "image_hw": [
+        67,
+        33
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 47,
+         "row": 28,
+         "col": 6,
+         "h": 12,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 47,
+         "row": 28,
+         "col": 27,
+         "h": 12,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 39,
+         "row": 43,
+         "col": 16,
+         "h": 13,
+         "w": 3
+        }
+       ]
+      },
+      "left": {
+       "patches": 14,
+       "recess": 14,
+       "open": 0,
+       "image_hw": [
+        67,
+        72
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 25,
+         "col": 10,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 35,
+         "row": 49,
+         "col": 16,
+         "h": 26,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 39,
+         "col": 19,
+         "h": 4,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 39,
+         "col": 24,
+         "h": 4,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 39,
+         "col": 28,
+         "h": 4,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 12,
+         "row": 41,
+         "col": 33,
+         "h": 6,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 39,
+         "col": 38,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 39,
+         "col": 43,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 39,
+         "col": 48,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 62,
+         "row": 47,
+         "col": 48,
+         "h": 6,
+         "w": 21
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 49,
+         "col": 19,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 49,
+         "col": 24,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 49,
+         "col": 29,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 49,
+         "col": 34,
+         "h": 4,
+         "w": 3
+        }
+       ]
+      }
+     },
+     "haiku_usd": 0.0129,
+     "haiku_summary": "The main masses (west front, towers, spires, nave, roof, apse) and the right and left side buttresses, flying buttresses and pinnacles read clearly, while the plinth, rose, gallery arcade, gallery balustrade, belfry openings, parapets and clerestory windows do not show as their own shapes in these low-resolution grey renders, and the window and portal counts (front windows, apse windows, portal recesses) are approximate."
+    }
+   ],
+   "grid_used": 72,
+   "missing": [
+    "plinth",
+    "gallery_arcade",
+    "rose",
+    "gallery_balustrade",
+    "belfry_opening",
+    "parapet",
+    "clerestory_window",
+    "clerestory_window_left"
+   ],
+   "detail_missing": {
+    "plinth": [
+     "margin of ground around the walls",
+     "stepped foot under the west portals"
+    ],
+    "roof": [
+     "hipped east cap with cross"
+    ],
+    "portal_main": [
+     "crockets on gable",
+     "medallion in gable"
+    ],
+    "portal_side": [
+     "finials on gables"
+    ],
+    "gallery_arcade": [
+     "five separate pointed recesses"
+    ],
+    "rose": [
+     "circular recess",
+     "twelve-spoke tracery"
+    ],
+    "front_window": [
+     "mullions readable as separate lights"
+    ],
+    "front_gable": [
+     "three slits readable",
+     "cross at tip"
+    ],
+    "gallery_balustrade": [
+     "row of separate balusters",
+     "top rail"
+    ],
+    "belfry_opening": [
+     "sixteen louvred openings",
+     "slotted louvre texture"
+    ],
+    "parapet": [
+     "square merlons with gaps",
+     "battlement teeth at tower tops"
+    ],
+    "clerestory_window": [
+     "ten clerestory openings",
+     "sloped sills over aisle roof"
+    ],
+    "apse_window": [
+     "three separate openings clearly separated"
+    ],
+    "clerestory_window_left": [
+     "ten clerestory openings",
+     "sloped sills over aisle roof"
+    ]
+   }
+  },
+  {
+   "tag": "bpA4",
+   "named_missing": [
+    "plinth",
+    "gallery_arcade",
+    "rose",
+    "gallery_balustrade",
+    "belfry_opening",
+    "parapet",
+    "clerestory_window",
+    "clerestory_window_left"
+   ],
+   "sheet": "ortho/cathedral_bpA4_sheet.png",
+   "prompt_chars": 27735,
+   "shading": {
+    "top_vs_front_dL": 8.6,
+    "shadow_share": 0.32,
+    "gradient_std": 7.417,
+    "shaded": true
+   },
+   "mesh_url": "https://v3b.fal.media/files/b/0ab3f6de/j2nC_qmPZgUyRmlp05EhU_base_basic_shaded.glb",
+   "grids": [
+    {
+     "grid": 48,
+     "size": [
+      24,
+      45,
+      48
+     ],
+     "voxels": 7865,
+     "renders": {
+      "front": "out/cathedral_exp/bpA4_g48_grey_front.png",
+      "right": "out/cathedral_exp/bpA4_g48_grey_right.png",
+      "back": "out/cathedral_exp/bpA4_g48_grey_back.png",
+      "left": "out/cathedral_exp/bpA4_g48_grey_left.png",
+      "three_quarter": "out/cathedral_exp/bpA4_g48_grey_3q.png"
+     },
+     "missing": [
+      "plinth",
+      "apse",
+      "portal_side",
+      "rose",
+      "front_window",
+      "gallery_balustrade",
+      "belfry_opening",
+      "aisle_window",
+      "clerestory_window",
+      "apse_window",
+      "apse_flying_buttress",
+      "aisle_window_left",
+      "clerestory_window_left"
+     ],
+     "detail_missing": {
+      "plinth": [
+       "wider flat platform margin",
+       "shallow step at the west portals"
+      ],
+      "west_front": [
+       "string course teeth",
+       "sill ledges"
+      ],
+      "tower": [
+       "corner buttress steps"
+      ],
+      "belfry": [
+       "angled stone shoulders"
+      ],
+      "nave": [
+       "blank plinth wall"
+      ],
+      "roof": [
+       "hipped east cap",
+       "cross at peak"
+      ],
+      "apse": [
+       "rounded many-sided east end",
+       "faceted apse roof cap"
+      ],
+      "portal_main": [
+       "concentric arch rings",
+       "crockets on gable",
+       "medallion"
+      ],
+      "portal_side": [
+       "two side recesses at tower feet",
+       "finial spikes on gables"
+      ],
+      "gallery_arcade": [
+       "five separate pointed recesses"
+      ],
+      "rose": [
+       "circular recess",
+       "raised stone ring",
+       "twelve spokes",
+       "corner medallions"
+      ],
+      "front_window": [
+       "stacked pointed tower windows",
+       "mullions",
+       "sill ledges"
+      ],
+      "front_gable": [
+       "three narrow slits",
+       "cross at tip"
+      ],
+      "gallery_balustrade": [
+       "open row of balusters",
+       "top rail across centre section"
+      ],
+      "belfry_opening": [
+       "two tall openings per belfry face",
+       "horizontal louvre slats"
+      ],
+      "parapet": [
+       "square merlon teeth",
+       "gaps between teeth"
+      ],
+      "aisle_window": [
+       "quatrefoil tracery",
+       "mullion"
+      ],
+      "clerestory_window": [
+       "moulded recess edge",
+       "sloping sill"
+      ],
+      "side_buttress": [
+       "stepped set-offs"
+      ],
+      "pinnacle": [
+       "side gablets"
+      ],
+      "apse_window": [
+       "three windows at east end"
+      ],
+      "apse_flying_buttress": [
+       "fan of curved arms round apse",
+       "pinnacles on apse arms"
+      ],
+      "aisle_window_left": [
+       "quatrefoil tracery",
+       "mullion"
+      ],
+      "clerestory_window_left": [
+       "moulded recess edge",
+       "sloping sill"
+      ],
+      "side_buttress_left": [
+       "stepped set-offs"
+      ],
+      "pinnacle_left": [
+       "side gablets"
+      ]
+     },
+     "parts": {
+      "plinth": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "wider flat platform margin",
+        "shallow step at the west portals"
+       ]
+      },
+      "west_front": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "string course teeth",
+        "sill ledges"
+       ]
+      },
+      "tower": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "corner buttress steps"
+       ]
+      },
+      "belfry": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "angled stone shoulders"
+       ]
+      },
+      "spire": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "nave": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "blank plinth wall"
+       ]
+      },
+      "roof": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "hipped east cap",
+        "cross at peak"
+       ]
+      },
+      "apse": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "rounded many-sided east end",
+        "faceted apse roof cap"
+       ]
+      },
+      "portal_main": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back",
+        "proud"
+       ],
+       "detail_missing": [
+        "concentric arch rings",
+        "crockets on gable",
+        "medallion"
+       ]
+      },
+      "portal_side": {
+       "present": false,
+       "count": 2,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "two side recesses at tower feet",
+        "finial spikes on gables"
+       ]
+      },
+      "gallery_arcade": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "five separate pointed recesses"
+       ]
+      },
+      "rose": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "circular recess",
+        "raised stone ring",
+        "twelve spokes",
+        "corner medallions"
+       ]
+      },
+      "front_window": {
+       "present": false,
+       "count": 4,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "stacked pointed tower windows",
+        "mullions",
+        "sill ledges"
+       ]
+      },
+      "front_gable": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "set_back"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "three narrow slits",
+        "cross at tip"
+       ]
+      },
+      "gallery_balustrade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "open row of balusters",
+        "top rail across centre section"
+       ]
+      },
+      "belfry_opening": {
+       "present": false,
+       "count": 16,
+       "count_seen": 0,
+       "built_as": [
+        "open"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "two tall openings per belfry face",
+        "horizontal louvre slats"
+       ]
+      },
+      "parapet": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "square merlon teeth",
+        "gaps between teeth"
+       ]
+      },
+      "aisle_window": {
+       "present": false,
+       "count": 11,
+       "count_seen": 9,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "quatrefoil tracery",
+        "mullion"
+       ]
+      },
+      "clerestory_window": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "moulded recess edge",
+        "sloping sill"
+       ]
+      },
+      "side_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "stepped set-offs"
+       ]
+      },
+      "flying_buttress": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud",
+        "outline"
+       ],
+       "detail_missing": [
+        "side gablets"
+       ]
+      },
+      "apse_window": {
+       "present": false,
+       "count": 3,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "three windows at east end"
+       ]
+      },
+      "apse_flying_buttress": {
+       "present": false,
+       "count": 7,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "fan of curved arms round apse",
+        "pinnacles on apse arms"
+       ]
+      },
+      "aisle_window_left": {
+       "present": false,
+       "count": 11,
+       "count_seen": 9,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "quatrefoil tracery",
+        "mullion"
+       ]
+      },
+      "clerestory_window_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "moulded recess edge",
+        "sloping sill"
+       ]
+      },
+      "side_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "stepped set-offs"
+       ]
+      },
+      "flying_buttress_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle_left": {
+       "present": true,
+       "count": 10,
+       "count_seen": 10,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [
+        "proud",
+        "outline"
+       ],
+       "detail_missing": [
+        "side gablets"
+       ]
+      }
+     },
+     "depth_count": {
+      "front": {
+       "patches": 6,
+       "recess": 6,
+       "open": 0,
+       "image_hw": [
+        45,
+        24
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 23,
+         "row": 19,
+         "col": 18,
+         "h": 8,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 20,
+         "row": 19,
+         "col": 4,
+         "h": 7,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 2,
+         "row": 22,
+         "col": 12,
+         "h": 1,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 25,
+         "col": 15,
+         "h": 4,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 23,
+         "row": 29,
+         "col": 11,
+         "h": 8,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 34,
+         "row": 39,
+         "col": 12,
+         "h": 10,
+         "w": 5
+        }
+       ]
+      },
+      "right": {
+       "patches": 9,
+       "recess": 9,
+       "open": 0,
+       "image_hw": [
+        45,
+        48
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 29,
+         "col": 8,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 22,
+         "row": 29,
+         "col": 11,
+         "h": 8,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 29,
+         "col": 15,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 29,
+         "col": 19,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 29,
+         "col": 22,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 29,
+         "col": 25,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 29,
+         "col": 29,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 4,
+         "row": 28,
+         "col": 40,
+         "h": 4,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 8,
+         "row": 38,
+         "col": 25,
+         "h": 8,
+         "w": 1
+        }
+       ]
+      },
+      "back": {
+       "patches": 2,
+       "recess": 2,
+       "open": 0,
+       "image_hw": [
+        45,
+        24
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 13,
+         "row": 18,
+         "col": 5,
+         "h": 10,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 12,
+         "row": 18,
+         "col": 19,
+         "h": 10,
+         "w": 3
+        }
+       ]
+      },
+      "left": {
+       "patches": 8,
+       "recess": 8,
+       "open": 0,
+       "image_hw": [
+        45,
+        48
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 19,
+         "col": 8,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 29,
+         "col": 19,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 9,
+         "row": 29,
+         "col": 23,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 11,
+         "row": 29,
+         "col": 26,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 29,
+         "col": 29,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 16,
+         "row": 29,
+         "col": 33,
+         "h": 8,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 23,
+         "row": 29,
+         "col": 36,
+         "h": 8,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 37,
+         "col": 40,
+         "h": 5,
+         "w": 2
+        }
+       ]
+      }
+     },
+     "haiku_usd": 0.0114,
+     "haiku_summary": "Towers, spires, nave, roof, front wall, main portal, front gable, and both flanks' piers, flying buttresses, pinnacles and window rows read as present, while the plinth, side portals, rose, tower windows, balustrade, belfry openings, and the apse are not legible in these low-resolution grey renders, so counts for the side windows (9) are approximate."
+    },
+    {
+     "grid": 72,
+     "size": [
+      36,
+      67,
+      72
+     ],
+     "voxels": 18373,
+     "renders": {
+      "front": "out/cathedral_exp/bpA4_g72_grey_front.png",
+      "right": "out/cathedral_exp/bpA4_g72_grey_right.png",
+      "back": "out/cathedral_exp/bpA4_g72_grey_back.png",
+      "left": "out/cathedral_exp/bpA4_g72_grey_left.png",
+      "three_quarter": "out/cathedral_exp/bpA4_g72_grey_3q.png"
+     },
+     "missing": [
+      "plinth",
+      "portal_side",
+      "rose",
+      "front_window",
+      "gallery_balustrade",
+      "belfry_opening",
+      "aisle_window",
+      "clerestory_window",
+      "side_buttress",
+      "flying_buttress",
+      "pinnacle",
+      "apse_window",
+      "apse_flying_buttress",
+      "aisle_window_left",
+      "clerestory_window_left",
+      "side_buttress_left",
+      "flying_buttress_left",
+      "pinnacle_left"
+     ],
+     "detail_missing": {
+      "plinth": [
+       "margin slab wider than the walls",
+       "step along the foot of the portals"
+      ],
+      "west_front": [
+       "pier set-off caps",
+       "string-course teeth"
+      ],
+      "tower": [
+       "corner buttress steps"
+      ],
+      "belfry": [
+       "angled shoulders"
+      ],
+      "nave": [
+       "batter on the plinth wall"
+      ],
+      "apse": [
+       "many-sided plan only partly resolved"
+      ],
+      "portal_main": [
+       "gable medallion",
+       "fan-ribbed tympanum"
+      ],
+      "portal_side": [
+       "recessed side portals",
+       "side gables"
+      ],
+      "gallery_arcade": [
+       "five separate pointed heads",
+       "column dividers between heads"
+      ],
+      "rose": [
+       "circular recess",
+       "raised stone ring",
+       "twelve spokes"
+      ],
+      "front_window": [
+       "mullions",
+       "head tracery",
+       "only 2 of the 4 visible"
+      ],
+      "front_gable": [
+       "three narrow slits"
+      ],
+      "gallery_balustrade": [
+       "row of balusters",
+       "top rail"
+      ],
+      "belfry_opening": [
+       "louvre slats",
+       "only about 8 of 16 visible"
+      ],
+      "parapet": [
+       "square teeth and gaps"
+      ],
+      "aisle_window": [
+       "pointed window heads",
+       "mullions"
+      ],
+      "clerestory_window": [
+       "window recesses",
+       "sloped sills"
+      ],
+      "pinnacle": [
+       "spike caps above pier tops",
+       "side gablets"
+      ],
+      "apse_window": [
+       "three pointed openings"
+      ],
+      "apse_flying_buttress": [
+       "pinnacles on outer arm ends"
+      ],
+      "aisle_window_left": [
+       "pointed window heads",
+       "mullions"
+      ],
+      "clerestory_window_left": [
+       "window recesses",
+       "sloped sills"
+      ],
+      "pinnacle_left": [
+       "spike caps above pier tops",
+       "side gablets"
+      ]
+     },
+     "parts": {
+      "plinth": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "margin slab wider than the walls",
+        "step along the foot of the portals"
+       ]
+      },
+      "west_front": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "pier set-off caps",
+        "string-course teeth"
+       ]
+      },
+      "tower": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "corner buttress steps"
+       ]
+      },
+      "belfry": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "angled shoulders"
+       ]
+      },
+      "spire": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "nave": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "proud"
+       ],
+       "built_as_seen": [
+        "outline",
+        "proud"
+       ],
+       "detail_missing": [
+        "batter on the plinth wall"
+       ]
+      },
+      "roof": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": []
+      },
+      "apse": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline"
+       ],
+       "built_as_seen": [
+        "outline"
+       ],
+       "detail_missing": [
+        "many-sided plan only partly resolved"
+       ]
+      },
+      "portal_main": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back",
+        "proud"
+       ],
+       "detail_missing": [
+        "gable medallion",
+        "fan-ribbed tympanum"
+       ]
+      },
+      "portal_side": {
+       "present": false,
+       "count": 2,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "recessed side portals",
+        "side gables"
+       ]
+      },
+      "gallery_arcade": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [
+        "set_back"
+       ],
+       "detail_missing": [
+        "five separate pointed heads",
+        "column dividers between heads"
+       ]
+      },
+      "rose": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "set_back",
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "circular recess",
+        "raised stone ring",
+        "twelve spokes"
+       ]
+      },
+      "front_window": {
+       "present": false,
+       "count": 4,
+       "count_seen": 2,
+       "built_as": [
+        "set_back",
+        "proud"
+       ],
+       "built_as_seen": [
+        "set_back",
+        "proud"
+       ],
+       "detail_missing": [
+        "mullions",
+        "head tracery",
+        "only 2 of the 4 visible"
+       ]
+      },
+      "front_gable": {
+       "present": true,
+       "count": 1,
+       "count_seen": 1,
+       "built_as": [
+        "outline",
+        "set_back"
+       ],
+       "built_as_seen": [
+        "outline",
+        "set_back"
+       ],
+       "detail_missing": [
+        "three narrow slits"
+       ]
+      },
+      "gallery_balustrade": {
+       "present": false,
+       "count": 1,
+       "count_seen": 0,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "row of balusters",
+        "top rail"
+       ]
+      },
+      "belfry_opening": {
+       "present": false,
+       "count": 16,
+       "count_seen": 8,
+       "built_as": [
+        "open"
+       ],
+       "built_as_seen": [
+        "open"
+       ],
+       "detail_missing": [
+        "louvre slats",
+        "only about 8 of 16 visible"
+       ]
+      },
+      "parapet": {
+       "present": true,
+       "count": 2,
+       "count_seen": 2,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": [
+        "square teeth and gaps"
+       ]
+      },
+      "aisle_window": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed window heads",
+        "mullions"
+       ]
+      },
+      "clerestory_window": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "window recesses",
+        "sloped sills"
+       ]
+      },
+      "side_buttress": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "spike caps above pier tops",
+        "side gablets"
+       ]
+      },
+      "apse_window": {
+       "present": false,
+       "count": 3,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "three pointed openings"
+       ]
+      },
+      "apse_flying_buttress": {
+       "present": false,
+       "count": 7,
+       "count_seen": 6,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": [
+        "pinnacles on outer arm ends"
+       ]
+      },
+      "aisle_window_left": {
+       "present": false,
+       "count": 11,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "pointed window heads",
+        "mullions"
+       ]
+      },
+      "clerestory_window_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "set_back"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "window recesses",
+        "sloped sills"
+       ]
+      },
+      "side_buttress_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "proud"
+       ],
+       "built_as_seen": [
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "flying_buttress_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 9,
+       "built_as": [
+        "open",
+        "proud"
+       ],
+       "built_as_seen": [
+        "open",
+        "proud"
+       ],
+       "detail_missing": []
+      },
+      "pinnacle_left": {
+       "present": false,
+       "count": 10,
+       "count_seen": 0,
+       "built_as": [
+        "proud",
+        "outline"
+       ],
+       "built_as_seen": [],
+       "detail_missing": [
+        "spike caps above pier tops",
+        "side gablets"
+       ]
+      }
+     },
+     "depth_count": {
+      "front": {
+       "patches": 7,
+       "recess": 7,
+       "open": 0,
+       "image_hw": [
+        67,
+        36
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 49,
+         "row": 28,
+         "col": 28,
+         "h": 13,
+         "w": 5
+        },
+        {
+         "kind": "recess",
+         "cells": 30,
+         "row": 29,
+         "col": 7,
+         "h": 12,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 11,
+         "row": 38,
+         "col": 7,
+         "h": 4,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 37,
+         "col": 28,
+         "h": 3,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 54,
+         "row": 46,
+         "col": 10,
+         "h": 19,
+         "w": 8
+        },
+        {
+         "kind": "recess",
+         "cells": 7,
+         "row": 46,
+         "col": 2,
+         "h": 7,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 91,
+         "row": 59,
+         "col": 18,
+         "h": 13,
+         "w": 8
+        }
+       ]
+      },
+      "right": {
+       "patches": 7,
+       "recess": 7,
+       "open": 0,
+       "image_hw": [
+        67,
+        72
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 17,
+         "row": 47,
+         "col": 17,
+         "h": 5,
+         "w": 4
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 48,
+         "col": 12,
+         "h": 4,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 49,
+         "col": 23,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 49,
+         "col": 48,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 10,
+         "row": 52,
+         "col": 69,
+         "h": 7,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 54,
+         "col": 12,
+         "h": 2,
+         "w": 2
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 60,
+         "col": 69,
+         "h": 3,
+         "w": 1
+        }
+       ]
+      },
+      "back": {
+       "patches": 1,
+       "recess": 1,
+       "open": 0,
+       "image_hw": [
+        67,
+        36
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 41,
+         "row": 58,
+         "col": 18,
+         "h": 14,
+         "w": 6
+        }
+       ]
+      },
+      "left": {
+       "patches": 7,
+       "recess": 7,
+       "open": 0,
+       "image_hw": [
+        67,
+        72
+       ],
+       "list": [
+        {
+         "kind": "recess",
+         "cells": 18,
+         "row": 29,
+         "col": 12,
+         "h": 12,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 3,
+         "row": 46,
+         "col": 56,
+         "h": 3,
+         "w": 1
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 49,
+         "col": 28,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 49,
+         "col": 33,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 49,
+         "col": 38,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 49,
+         "col": 43,
+         "h": 2,
+         "w": 3
+        },
+        {
+         "kind": "recess",
+         "cells": 6,
+         "row": 49,
+         "col": 54,
+         "h": 2,
+         "w": 3
+        }
+       ]
+      }
+     },
+     "haiku_usd": 0.0091,
+     "haiku_summary": "The main massing, both towers with belfries and spires, the nave, roof, apse, west front, main portal, front gable, and the side piers and flying buttresses on both flanks show in the grey renders, while the plinth, rose, side portals, gallery balustrade, all aisle and clerestory windows, pinnacles, and apse windows do not appear as their own shapes at this resolution."
+    }
+   ],
+   "grid_used": 48,
+   "missing": [
+    "plinth",
+    "apse",
+    "portal_side",
+    "rose",
+    "front_window",
+    "gallery_balustrade",
+    "belfry_opening",
+    "aisle_window",
+    "clerestory_window",
+    "apse_window",
+    "apse_flying_buttress",
+    "aisle_window_left",
+    "clerestory_window_left"
+   ],
+   "detail_missing": {
+    "plinth": [
+     "wider flat platform margin",
+     "shallow step at the west portals"
+    ],
+    "west_front": [
+     "string course teeth",
+     "sill ledges"
+    ],
+    "tower": [
+     "corner buttress steps"
+    ],
+    "belfry": [
+     "angled stone shoulders"
+    ],
+    "nave": [
+     "blank plinth wall"
+    ],
+    "roof": [
+     "hipped east cap",
+     "cross at peak"
+    ],
+    "apse": [
+     "rounded many-sided east end",
+     "faceted apse roof cap"
+    ],
+    "portal_main": [
+     "concentric arch rings",
+     "crockets on gable",
+     "medallion"
+    ],
+    "portal_side": [
+     "two side recesses at tower feet",
+     "finial spikes on gables"
+    ],
+    "gallery_arcade": [
+     "five separate pointed recesses"
+    ],
+    "rose": [
+     "circular recess",
+     "raised stone ring",
+     "twelve spokes",
+     "corner medallions"
+    ],
+    "front_window": [
+     "stacked pointed tower windows",
+     "mullions",
+     "sill ledges"
+    ],
+    "front_gable": [
+     "three narrow slits",
+     "cross at tip"
+    ],
+    "gallery_balustrade": [
+     "open row of balusters",
+     "top rail across centre section"
+    ],
+    "belfry_opening": [
+     "two tall openings per belfry face",
+     "horizontal louvre slats"
+    ],
+    "parapet": [
+     "square merlon teeth",
+     "gaps between teeth"
+    ],
+    "aisle_window": [
+     "quatrefoil tracery",
+     "mullion"
+    ],
+    "clerestory_window": [
+     "moulded recess edge",
+     "sloping sill"
+    ],
+    "side_buttress": [
+     "stepped set-offs"
+    ],
+    "pinnacle": [
+     "side gablets"
+    ],
+    "apse_window": [
+     "three windows at east end"
+    ],
+    "apse_flying_buttress": [
+     "fan of curved arms round apse",
+     "pinnacles on apse arms"
+    ],
+    "aisle_window_left": [
+     "quatrefoil tracery",
+     "mullion"
+    ],
+    "clerestory_window_left": [
+     "moulded recess edge",
+     "sloping sill"
+    ],
+    "side_buttress_left": [
+     "stepped set-offs"
+    ],
+    "pinnacle_left": [
+     "side gablets"
+    ]
+   }
+  }
+ ],
+ "required_openings_per_face": {
+  "front": 19,
+  "right": 35,
+  "back": 14,
+  "left": 35
+ },
+ "check": "failed",
+ "retries": 3
+}

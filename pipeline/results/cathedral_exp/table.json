@@ -1,0 +1,832 @@
+{
+ "A": {
+  "best": "bpA3_g72",
+  "best_missing": 8,
+  "n_checks": 8,
+  "miss_per_check": [
+   14,
+   17,
+   9,
+   14,
+   14,
+   8,
+   13,
+   18
+  ],
+  "parts": {
+   "plinth": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "margin of ground around the walls",
+     "stepped foot under the west portals"
+    ],
+    "pass_rate": 2,
+    "max_seen": 1
+   },
+   "west_front": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [],
+    "pass_rate": 8,
+    "max_seen": 1
+   },
+   "tower": {
+    "best_present": true,
+    "best_seen": 2,
+    "best_detail_missing": [],
+    "pass_rate": 8,
+    "max_seen": 2
+   },
+   "belfry": {
+    "best_present": true,
+    "best_seen": 2,
+    "best_detail_missing": [],
+    "pass_rate": 8,
+    "max_seen": 2
+   },
+   "spire": {
+    "best_present": true,
+    "best_seen": 2,
+    "best_detail_missing": [],
+    "pass_rate": 8,
+    "max_seen": 2
+   },
+   "nave": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [],
+    "pass_rate": 8,
+    "max_seen": 1
+   },
+   "roof": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [
+     "hipped east cap with cross"
+    ],
+    "pass_rate": 7,
+    "max_seen": 1
+   },
+   "apse": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [],
+    "pass_rate": 6,
+    "max_seen": 1
+   },
+   "portal_main": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [
+     "crockets on gable",
+     "medallion in gable"
+    ],
+    "pass_rate": 7,
+    "max_seen": 1
+   },
+   "portal_side": {
+    "best_present": true,
+    "best_seen": 2,
+    "best_detail_missing": [
+     "finials on gables"
+    ],
+    "pass_rate": 5,
+    "max_seen": 2
+   },
+   "gallery_arcade": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "five separate pointed recesses"
+    ],
+    "pass_rate": 5,
+    "max_seen": 1
+   },
+   "rose": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "circular recess",
+     "twelve-spoke tracery"
+    ],
+    "pass_rate": 0,
+    "max_seen": 0
+   },
+   "front_window": {
+    "best_present": true,
+    "best_seen": 4,
+    "best_detail_missing": [
+     "mullions readable as separate lights"
+    ],
+    "pass_rate": 4,
+    "max_seen": 4
+   },
+   "front_gable": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [
+     "three slits readable",
+     "cross at tip"
+    ],
+    "pass_rate": 8,
+    "max_seen": 1
+   },
+   "gallery_balustrade": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "row of separate balusters",
+     "top rail"
+    ],
+    "pass_rate": 0,
+    "max_seen": 0
+   },
+   "belfry_opening": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "sixteen louvred openings",
+     "slotted louvre texture"
+    ],
+    "pass_rate": 0,
+    "max_seen": 8
+   },
+   "parapet": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "square merlons with gaps",
+     "battlement teeth at tower tops"
+    ],
+    "pass_rate": 3,
+    "max_seen": 2
+   },
+   "aisle_window": {
+    "best_present": true,
+    "best_seen": 11,
+    "best_detail_missing": [],
+    "pass_rate": 2,
+    "max_seen": 11
+   },
+   "clerestory_window": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "ten clerestory openings",
+     "sloped sills over aisle roof"
+    ],
+    "pass_rate": 0,
+    "max_seen": 9
+   },
+   "side_buttress": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [],
+    "pass_rate": 6,
+    "max_seen": 10
+   },
+   "flying_buttress": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [],
+    "pass_rate": 5,
+    "max_seen": 10
+   },
+   "pinnacle": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [],
+    "pass_rate": 4,
+    "max_seen": 10
+   },
+   "apse_window": {
+    "best_present": true,
+    "best_seen": 3,
+    "best_detail_missing": [
+     "three separate openings clearly separated"
+    ],
+    "pass_rate": 2,
+    "max_seen": 3
+   },
+   "apse_flying_buttress": {
+    "best_present": true,
+    "best_seen": 7,
+    "best_detail_missing": [],
+    "pass_rate": 2,
+    "max_seen": 7
+   },
+   "aisle_window_left": {
+    "best_present": true,
+    "best_seen": 11,
+    "best_detail_missing": [],
+    "pass_rate": 2,
+    "max_seen": 11
+   },
+   "clerestory_window_left": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "ten clerestory openings",
+     "sloped sills over aisle roof"
+    ],
+    "pass_rate": 0,
+    "max_seen": 9
+   },
+   "side_buttress_left": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [],
+    "pass_rate": 6,
+    "max_seen": 10
+   },
+   "flying_buttress_left": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [],
+    "pass_rate": 5,
+    "max_seen": 10
+   },
+   "pinnacle_left": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [],
+    "pass_rate": 4,
+    "max_seen": 10
+   }
+  },
+  "depth": {
+   "bpA1_g48": {
+    "front": [
+     10,
+     0
+    ],
+    "right": [
+     2,
+     0
+    ],
+    "back": [
+     2,
+     0
+    ],
+    "left": [
+     3,
+     0
+    ]
+   },
+   "bpA1_g72": {
+    "front": [
+     11,
+     0
+    ],
+    "right": [
+     16,
+     0
+    ],
+    "back": [
+     3,
+     0
+    ],
+    "left": [
+     11,
+     0
+    ]
+   },
+   "bpA2_g48": {
+    "front": [
+     8,
+     0
+    ],
+    "right": [
+     5,
+     0
+    ],
+    "back": [
+     2,
+     0
+    ],
+    "left": [
+     3,
+     0
+    ]
+   },
+   "bpA2_g72": {
+    "front": [
+     11,
+     0
+    ],
+    "right": [
+     6,
+     0
+    ],
+    "back": [
+     13,
+     0
+    ],
+    "left": [
+     7,
+     0
+    ]
+   },
+   "bpA3_g48": {
+    "front": [
+     5,
+     0
+    ],
+    "right": [
+     18,
+     0
+    ],
+    "back": [
+     5,
+     0
+    ],
+    "left": [
+     18,
+     0
+    ]
+   },
+   "bpA3_g72": {
+    "front": [
+     8,
+     0
+    ],
+    "right": [
+     14,
+     0
+    ],
+    "back": [
+     3,
+     0
+    ],
+    "left": [
+     14,
+     0
+    ]
+   },
+   "bpA4_g48": {
+    "front": [
+     6,
+     0
+    ],
+    "right": [
+     9,
+     0
+    ],
+    "back": [
+     2,
+     0
+    ],
+    "left": [
+     8,
+     0
+    ]
+   },
+   "bpA4_g72": {
+    "front": [
+     7,
+     0
+    ],
+    "right": [
+     7,
+     0
+    ],
+    "back": [
+     1,
+     0
+    ],
+    "left": [
+     7,
+     0
+    ]
+   }
+  },
+  "present_all": 21
+ },
+ "B": {
+  "best": "bpB2_g72",
+  "best_missing": 13,
+  "n_checks": 8,
+  "miss_per_check": [
+   19,
+   20,
+   17,
+   13,
+   19,
+   14,
+   22,
+   18
+  ],
+  "parts": {
+   "plinth": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "flush base margin not visible; building sits flush on its base in the renders"
+    ],
+    "pass_rate": 3,
+    "max_seen": 1
+   },
+   "west_front": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [
+     "sill ledges and string course not resolved"
+    ],
+    "pass_rate": 8,
+    "max_seen": 1
+   },
+   "tower": {
+    "best_present": true,
+    "best_seen": 2,
+    "best_detail_missing": [
+     "corner buttress steps"
+    ],
+    "pass_rate": 8,
+    "max_seen": 4
+   },
+   "belfry": {
+    "best_present": true,
+    "best_seen": 2,
+    "best_detail_missing": [
+     "angled shoulders"
+    ],
+    "pass_rate": 8,
+    "max_seen": 4
+   },
+   "spire": {
+    "best_present": true,
+    "best_seen": 2,
+    "best_detail_missing": [],
+    "pass_rate": 8,
+    "max_seen": 4
+   },
+   "nave": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [
+     "blank plinth wall"
+    ],
+    "pass_rate": 6,
+    "max_seen": 1
+   },
+   "roof": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [],
+    "pass_rate": 4,
+    "max_seen": 1
+   },
+   "apse": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [
+     "rounded many-sided plan only partly resolved"
+    ],
+    "pass_rate": 6,
+    "max_seen": 1
+   },
+   "portal_main": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [
+     "gable crockets",
+     "rose medallion",
+     "door posts"
+    ],
+    "pass_rate": 7,
+    "max_seen": 1
+   },
+   "portal_side": {
+    "best_present": true,
+    "best_seen": 2,
+    "best_detail_missing": [
+     "gable finials",
+     "medallions"
+    ],
+    "pass_rate": 4,
+    "max_seen": 2
+   },
+   "gallery_arcade": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "five separate pointed recesses not resolved at this grid size"
+    ],
+    "pass_rate": 2,
+    "max_seen": 1
+   },
+   "rose": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "circular recess outline",
+     "twelve spokes",
+     "hub"
+    ],
+    "pass_rate": 1,
+    "max_seen": 1
+   },
+   "front_window": {
+    "best_present": false,
+    "best_seen": 2,
+    "best_detail_missing": [
+     "stacked pair per tower only partly resolved",
+     "mullions",
+     "sill ledges"
+    ],
+    "pass_rate": 4,
+    "max_seen": 4
+   },
+   "front_gable": {
+    "best_present": true,
+    "best_seen": 1,
+    "best_detail_missing": [
+     "three slits not resolved"
+    ],
+    "pass_rate": 7,
+    "max_seen": 1
+   },
+   "gallery_balustrade": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "balusters not resolved",
+     "open railing band not visible"
+    ],
+    "pass_rate": 0,
+    "max_seen": 0
+   },
+   "belfry_opening": {
+    "best_present": false,
+    "best_seen": 4,
+    "best_detail_missing": [
+     "louvre slats",
+     "pair per face not resolvable, only one slot per visible face"
+    ],
+    "pass_rate": 1,
+    "max_seen": 16
+   },
+   "parapet": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "square merlon teeth not resolved; tower tops read as flat"
+    ],
+    "pass_rate": 2,
+    "max_seen": 4
+   },
+   "aisle_window": {
+    "best_present": false,
+    "best_seen": 10,
+    "best_detail_missing": [
+     "quatrefoil tracery"
+    ],
+    "pass_rate": 0,
+    "max_seen": 10
+   },
+   "clerestory_window": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [
+     "moulded edges"
+    ],
+    "pass_rate": 1,
+    "max_seen": 10
+   },
+   "side_buttress": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [
+     "set-off caps"
+    ],
+    "pass_rate": 2,
+    "max_seen": 10
+   },
+   "flying_buttress": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [],
+    "pass_rate": 1,
+    "max_seen": 10
+   },
+   "pinnacle": {
+    "best_present": false,
+    "best_seen": 8,
+    "best_detail_missing": [
+     "side gablets"
+    ],
+    "pass_rate": 1,
+    "max_seen": 10
+   },
+   "apse_window": {
+    "best_present": false,
+    "best_seen": 0,
+    "best_detail_missing": [
+     "three separate pointed openings not resolved in back depth map"
+    ],
+    "pass_rate": 1,
+    "max_seen": 3
+   },
+   "apse_flying_buttress": {
+    "best_present": false,
+    "best_seen": 5,
+    "best_detail_missing": [
+     "pinnacle on each outer arm"
+    ],
+    "pass_rate": 0,
+    "max_seen": 5
+   },
+   "aisle_window_left": {
+    "best_present": false,
+    "best_seen": 10,
+    "best_detail_missing": [
+     "quatrefoil tracery"
+    ],
+    "pass_rate": 0,
+    "max_seen": 10
+   },
+   "clerestory_window_left": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [
+     "moulded edges"
+    ],
+    "pass_rate": 1,
+    "max_seen": 10
+   },
+   "side_buttress_left": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [
+     "set-off caps"
+    ],
+    "pass_rate": 2,
+    "max_seen": 10
+   },
+   "flying_buttress_left": {
+    "best_present": true,
+    "best_seen": 10,
+    "best_detail_missing": [],
+    "pass_rate": 1,
+    "max_seen": 10
+   },
+   "pinnacle_left": {
+    "best_present": false,
+    "best_seen": 8,
+    "best_detail_missing": [
+     "side gablets"
+    ],
+    "pass_rate": 1,
+    "max_seen": 10
+   }
+  },
+  "depth": {
+   "bpB1_g48": {
+    "front": [
+     8,
+     0
+    ],
+    "right": [
+     8,
+     0
+    ],
+    "back": [
+     5,
+     0
+    ],
+    "left": [
+     6,
+     0
+    ]
+   },
+   "bpB1_g72": {
+    "front": [
+     3,
+     1
+    ],
+    "right": [
+     12,
+     0
+    ],
+    "back": [
+     12,
+     1
+    ],
+    "left": [
+     12,
+     0
+    ]
+   },
+   "bpB2_g48": {
+    "front": [
+     5,
+     0
+    ],
+    "right": [
+     10,
+     0
+    ],
+    "back": [
+     6,
+     0
+    ],
+    "left": [
+     9,
+     0
+    ]
+   },
+   "bpB2_g72": {
+    "front": [
+     10,
+     0
+    ],
+    "right": [
+     17,
+     0
+    ],
+    "back": [
+     5,
+     0
+    ],
+    "left": [
+     18,
+     0
+    ]
+   },
+   "bpB3_g48": {
+    "front": [
+     4,
+     0
+    ],
+    "right": [
+     0,
+     0
+    ],
+    "back": [
+     4,
+     0
+    ],
+    "left": [
+     1,
+     0
+    ]
+   },
+   "bpB3_g72": {
+    "front": [
+     2,
+     0
+    ],
+    "right": [
+     1,
+     0
+    ],
+    "back": [
+     13,
+     0
+    ],
+    "left": [
+     3,
+     0
+    ]
+   },
+   "bpB4_g48": {
+    "front": [
+     3,
+     0
+    ],
+    "right": [
+     11,
+     0
+    ],
+    "back": [
+     1,
+     0
+    ],
+    "left": [
+     4,
+     0
+    ]
+   },
+   "bpB4_g72": {
+    "front": [
+     7,
+     0
+    ],
+    "right": [
+     12,
+     0
+    ],
+    "back": [
+     1,
+     0
+    ],
+    "left": [
+     13,
+     0
+    ]
+   }
+  },
+  "present_all": 16
+ }
+}

@@ -1,0 +1,166 @@
+{
+ "fal_usd": 1.912,
+ "haiku_usd": 0.1881,
+ "items": [
+  {
+   "item": "fal sheet bpA1",
+   "usd": 0.039,
+   "t": "22:00:19"
+  },
+  {
+   "item": "fal mesh bpA1",
+   "usd": 0.2,
+   "t": "22:00:33"
+  },
+  {
+   "item": "fal sheet bpB1",
+   "usd": 0.039,
+   "t": "22:00:39"
+  },
+  {
+   "item": "fal mesh bpB1",
+   "usd": 0.2,
+   "t": "22:00:54"
+  },
+  {
+   "item": "haiku check bpA1_g48",
+   "usd": 0.011,
+   "t": "22:02:02"
+  },
+  {
+   "item": "haiku check bpA1_g72",
+   "usd": 0.012,
+   "t": "22:02:50"
+  },
+  {
+   "item": "fal sheet bpA2",
+   "usd": 0.039,
+   "t": "22:02:51"
+  },
+  {
+   "item": "haiku check bpB1_g48",
+   "usd": 0.0132,
+   "t": "22:02:52"
+  },
+  {
+   "item": "fal mesh bpA2",
+   "usd": 0.2,
+   "t": "22:03:17"
+  },
+  {
+   "item": "haiku check bpB1_g72",
+   "usd": 0.0123,
+   "t": "22:05:45"
+  },
+  {
+   "item": "fal sheet bpB2",
+   "usd": 0.039,
+   "t": "22:05:46"
+  },
+  {
+   "item": "fal mesh bpB2",
+   "usd": 0.2,
+   "t": "22:06:01"
+  },
+  {
+   "item": "haiku check bpA2_g48",
+   "usd": 0.0113,
+   "t": "22:06:49"
+  },
+  {
+   "item": "haiku check bpA2_g72",
+   "usd": 0.0125,
+   "t": "22:07:41"
+  },
+  {
+   "item": "fal sheet bpA3",
+   "usd": 0.039,
+   "t": "22:07:41"
+  },
+  {
+   "item": "fal mesh bpA3",
+   "usd": 0.2,
+   "t": "22:07:57"
+  },
+  {
+   "item": "haiku check bpB2_g48",
+   "usd": 0.0114,
+   "t": "22:08:00"
+  },
+  {
+   "item": "haiku check bpB2_g72",
+   "usd": 0.0111,
+   "t": "22:08:39"
+  },
+  {
+   "item": "fal sheet bpB3",
+   "usd": 0.039,
+   "t": "22:08:39"
+  },
+  {
+   "item": "fal mesh bpB3",
+   "usd": 0.2,
+   "t": "22:08:55"
+  },
+  {
+   "item": "haiku check bpA3_g48",
+   "usd": 0.0111,
+   "t": "22:09:35"
+  },
+  {
+   "item": "haiku check bpA3_g72",
+   "usd": 0.0129,
+   "t": "22:15:10"
+  },
+  {
+   "item": "fal sheet bpA4",
+   "usd": 0.039,
+   "t": "22:15:10"
+  },
+  {
+   "item": "fal mesh bpA4",
+   "usd": 0.2,
+   "t": "22:15:27"
+  },
+  {
+   "item": "haiku check bpB3_g48",
+   "usd": 0.013,
+   "t": "22:16:44"
+  },
+  {
+   "item": "haiku check bpA4_g48",
+   "usd": 0.0114,
+   "t": "22:19:42"
+  },
+  {
+   "item": "haiku check bpA4_g72",
+   "usd": 0.0091,
+   "t": "22:20:56"
+  },
+  {
+   "item": "haiku check bpB3_g72",
+   "usd": 0.0109,
+   "t": "22:21:16"
+  },
+  {
+   "item": "fal sheet bpB4",
+   "usd": 0.039,
+   "t": "22:21:16"
+  },
+  {
+   "item": "fal mesh bpB4",
+   "usd": 0.2,
+   "t": "22:21:32"
+  },
+  {
+   "item": "haiku check bpB4_g48",
+   "usd": 0.0121,
+   "t": "22:23:21"
+  },
+  {
+   "item": "haiku check bpB4_g72",
+   "usd": 0.0128,
+   "t": "22:24:15"
+  }
+ ]
+}
