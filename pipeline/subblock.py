@@ -120,9 +120,8 @@ def build(n, N=24, lam=6.0, thin_min=0.12, close=2, keep_thin=False):
             v = {"x": int(X), "y": int(Y), "z": int(Z), "c": key}
             if with_shape and c[3] != 0: v["s"] = SHAPES[c[3]][0]
             vs.append(v)
-        json.dump({"name": path.split("/")[-1][:-5], "size": [W, H, D], "camera": {"azim": 35, "elev": 20},
-                   "palette": {v: k for k, v in pal.items()}, "voxels": vs, "format_note": "voxel 's' = sub-block shape (absent = full block); see subblock.py"},
-                  open(path, "w"))
+        open(path, "w").write(json.dumps({"name": path.split("/")[-1][:-5], "size": [W, H, D], "camera": {"azim": 35, "elev": 20},
+                   "palette": {v: k for k, v in pal.items()}, "voxels": vs, "format_note": "voxel 's' = sub-block shape (absent = full block); see subblock.py"}))
         return pal
     write([c + (0,) for c in full_only], f"art/{n}_half_full.json", False)
     pal = write(sub, f"art/{n}_half_sub.json", True)
@@ -145,7 +144,7 @@ def expand(src, dst):
             import shape_fit; lut[k] = shape_fit.raster(shape_fit.boxes01(v["s"]), F) >= 0.5
         t = lut[k]
         for a, b, c in np.argwhere(t): vs.append({"x": v["x"]*F+int(a), "y": v["y"]*F+int(b), "z": v["z"]*F+int(c), "c": v["c"]})
-    json.dump({"name": d["name"] + "_fine", "size": [W*F, H*F, D*F], "camera": d["camera"], "palette": d["palette"], "voxels": vs}, open(dst, "w"))
+    open(dst, "w").write(json.dumps({"name": d["name"] + "_fine", "size": [W*F, H*F, D*F], "camera": d["camera"], "palette": d["palette"], "voxels": vs}))
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("name"); ap.add_argument("--n", type=int, default=24); ap.add_argument("--lam", type=float, default=6); ap.add_argument("--close", type=int, default=2)

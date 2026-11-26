@@ -140,6 +140,27 @@ def candidates(P, N, tree, rng, k=250):
         if 0.75 < r < 30: out.append(Prim("vcyl", c=c, r=float(r)))
     return out
 
+def score_candidates(cands, P, N, eps, cosang, chunk=64):
+    """inlier counts of many candidates at once (same test as inliers(), vectorised over candidates)"""
+    out = np.zeros(len(cands), int)
+    for kind in ("plane", "sphere", "vcyl"):
+        ix = [i for i, c in enumerate(cands) if c.kind == kind]
+        for j in range(0, len(ix), chunk):
+            cs = [cands[i] for i in ix[j:j+chunk]]
+            if kind == "plane":
+                Nc = np.stack([c.n for c in cs]); d = np.array([c.d for c in cs])
+                ok = (np.abs(P @ Nc.T - d) < eps) & (np.abs(N @ Nc.T) > cosang)
+            elif kind == "sphere":
+                C = np.stack([c.c for c in cs]); r = np.array([c.r for c in cs])
+                V = P[:, None, :] - C[None]; L = np.linalg.norm(V, axis=2)
+                ok = (np.abs(L - r) < eps) & (np.abs((N[:, None, :]*V).sum(2))/(L + 1e-9) > cosang)
+            else:
+                C = np.stack([c.c for c in cs]); r = np.array([c.r for c in cs])
+                vx = P[:, None, 0] - C[None, :, 0]; vz = P[:, None, 2] - C[None, :, 1]; L = np.hypot(vx, vz)
+                ok = (np.abs(L - r) < eps) & (np.abs(N[:, None, 0]*vx + N[:, None, 2]*vz)/(L + 1e-9) > cosang)
+            out[ix[j:j+chunk]] = ok.sum(0)
+    return out
+
 def fit_primitives(P, N, eps=0.22, ang=22, min_pts=40, max_prims=150, seed=0, log=print):
     rng = np.random.default_rng(seed); cosang = math.cos(math.radians(ang))
     remaining = np.ones(len(P), bool); prims, fails = [], 0
@@ -148,8 +169,7 @@ def fit_primitives(P, N, eps=0.22, ang=22, min_pts=40, max_prims=150, seed=0, lo
         sub = rng.choice(len(Pr), min(12000, len(Pr)), replace=False)
         cands = candidates(Pr, Nr, cKDTree(Pr), rng)
         best = {}
-        for c in cands:
-            sc = int(inliers(c, Pr[sub], Nr[sub], eps, cosang).sum())
+        for c, sc in zip(cands, score_candidates(cands, Pr[sub], Nr[sub], eps, cosang)):   # batched (was one inliers() call per candidate)
             if sc > best.get(c.kind, (0, None))[0]: best[c.kind] = (sc, c)
         if not best: fails += 1; continue
         top = max(v[0] for v in best.values())
@@ -234,10 +254,18 @@ def grid_offset(prims, P):
 # ---------------------------------------------------------------- occupancy
 def mesh_occupancy(mesh, shape, R, close=2):
     """1/R-block solid occupancy of a (leaky) mesh already in block coordinates (cell i covers [i/R, (i+1)/R))"""
-    m = mesh.copy(); m.apply_translation([-0.5/R]*3)
-    vg = m.voxelized(1.0/R); pts = vg.points + 0.5/R
-    idx = np.floor(pts*R + 1e-6).astype(int); ok = np.all((idx >= 0) & (idx < np.array(shape)), 1)
-    o = np.zeros(shape, bool); o[tuple(idx[ok].T)] = True
+    # surface cells: barycentric samples spaced <= 1 cell on every face (same criterion as trimesh's subdivide-based
+    # voxelized(), whose vertices are rounded to the grid), without the slow repeated edge subdivision
+    V = (mesh.vertices - 0.5/R)*R; T = V[mesh.faces]                 # in cell units, shifted like the old code
+    L = np.linalg.norm(T - np.roll(T, 1, axis=1), axis=2).max(1); K = np.maximum(1, np.ceil(2*L)).astype(int)
+    o = np.zeros(shape, bool); hi = np.array(shape) - 1
+    for k in np.unique(K):
+        tri = T[K == k]; i, j = np.meshgrid(np.arange(k + 1), np.arange(k + 1), indexing="ij"); keep = i + j <= k
+        B = np.stack([i[keep], j[keep], k - i[keep] - j[keep]], 1)/k        # (m, 3) barycentric
+        step = max(1, 2_000_000//len(B))
+        for c in range(0, len(tri), step):
+            idx = np.round(np.einsum("mb,fbd->fmd", B, tri[c:c + step]).reshape(-1, 3)).astype(np.int64)   # = floor(cell + 0.5)
+            idx = idx[np.all((idx >= 0) & (idx <= hi), 1)]; o[idx[:, 0], idx[:, 1], idx[:, 2]] = True
     o = o | ndimage.binary_erosion(ndimage.binary_fill_holes(ndimage.binary_dilation(o, iterations=close)), iterations=close)
     for y in range(o.shape[1]):                 # open-bottom shells: per-slice ring fill
         sl = o[:, y, :]; o[:, y, :] = sl | ndimage.binary_erosion(ndimage.binary_fill_holes(ndimage.binary_dilation(sl, iterations=close)), iterations=close)
@@ -506,6 +534,9 @@ def load_scale(n, mesh_ext):
 
 def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, height=True, sym=True, sheet=None):
     t0 = time.time(); mesh_path = mesh_path or f"out/{n}_lowpoly.glb"
+    if not os.path.exists(mesh_path) and os.path.exists(f"art/final/meta/{n}_mesh.json"):   # re-download the recorded mesh (no new generation)
+        import urllib.request; os.makedirs(os.path.dirname(mesh_path) or ".", exist_ok=True)
+        urllib.request.urlretrieve(json.load(open(f"art/final/meta/{n}_mesh.json"))["url"], mesh_path)
     sc = trimesh.load(mesh_path); mesh = sc.to_geometry() if isinstance(sc, trimesh.Scene) else sc
     # 1. orientation: rotate about y so the dominant wall directions are the x/z axes
     fn, fa = mesh.face_normals, mesh.area_faces; vert = np.abs(fn[:, 1]) < 0.3
@@ -558,7 +589,7 @@ def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, he
          "scale": {"blocks_per_metre": bpm, **scale_info}, "colour_source": colour_src, "transform": {"rotate_y_rad": rot, "drawing_stretch_xz": stretch, "scale": s, "translate_after_scale": list(map(float, t1 + shift)), "note": "block = (Ry(rot) @ mesh_point)*scale + translate"},
          "format_note": "voxel 's' = shape (absent = full block): slab{size 0.5|0.1875,align} vslab{size,axis,align} stairs{facing,half,shape} "
                         "wall{north..west: none|low|tall, up} fence{north..west: bool}; geometry = vanilla models (shape_fit.boxes01)"}
-    json.dump(d, open(f"art/{n}_{tag}.json", "w"))
+    open(f"art/{n}_{tag}.json", "w").write(json.dumps(d))
     # metrics: everything in metres (blocks / bpm)
     G = raster_model(cells, size, R); Gs = np.argwhere(surface_cells(G))/R
     cnt = {}

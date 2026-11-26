@@ -198,11 +198,11 @@ def run(n):
     dst = f"art/final/{n}_voxels_textured.json"; Z_ = {"y0": int(y0), "y1": int(y1)}
     out = dict(d, palette=pal, voxels=vs, name=f"{n}_voxels_textured")
     out["texture"] = {"rules": "TEXTURE_RULES.md + palette_generic.py", "photo_bases": binfo, "materials": {k: int((M == k).sum()) for k in names}, "blends": blend_info}
-    json.dump(out, open(dst, "w"))
-    json.dump({"subject": n, "size": d["size"], "zones": Z_, "crisp": C["crisp"], "bases": bases, "voxels": [
+    open(dst, "w").write(json.dumps(out))
+    open(f"art/final/meta/{n}_texture_labels.json", "w").write(json.dumps({"subject": n, "size": d["size"], "zones": Z_, "crisp": C["crisp"], "bases": bases, "voxels": [
         {"x": int(x), "y": int(y), "z": int(z), "m": M[x, y, z], "sh": int(IDX[x, y, z]) if surf[x, y, z] else 0, "surf": bool(surf[x, y, z]),
-         **({"blend": BLm[(x, y, z)]} if (x, y, z) in BLm else {})} for x, y, z in np.argwhere(occ)]}, open(f"art/final/meta/{n}_texture_labels.json", "w"))
-    subblock.expand(dst, dst.replace(".json", "_fine.json"))
+         **({"blend": BLm[(x, y, z)]} if (x, y, z) in BLm else {})} for x, y, z in np.argwhere(occ)]}))
+    if "--fine" in sys.argv: subblock.expand(dst, dst.replace(".json", "_fine.json"))   # 4x render grid: only the old gallery/score tools read it (they build it on demand)
     print(n, json.dumps({"palette": len(pal), "materials": out["texture"]["materials"], "bases": {k: v["base"] for k, v in binfo.items()}, "blends": blend_info}))
 if __name__ == "__main__":
     for n in sys.argv[1:]: run(n)

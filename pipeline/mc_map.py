@@ -479,7 +479,7 @@ def run(n):
            "palette": palette, "voxels": vox_out, "summary": summary, "source": f"art/final/{n}_voxels_textured.json", "rules": "MC_BLOCK_RULES.md"}
     out["summary"]["detail_metrics"] = detail_metrics.metrics(detail_metrics.cells_of(out))
     out = mc_render.attach_bake(out)
-    json.dump(out, open(f"art/final/{n}_mc_blocks.json", "w"))
+    open(f"art/final/{n}_mc_blocks.json", "w").write(json.dumps(out))
     mc_render.export(f"art/final/{n}_mc_blocks.json", f"art/final/schematics/{n}_mc_blocks")
     nb = len({p["id"] for p in palette.values()})
     print(n, "blockstates", len(palette), "block ids", nb, "shapes", dict(shape_log), "detail", detail_log)

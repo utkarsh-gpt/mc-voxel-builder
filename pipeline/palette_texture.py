@@ -357,11 +357,11 @@ def run(subject, src, dst):
         v2 = dict(v); v2["c"] = col_of[(v["x"], v["y"], v["z"])]; vs.append(v2)
     out = dict(d); out["palette"] = pal; out["voxels"] = vs; out["name"] = f"{subject}_voxels_textured"
     out["texture"] = {"rules": "TEXTURE_RULES.md", "zones": Z_, "materials": {m: int((M == m).sum()) for m in ramps}, "blends": blend_info}
-    json.dump(out, open(dst, "w"))
+    open(dst, "w").write(json.dumps(out))
     lab_out = {"subject": subject, "size": d["size"], "zones": Z_, "voxels": [
         {"x": int(x), "y": int(y), "z": int(z), "m": M[x, y, z], "sh": int(IDX[x, y, z]) if surf[x, y, z] else 0, "surf": bool(surf[x, y, z]),
          **({"blend": BL[(x, y, z)]} if (x, y, z) in BL else {})} for x, y, z in np.argwhere(occ)]}
-    json.dump(lab_out, open(f"art/final/meta/{subject}_texture_labels.json", "w"))
+    open(f"art/final/meta/{subject}_texture_labels.json", "w").write(json.dumps(lab_out))
     import subblock; subblock.expand(dst, dst.replace(".json", "_fine.json"))
     stats = {"palette": len(pal), "materials": out["texture"]["materials"], "zones": Z_, "blends": blend_info,
              "base_share": {m: round(float((IDX[(M == m) & surf] == 0).mean()), 2) for m in ramps if ((M == m) & surf).any()}}

@@ -105,6 +105,6 @@ lookup = -np.ones(occ.shape, int); lookup[xs, ys, zs] = lbl
 _, si = ndimage.distance_transform_edt(~surf, return_indices=True)
 for a, b, c in zip(ix, iy, iz): vox_out.append({"x": int(a), "y": int(b), "z": int(c), "c": keys[lookup[si[0][a, b, c], si[1][a, b, c], si[2][a, b, c]]]})
 out = {"name": f"{key}_rendered", "size": [W, H, D], "camera": {"azim": 35, "elev": 20}, "palette": pal, "voxels": vox_out}
-json.dump(out, open(f"art/{key}_rendered.json", "w"))
+open(f"art/{key}_rendered.json", "w").write(json.dumps(out))
 rep.update({"surface_voxels": int(len(xs)), "total_voxels": len(vox_out), "palette_size": len(set(v["c"] for v in vox_out))})
 json.dump(rep, open(f"out/{key}_paint_report.json", "w"), indent=1); print(key, json.dumps(rep))

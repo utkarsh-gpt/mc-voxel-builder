@@ -4,7 +4,8 @@ from concurrent.futures import ThreadPoolExecutor
 from PIL import Image
 import vox, scorer, run_fal
 def run(n):
-    fine = f"art/final/{n}_voxels_textured_fine.json"; ref = f"refs/{n}.jpg"
+    fine = f"art/final/{n}_voxels_textured_fine.json"
+    if not __import__("os").path.exists(fine): __import__("subblock").expand(f"art/final/{n}_voxels_textured.json", fine); ref = f"refs/{n}.jpg"
     _, o, c, _ = vox.load(fine, seed=0); az, el = run_fal.fit_cardinal(Image.open(ref), o, c)
     r = scorer.score(ref, fine, f"out/{n}_textured", az, el, fit=False, use_judge=True)
     _, oc, cc, _ = vox.load(f"art/final/{n}_voxels_textured.json", seed=0); cm = scorer.craft_metrics(oc, cc); craft = dict(r["craft"])

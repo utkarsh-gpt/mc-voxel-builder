@@ -9,15 +9,23 @@ import argparse, itertools, json, numpy as np
 from PIL import Image
 from scipy import ndimage
 from skimage.transform import resize
-from rembg import remove, new_session
 import scorer, vox
 SESSION = None
 
-def mask_of(path):
+def rembg_mask(path):
+    """rembg (isnet) foreground mask, cached on disk by image content: the drawings never change once generated,
+    and the model load + 5 inferences were ~6 s of every ortho_paint run"""
     global SESSION
+    import hashlib, os
+    im = Image.open(path).convert("RGB"); key = hashlib.sha1(im.tobytes()).hexdigest()[:20]; cp = f"out/cache/rembg_{key}.png"
+    if os.path.exists(cp): return np.asarray(Image.open(cp)) > 100, im
+    from rembg import remove, new_session
     SESSION = SESSION or new_session("isnet-general-use")
-    im = Image.open(path).convert("RGB")
-    m = np.asarray(remove(im, session=SESSION, only_mask=True)) > 100
+    raw = remove(im, session=SESSION, only_mask=True); os.makedirs("out/cache", exist_ok=True); raw.save(cp)
+    return np.asarray(raw) > 100, im
+
+def mask_of(path):
+    m, im = rembg_mask(path)
     # union with a non-white threshold mask (rembg drops white walls drawn on a white background)
     nw = (np.asarray(im).min(-1) < 235); nw = ndimage.binary_closing(nw, np.ones((5, 5)), iterations=2)
     nw = ndimage.binary_opening(ndimage.binary_fill_holes(nw), np.ones((9, 9)))   # drops thin ground lines

@@ -129,26 +129,30 @@ def render(occ, col, azim=30, elev=20, size=512, bg=(255,255,255), light=(-0.4, 
                     occl += pad[fx+1+off[0], fy+1+off[1], fz+1+off[2]]
             aof = 1 - 0.06*occl
         else: aof = np.ones(len(fx))
-        q = np.array(quad, float)
-        for i in range(len(fx)):
-            p = np.array([fx[i], fy[i], fz[i]], float)
-            corners = (q + p - ctr) @ R.T
-            depth = corners[:, 2].mean()
-            if ids is not None:
-                v = int(ids[fx[i], fy[i], fz[i]])*6 + fi + 1; polys.append((depth, corners[:, :2], (v >> 16 & 255, v >> 8 & 255, v & 255))); continue
-            c = col[fx[i], fy[i], fz[i]].astype(float) * shade * aof[i]
-            polys.append((depth, corners[:, :2], tuple(np.clip(c, 0, 255).astype(int))))
+        q = np.array(quad, float)                                   # vectorised over faces (was a per-face Python loop)
+        p = np.stack([fx, fy, fz], 1).astype(float)
+        corners = (q[None] + p[:, None, :] - ctr) @ R.T             # (n, 4, 3)
+        depth = corners[:, :, 2].mean(1)
+        if ids is not None:
+            v = ids[fx, fy, fz].astype(np.int64)*6 + fi + 1; cc = np.stack([v >> 16 & 255, v >> 8 & 255, v & 255], 1)
+        else:
+            cc = np.clip(col[fx, fy, fz].astype(float) * shade * aof[:, None], 0, 255).astype(int)
+        polys.append((depth, corners[:, :, :2], cc))
     img = Image.new("RGB", (size, size), (0,0,0) if ids is not None else bg); mimg = Image.new("L", (size, size), 0)
     if not polys: return img, np.zeros((size, size), bool)
+    depth = np.concatenate([p[0] for p in polys]); pts = np.concatenate([p[1] for p in polys]); cols = np.concatenate([p[2] for p in polys])
     if frame == "grid":   # fixed framing from the grid corners (stable when occupancy changes)
         gc = np.array([[x, y, z] for x in (0, W) for y in (0, H) for z in (0, D)], float)
         allp = ((gc - ctr) @ R.T)[:, :2]
-    else: allp = np.concatenate([p[1] for p in polys])
+    else: allp = pts.reshape(-1, 2)
     mn, mx = allp.min(0), allp.max(0)
     sc = 0.9*size / max(mx-mn); off = (size - (mx-mn)*sc)/2
     dr, dm = ImageDraw.Draw(img), ImageDraw.Draw(mimg)
-    for depth, pts, c in sorted(polys, key=lambda t: t[0]):
-        pp = [((x-mn[0])*sc+off[0], size-((y-mn[1])*sc+off[1])) for x, y in pts]
+    order = np.argsort(depth, kind="stable")                     # same order as sorted(..., key=depth)
+    px = (pts[..., 0] - mn[0])*sc + off[0]; py = size - ((pts[..., 1] - mn[1])*sc + off[1])
+    PP = np.stack([px, py], -1)[order].tolist(); CC = [tuple(c) for c in cols[order].tolist()]
+    for pp, c in zip(PP, CC):
+        pp = [tuple(t) for t in pp]
         dr.polygon(pp, fill=c, outline=(0,0,0) if outline else c); dm.polygon(pp, fill=255)
     return img, np.array(mimg) > 0
 

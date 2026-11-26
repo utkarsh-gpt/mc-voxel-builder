@@ -17,8 +17,9 @@ def region_ids(L, H):
     keys, vid = {}, {}
     ys = {}
     for v in L["voxels"]: ys.setdefault(v["m"], []).append(v["y"])
+    rng = {m: (min(y), max(y)) for m, y in ys.items()}           # once per material (was recomputed for every voxel)
     for v in L["voxels"]:
-        y0, y1 = min(ys[v["m"]]), max(ys[v["m"]]); nb = max(1, min(4, (y1 - y0 + 1)//3)); b = min(nb-1, int((v["y"]-y0)*nb/(y1-y0+1)))
+        y0, y1 = rng[v["m"]]; nb = max(1, min(4, (y1 - y0 + 1)//3)); b = min(nb-1, int((v["y"]-y0)*nb/(y1-y0+1)))
         k = (v["m"], b); keys.setdefault(k, len(keys) + 1); vid[(v["x"], v["y"], v["z"])] = keys[k]
     return keys, vid
 def measure(img_path, mask, occ, ids, az, el, nvox_h):
@@ -51,7 +52,9 @@ def run(n):
     else:   # new subjects: fit the photo camera on the textured fine model
         # camera fit on the block grid: the 4x fine model gives the same azimuth/elevation but took ~30 min to render face by face
         import run_fal; _, o_, c_, _ = vox.load(T, seed=0); cam = list(run_fal.fit_cardinal(Image.open(f"refs/{n}.jpg"), o_, c_))
-    if n not in ORTHO: ORTHO[n] = f"ortho/{n}{json.load(open(f'out/{n}_verify.json'))['chosen']}_front.png"
+    if n not in ORTHO:   # chosen sheet: out/NAME_verify.json (local runs) or the checked-in art/final/meta/NAME_views.json
+        vp = next(p for p in (f"out/{n}_verify.json", f"art/final/meta/{n}_views.json") if os.path.exists(p))
+        ORTHO[n] = f"ortho/{n}{json.load(open(vp))['chosen']}_front.png"
     ref = Image.open(f"refs/{n}.jpg"); rmask = scorer.ref_mask(ref)
     om = Image.open(ORTHO[n]).convert("RGB"); oarr = np.asarray(om).astype(int); omask = ndimage.binary_opening((oarr.min(-1) < 235), np.ones((5, 5)))
     nvh = {}
@@ -77,7 +80,7 @@ def run(n):
         nz = res[kk]["noise"] if kk in res else (float(np.mean(mat_mean[k[0]])) if k[0] in mat_mean else None)
         per_vox.append({"x": x, "y": y, "z": z, "region": kk, "noise": nz})
     out = {"subject": n, "camera_photo": cam, "regions": res, "material_mean_noise": {m: round(float(np.mean(v)), 2) for m, v in mat_mean.items()}, "voxels": per_vox}
-    json.dump(out, open(f"art/final/meta/{n}_noise.json", "w"))
+    open(f"art/final/meta/{n}_noise.json", "w").write(json.dumps(out))
     print(n, json.dumps(out["material_mean_noise"])); 
     for kk, r in sorted(res.items()): print("  ", kk, r.get("photo"), "| ortho", r.get("ortho"), "->", r["noise"])
 for n in sys.argv[1:] or ["windmill", "cottage", "bonsai"]: run(n)

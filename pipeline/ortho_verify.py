@@ -121,4 +121,6 @@ if __name__ == "__main__":
     res = {"name": n, "chosen": best["tag"], "chosen_pass": best["pass"], "views_used": keep, "views_dropped": [v for v in VIEWS if v not in keep], "readmitted_geometry_clean": readmit,
            "sheets_generated": len(attempts), "haiku_calls": len(attempts), "verify_model": VERIFY_MODEL, "cost_usd": round(0.039*len(attempts), 3), "attempts": attempts}
     json.dump(res, open(f"out/{n}_verify.json", "w"), indent=1)
+    os.makedirs("art/final/meta", exist_ok=True)   # small checked-in copy: later stages need the chosen sheet even when out/ is gone
+    json.dump({"chosen": best["tag"], "views_used": keep, "views_dropped": res["views_dropped"]}, open(f"art/final/meta/{n}_views.json", "w"), indent=1)
     print(n, "chosen", best["tag"], "views", keep, "sheets", len(attempts))

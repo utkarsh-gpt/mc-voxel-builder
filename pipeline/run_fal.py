@@ -31,10 +31,27 @@ def fit_cardinal(ref_img, occ, col):
         iou = both.sum()/(rm | vm).sum()
         dE = np.linalg.norm(L1[both]-skc.rgb2lab(vr)[both], axis=1).mean() if both.any() else 100
         return iou + 0.5*max(0, 1-dE/50) - 0.002*abs(e - 5)
-    best = max((obj(a, e), a, e) for a in range(0, 360, 10) for e in range(-35, 36, 10))
+    import hashlib, os
+    key = hashlib.sha1(np.ascontiguousarray(occ).tobytes() + np.ascontiguousarray(col).tobytes() + ref_img.tobytes()).hexdigest()[:20]
+    cp = f"out/cache/cam_{key}.json"                       # same model + same photo -> same camera (search is deterministic)
+    if os.path.exists(cp): return tuple(json.load(open(cp)))
+    grid = [(a, e) for a in range(0, 360, 10) for e in range(-35, 36, 10)]
+    best = max(zip(_pmap(obj, grid), *zip(*grid)))
     _, a0, e0 = best
-    best = max([best] + [(obj(a, e), a, e) for a in range(a0-6, a0+7, 3) for e in range(e0-6, e0+7, 3)])
+    fine = [(a, e) for a in range(a0-6, a0+7, 3) for e in range(e0-6, e0+7, 3)]
+    best = max([best] + list(zip(_pmap(obj, fine), *zip(*fine))))
+    os.makedirs("out/cache", exist_ok=True); json.dump([int(best[1] % 360), int(best[2])], open(cp, "w"))
     return best[1] % 360, best[2]
+
+_PM_FN = None
+def _pm_call(args): return _PM_FN(*args)
+def _pmap(fn, items):
+    """map over a fork-based process pool (renders are CPU bound); falls back to serial where fork is unavailable"""
+    global _PM_FN
+    import multiprocessing as mp
+    if "fork" not in mp.get_all_start_methods() or len(items) < 16: return [fn(*x) for x in items]
+    _PM_FN = fn
+    with mp.get_context("fork").Pool(min(8, os.cpu_count() or 1)) as pool: return pool.map(_pm_call, items, chunksize=4)
 
 if __name__ == "__main__":
     if len(sys.argv) > 2 and sys.argv[2] == "--cam-only":

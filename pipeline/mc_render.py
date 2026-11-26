@@ -176,8 +176,8 @@ def bake_fine(path, dst, F=4):
         if key not in cache: cache[key] = ds(face_tex(*key))
         c = cache[key][u, v]; h = "#%02x%02x%02x" % tuple(np.clip(c, 0, 255).astype(int))
         pk = pal.setdefault(h, f"c{len(pal)}"); vs.append({"x": fx, "y": fy, "z": fz, "c": pk})
-    json.dump({"name": d.get("name", "mc") + "_baked", "size": [W*F, H*F, D*F], "camera": d.get("camera", {"azim": 30, "elev": 20}),
-               "palette": {v: k for k, v in pal.items()}, "voxels": vs}, open(dst, "w"))
+    open(dst, "w").write(json.dumps({"name": d.get("name", "mc") + "_baked", "size": [W*F, H*F, D*F], "camera": d.get("camera", {"azim": 30, "elev": 20}),
+               "palette": {v: k for k, v in pal.items()}, "voxels": vs}))
     return len(pal)
 
 def export(path, out_base):

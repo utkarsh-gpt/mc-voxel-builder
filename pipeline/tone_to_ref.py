@@ -13,7 +13,7 @@ def tone(model, ref, out, alpha=0.6):
     Lp = skc.rgb2lab(P[None])[0]; mu = (Lp*cnt[:, None]).sum(0)/cnt.sum(); sd = np.sqrt(((Lp-mu)**2*cnt[:, None]).sum(0)/cnt.sum())+1e-6
     Ln = (1-alpha)*Lp + alpha*((Lp-mu)/sd*Lr.std(0) + Lr.mean(0))
     rgb = (np.clip(skc.lab2rgb(Ln[None])[0], 0, 1)*255).round().astype(int)
-    d["palette"] = {k: "#%02x%02x%02x" % tuple(c) for k, c in zip(keys, rgb)}; d["name"] += "_toned"; json.dump(d, open(out, "w")); return out
+    d["palette"] = {k: "#%02x%02x%02x" % tuple(c) for k, c in zip(keys, rgb)}; d["name"] += "_toned"; open(out, "w").write(json.dumps(d)); return out
 if __name__ == "__main__":
     for k in sys.argv[1:]:
         n = k.split("_")[0]; tone(f"art/{k}_rendered.json", f"refs/{n}.jpg", f"art/{k}_rendered_toned.json")
