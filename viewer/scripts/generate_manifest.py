@@ -24,7 +24,8 @@ HIGHLIGHT_SUFFIXES = (
     "_fal_refined",
 )
 # Reruns shown in the viewer but never featured over the original build of their subject.
-NOT_FEATURED = {"windmill_v2_mc_blocks", "cottage_v2_mc_blocks"}
+NOT_FEATURED = {"windmill_v2_mc_blocks", "cottage_v2_mc_blocks",
+                "windmill_grad_mc_blocks", "cottage_grad_mc_blocks", "gate_grad_mc_blocks"}
 
 # Prefer these as the default featured model per subject (first match wins).
 FEATURED_PRIORITY = (

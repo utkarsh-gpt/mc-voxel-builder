@@ -1,0 +1,103 @@
+{
+ "source": "art/final/cottage_v2_mc_blocks.json",
+ "weights": {
+  "tex": 0.25,
+  "geo": 0.75
+ },
+ "zones": {
+  "thatch": {
+   "base": "light_gray_wool",
+   "ladder_dark_to_light": [
+    "tuff",
+    "light_gray_concrete",
+    "light_gray_wool"
+   ],
+   "L": [
+    45.8,
+    52.1,
+    58.8
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 28.4,
+    "base": 71.6,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "light_gray_wool": 518,
+    "light_gray_wool_stairs": 334,
+    "tuff": 284,
+    "light_gray_wool_slab": 89,
+    "light_gray_concrete": 64,
+    "light_gray_concrete_stairs": 24,
+    "light_gray_concrete_slab": 1
+   },
+   "counts": {
+    "base": 941,
+    "shadow": 373,
+    "interior": 2194,
+    "kept": 4
+   }
+  },
+  "wall_white": {
+   "base": "white_wool",
+   "ladder_dark_to_light": [
+    "white_concrete",
+    "calcite",
+    "white_wool",
+    "snow_block"
+   ],
+   "L": [
+    84.8,
+    89.0,
+    93.3,
+    99.3
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 19.7,
+    "base": 66.7,
+    "highlight": 13.7
+   },
+   "blocks": {
+    "white_wool": 196,
+    "calcite": 57,
+    "snow_block": 41,
+    "white_wool_stairs": 4,
+    "white_concrete": 2
+   },
+   "counts": {
+    "base": 200,
+    "shadow": 59,
+    "highlight": 41
+   }
+  },
+  "chimney_brick": {
+   "base": "bricks",
+   "ladder_dark_to_light": [
+    "red_terracotta",
+    "bricks"
+   ],
+   "L": [
+    36.7,
+    47.0
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 11.5,
+    "base": 88.5,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "bricks": 15,
+    "brick_stairs": 6,
+    "red_terracotta": 3,
+    "brick_slab": 2
+   },
+   "counts": {
+    "base": 23,
+    "shadow": 3
+   }
+  }
+ }
+}

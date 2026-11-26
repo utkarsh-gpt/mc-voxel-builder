@@ -93,3 +93,24 @@ The gate's right/top IoU is measured against the sheet's side/top views, which a
 reference-like gate scores lower there; depth/width is now 13/59 = 0.22 (was 0.47). The cottage's colour score vs the
 drawing went down because the zones overrule the drawing projection, but visually the white walls, red door, red framed
 window, brick ridge chimney and clean roof match the reference better than the old cottage (see the before/after image).
+
+## SME-14: shade-gradient experiment (shadows/highlights via block ladders)
+
+`pipeline/shade_gradient.py` (opt-in: `python run_v2.py <n> grad`, or `MC_SHADE_GRADIENT=1` during the `map` stage). The default/non-gradient path is unchanged; v2 models are not overwritten.
+
+Hybrid shade scalar per surface voxel, per zone:
+- texture term: best-facing L* on the shaded ortho sheets (no deshade) minus the zone median, /12, clipped +-1.5
+- geometry term: local openness AO (5^3), sun direction (front/left lit, back/right shaded), sky-facing tops, under-eave lip, under-overhang, ground darkening (y<3), per-zone height ramp
+- r = w_tex*tex + w_geo*geo (windmill .5/.5, cottage .25/.75, gate .5/.5), smoothed 3x over same-zone surface, normalised by p95 -> s in [-1,1], |s|^1.4
+- band = s*n + 0.55*(Bayer4 - .5); base band keeps the original v2 block; shaped blocks (stairs/slab/wall/trapdoor) keep their shape via the shaped variant of each ladder step
+- protected: door, frame, glass, spire, window_*, backing blackstone; interior unchanged; glass panes asserted 0
+
+Outputs: `art/final/{windmill,cottage,gate}_grad_mc_blocks.json`, schematics, `art/final/meta/*_grad_shade_gradient.json`; scores/images in `results/grad/` (gate image kept local only).
+
+| model | dE mean/median/p90 (v2 -> grad) | photo dE | within-zone r(block L, shade s) | blocks |
+|---|---|---|---|---|
+| windmill | 12.14/11.98/20.06 -> 12.86/11.38/22.47 | 24.8 -> 25.6 | stone .03 -> .89, cap .00 -> .84 | 19 -> 34 |
+| cottage | 10.15/5.34/25.74 -> 10.23/5.65/26.22 | 17.4 -> 17.5 | thatch 0 -> .55, wall 0 -> .83 | 14 -> 22 |
+| gate | 14.64/13.03/24.55 -> 13.52/11.90/21.74 | 24.3 -> 23.4 | stone 0 -> .91, roof 0 -> .83 | 10 -> 35 |
+
+Spend: fal $0, Haiku $0.

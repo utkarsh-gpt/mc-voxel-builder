@@ -4,7 +4,7 @@ shading), one Hyper3D lowpoly mesh, ortho_paint + tone, shape_fit, explicit OPEN
 palette_generic -> feature_detect (Haiku) -> colour_albedo (deshade) -> mc_map (albedo) + schematics, then free checks:
 shading_check, shape_compare, colour_score and blueprint.count_openings vs a short parts list (meta/NAME_parts.json).
 No Haiku retry loops: the mesh is generated once (a manual re-roll only if it is visibly broken).
-usage: python run_v2.py NAME STAGE [STAGE ...]   stages: sheets mesh paint shape carve sails squash colour zones map check   (or: all)
+usage: python run_v2.py NAME STAGE [STAGE ...]   stages: sheets mesh paint shape carve sails squash colour zones map grad check   (or: all)
 fal spend is logged in out/v2_ledger.json (cap $1.50 for the three subjects)."""
 import argparse, fcntl, json, os, subprocess, sys, time, urllib.request
 import numpy as np
@@ -335,6 +335,16 @@ def stage_map(n):
             d["summary"]["lone_posts_dropped"] = len(gone); d.pop("bake", None); d = mc_render.attach_bake(d)
             open(p, "w").write(json.dumps(d)); mc_render.export(p, f"art/final/schematics/{n}_mc_blocks")
         print(n, "lone posts dropped", len(gone))
+    if os.environ.get("MC_SHADE_GRADIENT") == "1": stage_grad(n)   # SME-14: also write the <n>_grad gradient variant
+
+GRAD = {"windmill_v2": ("windmill_grad", 0.5, 0.5), "cottage_v2": ("cottage_grad", 0.25, 0.75), "gate": ("gate_grad", 0.5, 0.5)}
+def stage_grad(n):
+    """SME-14: hybrid shadow/highlight block gradients on top of the finished model (shade_gradient.py). Writes
+    art/final/<n>_grad_mc_blocks.json + schematics; the flat v2 model is not touched. The cottage's drawing projection is
+    unreliable (zones override it), so its texture signal is down-weighted."""
+    import shade_gradient
+    out, wt, wg = GRAD.get(n, (n.replace("_v2", "") + "_grad", 0.5, 0.5))
+    shade_gradient.run(n, out, wt, wg)
 
 def stage_check(n):
     import blueprint, colour_score, shape_compare
@@ -354,7 +364,7 @@ def stage_check(n):
     print(n, json.dumps(dc)); print(n, "shading", json.dumps({k: out["shading"][k] for k in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")}))
 
 STAGES = {"sheets": stage_sheets, "mesh": stage_mesh, "paint": stage_paint, "shape": stage_shape, "carve": stage_carve, "sails": stage_sails, "squash": stage_squash,
-          "colour": stage_colour, "zones": stage_zones, "map": stage_map, "check": stage_check}
+          "colour": stage_colour, "zones": stage_zones, "map": stage_map, "grad": stage_grad, "check": stage_check}
 if __name__ == "__main__":
     os.makedirs("out/v2", exist_ok=True)
     n, *st = sys.argv[1:]

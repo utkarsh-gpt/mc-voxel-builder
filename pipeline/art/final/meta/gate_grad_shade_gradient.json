@@ -1,0 +1,105 @@
+{
+ "source": "art/final/gate_mc_blocks.json",
+ "weights": {
+  "tex": 0.5,
+  "geo": 0.5
+ },
+ "zones": {
+  "gate_stone": {
+   "base": "andesite",
+   "ladder_dark_to_light": [
+    "deepslate",
+    "tuff_bricks",
+    "stone_bricks",
+    "andesite",
+    "smooth_stone",
+    "diorite"
+   ],
+   "L": [
+    34.1,
+    42.7,
+    51.2,
+    56.7,
+    65.1,
+    76.2
+   ],
+   "base_index": 3,
+   "surface_split_pct": {
+    "shadow": 23.8,
+    "base": 56.5,
+    "highlight": 19.7
+   },
+   "blocks": {
+    "andesite": 1873,
+    "stone_bricks": 685,
+    "smooth_stone": 459,
+    "andesite_stairs": 272,
+    "diorite": 258,
+    "tuff_bricks": 186,
+    "andesite_slab": 102,
+    "andesite_wall": 57,
+    "diorite_stairs": 48,
+    "diorite_slab": 32,
+    "stone_brick_stairs": 30,
+    "deepslate": 30,
+    "stone_brick_wall": 12,
+    "tuff_brick_stairs": 8,
+    "diorite_wall": 7,
+    "cobbled_deepslate_stairs": 6,
+    "stone_brick_slab": 5,
+    "tuff_brick_slab": 4,
+    "cobbled_deepslate_wall": 1,
+    "tuff_brick_wall": 1,
+    "cobbled_deepslate_slab": 1
+   },
+   "counts": {
+    "highlight": 804,
+    "base": 2304,
+    "shadow": 969,
+    "interior": 4322,
+    "kept": 100
+   }
+  },
+  "roof_slate": {
+   "base": "deepslate_tiles",
+   "ladder_dark_to_light": [
+    "blackstone",
+    "deepslate_tiles",
+    "deepslate_bricks",
+    "polished_basalt"
+   ],
+   "L": [
+    14.7,
+    22.7,
+    29.8,
+    37.5
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 9.6,
+    "base": 67.8,
+    "highlight": 22.5
+   },
+   "blocks": {
+    "deepslate_tiles": 424,
+    "deepslate_tile_stairs": 317,
+    "deepslate_brick_stairs": 137,
+    "deepslate_bricks": 82,
+    "blackstone": 80,
+    "deepslate_tile_slab": 52,
+    "blackstone_stairs": 26,
+    "polished_basalt": 25,
+    "deepslate_brick_slab": 18,
+    "deepslate_tile_wall": 11,
+    "blackstone_slab": 8,
+    "deepslate_brick_wall": 5
+   },
+   "counts": {
+    "base": 804,
+    "shadow": 114,
+    "interior": 441,
+    "highlight": 267
+   }
+  }
+ }
+}

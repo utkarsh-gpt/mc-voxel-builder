@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T13:46:01",
+  "generated_at": "2026-11-26T18:12:44",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -572,6 +572,29 @@
       "bytes": 145876
     },
     {
+      "id": "cottage_grad_mc_blocks",
+      "file": "models/cottage_grad_mc_blocks.json",
+      "name": "cottage_grad_mc_blocks",
+      "subject": "cottage",
+      "kind": "grad_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        33,
+        16,
+        18
+      ],
+      "voxelCount": 3907,
+      "hasShapes": false,
+      "subCount": 483,
+      "subPct": 12.4,
+      "paletteSize": 46,
+      "highlight": true,
+      "featured": false,
+      "ref": "refs/cottage.jpg",
+      "mtime": 1795734762,
+      "bytes": 160853
+    },
+    {
       "id": "cottage_hymv",
       "file": "models/cottage_hymv.json",
       "name": "cottage_hymv",
@@ -813,6 +836,29 @@
       "ref": "refs/cottage.jpg",
       "mtime": 1795470698,
       "bytes": 125565
+    },
+    {
+      "id": "gate_grad_mc_blocks",
+      "file": "models/gate_grad_mc_blocks.json",
+      "name": "gate_grad_mc_blocks",
+      "subject": "gate",
+      "kind": "grad_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        59,
+        51,
+        15
+      ],
+      "voxelCount": 10390,
+      "hasShapes": false,
+      "subCount": 1160,
+      "subPct": 11.2,
+      "paletteSize": 137,
+      "highlight": true,
+      "featured": false,
+      "ref": null,
+      "mtime": 1795734762,
+      "bytes": 447953
     },
     {
       "id": "hagia_fd_mc_blocks",
@@ -1249,6 +1295,29 @@
       "ref": "refs/windmill.jpg",
       "mtime": 1795470696,
       "bytes": 159251
+    },
+    {
+      "id": "windmill_grad_mc_blocks",
+      "file": "models/windmill_grad_mc_blocks.json",
+      "name": "windmill_grad_mc_blocks",
+      "subject": "windmill",
+      "kind": "grad_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        27,
+        37,
+        17
+      ],
+      "voxelCount": 1886,
+      "hasShapes": false,
+      "subCount": 414,
+      "subPct": 22.0,
+      "paletteSize": 70,
+      "highlight": true,
+      "featured": false,
+      "ref": "refs/windmill.jpg",
+      "mtime": 1795734762,
+      "bytes": 121568
     },
     {
       "id": "windmill_hymv",
