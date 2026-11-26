@@ -8,7 +8,7 @@ scipy
 scikit-image
 trimesh
 fal-client
-rembg
+rembg[cpu]   # cut-outs; [cpu] pulls onnxruntime
 litemapy
 mcschematic
 matplotlib

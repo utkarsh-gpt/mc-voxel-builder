@@ -3,7 +3,7 @@
 cost(block | slot) = dE2000(target, block face colour) + W_N * noise mismatch + W_T * (1 - technique score) + guards,
 slots = (material, shade, role); roles: trim->outline, shadow->hatching/cross-hatching, rough->stippling/scumbling, smooth->glazing.
 usage: python mc_map.py [windmill cottage bonsai]"""
-import json, sys, collections, os, numpy as np
+import json, sys, collections, os, math, numpy as np
 from pathlib import Path
 from skimage import color as skc
 import mc_features, mc_render, detail_metrics
@@ -303,6 +303,109 @@ def window_kit(G, base_of, mat_blocks, size):
             if note == "slab": G[s_] = dict(G[b], id=sl, props=props); log["sills"] += 1
         log["windows"] += 1
     return dict(log)
+# ---------- feature pass (FEATURES.md) ----------
+# Openings and small parts from feature_detect.py (art/final/meta/NAME_features.json), built as Minecraft detail:
+#  window  -> glass pane in the wall plane (one pane colour per repeating row, so every bay matches), dark backing behind,
+#             upside-down stair hood above, top-slab sill one block out; arched windows (>= 2 wide) get upside-down corner
+#             stairs at the head so the opening reads round-topped
+#  door    -> open wooden trapdoors flush with the inner face (a recessed door leaf, since doors are not in the dataset),
+#             upside-down stair lintel above
+#  chimney -> column of brick/stone full blocks from the roof to the drawn top, slab cap
+#  spire   -> wall-post column (antenna, finial, minaret tip)
+# Runs before window_kit, which then only handles dark clusters the features did not cover.
+FEATURES = not LEGACY and os.environ.get("MC_FEATURES", "1") == "1"
+UDIR = {"z": (1, 0, 0), "x": (0, 0, 1)}            # along-facade axis for a rect on a z-plane / x-plane
+def feature_pass(G, feats, base_of, mat_blocks, size):
+    W, H, D = size; log = collections.Counter(); kit_pane = {}
+    def full(g): return BL[g["id"]]["shape"] == "full_block" and not g["props"]
+    def skin(rect, out, u, y):
+        """first solid cell going inward from just outside the facade plane (facades are not perfectly flat)"""
+        for k in range(-1, 3):
+            pl = rect["plane"] - k*(out[0] + out[2])
+            p = (u, y, pl) if rect["axis"] == "z" else (pl, y, u)
+            if p in G: return p
+        return None
+    groups = collections.defaultdict(list)
+    for f in feats:
+        if f.get("rect") and f["kind"] in ("window", "door"): groups[(f["kind"], bool(f.get("arch")), f["w"], f["h"])].append(f)
+    for gk, fs in groups.items():
+        kind = gk[0]; lab = np.mean([hex2lab(f["colour"]) for f in fs], 0)
+        if kind == "window":
+            # glass reads darker than the drawn window (frame + glazing average): pick the pane nearest a darkened version
+            tgt = lab.copy(); tgt[0] = min(tgt[0], 45)
+            kit_pane[gk] = min(PANES, key=lambda b: dE(tgt, lab_of(BL[b], "side")))
+        else:
+            tds = [t for t in BL if BL[t]["shape"] == "trapdoor" and BL[t]["family"] == "wood" and not t.startswith("waxed_")]
+            kit_pane[gk] = min(tds, key=lambda t: dE(lab, lab_of(BL[t], "side"))) if tds else None
+    done = set()
+    for gk, fs in groups.items():
+        kind, arch = gk[0], gk[1]; blk = kit_pane[gk]
+        if not blk: continue
+        for f in fs:
+            r = f["rect"]; out = tuple(f["out"]); d_out = out; d_in = (-out[0], 0, -out[2]); inward, outward = DIR4[d_in], DIR4[d_out]
+            ua = UDIR[r["axis"]]; u0, u1 = r["u"]; y0, y1 = r["y"]
+            cells = {}
+            for u in range(u0, u1 + 1):
+                for y in range(y0, y1 + 1):
+                    p = skin(r, out, u, y)
+                    if p and p not in done: cells[(u, y)] = p
+            if len(cells) < max(1, 0.5*(u1 - u0 + 1)*(y1 - y0 + 1)): log[f"{kind}_skipped"] += 1; continue
+            for (u, y), p in cells.items():
+                if kind == "window":
+                    corner = arch and (u1 - u0) >= 1 and y == y1 and u in (u0, u1)
+                    if corner:
+                        side = DIR4[tuple(-c for c in ua)] if u == u0 else DIR4[ua]   # solid half toward the wall beside it
+                        st, props, note = place(G[p]["id"], {"type": "stairs", "facing": side, "half": "top"}, mat_blocks.get(G[p]["m"], [G[p]["id"]]), G[p]["lab"], G[p]["m"])
+                        if note == "stairs": G[p] = dict(G[p], id=st, props=props); log["arch_corners"] += 1; done.add(p); continue
+                    G[p] = dict(G[p], id=blk, props={}, m="glass"); log["panes"] += 1
+                    q = _add(p, d_in)
+                    if q in G and all(_add(q, d) in G for d in N6) and BACKING in BL: G[q] = dict(G[q], id=BACKING, props={}); log["backing"] += 1
+                else:
+                    G[p] = dict(G[p], id=blk, props={"open": "true", "facing": outward, "half": "bottom"}, m="door"); log["door_leaves"] += 1
+                done.add(p)
+            # head: hood (window) / lintel (door) over each top cell
+            for u in range(u0, u1 + 1):
+                p = cells.get((u, y1))
+                if not p: continue
+                a = _add(p, (0, 1, 0))
+                if a in G and a not in done and full(G[a]) and _add(a, d_out) not in G:
+                    st, props, note = place(G[a]["id"], {"type": "stairs", "facing": inward, "half": "top"}, mat_blocks.get(G[a]["m"], [G[a]["id"]]), G[a]["lab"], G[a]["m"])
+                    if note == "stairs": G[a] = dict(G[a], id=st, props=props); done.add(a); log["hoods" if kind == "window" else "lintels"] += 1
+                if kind == "window":
+                    pb = cells.get((u, y0))
+                    if not pb: continue
+                    b = _add(pb, (0, -1, 0)); s_ = _add(b, d_out)
+                    if b in G and full(G[b]) and s_ not in G and 0 <= s_[0] < W and 0 <= s_[2] < D:
+                        sl, props, note = place(G[b]["id"], {"type": "slab", "size": 0.5, "align": "top"}, mat_blocks.get(G[b]["m"], [G[b]["id"]]), G[b]["lab"], G[b]["m"])
+                        if note == "slab": G[s_] = dict(G[b], id=sl, props=props); done.add(s_); log["sills"] += 1
+            log[kind + "s"] += 1
+        log["kits"] += 1
+    # protrusions
+    STACK = {"brick", "mud", "terracotta", "stone", "deepslate", "granite", "andesite", "tuff", "blackstone", "nether_brick", "sandstone"}
+    for f in feats:
+        if f["kind"] not in ("chimney", "spire") or f.get("rect"): continue
+        x, z = int(np.clip(round(f["x"] - 0.5), 0, W - 1)), int(np.clip(round(f["z"] - 0.5), 0, D - 1))
+        yb = int(f.get("base_y", 0)) + 1; yt = int(min(H - 1, math.floor(f["y_top"] - 1e-6)))
+        if yt < yb: log[f["kind"] + "_skipped"] += 1; continue
+        lab = hex2lab(f["colour"])
+        if f["kind"] == "chimney":
+            pool = [b for b in CAND if b["family"] in STACK and b["shape"] == "full_block" and slab_of(b["id"])]
+            bid = min(pool, key=lambda b: dE(lab, lab_of(b, "side")))["id"]
+            for y in range(yb, yt + 1):
+                p = (x, y, z)
+                if p in G: continue
+                G[p] = {"id": bid if y < yt or yt == yb else slab_of(bid), "props": {} if (y < yt or yt == yb) else {"type": "bottom"}, "m": "chimney", "role": "plain", "lab": lab}
+                log["chimney_blocks"] += 1
+            log["chimneys"] += 1
+        else:
+            pool = [b for b in CAND if b["shape"] == "full_block" and wall_of(b["id"])]
+            wl = wall_of(min(pool, key=lambda b: dE(lab, lab_of(b, "side")))["id"]) if pool else None
+            if not wl: continue
+            for y in range(yb, yt + 1):
+                p = (x, y, z)
+                if p not in G: G[p] = {"id": wl, "props": {}, "m": "spire", "role": "plain", "lab": lab}; log["spire_blocks"] += 1
+            log["spires"] += 1
+    return dict(log)
 CONN = {"wall", "pane", "bars", "fence"}
 def connect(G):
     """Blockstate props for connecting blocks from their neighbours (Minecraft's rules, simplified: full blocks + same group)."""
@@ -445,6 +548,8 @@ def run(n):
         tech_use[(v["m"], bid)][v["role"]] += 1
         G[(v["x"], v["y"], v["z"])] = {"id": pid, "props": dict(props), "m": v["m"], "role": v["role"], "lab": v["lab"]}
     detail_log = {}
+    fp = f"art/final/meta/{n}_features.json"
+    if FEATURES and os.path.exists(fp): detail_log["features"] = feature_pass(G, json.load(open(fp))["features"], base_of, used_by_mat, T["size"])
     if WINDOW_KIT: detail_log["windows"] = window_kit(G, base_of, used_by_mat, T["size"])
     detail_log["connected"] = connect(G)
     pal, vox_out = {}, []

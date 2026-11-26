@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Wall-clock benchmark of the local (no fal / no Claude) pipeline stages for one subject.
-usage: python bench.py NAME [--label before] [--stages paint,tone,shapefit,palette,noise,map] [--mesh out/proxy/NAME_lowpoly.glb]
+"""Wall-clock benchmark of the local pipeline stages (no fal; features uses cached Haiku replies after the first run) for one subject.
+usage: python bench.py NAME [--label before] [--stages paint,tone,shapefit,palette,noise,features,map] [--mesh out/proxy/NAME_lowpoly.glb]
 writes out/bench_NAME_<label>.json. Each stage runs as its own process (cold start included, like a real run).
 shape_fit runs with --tag bench so the committed art/NAME_shapefit.json is not replaced; the stages after it read the committed file."""
 import argparse, json, os, subprocess, sys, time
 ap = argparse.ArgumentParser(); ap.add_argument("name"); ap.add_argument("--label", default="run")
-ap.add_argument("--stages", default="paint,tone,shapefit,palette,noise,map"); ap.add_argument("--mesh"); ap.add_argument("--bpm")
+ap.add_argument("--stages", default="paint,tone,shapefit,palette,noise,features,map"); ap.add_argument("--mesh"); ap.add_argument("--bpm")
 a = ap.parse_args(); n = a.name
 views = json.load(open(f"art/final/meta/{n}_views.json"))["chosen"] if os.path.exists(f"art/final/meta/{n}_views.json") else "_v1"
 bpm = a.bpm or json.load(open(f"art/{n}_shapefit.json")).get("scale", {}).get("blocks_per_metre", 1.0)

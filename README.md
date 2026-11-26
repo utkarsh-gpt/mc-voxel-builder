@@ -38,6 +38,7 @@ photo ─► cut-out ─► drawing sheets ─► 3D mesh ─► painted colours
    - Every voxel is scored against the block dataset on colour, photo noise and the shading technique its texture imitates (for example planks as hatching).
    - Each material keeps to block families that have stairs, slabs and walls, so shapes survive.
    - Dark window clusters become a glass pane with a stair hood above and a slab sill below.
+   - Feature pass (`feature_detect.py`, see `pipeline/FEATURES.md`): Haiku lists windows, doors, arches and small parts on a gridded copy of each drawing (about $0.02–0.03 per subject, cached). Openings are grouped into repeating rows and built as matching pane/hood/sill kits; doors become recessed trapdoor leaves; chimneys and spires the mesh lost are added back.
    - Output is `.schem` / `.litematic` plus the viewer JSON.
 
 Steps 4–8 are plain Python. fal.ai is used in steps 2 and 3 (about $0.32–0.36 per building). The Haiku checks in step 2 call the `claude` CLI (about $0.015 per building). Review tools: `shape_view.py` renders shapes, `shape_compare.py` compares the outline with the drawing, and `detail_metrics.py` / `detail_gallery.py` score detail against a hand-built benchmark. `pipeline/DETAIL_DISCOVERY.md` explains why builds came out flat and how each step was measured.

@@ -1,0 +1,2585 @@
+{
+ "subject": "house",
+ "sheet": "_v1",
+ "blocks_per_metre": 2.0,
+ "K": 8,
+ "method": "haiku+image",
+ "llm": {
+  "calls": 4,
+  "cached": 4,
+  "cost_usd": 0.0
+ },
+ "views": {
+  "front": {
+   "drawing": "ortho/house_v1_front.png",
+   "iou": 0.888,
+   "mirrored": false,
+   "openings": 13,
+   "protrusions": 0
+  },
+  "right": {
+   "drawing": "ortho/house_v1_right.png",
+   "iou": 0.785,
+   "mirrored": false,
+   "openings": 8,
+   "protrusions": 1
+  },
+  "back": {
+   "drawing": "ortho/house_v1_back.png",
+   "iou": 0.847,
+   "mirrored": false,
+   "openings": 8,
+   "protrusions": 0
+  },
+  "left": {
+   "drawing": "ortho/house_v1_right.png",
+   "iou": 0.785,
+   "mirrored": false,
+   "openings": 8,
+   "protrusions": 0
+  }
+ },
+ "rows": {
+  "front": [
+   {
+    "row": 0,
+    "kind": "window",
+    "arch": false,
+    "count": 2,
+    "h": 2,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 1,
+    "kind": "window",
+    "arch": false,
+    "count": 6,
+    "h": 3,
+    "w": 1,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 2,
+    "kind": "window",
+    "arch": false,
+    "count": 4,
+    "h": 3,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 3,
+    "kind": "door",
+    "arch": false,
+    "count": 1,
+    "h": 4,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   }
+  ],
+  "right": [
+   {
+    "row": 0,
+    "kind": "window",
+    "arch": false,
+    "count": 1,
+    "h": 3,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 1,
+    "kind": "window",
+    "arch": false,
+    "count": 3,
+    "h": 3,
+    "w": 1,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 2,
+    "kind": "window",
+    "arch": false,
+    "count": 3,
+    "h": 3,
+    "w": 1,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 3,
+    "kind": "arcade",
+    "arch": false,
+    "count": 1,
+    "h": 4,
+    "w": 3,
+    "period": null,
+    "inferred": 0
+   }
+  ],
+  "back": [
+   {
+    "row": 0,
+    "kind": "window",
+    "arch": false,
+    "count": 4,
+    "h": 3,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 1,
+    "kind": "window",
+    "arch": false,
+    "count": 4,
+    "h": 4,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   }
+  ],
+  "left": [
+   {
+    "row": 0,
+    "kind": "window",
+    "arch": false,
+    "count": 1,
+    "h": 3,
+    "w": 2,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 1,
+    "kind": "window",
+    "arch": false,
+    "count": 3,
+    "h": 3,
+    "w": 1,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 2,
+    "kind": "window",
+    "arch": false,
+    "count": 3,
+    "h": 3,
+    "w": 1,
+    "period": null,
+    "inferred": 0
+   },
+   {
+    "row": 3,
+    "kind": "arcade",
+    "arch": false,
+    "count": 1,
+    "h": 4,
+    "w": 3,
+    "period": null,
+    "inferred": 0
+   }
+  ]
+ },
+ "counts": {
+  "window": 34,
+  "door": 1,
+  "arcade": 2,
+  "chimney": 1
+ },
+ "inferred": 0,
+ "features": [
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     6,
+     7
+    ],
+    "y": [
+     11,
+     12
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 2,
+   "h": 2,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -5.74,
+   "row": "front:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#605b59",
+   "cells": [
+    [
+     6,
+     12,
+     19
+    ],
+    [
+     7,
+     12,
+     19
+    ],
+    [
+     6,
+     11,
+     19
+    ],
+    [
+     7,
+     11,
+     19
+    ]
+   ],
+   "img_box": [
+    4,
+    5,
+    2,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     14,
+     15
+    ],
+    "y": [
+     11,
+     12
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 2,
+   "h": 2,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -4.01,
+   "row": "front:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#66625f",
+   "cells": [
+    [
+     14,
+     12,
+     19
+    ],
+    [
+     15,
+     12,
+     19
+    ],
+    [
+     14,
+     11,
+     19
+    ],
+    [
+     15,
+     11,
+     19
+    ]
+   ],
+   "img_box": [
+    4,
+    13,
+    2,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 20,
+    "u": [
+     2,
+     2
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 3.28,
+   "row": "front:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#7f7a68",
+   "cells": [
+    [
+     2,
+     9,
+     20
+    ],
+    [
+     2,
+     8,
+     20
+    ]
+   ],
+   "img_box": [
+    7,
+    1,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     6,
+     6
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 3.61,
+   "row": "front:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#5a5655",
+   "cells": [
+    [
+     6,
+     9,
+     19
+    ],
+    [
+     6,
+     8,
+     19
+    ],
+    [
+     6,
+     7,
+     19
+    ]
+   ],
+   "img_box": [
+    7,
+    5,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     8,
+     8
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -0.41,
+   "row": "front:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#5f5f5f",
+   "cells": [
+    [
+     8,
+     9,
+     19
+    ],
+    [
+     8,
+     8,
+     19
+    ],
+    [
+     8,
+     7,
+     19
+    ]
+   ],
+   "img_box": [
+    7,
+    7,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     13,
+     13
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 2.58,
+   "row": "front:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#5f5e5e",
+   "cells": [
+    [
+     13,
+     9,
+     19
+    ],
+    [
+     13,
+     8,
+     19
+    ],
+    [
+     13,
+     7,
+     19
+    ]
+   ],
+   "img_box": [
+    7,
+    12,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     15,
+     15
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 2.12,
+   "row": "front:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#5a5757",
+   "cells": [
+    [
+     15,
+     9,
+     19
+    ],
+    [
+     15,
+     8,
+     19
+    ],
+    [
+     15,
+     7,
+     19
+    ]
+   ],
+   "img_box": [
+    7,
+    14,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 20,
+    "u": [
+     19,
+     19
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 3.56,
+   "row": "front:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#88836d",
+   "cells": [
+    [
+     19,
+     9,
+     20
+    ],
+    [
+     19,
+     8,
+     20
+    ]
+   ],
+   "img_box": [
+    7,
+    18,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 20,
+    "u": [
+     1,
+     2
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 2.21,
+   "row": "front:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#645a52",
+   "cells": [
+    [
+     2,
+     4,
+     20
+    ],
+    [
+     2,
+     3,
+     20
+    ],
+    [
+     2,
+     2,
+     20
+    ]
+   ],
+   "img_box": [
+    12,
+    0,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     5,
+     6
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -2.82,
+   "row": "front:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#52504d",
+   "cells": [
+    [
+     5,
+     4,
+     19
+    ],
+    [
+     6,
+     4,
+     19
+    ],
+    [
+     5,
+     3,
+     19
+    ],
+    [
+     6,
+     3,
+     19
+    ],
+    [
+     5,
+     2,
+     19
+    ],
+    [
+     6,
+     2,
+     19
+    ]
+   ],
+   "img_box": [
+    12,
+    4,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     15,
+     16
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -2.91,
+   "row": "front:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#585752",
+   "cells": [
+    [
+     15,
+     4,
+     19
+    ],
+    [
+     16,
+     4,
+     19
+    ],
+    [
+     15,
+     3,
+     19
+    ],
+    [
+     16,
+     3,
+     19
+    ],
+    [
+     15,
+     2,
+     19
+    ],
+    [
+     16,
+     2,
+     19
+    ]
+   ],
+   "img_box": [
+    12,
+    14,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 20,
+    "u": [
+     19,
+     20
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 2.47,
+   "row": "front:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#6d6253",
+   "cells": [
+    [
+     19,
+     4,
+     20
+    ],
+    [
+     19,
+     3,
+     20
+    ],
+    [
+     19,
+     2,
+     20
+    ]
+   ],
+   "img_box": [
+    12,
+    18,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 19,
+    "u": [
+     10,
+     11
+    ],
+    "y": [
+     1,
+     4
+    ]
+   },
+   "kind": "door",
+   "view": "front",
+   "out": [
+    0,
+    0,
+    1
+   ],
+   "w": 2,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -0.98,
+   "row": "front:3",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#50463e",
+   "cells": [
+    [
+     10,
+     4,
+     19
+    ],
+    [
+     11,
+     4,
+     19
+    ],
+    [
+     10,
+     3,
+     19
+    ],
+    [
+     11,
+     3,
+     19
+    ],
+    [
+     10,
+     2,
+     19
+    ],
+    [
+     11,
+     2,
+     19
+    ],
+    [
+     10,
+     1,
+     19
+    ],
+    [
+     11,
+     1,
+     19
+    ]
+   ],
+   "img_box": [
+    12,
+    9,
+    4,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 20,
+    "u": [
+     11,
+     12
+    ],
+    "y": [
+     11,
+     13
+    ]
+   },
+   "kind": "window",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 1.35,
+   "row": "right:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#95907b",
+   "cells": [
+    [
+     20,
+     13,
+     12
+    ],
+    [
+     20,
+     13,
+     11
+    ],
+    [
+     20,
+     12,
+     12
+    ],
+    [
+     20,
+     12,
+     11
+    ],
+    [
+     20,
+     11,
+     12
+    ],
+    [
+     20,
+     11,
+     11
+    ]
+   ],
+   "img_box": [
+    3,
+    9,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 19,
+    "u": [
+     16,
+     16
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 0.88,
+   "row": "right:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#878271",
+   "cells": [
+    [
+     19,
+     9,
+     16
+    ],
+    [
+     19,
+     8,
+     16
+    ],
+    [
+     19,
+     7,
+     16
+    ]
+   ],
+   "img_box": [
+    7,
+    5,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 19,
+    "u": [
+     15,
+     15
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 1.74,
+   "row": "right:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#817f76",
+   "cells": [
+    [
+     19,
+     9,
+     15
+    ],
+    [
+     19,
+     8,
+     15
+    ],
+    [
+     19,
+     7,
+     15
+    ]
+   ],
+   "img_box": [
+    7,
+    6,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 19,
+    "u": [
+     8,
+     8
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 13.71,
+   "row": "right:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#686461",
+   "cells": [
+    [
+     19,
+     9,
+     8
+    ],
+    [
+     19,
+     8,
+     8
+    ],
+    [
+     19,
+     7,
+     8
+    ]
+   ],
+   "img_box": [
+    7,
+    13,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 19,
+    "u": [
+     16,
+     16
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 3.57,
+   "row": "right:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#928c79",
+   "cells": [
+    [
+     19,
+     4,
+     16
+    ],
+    [
+     19,
+     3,
+     16
+    ],
+    [
+     19,
+     2,
+     16
+    ]
+   ],
+   "img_box": [
+    12,
+    5,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 19,
+    "u": [
+     15,
+     15
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -3.12,
+   "row": "right:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#8b8a7e",
+   "cells": [
+    [
+     19,
+     4,
+     15
+    ],
+    [
+     19,
+     3,
+     15
+    ],
+    [
+     19,
+     2,
+     15
+    ]
+   ],
+   "img_box": [
+    12,
+    6,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 19,
+    "u": [
+     8,
+     8
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 8.36,
+   "row": "right:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#78746e",
+   "cells": [
+    [
+     19,
+     4,
+     8
+    ],
+    [
+     19,
+     3,
+     8
+    ],
+    [
+     19,
+     2,
+     8
+    ]
+   ],
+   "img_box": [
+    12,
+    13,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 19,
+    "u": [
+     17,
+     19
+    ],
+    "y": [
+     2,
+     5
+    ]
+   },
+   "kind": "arcade",
+   "view": "right",
+   "out": [
+    1,
+    0,
+    0
+   ],
+   "w": 3,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 0.69,
+   "row": "right:3",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#b9b2a8",
+   "cells": [
+    [
+     19,
+     5,
+     19
+    ],
+    [
+     19,
+     5,
+     18
+    ],
+    [
+     19,
+     5,
+     17
+    ],
+    [
+     19,
+     4,
+     19
+    ],
+    [
+     19,
+     4,
+     18
+    ],
+    [
+     19,
+     4,
+     17
+    ],
+    [
+     19,
+     3,
+     19
+    ],
+    [
+     19,
+     3,
+     18
+    ],
+    [
+     19,
+     3,
+     17
+    ],
+    [
+     19,
+     2,
+     19
+    ],
+    [
+     19,
+     2,
+     18
+    ],
+    [
+     19,
+     2,
+     17
+    ]
+   ],
+   "img_box": [
+    11,
+    2,
+    4,
+    3
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     17,
+     18
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 8.45,
+   "row": "back:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#5b534b",
+   "cells": [
+    [
+     18,
+     9,
+     7
+    ],
+    [
+     17,
+     9,
+     7
+    ],
+    [
+     18,
+     8,
+     7
+    ],
+    [
+     17,
+     8,
+     7
+    ],
+    [
+     18,
+     7,
+     7
+    ],
+    [
+     17,
+     7,
+     7
+    ]
+   ],
+   "img_box": [
+    7,
+    2,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     14,
+     15
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 3.48,
+   "row": "back:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#736d61",
+   "cells": [
+    [
+     15,
+     9,
+     7
+    ],
+    [
+     14,
+     9,
+     7
+    ],
+    [
+     15,
+     8,
+     7
+    ],
+    [
+     14,
+     8,
+     7
+    ],
+    [
+     15,
+     7,
+     7
+    ],
+    [
+     14,
+     7,
+     7
+    ]
+   ],
+   "img_box": [
+    7,
+    5,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     6,
+     7
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 6.19,
+   "row": "back:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#787366",
+   "cells": [
+    [
+     7,
+     9,
+     7
+    ],
+    [
+     6,
+     9,
+     7
+    ],
+    [
+     7,
+     8,
+     7
+    ],
+    [
+     6,
+     8,
+     7
+    ],
+    [
+     7,
+     7,
+     7
+    ],
+    [
+     6,
+     7,
+     7
+    ]
+   ],
+   "img_box": [
+    7,
+    13,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     3,
+     4
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 8.47,
+   "row": "back:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#635b51",
+   "cells": [
+    [
+     4,
+     9,
+     7
+    ],
+    [
+     3,
+     9,
+     7
+    ],
+    [
+     4,
+     8,
+     7
+    ],
+    [
+     3,
+     8,
+     7
+    ],
+    [
+     4,
+     7,
+     7
+    ],
+    [
+     3,
+     7,
+     7
+    ]
+   ],
+   "img_box": [
+    7,
+    16,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     17,
+     18
+    ],
+    "y": [
+     2,
+     5
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 2,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 12.35,
+   "row": "back:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#6e665c",
+   "cells": [
+    [
+     18,
+     5,
+     7
+    ],
+    [
+     17,
+     5,
+     7
+    ],
+    [
+     18,
+     4,
+     7
+    ],
+    [
+     17,
+     4,
+     7
+    ],
+    [
+     18,
+     3,
+     7
+    ],
+    [
+     17,
+     3,
+     7
+    ],
+    [
+     18,
+     2,
+     7
+    ],
+    [
+     17,
+     2,
+     7
+    ]
+   ],
+   "img_box": [
+    11,
+    2,
+    4,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     14,
+     15
+    ],
+    "y": [
+     2,
+     5
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 2,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 8.09,
+   "row": "back:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#8a8372",
+   "cells": [
+    [
+     15,
+     5,
+     7
+    ],
+    [
+     14,
+     5,
+     7
+    ],
+    [
+     15,
+     4,
+     7
+    ],
+    [
+     14,
+     4,
+     7
+    ],
+    [
+     15,
+     3,
+     7
+    ],
+    [
+     14,
+     3,
+     7
+    ],
+    [
+     15,
+     2,
+     7
+    ],
+    [
+     14,
+     2,
+     7
+    ]
+   ],
+   "img_box": [
+    11,
+    5,
+    4,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     6,
+     7
+    ],
+    "y": [
+     2,
+     5
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 2,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 9.38,
+   "row": "back:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#8f8978",
+   "cells": [
+    [
+     7,
+     5,
+     7
+    ],
+    [
+     6,
+     5,
+     7
+    ],
+    [
+     7,
+     4,
+     7
+    ],
+    [
+     6,
+     4,
+     7
+    ],
+    [
+     7,
+     3,
+     7
+    ],
+    [
+     6,
+     3,
+     7
+    ],
+    [
+     7,
+     2,
+     7
+    ],
+    [
+     6,
+     2,
+     7
+    ]
+   ],
+   "img_box": [
+    11,
+    13,
+    4,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "z",
+    "plane": 7,
+    "u": [
+     3,
+     4
+    ],
+    "y": [
+     2,
+     5
+    ]
+   },
+   "kind": "window",
+   "view": "back",
+   "out": [
+    0,
+    0,
+    -1
+   ],
+   "w": 2,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 12.32,
+   "row": "back:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#766d60",
+   "cells": [
+    [
+     4,
+     5,
+     7
+    ],
+    [
+     3,
+     5,
+     7
+    ],
+    [
+     4,
+     4,
+     7
+    ],
+    [
+     3,
+     4,
+     7
+    ],
+    [
+     4,
+     3,
+     7
+    ],
+    [
+     3,
+     3,
+     7
+    ],
+    [
+     4,
+     2,
+     7
+    ],
+    [
+     3,
+     2,
+     7
+    ]
+   ],
+   "img_box": [
+    11,
+    16,
+    4,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 1,
+    "u": [
+     14,
+     15
+    ],
+    "y": [
+     11,
+     13
+    ]
+   },
+   "kind": "window",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 2,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 1.35,
+   "row": "left:0",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#95907b",
+   "cells": [
+    [
+     1,
+     13,
+     14
+    ],
+    [
+     1,
+     13,
+     15
+    ],
+    [
+     1,
+     12,
+     14
+    ],
+    [
+     1,
+     12,
+     15
+    ],
+    [
+     1,
+     11,
+     14
+    ],
+    [
+     1,
+     11,
+     15
+    ]
+   ],
+   "img_box": [
+    3,
+    9,
+    3,
+    2
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 2,
+    "u": [
+     10,
+     10
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 0.88,
+   "row": "left:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#878271",
+   "cells": [
+    [
+     2,
+     9,
+     10
+    ],
+    [
+     2,
+     8,
+     10
+    ],
+    [
+     2,
+     7,
+     10
+    ]
+   ],
+   "img_box": [
+    7,
+    5,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 2,
+    "u": [
+     11,
+     11
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 1.74,
+   "row": "left:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#817f76",
+   "cells": [
+    [
+     2,
+     9,
+     11
+    ],
+    [
+     2,
+     8,
+     11
+    ],
+    [
+     2,
+     7,
+     11
+    ]
+   ],
+   "img_box": [
+    7,
+    6,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 2,
+    "u": [
+     18,
+     18
+    ],
+    "y": [
+     7,
+     9
+    ]
+   },
+   "kind": "window",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 13.71,
+   "row": "left:1",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#686461",
+   "cells": [
+    [
+     2,
+     9,
+     18
+    ],
+    [
+     2,
+     8,
+     18
+    ],
+    [
+     2,
+     7,
+     18
+    ]
+   ],
+   "img_box": [
+    7,
+    13,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 2,
+    "u": [
+     10,
+     10
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 3.57,
+   "row": "left:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#928c79",
+   "cells": [
+    [
+     2,
+     4,
+     10
+    ],
+    [
+     2,
+     3,
+     10
+    ],
+    [
+     2,
+     2,
+     10
+    ]
+   ],
+   "img_box": [
+    12,
+    5,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 2,
+    "u": [
+     11,
+     11
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": -3.12,
+   "row": "left:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#8b8a7e",
+   "cells": [
+    [
+     2,
+     4,
+     11
+    ],
+    [
+     2,
+     3,
+     11
+    ],
+    [
+     2,
+     2,
+     11
+    ]
+   ],
+   "img_box": [
+    12,
+    6,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 2,
+    "u": [
+     18,
+     18
+    ],
+    "y": [
+     2,
+     4
+    ]
+   },
+   "kind": "window",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 1,
+   "h": 3,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 8.36,
+   "row": "left:2",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#78746e",
+   "cells": [
+    [
+     2,
+     4,
+     18
+    ],
+    [
+     2,
+     3,
+     18
+    ],
+    [
+     2,
+     2,
+     18
+    ]
+   ],
+   "img_box": [
+    12,
+    13,
+    3,
+    1
+   ]
+  },
+  {
+   "rect": {
+    "axis": "x",
+    "plane": 2,
+    "u": [
+     7,
+     9
+    ],
+    "y": [
+     2,
+     5
+    ]
+   },
+   "kind": "arcade",
+   "view": "left",
+   "out": [
+    -1,
+    0,
+    0
+   ],
+   "w": 3,
+   "h": 4,
+   "arch": false,
+   "round": false,
+   "src": "haiku",
+   "evidence": 0.69,
+   "row": "left:3",
+   "period": null,
+   "bay": null,
+   "inferred": false,
+   "colour": "#b9b2a8",
+   "cells": [
+    [
+     2,
+     5,
+     7
+    ],
+    [
+     2,
+     5,
+     8
+    ],
+    [
+     2,
+     5,
+     9
+    ],
+    [
+     2,
+     4,
+     7
+    ],
+    [
+     2,
+     4,
+     8
+    ],
+    [
+     2,
+     4,
+     9
+    ],
+    [
+     2,
+     3,
+     7
+    ],
+    [
+     2,
+     3,
+     8
+    ],
+    [
+     2,
+     3,
+     9
+    ],
+    [
+     2,
+     2,
+     7
+    ],
+    [
+     2,
+     2,
+     8
+    ],
+    [
+     2,
+     2,
+     9
+    ]
+   ],
+   "img_box": [
+    11,
+    2,
+    4,
+    3
+   ]
+  },
+  {
+   "kind": "chimney",
+   "x": 6.0,
+   "z": 11.06,
+   "w": 0.5,
+   "d": 0.5,
+   "y_top": 17.0,
+   "colour": "#8a6759",
+   "views": [
+    "right"
+   ],
+   "base_y": 14,
+   "cells": null
+  }
+ ]
+}
