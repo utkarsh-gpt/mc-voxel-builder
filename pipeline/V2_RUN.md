@@ -114,3 +114,18 @@ Outputs: `art/final/{windmill,cottage,gate}_grad_mc_blocks.json`, schematics, `a
 | gate | 14.64/13.03/24.55 -> 13.52/11.90/21.74 | 24.3 -> 23.4 | stone 0 -> .91, roof 0 -> .83 | 10 -> 35 |
 
 Spend: fal $0, Haiku $0.
+
+### SME-14 follow-up: photo-aligned shadows + recessed eyebrow arches (cottage)
+
+- `shade_gradient.run(..., photo=, eyebrows=)`, driven by `"grad"` in `art/final/meta/cottage_v2_parts.json`.
+- Photo shadows: the real photo (`refs/cottage_v2.jpg`) is aligned to the front voxel projection with piecewise-linear anchors
+  (x: roof edges, door centre, window centre; y: ground, eave, ridge, chimney top); each frontmost thatch/wall block gets the
+  photo's mean L*, its deviation from the zone's front median is blended 0.55 photo + 0.45 geometry, smoothed lightly (60% raw kept)
+  and normalised separately from the sides/back (which stay sheet + 3D geometry).
+- Dither is now face-aware (Bayer indexed in the plane of the exposed face) -> no more 2x2 checker patches on the gable.
+- `eyebrow_arch.py`: heals the old flush door/window from a clean neighbour column, cuts arched openings, recesses the door and
+  window 1 block, lifts the eave profile into a thatch eyebrow hood over each, dark `recess` ring (deepslate_tiles) and `soffit`
+  reveals (tuff); window = red frame + cross bars + top-slab sill, 4 recessed panes with a cyan_terracotta / polished_deepslate back
+  (no glass, no panes, no black box).
+- Sheet score: dE mean 10.23 -> 9.55, outliers 7.35% -> 4.52%, EMD 9.69 -> 9.05. Photo (scorer camera) pixel dE 17.5 -> 18.1.
+  Front-aligned photo check: thatch r(block L, photo L) -0.17 -> 0.68, wall 0.01 -> 0.84, front dE 15.35 -> 13.57. Panes 0. Spend $0.

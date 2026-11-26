@@ -344,7 +344,9 @@ def stage_grad(n):
     unreliable (zones override it), so its texture signal is down-weighted."""
     import shade_gradient
     out, wt, wg = GRAD.get(n, (n.replace("_v2", "") + "_grad", 0.5, 0.5))
-    shade_gradient.run(n, out, wt, wg)
+    pp = f"art/final/meta/{n}_parts.json"; g = json.load(open(pp)).get("grad", {}) if os.path.exists(pp) else {}
+    # optional per-subject extras: "photo" = front-photo shadow projection, "eyebrows" = recessed eyebrow-arch rebuild
+    shade_gradient.run(n, out, wt, wg, photo=g.get("photo"), eyebrows=g.get("eyebrows"))
 
 def stage_check(n):
     import blueprint, colour_score, shape_compare

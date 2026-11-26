@@ -29,7 +29,7 @@ import numpy as np
 from scipy import ndimage
 import mc_map as MM, mc_render, colour_albedo as CA
 
-PROTECT = {"door", "frame", "glass", "spire", "window_dark", "window_lit", "glass_dark"}
+PROTECT = {"door", "frame", "glass", "spire", "window_dark", "window_lit", "glass_dark", "soffit", "recess"}
 BACKING = MM.BACKING
 # curated ladders (dark -> light); blocks missing from the dataset or failing allowed() are skipped
 CURATED = {
@@ -63,6 +63,32 @@ SHAPE_OF = {"full_block": None, "stairs": MM.stairs_of, "slab": MM.slab_of, "wal
 
 def L_of(bid): return MM.lab_of(MM.BL[bid], "side")
 
+def _srgb_to_L(rgb):
+    c = rgb/255.0; c = np.where(c <= 0.04045, c/12.92, ((c + 0.055)/1.055)**2.4)
+    Y = c @ np.array([0.2126, 0.7152, 0.0722]); f = np.where(Y > 0.008856, np.cbrt(Y), 7.787*Y + 16/116)
+    return 116*f - 16
+
+def photo_front_L(occ, spec):
+    """Mean photo L* for the frontmost (+z) block of every (x, y) column of the front projection.
+    The photo is aligned to the voxel front by piecewise-linear anchors (model coordinate -> photo pixel) on x
+    (building edges + door / window centres) and y (ground, eave line, ridge, chimney top), so features line up even
+    where the model's proportions differ from the photo."""
+    from PIL import Image
+    im = np.asarray(Image.open(spec["path"]).convert("RGB"), float); Lp = _srgb_to_L(im)
+    ax = np.array(spec["x_anchors"], float); ay = np.array(spec["y_anchors"], float)
+    fx = lambda x: np.interp(x, ax[:, 0], ax[:, 1]); fy = lambda y: np.interp(y, ay[:, 0], ay[:, 1])
+    W, H, D = occ.shape; out = np.full(occ.shape, np.nan); front = np.zeros(occ.shape, bool); sh = spec.get("shrink", 0.15)
+    for x in range(W):
+        for y in range(H):
+            zs = np.nonzero(occ[x, y])[0]
+            if not len(zs): continue
+            z = zs.max(); u0, u1 = fx(x), fx(x + 1); v0, v1 = fy(y + 1), fy(y)            # image v grows downward
+            du, dv = (u1 - u0)*sh, (v1 - v0)*sh
+            a, b = int(round(u0 + du)), int(round(u1 - du)); c, e = int(round(v0 + dv)), int(round(v1 - dv))
+            if b <= a or e <= c or a < 0 or c < 0 or b > Lp.shape[1] or e > Lp.shape[0]: continue
+            out[x, y, z] = Lp[c:e, a:b].mean(); front[x, y, z] = True
+    return out, front
+
 def ladder(base, zone):
     """dark -> light list of full blocks around 'base' (index of base returned too)"""
     cur, ns, nh, step, tol, fams = ZONES[zone]
@@ -94,8 +120,11 @@ def variant(full, shape):
     if shape == "full_block": return full
     return f(full) if f else None
 
-def run(src, out, w_tex=0.5, w_geo=0.5, log=print):
+def run(src, out, w_tex=0.5, w_geo=0.5, log=print, photo=None, eyebrows=None):
+    """photo: front-photo shadow projection spec (path, x_anchors, y_anchors, w_photo, w_geo, keep); eyebrows: eyebrow_arch spec"""
     d = json.load(open(f"art/final/{src}_mc_blocks.json")); W, H, D = d["size"]; pal = d["palette"]
+    if eyebrows:
+        import eyebrow_arch; d = eyebrow_arch.apply(d, eyebrows, log=log); pal = d["palette"]
     occ = np.zeros((W, H, D), bool)
     for v in d["voxels"]: occ[v["x"], v["y"], v["z"]] = True
     pad = np.pad(occ, 1)
@@ -149,6 +178,8 @@ def run(src, out, w_tex=0.5, w_geo=0.5, log=print):
     M = np.full(occ.shape, "", object)
     for (x, y, z), m in mats.items(): M[x, y, z] = m or ""
     report = {"source": f"art/final/{src}_mc_blocks.json", "weights": {"tex": w_tex, "geo": w_geo}, "zones": {}}
+    Lph, front = (photo_front_L(occ, photo) if photo else (np.full(occ.shape, np.nan), np.zeros(occ.shape, bool)))
+    if photo: report["photo"] = {k: v for k, v in photo.items()}; report["photo"]["front_blocks_sampled"] = int(front.sum())
     S = np.zeros(occ.shape)
     for m in ZONES:
         zm = (M == m) & surf
@@ -158,13 +189,29 @@ def run(src, out, w_tex=0.5, w_geo=0.5, log=print):
             med = np.median(Lsh[have]); tex[have] = np.clip((Lsh[have] - med)/12.0, -1.5, 1.5)
         ys = np.nonzero(zm.any((0, 2)))[0]; hz = (yy - ys.min())/max(1, ys.max() - ys.min()) - 0.5   # builders: darker foot, lighter crown
         r = w_tex*tex + w_geo*(geo + 0.5*hz)
-        # smooth over same-zone surface neighbours (2 passes, 3x3x3)
+        fz = zm & front & ~np.isnan(Lph) & (m in (photo or {}).get("zones", ZONES))
+        if fz.sum() > 10:   # camera-facing front: the real photo's shadows (eyebrow undersides, thatch bands) + 3D geometry
+            pmed = np.median(Lph[fz]); ph = np.zeros(occ.shape); ph[fz] = np.clip((Lph[fz] - pmed)/12.0, -1.5, 1.5)
+            r = np.where(fz, photo.get("w_photo", 0.55)*ph + photo.get("w_geo", 0.45)*(geo + 0.5*hz), r)
+        raw = r.copy()
+        # smooth over same-zone surface neighbours (3 passes, 3x3x3)
         for _ in range(3):
             num = ndimage.uniform_filter(np.where(zm, r, 0.0), 3); den = ndimage.uniform_filter(zm.astype(float), 3)
             r = np.where(zm, 0.5*r + 0.5*num/np.maximum(den, 1e-6), r)
-        rz = r[zm]; c = np.median(rz); sc = np.percentile(np.abs(rz - c), 95) or 1.0
-        S[zm] = np.clip((rz - c)/sc, -1, 1)
+        if photo: r = np.where(fz, photo.get("keep", 0.6)*raw + (1 - photo.get("keep", 0.6))*r, r)   # keep the photo's mottling
+        rest = zm & ~fz if fz.sum() > 10 else zm
+        for part in ((rest, fz) if fz.sum() > 10 else (zm,)):   # the photo-shaded front is normalised on its own so the
+            rz = r[part]; c = np.median(rz); sc = np.percentile(np.abs(rz - c), 95) or 1.0     # photo's darks use the ladder
+            S[part] = np.clip((rz - c)/sc, -1, 1)
     # ladders + replacement
+    # face-aware dither coordinates: the Bayer cell is indexed in the plane of the block's main exposed face, so a side wall
+    # (x = const) dithers over (z, y) instead of repeating 2x2 tiles from the (x + 2z, y + z) index
+    ex = {k: exposed(*k) for k in ((2, 1), (2, -1), (0, 1), (0, -1))}
+    def dith(x, y, z):
+        if ex[(2, 1)][x, y, z] or ex[(2, -1)][x, y, z]: u, v = x, y
+        elif ex[(0, 1)][x, y, z] or ex[(0, -1)][x, y, z]: u, v = z, y
+        else: u, v = x, z
+        return B4[u % 4, v % 4] - 0.5
     newvox = []; states = {}; stats = collections.defaultdict(collections.Counter); ladders = {}
     for m in ZONES:
         ids = [pal[v["b"]]["id"] for v in d["voxels"] if pal[v["b"]].get("material") == m and MM.BL[pal[v["b"]]["id"]]["shape"] == "full_block" and pal[v["b"]]["id"] != BACKING]
@@ -176,7 +223,7 @@ def run(src, out, w_tex=0.5, w_geo=0.5, log=print):
         if m in ladders and m not in PROTECT and bid != BACKING and surf[x, y, z]:
             lad, bi = ladders[m]["ladder_dark_to_light"], ladders[m]["base_index"]; s = S[x, y, z]
             nsd, nhl = bi, len(lad) - 1 - bi
-            t = B4[(x + 2*z) % 4, (y + z) % 4] - 0.5
+            t = dith(x, y, z)
             s = math.copysign(abs(s)**1.4, s)                                                   # fewer blocks at the ends of the ladder
             pos = s*(nsd if s < 0 else nhl) + 0.55*t                                            # dither only shifts near band edges
             idx = int(np.clip(math.floor(pos + 0.5), -nsd, nhl)) + bi
@@ -196,10 +243,11 @@ def run(src, out, w_tex=0.5, w_geo=0.5, log=print):
         elif m in ladders:
             stats[m]["interior" if not surf[x, y, z] else "kept"] += 1
         st = "minecraft:" + bid + ("[" + ",".join(f"{a}={b}" for a, b in sorted(props.items())) + "]" if props else "")
-        if st not in states:
-            states[st] = {"key": f"b{len(states)}", "id": bid, "props": props, "state": st, "material": m, "count": 0,
+        sk = (st, m)                                                                             # same block, own material
+        if sk not in states:
+            states[sk] = {"key": f"b{len(states)}", "id": bid, "props": props, "state": st, "material": m, "count": 0,
                           "roles": q.get("roles", {}), "technique": q.get("technique")}
-        states[st]["count"] += 1; newvox.append({"x": x, "y": y, "z": z, "b": states[st]["key"]})
+        states[sk]["count"] += 1; newvox.append({"x": x, "y": y, "z": z, "b": states[sk]["key"]})
     assert not any("pane" in s["id"] for s in states.values()), "glass pane in gradient output"
     for m in ladders:
         c = stats[m]; tot = sum(c[b] for b in ("shadow", "base", "highlight"))
@@ -213,7 +261,8 @@ def run(src, out, w_tex=0.5, w_geo=0.5, log=print):
     open(f"art/final/{out}_mc_blocks.json", "w").write(json.dumps(o))
     mc_render.export(f"art/final/{out}_mc_blocks.json", f"art/final/schematics/{out}_mc_blocks")
     os.makedirs("out/grad", exist_ok=True)
-    np.savez_compressed(f"out/grad/{out}_shade.npz", S=S, occ=occ, surf=surf, geo=geo, Lsh=np.nan_to_num(Lsh, nan=-1))
+    np.savez_compressed(f"out/grad/{out}_shade.npz", S=S, occ=occ, surf=surf, geo=geo, Lsh=np.nan_to_num(Lsh, nan=-1),
+                        Lph=np.nan_to_num(Lph, nan=-1), front=front)
     json.dump(report, open(f"art/final/meta/{out}_shade_gradient.json", "w"), indent=1)
     for m, z in ladders.items(): log(out, m, z["ladder_dark_to_light"], z["L"], "split", z["surface_split_pct"])
     return report

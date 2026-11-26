@@ -19,24 +19,24 @@
    ],
    "base_index": 2,
    "surface_split_pct": {
-    "shadow": 28.4,
-    "base": 71.6,
+    "shadow": 30.6,
+    "base": 69.4,
     "highlight": 0.0
    },
    "blocks": {
-    "light_gray_wool": 518,
-    "light_gray_wool_stairs": 334,
-    "tuff": 284,
-    "light_gray_wool_slab": 89,
-    "light_gray_concrete": 64,
-    "light_gray_concrete_stairs": 24,
-    "light_gray_concrete_slab": 1
+    "light_gray_wool": 557,
+    "light_gray_wool_stairs": 326,
+    "tuff": 306,
+    "light_gray_wool_slab": 91,
+    "light_gray_concrete": 66,
+    "light_gray_concrete_stairs": 40,
+    "tuff_stairs": 15,
+    "light_gray_concrete_slab": 2
    },
    "counts": {
-    "base": 941,
-    "shadow": 373,
-    "interior": 2194,
-    "kept": 4
+    "base": 974,
+    "shadow": 429,
+    "interior": 2136
    }
   },
   "wall_white": {
@@ -55,21 +55,21 @@
    ],
    "base_index": 2,
    "surface_split_pct": {
-    "shadow": 19.7,
-    "base": 66.7,
-    "highlight": 13.7
+    "shadow": 23.6,
+    "base": 60.9,
+    "highlight": 15.5
    },
    "blocks": {
-    "white_wool": 196,
+    "white_wool": 179,
     "calcite": 57,
-    "snow_block": 41,
-    "white_wool_stairs": 4,
-    "white_concrete": 2
+    "snow_block": 46,
+    "white_concrete": 13,
+    "white_wool_stairs": 2
    },
    "counts": {
-    "base": 200,
-    "shadow": 59,
-    "highlight": 41
+    "base": 181,
+    "shadow": 70,
+    "highlight": 46
    }
   },
   "chimney_brick": {
@@ -99,5 +99,53 @@
     "shadow": 3
    }
   }
+ },
+ "photo": {
+  "path": "refs/cottage_v2.jpg",
+  "x_anchors": [
+   [
+    1.0,
+    333
+   ],
+   [
+    15.5,
+    570
+   ],
+   [
+    26.5,
+    750
+   ],
+   [
+    31.0,
+    935
+   ]
+  ],
+  "y_anchors": [
+   [
+    0,
+    362
+   ],
+   [
+    3,
+    309
+   ],
+   [
+    12,
+    162
+   ],
+   [
+    15,
+    120
+   ]
+  ],
+  "w_photo": 0.55,
+  "w_geo": 0.45,
+  "keep": 0.6,
+  "shrink": 0.15,
+  "zones": [
+   "thatch",
+   "wall_white"
+  ],
+  "front_blocks_sampled": 358
  }
 }

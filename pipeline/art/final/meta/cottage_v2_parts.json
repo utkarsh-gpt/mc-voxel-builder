@@ -64,5 +64,78 @@
   "why": "the drawing projection put mid-grey thatch on the walls and brick round the door; the ref has low white walls (3 blocks under the eave), white gable ends to ~58% of the height, a brick chimney on the ridge",
   "drop_ground_props": true
  },
- "drop_lone_posts": true
+ "drop_lone_posts": true,
+ "grad": {
+  "note": "SME-14 follow-up: front-photo shadow projection + recessed eyebrow arches (shade_gradient.py / eyebrow_arch.py)",
+  "photo": {
+   "path": "refs/cottage_v2.jpg",
+   "x_anchors": [
+    [
+     1.0,
+     333
+    ],
+    [
+     15.5,
+     570
+    ],
+    [
+     26.5,
+     750
+    ],
+    [
+     31.0,
+     935
+    ]
+   ],
+   "y_anchors": [
+    [
+     0,
+     362
+    ],
+    [
+     3,
+     309
+    ],
+    [
+     12,
+     162
+    ],
+    [
+     15,
+     120
+    ]
+   ],
+   "w_photo": 0.55,
+   "w_geo": 0.45,
+   "keep": 0.6,
+   "shrink": 0.15,
+   "zones": [
+    "thatch",
+    "wall_white"
+   ]
+  },
+  "eyebrows": {
+   "wall_z": 14,
+   "bays": [
+    {
+     "kind": "door",
+     "cx": 15,
+     "ref_x": 12,
+     "heal": [
+      13,
+      17
+     ]
+    },
+    {
+     "kind": "window",
+     "cx": 26,
+     "ref_x": 23,
+     "heal": [
+      24,
+      28
+     ]
+    }
+   ]
+  }
+ }
 }

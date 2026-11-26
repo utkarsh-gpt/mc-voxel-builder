@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T18:12:44",
+  "generated_at": "2026-11-26T18:26:23",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -583,16 +583,16 @@
         16,
         18
       ],
-      "voxelCount": 3907,
+      "voxelCount": 3927,
       "hasShapes": false,
-      "subCount": 483,
-      "subPct": 12.4,
-      "paletteSize": 46,
+      "subCount": 494,
+      "subPct": 12.6,
+      "paletteSize": 47,
       "highlight": true,
       "featured": false,
       "ref": "refs/cottage.jpg",
-      "mtime": 1795734762,
-      "bytes": 160853
+      "mtime": 1795735581,
+      "bytes": 161262
     },
     {
       "id": "cottage_hymv",

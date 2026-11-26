@@ -1,0 +1,53 @@
+{
+ "v2": {
+  "thatch": {
+   "n": 230,
+   "dE_mean": 6.28,
+   "r_L_vs_photoL": 0.0
+  },
+  "wall_white": {
+   "n": 63,
+   "dE_mean": 33.19,
+   "r_L_vs_photoL": -0.0
+  },
+  "all": {
+   "n": 358,
+   "dE_mean": 15.62,
+   "r_L_vs_photoL": 0.338
+  }
+ },
+ "grad_prev": {
+  "thatch": {
+   "n": 230,
+   "dE_mean": 6.45,
+   "r_L_vs_photoL": -0.166
+  },
+  "wall_white": {
+   "n": 63,
+   "dE_mean": 31.05,
+   "r_L_vs_photoL": 0.01
+  },
+  "all": {
+   "n": 358,
+   "dE_mean": 15.35,
+   "r_L_vs_photoL": 0.338
+  }
+ },
+ "grad_photo": {
+  "thatch": {
+   "n": 235,
+   "dE_mean": 5.58,
+   "r_L_vs_photoL": 0.676
+  },
+  "wall_white": {
+   "n": 65,
+   "dE_mean": 29.03,
+   "r_L_vs_photoL": 0.837
+  },
+  "all": {
+   "n": 358,
+   "dE_mean": 13.57,
+   "r_L_vs_photoL": 0.467
+  }
+ }
+}
