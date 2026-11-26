@@ -1,5 +1,5 @@
 {
- "count": 635,
+ "count": 617,
  "by_reason": {
   "banner": 32,
   "bars": 8,
@@ -9,7 +9,7 @@
   "carpet": 18,
   "chain": 8,
   "coral_fan": 10,
-  "door": 21,
+  "door": 4,
   "fence": 1,
   "fence_gate": 13,
   "glass": 18,
@@ -18,7 +18,7 @@
   "infested": 7,
   "lantern": 10,
   "leaves": 14,
-  "non_full": 49,
+  "non_full": 48,
   "plant": 110,
   "potted_plant": 28,
   "pressure_plate": 17,
@@ -917,70 +917,6 @@
    "reason": "coral_fan"
   },
   {
-   "id": "acacia_door",
-   "reason": "door"
-  },
-  {
-   "id": "bamboo_door",
-   "reason": "door"
-  },
-  {
-   "id": "birch_door",
-   "reason": "door"
-  },
-  {
-   "id": "cherry_door",
-   "reason": "door"
-  },
-  {
-   "id": "copper_door",
-   "reason": "door"
-  },
-  {
-   "id": "crimson_door",
-   "reason": "door"
-  },
-  {
-   "id": "dark_oak_door",
-   "reason": "door"
-  },
-  {
-   "id": "exposed_copper_door",
-   "reason": "door"
-  },
-  {
-   "id": "jungle_door",
-   "reason": "door"
-  },
-  {
-   "id": "mangrove_door",
-   "reason": "door"
-  },
-  {
-   "id": "oak_door",
-   "reason": "door"
-  },
-  {
-   "id": "oxidized_copper_door",
-   "reason": "door"
-  },
-  {
-   "id": "pale_oak_door",
-   "reason": "door"
-  },
-  {
-   "id": "poplar_door",
-   "reason": "door"
-  },
-  {
-   "id": "spruce_door",
-   "reason": "door"
-  },
-  {
-   "id": "warped_door",
-   "reason": "door"
-  },
-  {
    "id": "waxed_copper_door",
    "reason": "door"
   },
@@ -994,10 +930,6 @@
   },
   {
    "id": "waxed_weathered_copper_door",
-   "reason": "door"
-  },
-  {
-   "id": "weathered_copper_door",
    "reason": "door"
   },
   {
@@ -1414,10 +1346,6 @@
   },
   {
    "id": "iron_chain",
-   "reason": "non_full"
-  },
-  {
-   "id": "iron_door",
    "reason": "non_full"
   },
   {

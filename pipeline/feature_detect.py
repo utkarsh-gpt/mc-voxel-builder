@@ -127,6 +127,7 @@ def openings(al, K, bpm, facade):
     return out, wall
 
 HAIKU = "claude-haiku-5-5"
+FRAME_DE = 12.0      # ring contrast (dE76, drawing) that confirms a frame/casing around an opening
 PROMPT = """Read the image {img}. It is an architectural elevation drawing (one side of a building) with a block grid overlaid: column numbers along the top, row numbers down the left side (row 0 = top). Each grid cell is one Minecraft block.
 
 List every OPENING drawn on the walls (windows, doors, arched windows, round windows, porch or arcade openings) and every SMALL PART that sticks out of the main mass (chimney, spire, antenna, finial, cross, turret, dormer, minaret).
@@ -171,6 +172,47 @@ def haiku_parts(img_path, cache_dir="out/cache"):
     except Exception: r = {"openings": [], "parts": [], "error": txt[:300]}
     r["_cost_usd"] = cost; r["_models"] = list(env.get("modelUsage", {}).keys())
     open(cp, "w").write(json.dumps(r)); return r, cost, False
+
+STYLE_PROMPT = """Read two images of the same building: the photo {photo} and a flat elevation drawing of it {drawing}.
+Describe how its WINDOWS and its main DOOR are framed, as a Minecraft builder would copy them.
+- window_frame: "surround" (a casing/trim board of a contrasting colour on all sides), "shutters" (panels beside the window),
+  "sill_only" (only a projecting sill), or "none" (the opening is just cut into the wall / stone or brick surround in the wall material).
+- frame_colour: hex colour of that trim or shutters as seen in the photo (null if none).
+- arched_surround: true if arched windows have a raised stone/brick arch around them.
+- door_material: "wood", "metal" or "glass"; door_colour: hex colour of the door leaf; door_double: true if it is a double (two-leaf) door;
+  door_frame: "surround" (trim posts + head like the windows), "stone" (a stone/brick surround or arch), or "none".
+Reply with ONLY a JSON object: {{"window_frame": "...", "frame_colour": "#rrggbb", "arched_surround": false, "door_material": "...",
+ "door_colour": "#rrggbb", "door_double": false, "door_frame": "...", "notes": "one short sentence"}}"""
+
+def haiku_style(n, tag, cache_dir="out/cache"):
+    """one Haiku call per subject: frame style + trim colour for windows, door material/colour/frame (cached)"""
+    import hashlib, subprocess
+    photo = next((p for p in (f"refs/{n}.jpg", f"refs/{n}.png") if os.path.exists(p)), None); drawing = f"ortho/{n}{tag}_front.png"
+    if not photo or not os.path.exists(drawing): return {}, 0.0, True
+    key = hashlib.sha1(open(photo, "rb").read() + open(drawing, "rb").read() + STYLE_PROMPT.encode() + HAIKU.encode()).hexdigest()[:16]
+    os.makedirs(cache_dir, exist_ok=True); cp = f"{cache_dir}/fd_style_{key}.json"
+    if os.path.exists(cp): return json.load(open(cp)), 0.0, True
+    prompt = STYLE_PROMPT.format(photo=os.path.abspath(photo), drawing=os.path.abspath(drawing))
+    out = subprocess.run(["claude", "-p", "--model", HAIKU, prompt, "--allowedTools", "Read", "--output-format", "json"], capture_output=True, text=True, timeout=300).stdout
+    env = json.loads(out); txt = env.get("result", ""); cost = float(env.get("total_cost_usd") or 0); i, j = txt.find("{"), txt.rfind("}")
+    try: r = json.loads(txt[i:j + 1])
+    except Exception: r = {"error": txt[:300]}
+    r["_cost_usd"] = cost; open(cp, "w").write(json.dumps(r)); return r, cost, False
+
+def ring_check(al, b, K):
+    """pixel check of a frame: the box's border band (outer ~0.3 block, where trim/casing sits since Haiku boxes the frame's
+    outer edge) against the wall band just outside it. returns (frame hex, wall hex, dE76)"""
+    rgb, msk = al["rgb"], al["mask"]; r0, c0, r1, c1 = b["r"]*K, b["c"]*K, (b["r"] + b["h"])*K, (b["c"] + b["w"])*K
+    t = max(2, int(round(0.3*K))); g = max(2, int(round(0.4*K))); H_, W_ = msk.shape
+    inner = np.zeros_like(msk); inner[max(0, r0):min(H_, r1), max(0, c0):min(W_, c1)] = True
+    core = np.zeros_like(msk); core[max(0, r0 + t):min(H_, r1 - t), max(0, c0 + t):min(W_, c1 - t)] = True
+    outer = np.zeros_like(msk); outer[max(0, r0 - g):min(H_, r1 + g), max(0, c0 - g):min(W_, c1 + g)] = True
+    band = inner & ~core & msk; wall = outer & ~inner & msk
+    if band.sum() < 4 or wall.sum() < 4: return None, None, 0.0
+    fb = np.median(rgb[band], 0); wb = np.median(rgb[wall], 0)
+    de = float(np.linalg.norm(skc.rgb2lab(fb[None, None]/255)[0, 0] - skc.rgb2lab(wb[None, None]/255)[0, 0]))
+    hx = lambda c: "#%02x%02x%02x" % tuple(int(v) for v in c)
+    return hx(fb), hx(wb), round(de, 1)
 
 def evidence(rgb, msk, K):
     """local contrast at block scale: how far each half-block patch colour is from its 3-block neighbourhood mean"""
@@ -349,6 +391,8 @@ def detect(n, tag=None, K=8, log=print, llm=True):
             boxes = []
             for o in ops: b = snap_box(o, bpm, o["kind"]); b.update(kind=o["kind"], arch=o["arch"], colour=o["colour"]); boxes.append(b)
         boxes, rinfo = (tidy if llm else regularise)(boxes, c1 - c0); rows_info[view] = rinfo
+        for b in boxes:
+            fh, wh, de = ring_check(al, b, K); b["ring"] = {"frame": fh, "wall": wh, "dE": de}
         # 3D: cells in the facade plane (modal depth of the opening's hit voxels)
         sd, sx = sub(depth), sub(xyz); dvec = np.array(DIR[view])
         for b in boxes:
@@ -373,7 +417,7 @@ def detect(n, tag=None, K=8, log=print, llm=True):
             else: rect = {"axis": "x", "plane": int(W - 1 - dmode), "u": jj}
             rect["u"] = [int(v) for v in rect["u"]]; rect["y"] = [int(v) for v in ys]
             feats.append({"rect": rect, "kind": b["kind"], "view": view, "out": list(map(int, dvec)), "w": b["w"], "h": b["h"], "arch": b["arch"], "round": bool(b.get("round")),
-                          "src": b.get("src", "image"), "evidence": b.get("evidence"),
+                          "src": b.get("src", "image"), "evidence": b.get("evidence"), "ring": b.get("ring"),
                           "row": f"{view}:{b.get('row', 0)}", "period": (rinfo[b["row"]]["period"] if "row" in b and b["row"] < len(rinfo) else None), "bay": b.get("bay"), "inferred": bool(b.get("inferred")),
                           "colour": b["colour"], "cells": cells, "img_box": [b["r"], b["c"], b["h"], b["w"]]})
         pr = protrusions(al, hit, K, bpm) if al["src"] == view else []     # a mirrored stand-in drawing adds no new parts
@@ -438,13 +482,39 @@ def detect(n, tag=None, K=8, log=print, llm=True):
         X, Z = int(np.clip(round(p["x"] - 0.5), 0, W - 1)), int(np.clip(round(p["z"] - 0.5), 0, D - 1))
         p["base_y"] = int(tops[X, Z]) if tops[X, Z] >= 0 else 0
         feats.append(dict(p, kind=p["kind"], cells=None))
+    # frames: per-subject style from Haiku (photo + drawing), confirmed per kit by the drawing's ring contrast
+    style = {}
+    if llm:
+        style, c, cached = haiku_style(n, tag); spend["calls"] += 1; spend["cached"] += int(cached); spend["cost_usd"] += c
+    kits = {}
+    for f in feats:
+        if f.get("rect") and f["kind"] in ("window", "door"):
+            kits.setdefault(f"{f['kind']}|{int(bool(f.get('arch')))}|{f['w']}|{f['h']}", []).append(f)
+    kit_info = {}
+    # subject-level confirmation: share of rectangular windows whose drawing ring contrasts with the wall
+    rect_w = [f for f in feats if f.get("rect") and f["kind"] == "window" and not f.get("arch")]
+    subj_share = sum(1 for f in rect_w if (f.get("ring") or {}).get("dE", 0) >= FRAME_DE)/max(1, len(rect_w))
+    for k, fs in kits.items():
+        share = sum(1 for f in fs if (f.get("ring") or {}).get("dE", 0) >= FRAME_DE)/max(1, len(fs))
+        door = fs[0]["kind"] == "door"
+        st = style.get("door_frame" if door else "window_frame", "none") or "none"
+        if not door and fs[0].get("arch") and style.get("arched_surround"): st = "stone"
+        if door: framed = st in ("surround", "stone")
+        else: framed = (st in ("surround", "shutters") and max(share, subj_share) >= 0.4) or st == "sill_only"
+        # one trim colour per subject (Haiku reads it off the photo); the drawing ring only confirms that trim is there
+        col = style.get("frame_colour") or next((f["ring"]["frame"] for f in fs if (f.get("ring") or {}).get("dE", 0) >= FRAME_DE), None)
+        kit_info[k] = {"kind": fs[0]["kind"], "count": len(fs), "style": st if framed else "none", "haiku_style": st, "ring_confirmed": round(share, 2),
+                       "subject_ring_confirmed": round(subj_share, 2), "frame_colour": col if framed and st != "stone" else None}
+        if door: kit_info[k].update(material=style.get("door_material", "wood"), colour=style.get("door_colour") or fs[0]["colour"], double=bool(style.get("door_double")))
+        for f in fs: f["kit"] = k
     spend["cost_usd"] = round(spend["cost_usd"], 5)
     res = {"subject": n, "sheet": tag, "blocks_per_metre": bpm, "K": K, "method": "haiku+image" if llm else "image", "llm": spend if llm else None,
-           "views": view_info, "rows": rows_info,
+           "views": view_info, "rows": rows_info, "style": {k: v for k, v in style.items() if not k.startswith("_")}, "kits": kit_info,
            "counts": dict(collections.Counter(f["kind"] for f in feats)), "inferred": sum(1 for f in feats if f.get("inferred")), "features": feats}
     os.makedirs("art/final/meta", exist_ok=True)
     open(f"art/final/meta/{n}_features.json", "w").write(json.dumps(res, indent=1))
     debug_png(n, debug)
+    log(f"{n}: frames {[(k, v['style'], v['ring_confirmed'], v['frame_colour']) for k, v in kit_info.items()]} style {res['style']}")
     log(f"{n}: {res['counts']} ({res['inferred']} inferred bays) llm {spend} views {[(v, i['openings'], i['iou']) for v, i in view_info.items()]}")
     return res
 

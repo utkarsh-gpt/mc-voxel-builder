@@ -22,8 +22,10 @@ def tex(name):
         if w != 16: im = im.resize((16, 16), Image.NEAREST)
         _T[name] = im
     return _T[name]
-def face_tex(bid, face):
-    t = blocks()[bid]["textures"][face]; im = tex(t[0])
+def face_tex(bid, face, props=None):
+    tx = blocks()[bid]["textures"]
+    if props and props.get("half") == "upper" and face == "side" and "side_upper" in tx: face = "side_upper"   # door upper half
+    t = tx[face]; im = tex(t[0])
     if len(t) > 1:   # overlay (e.g. grass side): composite, tinted plains grass
         ov = tex(t[1]); a = np.asarray(ov).astype(float); a[..., :3] *= np.array([145, 189, 89])/255; im = Image.alpha_composite(im, Image.fromarray(a.astype(np.uint8)))
     if blocks()[bid].get("biome_tinted") and face == "top":
@@ -41,6 +43,20 @@ def boxes(bid, props):
             f = props.get("facing", "north")
             return [{"north": (0, 0, 1-t, 1, 1, 1), "south": (0, 0, 0, 1, 1, t), "west": (1-t, 0, 0, 1, 1, 1), "east": (0, 0, 0, t, 1, 1)}[f]]
         return [(0, 0, 0, 1, t, 1)] if props.get("half", "bottom") == "bottom" else [(0, 1-t, 0, 1, 1, 1)]
+    if shape == "door":   # 3/16 leaf against the side opposite to 'facing' when closed; open swings it to the hinge side
+        f = props.get("facing", "north")
+        if props.get("open") == "true":
+            cw = {"north": "east", "east": "south", "south": "west", "west": "north"}; ccw = {v: k for k, v in cw.items()}
+            f = (cw if props.get("hinge", "left") == "right" else ccw)[f]
+        return [{"north": (0, 0, 1-t, 1, 1, 1), "south": (0, 0, 0, 1, 1, t), "west": (1-t, 0, 0, 1, 1, 1), "east": (0, 0, 0, t, 1, 1)}[f]]
+    if shape == "shelf":  # 26.3 shelf: back board (3/16) against the side opposite to 'facing' + top/bottom lips (2/16 deep, 4/16 tall)
+        f = props.get("facing", "north"); p = 1/16
+        rot = {"north": lambda x0, z0, x1, z1: (x0, z0, x1, z1), "south": lambda x0, z0, x1, z1: (1-x1, 1-z1, 1-x0, 1-z0),
+               "east": lambda x0, z0, x1, z1: (1-z1, x0, 1-z0, x1), "west": lambda x0, z0, x1, z1: (z0, 1-x1, z1, 1-x0)}[f]
+        out = []
+        for (x0, y0, z0, x1, y1, z1) in ((0, 0, 13*p, 1, 1, 1), (0, 0, 11*p, 1, 4*p, 13*p), (0, 12*p, 11*p, 1, 1, 13*p)):
+            a, b_, c, d_ = rot(x0, z0, x1, z1); out.append((a, y0, b_, c, y1, d_))
+        return out
     if shape == "stairs": return stair_boxes(props)
     if shape in ("wall", "pane", "bars", "fence"): return connect_boxes(shape, props)
     return [(0, 0, 0, 1, 1, 1)]
@@ -110,7 +126,7 @@ def render(path, azim=30, elev=20, size=512, light=(-0.25, 0.8, 0.55), ss=2, bg=
                 ctr_face = (q[0] + q[1] + q[2] + (q[1] + q[2] - q[0]))/4
                 depth = float(((ctr_face - ctr) @ R.T)[2])
                 shade = 0.55 + 0.45*max(0.0, float(np.array(n) @ Lw))
-                polys.append((depth, cam[:, :2], bid, fname, uv, shade))
+                polys.append((depth, cam[:, :2], bid, fname, uv, shade, pr.get("half")))
     S = size*ss
     gc = np.array([[a, b, c] for a in (0, W) for b in (0, H) for c in (0, D)], float)
     allp = np.concatenate([p[1] for p in polys]); allp = np.concatenate([allp, allp[:0]])
@@ -121,14 +137,14 @@ def render(path, azim=30, elev=20, size=512, light=(-0.25, 0.8, 0.55), ss=2, bg=
     img = Image.new("RGBA", (S, S), bg + (255,)); mimg = Image.new("L", (S, S), 0)
     to_px = lambda p: np.array([(p[0]-mn[0])*sc + off[0], S - ((p[1]-mn[1])*sc + off[1])])
     cache = {}
-    for depth, pts, bid, fname, uv, shade in sorted(polys, key=lambda t: t[0]):
+    for depth, pts, bid, fname, uv, shade, half in sorted(polys, key=lambda t: t[0]):
         p0, p1, p3 = to_px(pts[0]), to_px(pts[1]), to_px(pts[2]); p2 = p1 + p3 - p0
         quad = [tuple(p0), tuple(p1), tuple(p2), tuple(p3)]
         xs = [q[0] for q in quad]; ys = [q[1] for q in quad]; bx0, by0 = int(math.floor(min(xs))), int(math.floor(min(ys))); bx1, by1 = int(math.ceil(max(xs)))+1, int(math.ceil(max(ys)))+1
         if bx1 - bx0 < 1 or by1 - by0 < 1: continue
-        key = (bid, fname, uv)
+        key = (bid, fname, uv, half)
         if key not in cache:
-            t = face_tex(bid, fname); u0, v0, u1, v1 = uv
+            t = face_tex(bid, fname, {"half": half}); u0, v0, u1, v1 = uv
             sub = t.crop((int(round(u0)), int(round(v0)), max(int(round(u1)), int(round(u0))+1), max(int(round(v1)), int(round(v0))+1))); cache[key] = sub
         sub = cache[key]; sw, sh = sub.size
         e1, e2 = p1 - p0, p3 - p0; M = np.array([[e1[0], e2[0]], [e1[1], e2[1]]])
@@ -164,16 +180,16 @@ def bake_fine(path, dst, F=4):
             if sl[5] == sl[2]: sl[5] += 1
             for i in range(sl[0], sl[3]):
                 for j in range(sl[1], sl[4]):
-                    for k in range(sl[2], sl[5]): occ[x*F+i, y*F+j, z*F+k] = True; owner[(x*F+i, y*F+j, z*F+k)] = (bid, i, j, k)
+                    for k in range(sl[2], sl[5]): occ[x*F+i, y*F+j, z*F+k] = True; owner[(x*F+i, y*F+j, z*F+k)] = (bid, i, j, k, pr.get("half"))
     cache = {}
-    for (fx, fy, fz), (bid, i, j, k) in owner.items():
+    for (fx, fy, fz), (bid, i, j, k, half) in owner.items():
         up_open = fy+1 >= H*F or not occ[fx, fy+1, fz]
         side_x = (fx+1 >= W*F or not occ[fx+1, fx and fy, fz]) if False else None
-        if up_open: key = (bid, "top"); u, v = i, k
+        if up_open: key = (bid, "top", half); u, v = i, k
         else:
             ex = (fx+1 >= W*F or not occ[fx+1, fy, fz]) or (fx-1 < 0 or not occ[fx-1, fy, fz])
-            key = (bid, "side"); u, v = (k if ex else i), F-1-j
-        if key not in cache: cache[key] = ds(face_tex(*key))
+            key = (bid, "side", half); u, v = (k if ex else i), F-1-j
+        if key not in cache: cache[key] = ds(face_tex(key[0], key[1], {"half": key[2]}))
         c = cache[key][u, v]; h = "#%02x%02x%02x" % tuple(np.clip(c, 0, 255).astype(int))
         pk = pal.setdefault(h, f"c{len(pal)}"); vs.append({"x": fx, "y": fy, "z": fz, "c": pk})
     open(dst, "w").write(json.dumps({"name": d.get("name", "mc") + "_baked", "size": [W*F, H*F, D*F], "camera": d.get("camera", {"azim": 30, "elev": 20}),
@@ -209,7 +225,7 @@ def attach_bake(d, F=4):
         p["boxes"] = [list(map(float, b)) for b in boxes(p["id"], p.get("props", {}))]
         bk = {}
         for face in ("top", "side", "bottom"):
-            a = np.asarray(face_tex(p["id"], face)).astype(float); s = 16//F; rows = []
+            a = np.asarray(face_tex(p["id"], face, p.get("props", {}))).astype(float); s = 16//F; rows = []
             for j in range(F):
                 for i in range(F):
                     blk = a[j*s:(j+1)*s, i*s:(i+1)*s]; w = blk[..., 3:4]/255

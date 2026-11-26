@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T19:26:43",
+  "generated_at": "2026-11-25T20:25:41",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -72,22 +72,22 @@
       "bytes": 134927
     },
     {
-      "id": "hagia_fd_mc_blocks",
-      "file": "models/hagia_fd_mc_blocks.json",
-      "name": "hagia_fd_mc_blocks",
+      "id": "hagia_frames_mc_blocks",
+      "file": "models/hagia_frames_mc_blocks.json",
+      "name": "hagia_frames_mc_blocks",
       "subject": "hagia",
-      "kind": "fd_mc_blocks",
+      "kind": "frames_mc_blocks",
       "format": "mc_blocks",
       "size": [
         37,
         31,
         41
       ],
-      "voxelCount": 23648,
+      "voxelCount": 23641,
       "hasShapes": false,
-      "subCount": 1866,
-      "subPct": 7.9,
-      "paletteSize": 106,
+      "subCount": 1820,
+      "subPct": 7.7,
+      "paletteSize": 101,
       "highlight": true,
       "featured": true,
       "ref": "refs/hagia.jpg",
@@ -96,26 +96,26 @@
         "url": "https://commons.wikimedia.org/wiki/File:Istanbul_Little_Hagia_Sophia_exterior_in_2009_5737.jpg",
         "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
       },
-      "mtime": 1795652801,
-      "bytes": 1037128
+      "mtime": 1795656339,
+      "bytes": 1032382
     },
     {
-      "id": "house_fd_mc_blocks",
-      "file": "models/house_fd_mc_blocks.json",
-      "name": "house_fd_mc_blocks",
+      "id": "house_frames_mc_blocks",
+      "file": "models/house_frames_mc_blocks.json",
+      "name": "house_frames_mc_blocks",
       "subject": "house",
-      "kind": "fd_mc_blocks",
+      "kind": "frames_mc_blocks",
       "format": "mc_blocks",
       "size": [
         22,
         20,
         23
       ],
-      "voxelCount": 3947,
+      "voxelCount": 3951,
       "hasShapes": false,
-      "subCount": 690,
-      "subPct": 17.5,
-      "paletteSize": 81,
+      "subCount": 819,
+      "subPct": 20.7,
+      "paletteSize": 102,
       "highlight": true,
       "featured": true,
       "ref": "refs/house.jpg",
@@ -124,8 +124,8 @@
         "url": "https://commons.wikimedia.org/wiki/File:American_Foursquare_Style_House_-_panoramio_(1).jpg",
         "license_url": "https://creativecommons.org/licenses/by/3.0/"
       },
-      "mtime": 1795652801,
-      "bytes": 236074
+      "mtime": 1795656339,
+      "bytes": 257388
     },
     {
       "id": "landscape_mc_blocks",
@@ -769,6 +769,34 @@
       "bytes": 125565
     },
     {
+      "id": "hagia_fd_mc_blocks",
+      "file": "models/hagia_fd_mc_blocks.json",
+      "name": "hagia_fd_mc_blocks",
+      "subject": "hagia",
+      "kind": "fd_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        37,
+        31,
+        41
+      ],
+      "voxelCount": 23648,
+      "hasShapes": false,
+      "subCount": 1866,
+      "subPct": 7.9,
+      "paletteSize": 106,
+      "highlight": true,
+      "featured": false,
+      "ref": "refs/hagia.jpg",
+      "refCredit": {
+        "text": "Photo: Dosseman, Wikimedia Commons, CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Istanbul_Little_Hagia_Sophia_exterior_in_2009_5737.jpg",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "mtime": 1795652801,
+      "bytes": 1037128
+    },
+    {
       "id": "hagia_lowpoly_rendered_toned",
       "file": "models/hagia_lowpoly_rendered_toned.json",
       "name": "hagia_lowpoly_rendered_toned",
@@ -932,6 +960,34 @@
       },
       "mtime": 1795650260,
       "bytes": 54254
+    },
+    {
+      "id": "house_fd_mc_blocks",
+      "file": "models/house_fd_mc_blocks.json",
+      "name": "house_fd_mc_blocks",
+      "subject": "house",
+      "kind": "fd_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        22,
+        20,
+        23
+      ],
+      "voxelCount": 3947,
+      "hasShapes": false,
+      "subCount": 690,
+      "subPct": 17.5,
+      "paletteSize": 81,
+      "highlight": true,
+      "featured": false,
+      "ref": "refs/house.jpg",
+      "refCredit": {
+        "text": "Photo: Corey Coyle, Wikimedia Commons, CC BY 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:American_Foursquare_Style_House_-_panoramio_(1).jpg",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mtime": 1795652801,
+      "bytes": 236074
     },
     {
       "id": "house_mc_blocks",

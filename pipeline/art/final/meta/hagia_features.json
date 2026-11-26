@@ -5,8 +5,8 @@
  "K": 8,
  "method": "haiku+image",
  "llm": {
-  "calls": 4,
-  "cached": 4,
+  "calls": 5,
+  "cached": 5,
   "cost_usd": 0.0
  },
  "views": {
@@ -169,6 +169,84 @@
    }
   ]
  },
+ "style": {
+  "window_frame": "none",
+  "frame_colour": null,
+  "arched_surround": true,
+  "door_material": "wood",
+  "door_colour": "#2e2622",
+  "door_double": false,
+  "door_frame": "stone",
+  "notes": "Windows are cut straight into the brick wall with lattice grilles and no trim or shutters; they have brick arch heads. The doorway is a small dark arched opening with a brick arch surround, so the leaf material and colour are inferred from its darkness, not clearly visible."
+ },
+ "kits": {
+  "window|0|1|4": {
+   "kind": "window",
+   "count": 5,
+   "style": "none",
+   "haiku_style": "none",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.0,
+   "frame_colour": null
+  },
+  "window|1|1|2": {
+   "kind": "window",
+   "count": 1,
+   "style": "none",
+   "haiku_style": "stone",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.0,
+   "frame_colour": null
+  },
+  "window|1|2|4": {
+   "kind": "window",
+   "count": 9,
+   "style": "none",
+   "haiku_style": "stone",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.0,
+   "frame_colour": null
+  },
+  "door|0|1|2": {
+   "kind": "door",
+   "count": 1,
+   "style": "stone",
+   "haiku_style": "stone",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.0,
+   "frame_colour": null,
+   "material": "wood",
+   "colour": "#2e2622",
+   "double": false
+  },
+  "window|0|1|3": {
+   "kind": "window",
+   "count": 6,
+   "style": "none",
+   "haiku_style": "none",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.0,
+   "frame_colour": null
+  },
+  "window|1|2|3": {
+   "kind": "window",
+   "count": 3,
+   "style": "none",
+   "haiku_style": "stone",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.0,
+   "frame_colour": null
+  },
+  "window|0|2|4": {
+   "kind": "window",
+   "count": 2,
+   "style": "none",
+   "haiku_style": "none",
+   "ring_confirmed": 0.0,
+   "subject_ring_confirmed": 0.0,
+   "frame_colour": null
+  }
+ },
  "counts": {
   "window": 26,
   "door": 1,
@@ -202,6 +280,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -1.26,
+   "ring": {
+    "frame": "#b8a796",
+    "wall": "#b29e94",
+    "dE": 4.9
+   },
    "row": "front:0",
    "period": 8.0,
    "bay": 0,
@@ -234,7 +317,8 @@
     9,
     4,
     1
-   ]
+   ],
+   "kit": "window|0|1|4"
   },
   {
    "rect": {
@@ -262,6 +346,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -0.76,
+   "ring": {
+    "frame": "#7e7476",
+    "wall": "#7e7572",
+    "dE": 2.3
+   },
    "row": "front:0",
    "period": 8.0,
    "bay": 1,
@@ -294,7 +383,8 @@
     17,
     4,
     1
-   ]
+   ],
+   "kit": "window|0|1|4"
   },
   {
    "rect": {
@@ -322,6 +412,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -0.38,
+   "ring": {
+    "frame": "#5c5954",
+    "wall": "#5b504d",
+    "dE": 4.7
+   },
    "row": "front:0",
    "period": 8.0,
    "bay": 2,
@@ -354,7 +449,8 @@
     25,
     4,
     1
-   ]
+   ],
+   "kit": "window|0|1|4"
   },
   {
    "rect": {
@@ -382,6 +478,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 3.53,
+   "ring": {
+    "frame": "#3a3730",
+    "wall": "#4a4139",
+    "dE": 5.6
+   },
    "row": "front:1",
    "period": null,
    "bay": null,
@@ -404,7 +505,8 @@
     26,
     2,
     1
-   ]
+   ],
+   "kit": "window|1|1|2"
   },
   {
    "rect": {
@@ -432,6 +534,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 1.28,
+   "ring": {
+    "frame": "#5a554f",
+    "wall": "#534b45",
+    "dE": 4.5
+   },
    "row": "front:2",
    "period": null,
    "bay": null,
@@ -464,7 +571,8 @@
     23,
     4,
     1
-   ]
+   ],
+   "kit": "window|0|1|4"
   },
   {
    "rect": {
@@ -492,6 +600,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 3.83,
+   "ring": {
+    "frame": "#554e48",
+    "wall": "#514943",
+    "dE": 2.1
+   },
    "row": "front:2",
    "period": null,
    "bay": null,
@@ -524,7 +637,8 @@
     26,
     4,
     1
-   ]
+   ],
+   "kit": "window|0|1|4"
   },
   {
    "rect": {
@@ -552,6 +666,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -0.65,
+   "ring": {
+    "frame": "#a58e7c",
+    "wall": "#9c8474",
+    "dE": 3.6
+   },
    "row": "front:3",
    "period": null,
    "bay": null,
@@ -604,7 +723,8 @@
     11,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "rect": {
@@ -632,6 +752,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 1.04,
+   "ring": {
+    "frame": "#695e55",
+    "wall": "#695b51",
+    "dE": 1.8
+   },
    "row": "front:3",
    "period": null,
    "bay": null,
@@ -684,7 +809,8 @@
     17,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "rect": {
@@ -712,6 +838,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 6.19,
+   "ring": {
+    "frame": "#4f4d47",
+    "wall": "#665951",
+    "dE": 7.7
+   },
    "row": "front:4",
    "period": null,
    "bay": null,
@@ -734,7 +865,8 @@
     18,
     2,
     1
-   ]
+   ],
+   "kit": "door|0|1|2"
   },
   {
    "rect": {
@@ -762,6 +894,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -2.74,
+   "ring": {
+    "frame": "#9c958f",
+    "wall": "#b9a190",
+    "dE": 10.9
+   },
    "row": "right:0",
    "period": 8.5,
    "bay": 0,
@@ -789,7 +926,8 @@
     10,
     3,
     1
-   ]
+   ],
+   "kit": "window|0|1|3"
   },
   {
    "rect": {
@@ -817,6 +955,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -3.53,
+   "ring": {
+    "frame": "#716a68",
+    "wall": "#6e615b",
+    "dE": 4.8
+   },
    "row": "right:0",
    "period": 8.5,
    "bay": 1,
@@ -844,7 +987,8 @@
     18,
     3,
     1
-   ]
+   ],
+   "kit": "window|0|1|3"
   },
   {
    "rect": {
@@ -872,6 +1016,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -1.18,
+   "ring": {
+    "frame": "#5e514e",
+    "wall": "#594d49",
+    "dE": 1.9
+   },
    "row": "right:0",
    "period": 8.5,
    "bay": 2,
@@ -899,7 +1048,8 @@
     27,
     3,
     1
-   ]
+   ],
+   "kit": "window|0|1|3"
   },
   {
    "rect": {
@@ -927,6 +1077,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 1.82,
+   "ring": {
+    "frame": "#9b9088",
+    "wall": "#847567",
+    "dE": 11.1
+   },
    "row": "right:1",
    "period": 6.0,
    "bay": 0,
@@ -979,7 +1134,8 @@
     12,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "rect": {
@@ -1007,6 +1163,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 2.08,
+   "ring": {
+    "frame": "#847b74",
+    "wall": "#7b6a61",
+    "dE": 7.2
+   },
    "row": "right:1",
    "period": 6.0,
    "bay": 1,
@@ -1059,7 +1220,8 @@
     18,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "rect": {
@@ -1087,6 +1249,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 1.81,
+   "ring": {
+    "frame": "#675b54",
+    "wall": "#5f514a",
+    "dE": 4.1
+   },
    "row": "right:1",
    "period": 6.0,
    "bay": 2,
@@ -1139,7 +1306,8 @@
     24,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "rect": {
@@ -1167,6 +1335,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -3.57,
+   "ring": {
+    "frame": "#b8a295",
+    "wall": "#ba9f91",
+    "dE": 2.5
+   },
    "row": "back:0",
    "period": 8.0,
    "bay": 0,
@@ -1189,7 +1362,8 @@
     9,
     3,
     2
-   ]
+   ],
+   "kit": "window|1|2|3"
   },
   {
    "rect": {
@@ -1217,6 +1391,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -1.63,
+   "ring": {
+    "frame": "#786760",
+    "wall": "#76665f",
+    "dE": 0.9
+   },
    "row": "back:0",
    "period": 8.0,
    "bay": 1,
@@ -1259,7 +1438,8 @@
     17,
     3,
     2
-   ]
+   ],
+   "kit": "window|1|2|3"
   },
   {
    "rect": {
@@ -1287,6 +1467,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -1.65,
+   "ring": {
+    "frame": "#59514e",
+    "wall": "#5c504e",
+    "dE": 1.6
+   },
    "row": "back:0",
    "period": 8.0,
    "bay": 2,
@@ -1329,7 +1514,8 @@
     25,
     3,
     2
-   ]
+   ],
+   "kit": "window|1|2|3"
   },
   {
    "rect": {
@@ -1357,6 +1543,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 2.83,
+   "ring": {
+    "frame": "#978a81",
+    "wall": "#837065",
+    "dE": 10.2
+   },
    "row": "back:1",
    "period": null,
    "bay": null,
@@ -1409,7 +1600,8 @@
     11,
     4,
     2
-   ]
+   ],
+   "kit": "window|0|2|4"
   },
   {
    "rect": {
@@ -1437,6 +1629,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -0.11,
+   "ring": {
+    "frame": "#675e55",
+    "wall": "#60534c",
+    "dE": 4.6
+   },
    "row": "back:1",
    "period": null,
    "bay": null,
@@ -1489,7 +1686,8 @@
     22,
     4,
     2
-   ]
+   ],
+   "kit": "window|0|2|4"
   },
   {
    "rect": {
@@ -1517,6 +1715,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 1.78,
+   "ring": {
+    "frame": "#7d7169",
+    "wall": "#76665d",
+    "dE": 4.6
+   },
    "row": "back:2",
    "period": null,
    "bay": null,
@@ -1549,7 +1752,8 @@
     17,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "rect": {
@@ -1577,6 +1781,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -2.74,
+   "ring": {
+    "frame": "#9c958f",
+    "wall": "#b9a190",
+    "dE": 10.9
+   },
    "row": "left:0",
    "period": 8.5,
    "bay": 0,
@@ -1604,7 +1813,8 @@
     10,
     3,
     1
-   ]
+   ],
+   "kit": "window|0|1|3"
   },
   {
    "rect": {
@@ -1632,6 +1842,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -3.53,
+   "ring": {
+    "frame": "#716a68",
+    "wall": "#6e615b",
+    "dE": 4.8
+   },
    "row": "left:0",
    "period": 8.5,
    "bay": 1,
@@ -1659,7 +1874,8 @@
     18,
     3,
     1
-   ]
+   ],
+   "kit": "window|0|1|3"
   },
   {
    "rect": {
@@ -1687,6 +1903,11 @@
    "round": false,
    "src": "haiku",
    "evidence": -1.18,
+   "ring": {
+    "frame": "#5e514e",
+    "wall": "#594d49",
+    "dE": 1.9
+   },
    "row": "left:0",
    "period": 8.5,
    "bay": 2,
@@ -1714,7 +1935,8 @@
     27,
     3,
     1
-   ]
+   ],
+   "kit": "window|0|1|3"
   },
   {
    "rect": {
@@ -1742,6 +1964,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 1.82,
+   "ring": {
+    "frame": "#9b9088",
+    "wall": "#847567",
+    "dE": 11.1
+   },
    "row": "left:1",
    "period": 6.0,
    "bay": 0,
@@ -1794,7 +2021,8 @@
     12,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "rect": {
@@ -1822,6 +2050,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 2.08,
+   "ring": {
+    "frame": "#847b74",
+    "wall": "#7b6a61",
+    "dE": 7.2
+   },
    "row": "left:1",
    "period": 6.0,
    "bay": 1,
@@ -1874,7 +2107,8 @@
     18,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "rect": {
@@ -1902,6 +2136,11 @@
    "round": false,
    "src": "haiku",
    "evidence": 1.81,
+   "ring": {
+    "frame": "#675b54",
+    "wall": "#5f514a",
+    "dE": 4.1
+   },
    "row": "left:1",
    "period": 6.0,
    "bay": 2,
@@ -1954,7 +2193,8 @@
     24,
     4,
     2
-   ]
+   ],
+   "kit": "window|1|2|4"
   },
   {
    "kind": "spire",

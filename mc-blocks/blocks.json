@@ -251398,6 +251398,7339 @@
     },
     "note": "facing = side of the tall step; half=top is upside-down"
    }
+  },
+  {
+   "id": "acacia_door",
+   "display_name": "Acacia Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "acacia",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/acacia_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/acacia_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/acacia_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/acacia_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/acacia_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     128,
+     75,
+     48
+    ],
+    "hex": "#804B30",
+    "lab": [
+     37.026,
+     19.243,
+     25.018
+    ],
+    "oklab": [
+     0.5318,
+     0.0714,
+     0.0753
+    ],
+    "oklch": {
+     "L": 0.5318,
+     "C": 0.1038,
+     "h": 46.53
+    },
+    "brightness_L": 37.026,
+    "hue_deg": 46.53,
+    "chroma": 0.1038,
+    "l_stddev": 17.003,
+    "spatial_contrast": 4.707,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      128,
+      75,
+      48
+     ],
+     "hex": "#804B30",
+     "srgb_naive": [
+      157,
+      87,
+      51
+     ],
+     "hex_naive": "#9D5733",
+     "srgb_linear_mean": [
+      160,
+      89,
+      54
+     ],
+     "hex_linear_mean": "#A05936",
+     "lab": [
+      37.026,
+      19.243,
+      25.018
+     ],
+     "lab_of_oklab_mean": [
+      44.567,
+      25.716,
+      32.563
+     ],
+     "oklab": [
+      0.5318,
+      0.0714,
+      0.0753
+     ],
+     "oklch": {
+      "L": 0.5318,
+      "C": 0.1038,
+      "h": 46.53
+     },
+     "brightness_L": 37.026,
+     "hue_deg": 46.53,
+     "chroma": 0.1038,
+     "l_stddev": 17.003,
+     "spatial_contrast": 4.707,
+     "busyness": "textured",
+     "unique_opaque_colours": 9,
+     "visible_pixels": 196,
+     "transparent_pixels": 60,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#874A2C",
+       "srgb": [
+        135,
+        74,
+        44
+       ],
+       "oklab": [
+        0.4756,
+        0.0657,
+        0.0664
+       ],
+       "lab": [
+        38.255,
+        23.069,
+        28.891
+       ],
+       "fraction": 0.5357
+      },
+      {
+       "hex": "#C06D3F",
+       "srgb": [
+        192,
+        109,
+        63
+       ],
+       "oklab": [
+        0.6187,
+        0.0821,
+        0.091
+       ],
+       "lab": [
+        54.559,
+        28.978,
+        39.432
+       ],
+       "fraction": 0.2806
+      },
+      {
+       "hex": "#A7603B",
+       "srgb": [
+        167,
+        96,
+        59
+       ],
+       "oklab": [
+        0.5629,
+        0.0718,
+        0.0774
+       ],
+       "lab": [
+        48.133,
+        25.406,
+        33.229
+       ],
+       "fraction": 0.1837
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      128,
+      75,
+      48
+     ],
+     "hex": "#804B30",
+     "lab": [
+      37.026,
+      19.243,
+      25.018
+     ],
+     "oklab": [
+      0.5318,
+      0.0714,
+      0.0753
+     ],
+     "oklch": {
+      "L": 0.5318,
+      "C": 0.1038,
+      "h": 46.53
+     },
+     "brightness_L": 37.026,
+     "hue_deg": 46.53,
+     "chroma": 0.1038,
+     "l_stddev": 17.003,
+     "spatial_contrast": 4.707,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      128,
+      75,
+      48
+     ],
+     "hex": "#804B30",
+     "srgb_naive": [
+      157,
+      87,
+      51
+     ],
+     "hex_naive": "#9D5733",
+     "srgb_linear_mean": [
+      160,
+      89,
+      54
+     ],
+     "hex_linear_mean": "#A05936",
+     "lab": [
+      37.026,
+      19.243,
+      25.018
+     ],
+     "lab_of_oklab_mean": [
+      44.567,
+      25.716,
+      32.563
+     ],
+     "oklab": [
+      0.5318,
+      0.0714,
+      0.0753
+     ],
+     "oklch": {
+      "L": 0.5318,
+      "C": 0.1038,
+      "h": 46.53
+     },
+     "brightness_L": 37.026,
+     "hue_deg": 46.53,
+     "chroma": 0.1038,
+     "l_stddev": 17.003,
+     "spatial_contrast": 4.707,
+     "busyness": "textured",
+     "unique_opaque_colours": 9,
+     "visible_pixels": 196,
+     "transparent_pixels": 60,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#8C4929",
+       "srgb": [
+        140,
+        73,
+        41
+       ],
+       "oklab": [
+        0.4811,
+        0.0711,
+        0.0719
+       ],
+       "lab": [
+        38.729,
+        25.613,
+        31.329
+       ],
+       "fraction": 0.4949
+      },
+      {
+       "hex": "#B9673A",
+       "srgb": [
+        185,
+        103,
+        58
+       ],
+       "oklab": [
+        0.5986,
+        0.0816,
+        0.0896
+       ],
+       "lab": [
+        52.201,
+        29.034,
+        39.12
+       ],
+       "fraction": 0.4439
+      },
+      {
+       "hex": "#575757",
+       "srgb": [
+        87,
+        87,
+        87
+       ],
+       "oklab": [
+        0.4563,
+        0.0,
+        0.0
+       ],
+       "lab": [
+        36.987,
+        -0.0,
+        0.0
+       ],
+       "fraction": 0.0612
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      132,
+      77,
+      50
+     ],
+     "hex": "#844D32",
+     "lab": [
+      38.142,
+      19.502,
+      25.118
+     ],
+     "brightness_L": 38.142,
+     "l_stddev": 17.696
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 7.611,
+   "spatial_contrast": 4.707,
+   "busyness": "textured",
+   "lightness_rank": 192,
+   "lightness_percentile": 38.74,
+   "brightness_L": 44.567,
+   "nearest": [
+    {
+     "id": "acacia_shelf",
+     "hex": "#9C5635",
+     "delta_e00": 0.7
+    },
+    {
+     "id": "acacia_planks",
+     "hex": "#A85A32",
+     "delta_e00": 2.719
+    },
+    {
+     "id": "acacia_slab",
+     "hex": "#A85A32",
+     "delta_e00": 2.719
+    },
+    {
+     "id": "orange_terracotta",
+     "hex": "#A25426",
+     "delta_e00": 2.961
+    },
+    {
+     "id": "terracotta",
+     "hex": "#985E44",
+     "delta_e00": 3.714
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.207,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.068,
+     "cross_hatching": 0.508,
+     "stippling": 0.104,
+     "scumbling": 0.198,
+     "glazing": 0.0,
+     "outline": 0.338
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 4.1,
+    "hf_energy": 0.818,
+    "hatch_score": 0.075,
+    "top": {
+     "coherence": 0.207,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.068,
+      "cross_hatching": 0.508,
+      "stippling": 0.104,
+      "scumbling": 0.198,
+      "glazing": 0.0,
+      "outline": 0.338
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 4.1,
+     "hf_energy": 0.818,
+     "hatch_score": 0.075
+    }
+   }
+  },
+  {
+   "id": "bamboo_door",
+   "display_name": "Bamboo Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "bamboo",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/bamboo_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/bamboo_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/bamboo_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/bamboo_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/bamboo_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     199,
+     178,
+     85
+    ],
+    "hex": "#C7B255",
+    "lab": [
+     72.667,
+     -4.088,
+     49.604
+    ],
+    "oklab": [
+     0.7646,
+     -0.0158,
+     0.1154
+    ],
+    "oklch": {
+     "L": 0.7646,
+     "C": 0.1164,
+     "h": 97.8
+    },
+    "brightness_L": 72.667,
+    "hue_deg": 97.8,
+    "chroma": 0.1164,
+    "l_stddev": 8.526,
+    "spatial_contrast": 7.447,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      199,
+      178,
+      85
+     ],
+     "hex": "#C7B255",
+     "srgb_naive": [
+      199,
+      179,
+      85
+     ],
+     "hex_naive": "#C7B355",
+     "srgb_linear_mean": [
+      201,
+      181,
+      87
+     ],
+     "hex_linear_mean": "#C9B557",
+     "lab": [
+      72.667,
+      -4.088,
+      49.604
+     ],
+     "lab_of_oklab_mean": [
+      72.828,
+      -4.936,
+      49.635
+     ],
+     "oklab": [
+      0.7646,
+      -0.0158,
+      0.1154
+     ],
+     "oklch": {
+      "L": 0.7646,
+      "C": 0.1164,
+      "h": 97.8
+     },
+     "brightness_L": 72.667,
+     "hue_deg": 97.8,
+     "chroma": 0.1164,
+     "l_stddev": 8.526,
+     "spatial_contrast": 7.447,
+     "busyness": "textured",
+     "unique_opaque_colours": 11,
+     "visible_pixels": 212,
+     "transparent_pixels": 44,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#C2B14D",
+       "srgb": [
+        194,
+        177,
+        77
+       ],
+       "oklab": [
+        0.755,
+        -0.0201,
+        0.1203
+       ],
+       "lab": [
+        71.86,
+        -6.175,
+        52.16
+       ],
+       "fraction": 0.4104
+      },
+      {
+       "hex": "#E2CB6A",
+       "srgb": [
+        226,
+        203,
+        106
+       ],
+       "oklab": [
+        0.8412,
+        -0.0135,
+        0.1198
+       ],
+       "lab": [
+        81.797,
+        -4.066,
+        50.751
+       ],
+       "fraction": 0.3679
+      },
+      {
+       "hex": "#A29144",
+       "srgb": [
+        162,
+        145,
+        68
+       ],
+       "oklab": [
+        0.6553,
+        -0.0116,
+        0.0989
+       ],
+       "lab": [
+        60.204,
+        -3.6,
+        42.474
+       ],
+       "fraction": 0.2217
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      199,
+      178,
+      85
+     ],
+     "hex": "#C7B255",
+     "lab": [
+      72.667,
+      -4.088,
+      49.604
+     ],
+     "oklab": [
+      0.7646,
+      -0.0158,
+      0.1154
+     ],
+     "oklch": {
+      "L": 0.7646,
+      "C": 0.1164,
+      "h": 97.8
+     },
+     "brightness_L": 72.667,
+     "hue_deg": 97.8,
+     "chroma": 0.1164,
+     "l_stddev": 8.526,
+     "spatial_contrast": 7.447,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      199,
+      178,
+      85
+     ],
+     "hex": "#C7B255",
+     "srgb_naive": [
+      199,
+      179,
+      85
+     ],
+     "hex_naive": "#C7B355",
+     "srgb_linear_mean": [
+      201,
+      181,
+      87
+     ],
+     "hex_linear_mean": "#C9B557",
+     "lab": [
+      72.667,
+      -4.088,
+      49.604
+     ],
+     "lab_of_oklab_mean": [
+      72.828,
+      -4.936,
+      49.635
+     ],
+     "oklab": [
+      0.7646,
+      -0.0158,
+      0.1154
+     ],
+     "oklch": {
+      "L": 0.7646,
+      "C": 0.1164,
+      "h": 97.8
+     },
+     "brightness_L": 72.667,
+     "hue_deg": 97.8,
+     "chroma": 0.1164,
+     "l_stddev": 8.526,
+     "spatial_contrast": 7.447,
+     "busyness": "textured",
+     "unique_opaque_colours": 11,
+     "visible_pixels": 212,
+     "transparent_pixels": 44,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#C2B14D",
+       "srgb": [
+        194,
+        177,
+        77
+       ],
+       "oklab": [
+        0.755,
+        -0.0201,
+        0.1203
+       ],
+       "lab": [
+        71.86,
+        -6.175,
+        52.16
+       ],
+       "fraction": 0.4104
+      },
+      {
+       "hex": "#E2CB6A",
+       "srgb": [
+        226,
+        203,
+        106
+       ],
+       "oklab": [
+        0.8412,
+        -0.0135,
+        0.1198
+       ],
+       "lab": [
+        81.797,
+        -4.066,
+        50.751
+       ],
+       "fraction": 0.3679
+      },
+      {
+       "hex": "#A29144",
+       "srgb": [
+        162,
+        145,
+        68
+       ],
+       "oklab": [
+        0.6553,
+        -0.0116,
+        0.0989
+       ],
+       "lab": [
+        60.204,
+        -3.6,
+        42.474
+       ],
+       "fraction": 0.2217
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      163,
+      145,
+      71
+     ],
+     "hex": "#A39147",
+     "lab": [
+      59.346,
+      -2.874,
+      40.401
+     ],
+     "brightness_L": 59.346,
+     "l_stddev": 23.892
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 8.561,
+   "spatial_contrast": 7.447,
+   "busyness": "textured",
+   "lightness_rank": 427,
+   "lightness_percentile": 86.41,
+   "brightness_L": 72.828,
+   "nearest": [
+    {
+     "id": "bamboo_planks",
+     "hex": "#C1AD50",
+     "delta_e00": 1.643
+    },
+    {
+     "id": "bamboo_slab",
+     "hex": "#C1AD50",
+     "delta_e00": 1.643
+    },
+    {
+     "id": "bamboo_mosaic",
+     "hex": "#BEAA4E",
+     "delta_e00": 2.486
+    },
+    {
+     "id": "bamboo_mosaic_slab",
+     "hex": "#BEAA4E",
+     "delta_e00": 2.486
+    },
+    {
+     "id": "stripped_bamboo_block",
+     "hex": "#BCA84E",
+     "delta_e00": 3.077
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.059,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.016,
+     "cross_hatching": 0.208,
+     "stippling": 0.066,
+     "scumbling": 0.105,
+     "glazing": 0.0,
+     "outline": 0.467
+    },
+    "technique": "outline",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.64,
+    "hf_energy": 0.768,
+    "hatch_score": 0.024,
+    "top": {
+     "coherence": 0.059,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.016,
+      "cross_hatching": 0.208,
+      "stippling": 0.066,
+      "scumbling": 0.105,
+      "glazing": 0.0,
+      "outline": 0.467
+     },
+     "technique": "outline",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.64,
+     "hf_energy": 0.768,
+     "hatch_score": 0.024
+    }
+   }
+  },
+  {
+   "id": "birch_door",
+   "display_name": "Birch Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "birch",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": false,
+   "has_cutout": false,
+   "has_translucency": false,
+   "model": "minecraft:block/birch_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/birch_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/birch_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/birch_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/birch_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     208,
+     194,
+     144
+    ],
+    "hex": "#D0C290",
+    "lab": [
+     78.369,
+     -2.219,
+     27.046
+    ],
+    "oklab": [
+     0.8138,
+     -0.0012,
+     0.0519
+    ],
+    "oklch": {
+     "L": 0.8138,
+     "C": 0.0519,
+     "h": 91.31
+    },
+    "brightness_L": 78.369,
+    "hue_deg": 91.31,
+    "chroma": 0.0519,
+    "l_stddev": 11.305,
+    "spatial_contrast": 7.73,
+    "busyness": "noisy",
+    "has_cutout": false,
+    "has_translucency": false,
+    "partially_transparent": false
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      208,
+      194,
+      144
+     ],
+     "hex": "#D0C290",
+     "srgb_naive": [
+      207,
+      194,
+      157
+     ],
+     "hex_naive": "#CFC29D",
+     "srgb_linear_mean": [
+      212,
+      201,
+      169
+     ],
+     "hex_linear_mean": "#D4C9A9",
+     "lab": [
+      78.369,
+      -2.219,
+      27.046
+     ],
+     "lab_of_oklab_mean": [
+      78.524,
+      -1.805,
+      20.674
+     ],
+     "oklab": [
+      0.8138,
+      -0.0012,
+      0.0519
+     ],
+     "oklch": {
+      "L": 0.8138,
+      "C": 0.0519,
+      "h": 91.31
+     },
+     "brightness_L": 78.369,
+     "hue_deg": 91.31,
+     "chroma": 0.0519,
+     "l_stddev": 11.305,
+     "spatial_contrast": 7.73,
+     "busyness": "noisy",
+     "unique_opaque_colours": 14,
+     "visible_pixels": 256,
+     "transparent_pixels": 0,
+     "translucent_pixels": 0,
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false,
+     "dominant_colours": [
+      {
+       "hex": "#F5EFDE",
+       "srgb": [
+        245,
+        239,
+        222
+       ],
+       "oklab": [
+        0.9522,
+        -0.0001,
+        0.0232
+       ],
+       "lab": [
+        94.492,
+        -0.84,
+        8.934
+       ],
+       "fraction": 0.3672
+      },
+      {
+       "hex": "#9D8B60",
+       "srgb": [
+        157,
+        139,
+        96
+       ],
+       "oklab": [
+        0.6424,
+        0.0034,
+        0.0628
+       ],
+       "lab": [
+        58.489,
+        0.348,
+        25.492
+       ],
+       "fraction": 0.3438
+      },
+      {
+       "hex": "#D9CC93",
+       "srgb": [
+        217,
+        204,
+        147
+       ],
+       "oklab": [
+        0.8418,
+        -0.008,
+        0.0752
+       ],
+       "lab": [
+        81.863,
+        -3.97,
+        30.093
+       ],
+       "fraction": 0.2891
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      208,
+      194,
+      144
+     ],
+     "hex": "#D0C290",
+     "lab": [
+      78.369,
+      -2.219,
+      27.046
+     ],
+     "oklab": [
+      0.8138,
+      -0.0012,
+      0.0519
+     ],
+     "oklch": {
+      "L": 0.8138,
+      "C": 0.0519,
+      "h": 91.31
+     },
+     "brightness_L": 78.369,
+     "hue_deg": 91.31,
+     "chroma": 0.0519,
+     "l_stddev": 11.305,
+     "spatial_contrast": 7.73,
+     "busyness": "noisy",
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false
+    },
+    "bottom": {
+     "srgb": [
+      208,
+      194,
+      144
+     ],
+     "hex": "#D0C290",
+     "srgb_naive": [
+      207,
+      194,
+      157
+     ],
+     "hex_naive": "#CFC29D",
+     "srgb_linear_mean": [
+      212,
+      201,
+      169
+     ],
+     "hex_linear_mean": "#D4C9A9",
+     "lab": [
+      78.369,
+      -2.219,
+      27.046
+     ],
+     "lab_of_oklab_mean": [
+      78.524,
+      -1.805,
+      20.674
+     ],
+     "oklab": [
+      0.8138,
+      -0.0012,
+      0.0519
+     ],
+     "oklch": {
+      "L": 0.8138,
+      "C": 0.0519,
+      "h": 91.31
+     },
+     "brightness_L": 78.369,
+     "hue_deg": 91.31,
+     "chroma": 0.0519,
+     "l_stddev": 11.305,
+     "spatial_contrast": 7.73,
+     "busyness": "noisy",
+     "unique_opaque_colours": 14,
+     "visible_pixels": 256,
+     "transparent_pixels": 0,
+     "translucent_pixels": 0,
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false,
+     "dominant_colours": [
+      {
+       "hex": "#F5EFDE",
+       "srgb": [
+        245,
+        239,
+        222
+       ],
+       "oklab": [
+        0.9522,
+        -0.0001,
+        0.0232
+       ],
+       "lab": [
+        94.492,
+        -0.84,
+        8.934
+       ],
+       "fraction": 0.3672
+      },
+      {
+       "hex": "#9D8B60",
+       "srgb": [
+        157,
+        139,
+        96
+       ],
+       "oklab": [
+        0.6424,
+        0.0034,
+        0.0628
+       ],
+       "lab": [
+        58.489,
+        0.348,
+        25.492
+       ],
+       "fraction": 0.3438
+      },
+      {
+       "hex": "#D9CC93",
+       "srgb": [
+        217,
+        204,
+        147
+       ],
+       "oklab": [
+        0.8418,
+        -0.008,
+        0.0752
+       ],
+       "lab": [
+        81.863,
+        -3.97,
+        30.093
+       ],
+       "fraction": 0.2891
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      220,
+      210,
+      176
+     ],
+     "hex": "#DCD2B0",
+     "lab": [
+      83.954,
+      -1.465,
+      18.163
+     ],
+     "brightness_L": 83.954,
+     "l_stddev": 14.575
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 16.043,
+   "spatial_contrast": 7.73,
+   "busyness": "noisy",
+   "lightness_rank": 444,
+   "lightness_percentile": 89.86,
+   "brightness_L": 78.524,
+   "nearest": [
+    {
+     "id": "suspicious_sand",
+     "hex": "#DACC9F",
+     "delta_e00": 3.071
+    },
+    {
+     "id": "sand",
+     "hex": "#DBCFA3",
+     "delta_e00": 3.492
+    },
+    {
+     "id": "sandstone",
+     "hex": "#DACD9E",
+     "delta_e00": 3.494
+    },
+    {
+     "id": "sandstone_slab",
+     "hex": "#DACD9E",
+     "delta_e00": 3.494
+    },
+    {
+     "id": "chiseled_sandstone",
+     "hex": "#DBCFA0",
+     "delta_e00": 3.859
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.04,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.019,
+     "cross_hatching": 1.0,
+     "stippling": 0.019,
+     "scumbling": 0.189,
+     "glazing": 0.0,
+     "outline": 0.882
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 5.58,
+    "hf_energy": 0.362,
+    "hatch_score": 0.019,
+    "top": {
+     "coherence": 0.04,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.019,
+      "cross_hatching": 1.0,
+      "stippling": 0.019,
+      "scumbling": 0.189,
+      "glazing": 0.0,
+      "outline": 0.882
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 5.58,
+     "hf_energy": 0.362,
+     "hatch_score": 0.019
+    }
+   }
+  },
+  {
+   "id": "cherry_door",
+   "display_name": "Cherry Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "cherry",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/cherry_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/cherry_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/cherry_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/cherry_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/cherry_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     224,
+     175,
+     169
+    ],
+    "hex": "#E0AFA9",
+    "lab": [
+     75.66,
+     17.106,
+     10.325
+    ],
+    "oklab": [
+     0.8071,
+     0.0509,
+     0.026
+    ],
+    "oklch": {
+     "L": 0.8071,
+     "C": 0.0572,
+     "h": 27.02
+    },
+    "brightness_L": 75.66,
+    "hue_deg": 27.02,
+    "chroma": 0.0572,
+    "l_stddev": 8.021,
+    "spatial_contrast": 3.643,
+    "busyness": "smooth",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      224,
+      175,
+      169
+     ],
+     "hex": "#E0AFA9",
+     "srgb_naive": [
+      226,
+      179,
+      172
+     ],
+     "hex_naive": "#E2B3AC",
+     "srgb_linear_mean": [
+      227,
+      180,
+      174
+     ],
+     "hex_linear_mean": "#E3B4AE",
+     "lab": [
+      75.66,
+      17.106,
+      10.325
+     ],
+     "lab_of_oklab_mean": [
+      77.012,
+      16.361,
+      10.228
+     ],
+     "oklab": [
+      0.8071,
+      0.0509,
+      0.026
+     ],
+     "oklch": {
+      "L": 0.8071,
+      "C": 0.0572,
+      "h": 27.02
+     },
+     "brightness_L": 75.66,
+     "hue_deg": 27.02,
+     "chroma": 0.0572,
+     "l_stddev": 8.021,
+     "spatial_contrast": 3.643,
+     "busyness": "smooth",
+     "unique_opaque_colours": 12,
+     "visible_pixels": 220,
+     "transparent_pixels": 36,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#E5B2AC",
+       "srgb": [
+        229,
+        178,
+        172
+       ],
+       "oklab": [
+        0.8086,
+        0.0538,
+        0.0269
+       ],
+       "lab": [
+        76.969,
+        17.641,
+        10.193
+       ],
+       "fraction": 0.4227
+      },
+      {
+       "hex": "#E7C7C1",
+       "srgb": [
+        231,
+        199,
+        193
+       ],
+       "oklab": [
+        0.8557,
+        0.0315,
+        0.0196
+       ],
+       "lab": [
+        82.747,
+        10.326,
+        7.174
+       ],
+       "fraction": 0.3318
+      },
+      {
+       "hex": "#D89792",
+       "srgb": [
+        216,
+        151,
+        146
+       ],
+       "oklab": [
+        0.7389,
+        0.0724,
+        0.0329
+       ],
+       "lab": [
+        68.614,
+        23.754,
+        12.456
+       ],
+       "fraction": 0.2455
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      224,
+      175,
+      169
+     ],
+     "hex": "#E0AFA9",
+     "lab": [
+      75.66,
+      17.106,
+      10.325
+     ],
+     "oklab": [
+      0.8071,
+      0.0509,
+      0.026
+     ],
+     "oklch": {
+      "L": 0.8071,
+      "C": 0.0572,
+      "h": 27.02
+     },
+     "brightness_L": 75.66,
+     "hue_deg": 27.02,
+     "chroma": 0.0572,
+     "l_stddev": 8.021,
+     "spatial_contrast": 3.643,
+     "busyness": "smooth",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      224,
+      175,
+      169
+     ],
+     "hex": "#E0AFA9",
+     "srgb_naive": [
+      226,
+      179,
+      172
+     ],
+     "hex_naive": "#E2B3AC",
+     "srgb_linear_mean": [
+      227,
+      180,
+      174
+     ],
+     "hex_linear_mean": "#E3B4AE",
+     "lab": [
+      75.66,
+      17.106,
+      10.325
+     ],
+     "lab_of_oklab_mean": [
+      77.012,
+      16.361,
+      10.228
+     ],
+     "oklab": [
+      0.8071,
+      0.0509,
+      0.026
+     ],
+     "oklch": {
+      "L": 0.8071,
+      "C": 0.0572,
+      "h": 27.02
+     },
+     "brightness_L": 75.66,
+     "hue_deg": 27.02,
+     "chroma": 0.0572,
+     "l_stddev": 8.021,
+     "spatial_contrast": 3.643,
+     "busyness": "smooth",
+     "unique_opaque_colours": 12,
+     "visible_pixels": 220,
+     "transparent_pixels": 36,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#E7C3BD",
+       "srgb": [
+        231,
+        195,
+        189
+       ],
+       "oklab": [
+        0.8472,
+        0.0361,
+        0.021
+       ],
+       "lab": [
+        81.672,
+        11.826,
+        7.771
+       ],
+       "fraction": 0.4727
+      },
+      {
+       "hex": "#E4AEA8",
+       "srgb": [
+        228,
+        174,
+        168
+       ],
+       "oklab": [
+        0.7993,
+        0.0571,
+        0.0284
+       ],
+       "lab": [
+        75.821,
+        18.848,
+        10.721
+       ],
+       "fraction": 0.2818
+      },
+      {
+       "hex": "#D89792",
+       "srgb": [
+        216,
+        151,
+        146
+       ],
+       "oklab": [
+        0.7389,
+        0.0724,
+        0.0329
+       ],
+       "lab": [
+        68.614,
+        23.754,
+        12.456
+       ],
+       "fraction": 0.2455
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      197,
+      151,
+      145
+     ],
+     "hex": "#C59791",
+     "lab": [
+      65.814,
+      16.307,
+      10.076
+     ],
+     "brightness_L": 65.814,
+     "l_stddev": 22.379
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 5.74,
+   "spatial_contrast": 3.643,
+   "busyness": "smooth",
+   "lightness_rank": 438,
+   "lightness_percentile": 88.64,
+   "brightness_L": 77.012,
+   "nearest": [
+    {
+     "id": "cherry_planks",
+     "hex": "#E3B3AD",
+     "delta_e00": 0.413
+    },
+    {
+     "id": "cherry_slab",
+     "hex": "#E3B3AD",
+     "delta_e00": 0.413
+    },
+    {
+     "id": "white_terracotta",
+     "hex": "#D2B2A1",
+     "delta_e00": 7.521
+    },
+    {
+     "id": "stripped_cherry_log",
+     "hex": "#D99898",
+     "delta_e00": 7.739
+    },
+    {
+     "id": "stripped_cherry_wood",
+     "hex": "#D79195",
+     "delta_e00": 9.913
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.033,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.006,
+     "cross_hatching": 0.312,
+     "stippling": 0.353,
+     "scumbling": 0.0,
+     "glazing": 0.18,
+     "outline": 0.007
+    },
+    "technique": "stippling",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.26,
+    "hf_energy": 0.893,
+    "hatch_score": 0.009,
+    "top": {
+     "coherence": 0.033,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.006,
+      "cross_hatching": 0.312,
+      "stippling": 0.353,
+      "scumbling": 0.0,
+      "glazing": 0.18,
+      "outline": 0.007
+     },
+     "technique": "stippling",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.26,
+     "hf_energy": 0.893,
+     "hatch_score": 0.009
+    }
+   }
+  },
+  {
+   "id": "copper_door",
+   "display_name": "Copper Door",
+   "shape": "door",
+   "family": "copper",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": null,
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/copper_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/copper_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/copper_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/copper_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/copper_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     181,
+     103,
+     77
+    ],
+    "hex": "#B5674D",
+    "lab": [
+     51.968,
+     28.31,
+     28.134
+    ],
+    "oklab": [
+     0.614,
+     0.0904,
+     0.0711
+    ],
+    "oklch": {
+     "L": 0.614,
+     "C": 0.115,
+     "h": 38.21
+    },
+    "brightness_L": 51.968,
+    "hue_deg": 38.21,
+    "chroma": 0.115,
+    "l_stddev": 8.976,
+    "spatial_contrast": 6.212,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      181,
+      103,
+      77
+     ],
+     "hex": "#B5674D",
+     "srgb_naive": [
+      191,
+      106,
+      80
+     ],
+     "hex_naive": "#BF6A50",
+     "srgb_linear_mean": [
+      193,
+      108,
+      82
+     ],
+     "hex_linear_mean": "#C16C52",
+     "lab": [
+      51.968,
+      28.31,
+      28.134
+     ],
+     "lab_of_oklab_mean": [
+      53.838,
+      30.882,
+      29.746
+     ],
+     "oklab": [
+      0.614,
+      0.0904,
+      0.0711
+     ],
+     "oklch": {
+      "L": 0.614,
+      "C": 0.115,
+      "h": 38.21
+     },
+     "brightness_L": 51.968,
+     "hue_deg": 38.21,
+     "chroma": 0.115,
+     "l_stddev": 8.976,
+     "spatial_contrast": 6.212,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 204,
+     "transparent_pixels": 52,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#DD7F65",
+       "srgb": [
+        221,
+        127,
+        101
+       ],
+       "oklab": [
+        0.6936,
+        0.0994,
+        0.0732
+       ],
+       "lab": [
+        62.923,
+        33.759,
+        29.89
+       ],
+       "fraction": 0.3676
+      },
+      {
+       "hex": "#9C5239",
+       "srgb": [
+        156,
+        82,
+        57
+       ],
+       "oklab": [
+        0.5225,
+        0.0824,
+        0.0665
+       ],
+       "lab": [
+        43.36,
+        28.412,
+        28.249
+       ],
+       "fraction": 0.3235
+      },
+      {
+       "hex": "#BE6B4E",
+       "srgb": [
+        190,
+        107,
+        78
+       ],
+       "oklab": [
+        0.6151,
+        0.088,
+        0.0736
+       ],
+       "lab": [
+        54.043,
+        30.266,
+        30.566
+       ],
+       "fraction": 0.3088
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      181,
+      103,
+      77
+     ],
+     "hex": "#B5674D",
+     "lab": [
+      51.968,
+      28.31,
+      28.134
+     ],
+     "oklab": [
+      0.614,
+      0.0904,
+      0.0711
+     ],
+     "oklch": {
+      "L": 0.614,
+      "C": 0.115,
+      "h": 38.21
+     },
+     "brightness_L": 51.968,
+     "hue_deg": 38.21,
+     "chroma": 0.115,
+     "l_stddev": 8.976,
+     "spatial_contrast": 6.212,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      181,
+      103,
+      77
+     ],
+     "hex": "#B5674D",
+     "srgb_naive": [
+      191,
+      106,
+      80
+     ],
+     "hex_naive": "#BF6A50",
+     "srgb_linear_mean": [
+      193,
+      108,
+      82
+     ],
+     "hex_linear_mean": "#C16C52",
+     "lab": [
+      51.968,
+      28.31,
+      28.134
+     ],
+     "lab_of_oklab_mean": [
+      53.838,
+      30.882,
+      29.746
+     ],
+     "oklab": [
+      0.614,
+      0.0904,
+      0.0711
+     ],
+     "oklch": {
+      "L": 0.614,
+      "C": 0.115,
+      "h": 38.21
+     },
+     "brightness_L": 51.968,
+     "hue_deg": 38.21,
+     "chroma": 0.115,
+     "l_stddev": 8.976,
+     "spatial_contrast": 6.212,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 204,
+     "transparent_pixels": 52,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#DD7F65",
+       "srgb": [
+        221,
+        127,
+        101
+       ],
+       "oklab": [
+        0.6936,
+        0.0994,
+        0.0732
+       ],
+       "lab": [
+        62.923,
+        33.759,
+        29.89
+       ],
+       "fraction": 0.3676
+      },
+      {
+       "hex": "#9C5239",
+       "srgb": [
+        156,
+        82,
+        57
+       ],
+       "oklab": [
+        0.5225,
+        0.0824,
+        0.0665
+       ],
+       "lab": [
+        43.36,
+        28.412,
+        28.249
+       ],
+       "fraction": 0.3235
+      },
+      {
+       "hex": "#BE6B4E",
+       "srgb": [
+        190,
+        107,
+        78
+       ],
+       "oklab": [
+        0.6151,
+        0.088,
+        0.0736
+       ],
+       "lab": [
+        54.043,
+        30.266,
+        30.566
+       ],
+       "fraction": 0.3088
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      164,
+      95,
+      72
+     ],
+     "hex": "#A45F48",
+     "lab": [
+      47.072,
+      25.075,
+      25.104
+     ],
+     "brightness_L": 47.072,
+     "l_stddev": 17.905
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 8.507,
+   "spatial_contrast": 6.212,
+   "busyness": "textured",
+   "lightness_rank": 284,
+   "lightness_percentile": 57.4,
+   "brightness_L": 53.838,
+   "nearest": [
+    {
+     "id": "waxed_copper_trapdoor",
+     "hex": "#BE6A4F",
+     "delta_e00": 0.0
+    },
+    {
+     "id": "cut_copper",
+     "hex": "#BF6B50",
+     "delta_e00": 0.359
+    },
+    {
+     "id": "cut_copper_slab",
+     "hex": "#BF6B50",
+     "delta_e00": 0.359
+    },
+    {
+     "id": "waxed_cut_copper",
+     "hex": "#BF6B50",
+     "delta_e00": 0.359
+    },
+    {
+     "id": "waxed_cut_copper_slab",
+     "hex": "#BF6B50",
+     "delta_e00": 0.359
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.155,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.045,
+     "cross_hatching": 0.433,
+     "stippling": 0.327,
+     "scumbling": 0.0,
+     "glazing": 0.0,
+     "outline": 0.0
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.09,
+    "hf_energy": 0.953,
+    "hatch_score": 0.063,
+    "top": {
+     "coherence": 0.155,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.045,
+      "cross_hatching": 0.433,
+      "stippling": 0.327,
+      "scumbling": 0.0,
+      "glazing": 0.0,
+      "outline": 0.0
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.09,
+     "hf_energy": 0.953,
+     "hatch_score": 0.063
+    }
+   }
+  },
+  {
+   "id": "crimson_door",
+   "display_name": "Crimson Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "crimson",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": false,
+   "has_translucency": false,
+   "model": "minecraft:block/crimson_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/crimson_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/crimson_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/crimson_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/crimson_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     115,
+     55,
+     79
+    ],
+    "hex": "#73374F",
+    "lab": [
+     31.744,
+     29.246,
+     -2.364
+    ],
+    "oklab": [
+     0.3957,
+     0.0797,
+     -0.0061
+    ],
+    "oklch": {
+     "L": 0.3957,
+     "C": 0.08,
+     "h": 355.61
+    },
+    "brightness_L": 31.744,
+    "hue_deg": 355.61,
+    "chroma": 0.08,
+    "l_stddev": 6.356,
+    "spatial_contrast": 6.586,
+    "busyness": "textured",
+    "has_cutout": false,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      115,
+      55,
+      79
+     ],
+     "hex": "#73374F",
+     "srgb_naive": [
+      104,
+      51,
+      72
+     ],
+     "hex_naive": "#683348",
+     "srgb_linear_mean": [
+      108,
+      52,
+      74
+     ],
+     "hex_linear_mean": "#6C344A",
+     "lab": [
+      31.744,
+      29.246,
+      -2.364
+     ],
+     "lab_of_oklab_mean": [
+      28.694,
+      25.993,
+      -2.35
+     ],
+     "oklab": [
+      0.3957,
+      0.0797,
+      -0.0061
+     ],
+     "oklch": {
+      "L": 0.3957,
+      "C": 0.08,
+      "h": 355.61
+     },
+     "brightness_L": 31.744,
+     "hue_deg": 355.61,
+     "chroma": 0.08,
+     "l_stddev": 6.356,
+     "spatial_contrast": 6.586,
+     "busyness": "textured",
+     "unique_opaque_colours": 6,
+     "visible_pixels": 216,
+     "transparent_pixels": 40,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#5E3144",
+       "srgb": [
+        94,
+        49,
+        68
+       ],
+       "oklab": [
+        0.3774,
+        0.0703,
+        -0.0063
+       ],
+       "lab": [
+        26.718,
+        23.009,
+        -2.774
+       ],
+       "fraction": 0.6481
+      },
+      {
+       "hex": "#893E5C",
+       "srgb": [
+        137,
+        62,
+        92
+       ],
+       "oklab": [
+        0.4715,
+        0.1072,
+        -0.0049
+       ],
+       "lab": [
+        36.999,
+        35.433,
+        -2.41
+       ],
+       "fraction": 0.3519
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      115,
+      55,
+      79
+     ],
+     "hex": "#73374F",
+     "lab": [
+      31.744,
+      29.246,
+      -2.364
+     ],
+     "oklab": [
+      0.3957,
+      0.0797,
+      -0.0061
+     ],
+     "oklch": {
+      "L": 0.3957,
+      "C": 0.08,
+      "h": 355.61
+     },
+     "brightness_L": 31.744,
+     "hue_deg": 355.61,
+     "chroma": 0.08,
+     "l_stddev": 6.356,
+     "spatial_contrast": 6.586,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      115,
+      55,
+      79
+     ],
+     "hex": "#73374F",
+     "srgb_naive": [
+      104,
+      51,
+      72
+     ],
+     "hex_naive": "#683348",
+     "srgb_linear_mean": [
+      108,
+      52,
+      74
+     ],
+     "hex_linear_mean": "#6C344A",
+     "lab": [
+      31.744,
+      29.246,
+      -2.364
+     ],
+     "lab_of_oklab_mean": [
+      28.694,
+      25.993,
+      -2.35
+     ],
+     "oklab": [
+      0.3957,
+      0.0797,
+      -0.0061
+     ],
+     "oklch": {
+      "L": 0.3957,
+      "C": 0.08,
+      "h": 355.61
+     },
+     "brightness_L": 31.744,
+     "hue_deg": 355.61,
+     "chroma": 0.08,
+     "l_stddev": 6.356,
+     "spatial_contrast": 6.586,
+     "busyness": "textured",
+     "unique_opaque_colours": 6,
+     "visible_pixels": 216,
+     "transparent_pixels": 40,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#5E3144",
+       "srgb": [
+        94,
+        49,
+        68
+       ],
+       "oklab": [
+        0.3774,
+        0.0703,
+        -0.0063
+       ],
+       "lab": [
+        26.718,
+        23.009,
+        -2.774
+       ],
+       "fraction": 0.6481
+      },
+      {
+       "hex": "#893E5C",
+       "srgb": [
+        137,
+        62,
+        92
+       ],
+       "oklab": [
+        0.4715,
+        0.1072,
+        -0.0049
+       ],
+       "lab": [
+        36.999,
+        35.433,
+        -2.41
+       ],
+       "fraction": 0.3519
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      114,
+      55,
+      79
+     ],
+     "hex": "#72374F",
+     "lab": [
+      31.52,
+      28.947,
+      -2.477
+     ],
+     "brightness_L": 31.52,
+     "l_stddev": 6.559
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 6.744,
+   "spatial_contrast": 6.586,
+   "busyness": "textured",
+   "lightness_rank": 73,
+   "lightness_percentile": 14.6,
+   "brightness_L": 28.694,
+   "nearest": [
+    {
+     "id": "crimson_planks",
+     "hex": "#653146",
+     "delta_e00": 0.633
+    },
+    {
+     "id": "crimson_slab",
+     "hex": "#653146",
+     "delta_e00": 0.633
+    },
+    {
+     "id": "crimson_shelf",
+     "hex": "#813453",
+     "delta_e00": 5.839
+    },
+    {
+     "id": "purple_terracotta",
+     "hex": "#764656",
+     "delta_e00": 5.948
+    },
+    {
+     "id": "stripped_crimson_stem",
+     "hex": "#843957",
+     "delta_e00": 6.495
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.225,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.052,
+     "cross_hatching": 0.222,
+     "stippling": 0.069,
+     "scumbling": 0.0,
+     "glazing": 0.037,
+     "outline": 0.003
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 2.89,
+    "hf_energy": 0.976,
+    "hatch_score": 0.073,
+    "top": {
+     "coherence": 0.225,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.052,
+      "cross_hatching": 0.222,
+      "stippling": 0.069,
+      "scumbling": 0.0,
+      "glazing": 0.037,
+      "outline": 0.003
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 2.89,
+     "hf_energy": 0.976,
+     "hatch_score": 0.073
+    }
+   }
+  },
+  {
+   "id": "dark_oak_door",
+   "display_name": "Dark Oak Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "dark_oak",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": false,
+   "has_cutout": false,
+   "has_translucency": false,
+   "model": "minecraft:block/dark_oak_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/dark_oak_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/dark_oak_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/dark_oak_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/dark_oak_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     73,
+     49,
+     24
+    ],
+    "hex": "#493118",
+    "lab": [
+     22.553,
+     7.959,
+     19.914
+    ],
+    "oklab": [
+     0.3388,
+     0.0231,
+     0.0489
+    ],
+    "oklch": {
+     "L": 0.3388,
+     "C": 0.0541,
+     "h": 64.69
+    },
+    "brightness_L": 22.553,
+    "hue_deg": 64.69,
+    "chroma": 0.0541,
+    "l_stddev": 7.182,
+    "spatial_contrast": 4.336,
+    "busyness": "textured",
+    "has_cutout": false,
+    "has_translucency": false,
+    "partially_transparent": false
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      73,
+      49,
+      24
+     ],
+     "hex": "#493118",
+     "srgb_naive": [
+      75,
+      50,
+      23
+     ],
+     "hex_naive": "#4B3217",
+     "srgb_linear_mean": [
+      78,
+      51,
+      24
+     ],
+     "hex_linear_mean": "#4E3318",
+     "lab": [
+      22.553,
+      7.959,
+      19.914
+     ],
+     "lab_of_oklab_mean": [
+      22.843,
+      8.706,
+      21.069
+     ],
+     "oklab": [
+      0.3388,
+      0.0231,
+      0.0489
+     ],
+     "oklch": {
+      "L": 0.3388,
+      "C": 0.0541,
+      "h": 64.69
+     },
+     "brightness_L": 22.553,
+     "hue_deg": 64.69,
+     "chroma": 0.0541,
+     "l_stddev": 7.182,
+     "spatial_contrast": 4.336,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 256,
+     "transparent_pixels": 0,
+     "translucent_pixels": 0,
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false,
+     "dominant_colours": [
+      {
+       "hex": "#4D3318",
+       "srgb": [
+        77,
+        51,
+        24
+       ],
+       "oklab": [
+        0.346,
+        0.0233,
+        0.0506
+       ],
+       "lab": [
+        23.71,
+        8.497,
+        21.544
+       ],
+       "fraction": 0.625
+      },
+      {
+       "hex": "#32200F",
+       "srgb": [
+        50,
+        32,
+        15
+       ],
+       "oklab": [
+        0.2628,
+        0.0168,
+        0.0358
+       ],
+       "lab": [
+        14.092,
+        6.424,
+        14.459
+       ],
+       "fraction": 0.2344
+      },
+      {
+       "hex": "#6D4724",
+       "srgb": [
+        109,
+        71,
+        36
+       ],
+       "oklab": [
+        0.4336,
+        0.0331,
+        0.0633
+       ],
+       "lab": [
+        33.744,
+        12.457,
+        27.277
+       ],
+       "fraction": 0.1406
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      73,
+      49,
+      24
+     ],
+     "hex": "#493118",
+     "lab": [
+      22.553,
+      7.959,
+      19.914
+     ],
+     "oklab": [
+      0.3388,
+      0.0231,
+      0.0489
+     ],
+     "oklch": {
+      "L": 0.3388,
+      "C": 0.0541,
+      "h": 64.69
+     },
+     "brightness_L": 22.553,
+     "hue_deg": 64.69,
+     "chroma": 0.0541,
+     "l_stddev": 7.182,
+     "spatial_contrast": 4.336,
+     "busyness": "textured",
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false
+    },
+    "bottom": {
+     "srgb": [
+      73,
+      49,
+      24
+     ],
+     "hex": "#493118",
+     "srgb_naive": [
+      75,
+      50,
+      23
+     ],
+     "hex_naive": "#4B3217",
+     "srgb_linear_mean": [
+      78,
+      51,
+      24
+     ],
+     "hex_linear_mean": "#4E3318",
+     "lab": [
+      22.553,
+      7.959,
+      19.914
+     ],
+     "lab_of_oklab_mean": [
+      22.843,
+      8.706,
+      21.069
+     ],
+     "oklab": [
+      0.3388,
+      0.0231,
+      0.0489
+     ],
+     "oklch": {
+      "L": 0.3388,
+      "C": 0.0541,
+      "h": 64.69
+     },
+     "brightness_L": 22.553,
+     "hue_deg": 64.69,
+     "chroma": 0.0541,
+     "l_stddev": 7.182,
+     "spatial_contrast": 4.336,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 256,
+     "transparent_pixels": 0,
+     "translucent_pixels": 0,
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false,
+     "dominant_colours": [
+      {
+       "hex": "#4D3318",
+       "srgb": [
+        77,
+        51,
+        24
+       ],
+       "oklab": [
+        0.346,
+        0.0233,
+        0.0506
+       ],
+       "lab": [
+        23.71,
+        8.497,
+        21.544
+       ],
+       "fraction": 0.625
+      },
+      {
+       "hex": "#32200F",
+       "srgb": [
+        50,
+        32,
+        15
+       ],
+       "oklab": [
+        0.2628,
+        0.0168,
+        0.0358
+       ],
+       "lab": [
+        14.092,
+        6.424,
+        14.459
+       ],
+       "fraction": 0.2344
+      },
+      {
+       "hex": "#6D4724",
+       "srgb": [
+        109,
+        71,
+        36
+       ],
+       "oklab": [
+        0.4336,
+        0.0331,
+        0.0633
+       ],
+       "lab": [
+        33.744,
+        12.457,
+        27.277
+       ],
+       "fraction": 0.1406
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      77,
+      52,
+      25
+     ],
+     "hex": "#4D3419",
+     "lab": [
+      23.728,
+      8.006,
+      20.444
+     ],
+     "brightness_L": 23.728,
+     "l_stddev": 8.336
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 6.257,
+   "spatial_contrast": 4.336,
+   "busyness": "textured",
+   "lightness_rank": 43,
+   "lightness_percentile": 8.52,
+   "brightness_L": 22.843,
+   "nearest": [
+    {
+     "id": "spruce_log",
+     "hex": "#4B331A",
+     "delta_e00": 1.045
+    },
+    {
+     "id": "dark_oak_planks",
+     "hex": "#422B14",
+     "delta_e00": 2.435
+    },
+    {
+     "id": "dark_oak_slab",
+     "hex": "#422B14",
+     "delta_e00": 2.435
+    },
+    {
+     "id": "cartography_table",
+     "hex": "#4C3723",
+     "delta_e00": 3.293
+    },
+    {
+     "id": "stripped_dark_oak_log",
+     "hex": "#473520",
+     "delta_e00": 3.902
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.405,
+    "orientation": "diagonal",
+    "techniques": {
+     "hatching": 0.085,
+     "cross_hatching": 0.282,
+     "stippling": 0.097,
+     "scumbling": 0.149,
+     "glazing": 0.106,
+     "outline": 0.0
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.95,
+    "hf_energy": 0.639,
+    "hatch_score": 0.122,
+    "top": {
+     "coherence": 0.405,
+     "orientation": "diagonal",
+     "techniques": {
+      "hatching": 0.085,
+      "cross_hatching": 0.282,
+      "stippling": 0.097,
+      "scumbling": 0.149,
+      "glazing": 0.106,
+      "outline": 0.0
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.95,
+     "hf_energy": 0.639,
+     "hatch_score": 0.122
+    }
+   }
+  },
+  {
+   "id": "exposed_copper_door",
+   "display_name": "Exposed Copper Door",
+   "shape": "door",
+   "family": "copper",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": null,
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/exposed_copper_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/exposed_copper_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/exposed_copper_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/exposed_copper_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/exposed_copper_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     153,
+     118,
+     100
+    ],
+    "hex": "#997664",
+    "lab": [
+     52.541,
+     10.738,
+     15.162
+    ],
+    "oklab": [
+     0.6198,
+     0.0335,
+     0.0422
+    ],
+    "oklch": {
+     "L": 0.6198,
+     "C": 0.0539,
+     "h": 51.52
+    },
+    "brightness_L": 52.541,
+    "hue_deg": 51.52,
+    "chroma": 0.0539,
+    "l_stddev": 8.627,
+    "spatial_contrast": 4.823,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      153,
+      118,
+      100
+     ],
+     "hex": "#997664",
+     "srgb_naive": [
+      161,
+      125,
+      105
+     ],
+     "hex_naive": "#A17D69",
+     "srgb_linear_mean": [
+      165,
+      126,
+      106
+     ],
+     "hex_linear_mean": "#A57E6A",
+     "lab": [
+      52.541,
+      10.738,
+      15.162
+     ],
+     "lab_of_oklab_mean": [
+      55.345,
+      11.043,
+      16.256
+     ],
+     "oklab": [
+      0.6198,
+      0.0335,
+      0.0422
+     ],
+     "oklch": {
+      "L": 0.6198,
+      "C": 0.0539,
+      "h": 51.52
+     },
+     "brightness_L": 52.541,
+     "hue_deg": 51.52,
+     "chroma": 0.0539,
+     "l_stddev": 8.627,
+     "spatial_contrast": 4.823,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 204,
+     "transparent_pixels": 52,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#9C7E64",
+       "srgb": [
+        156,
+        126,
+        100
+       ],
+       "oklab": [
+        0.6155,
+        0.0243,
+        0.047
+       ],
+       "lab": [
+        54.98,
+        7.745,
+        18.538
+       ],
+       "fraction": 0.3775
+      },
+      {
+       "hex": "#C6887E",
+       "srgb": [
+        198,
+        136,
+        126
+       ],
+       "oklab": [
+        0.6867,
+        0.0671,
+        0.0386
+       ],
+       "lab": [
+        62.611,
+        22.453,
+        14.97
+       ],
+       "fraction": 0.3333
+      },
+      {
+       "hex": "#7E6F56",
+       "srgb": [
+        126,
+        111,
+        86
+       ],
+       "oklab": [
+        0.5485,
+        0.0069,
+        0.04
+       ],
+       "lab": [
+        47.594,
+        1.784,
+        16.099
+       ],
+       "fraction": 0.2892
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      153,
+      118,
+      100
+     ],
+     "hex": "#997664",
+     "lab": [
+      52.541,
+      10.738,
+      15.162
+     ],
+     "oklab": [
+      0.6198,
+      0.0335,
+      0.0422
+     ],
+     "oklch": {
+      "L": 0.6198,
+      "C": 0.0539,
+      "h": 51.52
+     },
+     "brightness_L": 52.541,
+     "hue_deg": 51.52,
+     "chroma": 0.0539,
+     "l_stddev": 8.627,
+     "spatial_contrast": 4.823,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      153,
+      118,
+      100
+     ],
+     "hex": "#997664",
+     "srgb_naive": [
+      161,
+      125,
+      105
+     ],
+     "hex_naive": "#A17D69",
+     "srgb_linear_mean": [
+      165,
+      126,
+      106
+     ],
+     "hex_linear_mean": "#A57E6A",
+     "lab": [
+      52.541,
+      10.738,
+      15.162
+     ],
+     "lab_of_oklab_mean": [
+      55.345,
+      11.043,
+      16.256
+     ],
+     "oklab": [
+      0.6198,
+      0.0335,
+      0.0422
+     ],
+     "oklch": {
+      "L": 0.6198,
+      "C": 0.0539,
+      "h": 51.52
+     },
+     "brightness_L": 52.541,
+     "hue_deg": 51.52,
+     "chroma": 0.0539,
+     "l_stddev": 8.627,
+     "spatial_contrast": 4.823,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 204,
+     "transparent_pixels": 52,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#9C7E64",
+       "srgb": [
+        156,
+        126,
+        100
+       ],
+       "oklab": [
+        0.6155,
+        0.0243,
+        0.047
+       ],
+       "lab": [
+        54.98,
+        7.745,
+        18.538
+       ],
+       "fraction": 0.3775
+      },
+      {
+       "hex": "#C6887E",
+       "srgb": [
+        198,
+        136,
+        126
+       ],
+       "oklab": [
+        0.6867,
+        0.0671,
+        0.0386
+       ],
+       "lab": [
+        62.611,
+        22.453,
+        14.97
+       ],
+       "fraction": 0.3333
+      },
+      {
+       "hex": "#7E6F56",
+       "srgb": [
+        126,
+        111,
+        86
+       ],
+       "oklab": [
+        0.5485,
+        0.0069,
+        0.04
+       ],
+       "lab": [
+        47.594,
+        1.784,
+        16.099
+       ],
+       "fraction": 0.2892
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      141,
+      106,
+      91
+     ],
+     "hex": "#8D6A5B",
+     "lab": [
+      47.363,
+      11.259,
+      13.912
+     ],
+     "brightness_L": 47.363,
+     "l_stddev": 17.844
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 6.439,
+   "spatial_contrast": 4.823,
+   "busyness": "textured",
+   "lightness_rank": 303,
+   "lightness_percentile": 61.26,
+   "brightness_L": 55.345,
+   "nearest": [
+    {
+     "id": "waxed_exposed_copper_trapdoor",
+     "hex": "#A17D69",
+     "delta_e00": 0.0
+    },
+    {
+     "id": "exposed_copper",
+     "hex": "#A17E68",
+     "delta_e00": 1.075
+    },
+    {
+     "id": "waxed_exposed_copper",
+     "hex": "#A17E68",
+     "delta_e00": 1.075
+    },
+    {
+     "id": "exposed_cut_copper",
+     "hex": "#9B7A65",
+     "delta_e00": 1.91
+    },
+    {
+     "id": "exposed_cut_copper_slab",
+     "hex": "#9B7A65",
+     "delta_e00": 1.91
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.188,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.038,
+     "cross_hatching": 0.186,
+     "stippling": 0.751,
+     "scumbling": 0.0,
+     "glazing": 0.08,
+     "outline": 0.0
+    },
+    "technique": "stippling",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.05,
+    "hf_energy": 0.962,
+    "hatch_score": 0.058,
+    "top": {
+     "coherence": 0.188,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.038,
+      "cross_hatching": 0.186,
+      "stippling": 0.751,
+      "scumbling": 0.0,
+      "glazing": 0.08,
+      "outline": 0.0
+     },
+     "technique": "stippling",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.05,
+     "hf_energy": 0.962,
+     "hatch_score": 0.058
+    }
+   }
+  },
+  {
+   "id": "iron_door",
+   "display_name": "Iron Door",
+   "shape": "door",
+   "family": "metal",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": null,
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/iron_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/iron_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/iron_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/iron_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/iron_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     196,
+     195,
+     195
+    ],
+    "hex": "#C4C3C3",
+    "lab": [
+     78.659,
+     0.33,
+     0.121
+    ],
+    "oklab": [
+     0.8401,
+     0.0008,
+     0.0002
+    ],
+    "oklch": {
+     "L": 0.8401,
+     "C": 0.0008,
+     "h": 17.2
+    },
+    "brightness_L": 78.659,
+    "hue_deg": 17.2,
+    "chroma": 0.0008,
+    "l_stddev": 9.331,
+    "spatial_contrast": 2.565,
+    "busyness": "smooth",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      196,
+      195,
+      195
+     ],
+     "hex": "#C4C3C3",
+     "srgb_naive": [
+      203,
+      202,
+      202
+     ],
+     "hex_naive": "#CBCACA",
+     "srgb_linear_mean": [
+      203,
+      203,
+      203
+     ],
+     "hex_linear_mean": "#CBCBCB",
+     "lab": [
+      78.659,
+      0.33,
+      0.121
+     ],
+     "lab_of_oklab_mean": [
+      81.402,
+      0.344,
+      0.121
+     ],
+     "oklab": [
+      0.8401,
+      0.0008,
+      0.0002
+     ],
+     "oklch": {
+      "L": 0.8401,
+      "C": 0.0008,
+      "h": 17.2
+     },
+     "brightness_L": 78.659,
+     "hue_deg": 17.2,
+     "chroma": 0.0008,
+     "l_stddev": 9.331,
+     "spatial_contrast": 2.565,
+     "busyness": "smooth",
+     "unique_opaque_colours": 7,
+     "visible_pixels": 220,
+     "transparent_pixels": 36,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#BDBDBD",
+       "srgb": [
+        189,
+        189,
+        189
+       ],
+       "oklab": [
+        0.7994,
+        0.0,
+        0.0
+       ],
+       "lab": [
+        76.611,
+        -0.0,
+        0.0
+       ],
+       "fraction": 0.7636
+      },
+      {
+       "hex": "#D9D9D9",
+       "srgb": [
+        217,
+        217,
+        217
+       ],
+       "oklab": [
+        0.8846,
+        0.0,
+        0.0
+       ],
+       "lab": [
+        86.695,
+        -0.0,
+        0.0
+       ],
+       "fraction": 0.2364
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      196,
+      195,
+      195
+     ],
+     "hex": "#C4C3C3",
+     "lab": [
+      78.659,
+      0.33,
+      0.121
+     ],
+     "oklab": [
+      0.8401,
+      0.0008,
+      0.0002
+     ],
+     "oklch": {
+      "L": 0.8401,
+      "C": 0.0008,
+      "h": 17.2
+     },
+     "brightness_L": 78.659,
+     "hue_deg": 17.2,
+     "chroma": 0.0008,
+     "l_stddev": 9.331,
+     "spatial_contrast": 2.565,
+     "busyness": "smooth",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      196,
+      195,
+      195
+     ],
+     "hex": "#C4C3C3",
+     "srgb_naive": [
+      203,
+      202,
+      202
+     ],
+     "hex_naive": "#CBCACA",
+     "srgb_linear_mean": [
+      203,
+      203,
+      203
+     ],
+     "hex_linear_mean": "#CBCBCB",
+     "lab": [
+      78.659,
+      0.33,
+      0.121
+     ],
+     "lab_of_oklab_mean": [
+      81.402,
+      0.344,
+      0.121
+     ],
+     "oklab": [
+      0.8401,
+      0.0008,
+      0.0002
+     ],
+     "oklch": {
+      "L": 0.8401,
+      "C": 0.0008,
+      "h": 17.2
+     },
+     "brightness_L": 78.659,
+     "hue_deg": 17.2,
+     "chroma": 0.0008,
+     "l_stddev": 9.331,
+     "spatial_contrast": 2.565,
+     "busyness": "smooth",
+     "unique_opaque_colours": 7,
+     "visible_pixels": 220,
+     "transparent_pixels": 36,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#BDBDBD",
+       "srgb": [
+        189,
+        189,
+        189
+       ],
+       "oklab": [
+        0.7994,
+        0.0,
+        0.0
+       ],
+       "lab": [
+        76.611,
+        -0.0,
+        0.0
+       ],
+       "fraction": 0.7636
+      },
+      {
+       "hex": "#D9D9D9",
+       "srgb": [
+        217,
+        217,
+        217
+       ],
+       "oklab": [
+        0.8846,
+        0.0,
+        0.0
+       ],
+       "lab": [
+        86.695,
+        -0.0,
+        0.0
+       ],
+       "fraction": 0.2364
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      165,
+      163,
+      161
+     ],
+     "hex": "#A5A3A1",
+     "lab": [
+      65.842,
+      0.705,
+      1.391
+     ],
+     "brightness_L": 65.842,
+     "l_stddev": 26.978
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 4.295,
+   "spatial_contrast": 2.565,
+   "busyness": "smooth",
+   "lightness_rank": 450,
+   "lightness_percentile": 91.08,
+   "brightness_L": 81.402,
+   "nearest": [
+    {
+     "id": "polished_diorite",
+     "hex": "#C0C0C2",
+     "delta_e00": 2.762
+    },
+    {
+     "id": "polished_diorite_slab",
+     "hex": "#C0C0C2",
+     "delta_e00": 2.762
+    },
+    {
+     "id": "diorite",
+     "hex": "#BCBCBC",
+     "delta_e00": 3.651
+    },
+    {
+     "id": "diorite_slab",
+     "hex": "#BCBCBC",
+     "delta_e00": 3.651
+    },
+    {
+     "id": "birch_wood",
+     "hex": "#D7D5D0",
+     "delta_e00": 3.665
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.14,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.021,
+     "cross_hatching": 0.324,
+     "stippling": 0.027,
+     "scumbling": 0.343,
+     "glazing": 0.386,
+     "outline": 0.306
+    },
+    "technique": "glazing",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 4.66,
+    "hf_energy": 0.649,
+    "hatch_score": 0.029,
+    "top": {
+     "coherence": 0.14,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.021,
+      "cross_hatching": 0.324,
+      "stippling": 0.027,
+      "scumbling": 0.343,
+      "glazing": 0.386,
+      "outline": 0.306
+     },
+     "technique": "glazing",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 4.66,
+     "hf_energy": 0.649,
+     "hatch_score": 0.029
+    }
+   }
+  },
+  {
+   "id": "jungle_door",
+   "display_name": "Jungle Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "jungle",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/jungle_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/jungle_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/jungle_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/jungle_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/jungle_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     158,
+     114,
+     79
+    ],
+    "hex": "#9E724F",
+    "lab": [
+     51.426,
+     13.325,
+     26.185
+    ],
+    "oklab": [
+     0.5732,
+     0.0374,
+     0.0606
+    ],
+    "oklch": {
+     "L": 0.5732,
+     "C": 0.0712,
+     "h": 58.34
+    },
+    "brightness_L": 51.426,
+    "hue_deg": 58.34,
+    "chroma": 0.0712,
+    "l_stddev": 9.974,
+    "spatial_contrast": 6.51,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      158,
+      114,
+      79
+     ],
+     "hex": "#9E724F",
+     "srgb_naive": [
+      153,
+      110,
+      77
+     ],
+     "hex_naive": "#996E4D",
+     "srgb_linear_mean": [
+      157,
+      114,
+      80
+     ],
+     "hex_linear_mean": "#9D7250",
+     "lab": [
+      51.426,
+      13.325,
+      26.185
+     ],
+     "lab_of_oklab_mean": [
+      49.935,
+      12.523,
+      24.919
+     ],
+     "oklab": [
+      0.5732,
+      0.0374,
+      0.0606
+     ],
+     "oklch": {
+      "L": 0.5732,
+      "C": 0.0712,
+      "h": 58.34
+     },
+     "brightness_L": 51.426,
+     "hue_deg": 58.34,
+     "chroma": 0.0712,
+     "l_stddev": 9.974,
+     "spatial_contrast": 6.51,
+     "busyness": "textured",
+     "unique_opaque_colours": 10,
+     "visible_pixels": 214,
+     "transparent_pixels": 42,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#B68561",
+       "srgb": [
+        182,
+        133,
+        97
+       ],
+       "oklab": [
+        0.6555,
+        0.0421,
+        0.0659
+       ],
+       "lab": [
+        59.512,
+        14.335,
+        26.762
+       ],
+       "fraction": 0.4486
+      },
+      {
+       "hex": "#6B4D35",
+       "srgb": [
+        107,
+        77,
+        53
+       ],
+       "oklab": [
+        0.446,
+        0.0293,
+        0.0463
+       ],
+       "lab": [
+        35.383,
+        9.42,
+        19.177
+       ],
+       "fraction": 0.3084
+      },
+      {
+       "hex": "#9E7049",
+       "srgb": [
+        158,
+        112,
+        73
+       ],
+       "oklab": [
+        0.5825,
+        0.039,
+        0.0691
+       ],
+       "lab": [
+        51.083,
+        13.593,
+        28.785
+       ],
+       "fraction": 0.243
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      158,
+      114,
+      79
+     ],
+     "hex": "#9E724F",
+     "lab": [
+      51.426,
+      13.325,
+      26.185
+     ],
+     "oklab": [
+      0.5732,
+      0.0374,
+      0.0606
+     ],
+     "oklch": {
+      "L": 0.5732,
+      "C": 0.0712,
+      "h": 58.34
+     },
+     "brightness_L": 51.426,
+     "hue_deg": 58.34,
+     "chroma": 0.0712,
+     "l_stddev": 9.974,
+     "spatial_contrast": 6.51,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      158,
+      114,
+      79
+     ],
+     "hex": "#9E724F",
+     "srgb_naive": [
+      153,
+      110,
+      77
+     ],
+     "hex_naive": "#996E4D",
+     "srgb_linear_mean": [
+      157,
+      114,
+      80
+     ],
+     "hex_linear_mean": "#9D7250",
+     "lab": [
+      51.426,
+      13.325,
+      26.185
+     ],
+     "lab_of_oklab_mean": [
+      49.935,
+      12.523,
+      24.919
+     ],
+     "oklab": [
+      0.5732,
+      0.0374,
+      0.0606
+     ],
+     "oklch": {
+      "L": 0.5732,
+      "C": 0.0712,
+      "h": 58.34
+     },
+     "brightness_L": 51.426,
+     "hue_deg": 58.34,
+     "chroma": 0.0712,
+     "l_stddev": 9.974,
+     "spatial_contrast": 6.51,
+     "busyness": "textured",
+     "unique_opaque_colours": 10,
+     "visible_pixels": 214,
+     "transparent_pixels": 42,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#B68561",
+       "srgb": [
+        182,
+        133,
+        97
+       ],
+       "oklab": [
+        0.6555,
+        0.0421,
+        0.0659
+       ],
+       "lab": [
+        59.512,
+        14.335,
+        26.762
+       ],
+       "fraction": 0.4486
+      },
+      {
+       "hex": "#6B4D35",
+       "srgb": [
+        107,
+        77,
+        53
+       ],
+       "oklab": [
+        0.446,
+        0.0293,
+        0.0463
+       ],
+       "lab": [
+        35.383,
+        9.42,
+        19.177
+       ],
+       "fraction": 0.3084
+      },
+      {
+       "hex": "#9E7049",
+       "srgb": [
+        158,
+        112,
+        73
+       ],
+       "oklab": [
+        0.5825,
+        0.039,
+        0.0691
+       ],
+       "lab": [
+        51.083,
+        13.593,
+        28.785
+       ],
+       "fraction": 0.243
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      149,
+      109,
+      78
+     ],
+     "hex": "#956D4E",
+     "lab": [
+      48.878,
+      11.584,
+      23.65
+     ],
+     "brightness_L": 48.878,
+     "l_stddev": 16.988
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 10.623,
+   "spatial_contrast": 6.51,
+   "busyness": "textured",
+   "lightness_rank": 240,
+   "lightness_percentile": 48.48,
+   "brightness_L": 49.935,
+   "nearest": [
+    {
+     "id": "brown_mushroom_block",
+     "hex": "#957051",
+     "delta_e00": 1.547
+    },
+    {
+     "id": "jungle_planks",
+     "hex": "#A07350",
+     "delta_e00": 2.368
+    },
+    {
+     "id": "jungle_slab",
+     "hex": "#A07350",
+     "delta_e00": 2.368
+    },
+    {
+     "id": "packed_mud",
+     "hex": "#8E6B50",
+     "delta_e00": 2.992
+    },
+    {
+     "id": "raw_copper_block",
+     "hex": "#9C6B4F",
+     "delta_e00": 3.251
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.056,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.027,
+     "cross_hatching": 1.0,
+     "stippling": 0.13,
+     "scumbling": 0.086,
+     "glazing": 0.0,
+     "outline": 0.824
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 4.73,
+    "hf_energy": 0.636,
+    "hatch_score": 0.027,
+    "top": {
+     "coherence": 0.056,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.027,
+      "cross_hatching": 1.0,
+      "stippling": 0.13,
+      "scumbling": 0.086,
+      "glazing": 0.0,
+      "outline": 0.824
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 4.73,
+     "hf_energy": 0.636,
+     "hatch_score": 0.027
+    }
+   }
+  },
+  {
+   "id": "mangrove_door",
+   "display_name": "Mangrove Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "mangrove",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": false,
+   "has_translucency": false,
+   "model": "minecraft:block/mangrove_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/mangrove_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/mangrove_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/mangrove_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/mangrove_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     112,
+     48,
+     46
+    ],
+    "hex": "#70302E",
+    "lab": [
+     28.847,
+     28.301,
+     15.023
+    ],
+    "oklab": [
+     0.3924,
+     0.0825,
+     0.0407
+    ],
+    "oklch": {
+     "L": 0.3924,
+     "C": 0.092,
+     "h": 26.27
+    },
+    "brightness_L": 28.847,
+    "hue_deg": 26.27,
+    "chroma": 0.092,
+    "l_stddev": 5.726,
+    "spatial_contrast": 5.985,
+    "busyness": "textured",
+    "has_cutout": false,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      112,
+      48,
+      46
+     ],
+     "hex": "#70302E",
+     "srgb_naive": [
+      111,
+      47,
+      42
+     ],
+     "hex_naive": "#6F2F2A",
+     "srgb_linear_mean": [
+      112,
+      50,
+      44
+     ],
+     "hex_linear_mean": "#70322C",
+     "lab": [
+      28.847,
+      28.301,
+      15.023
+     ],
+     "lab_of_oklab_mean": [
+      28.329,
+      27.965,
+      17.071
+     ],
+     "oklab": [
+      0.3924,
+      0.0825,
+      0.0407
+     ],
+     "oklch": {
+      "L": 0.3924,
+      "C": 0.092,
+      "h": 26.27
+     },
+     "brightness_L": 28.847,
+     "hue_deg": 26.27,
+     "chroma": 0.092,
+     "l_stddev": 5.726,
+     "spatial_contrast": 5.985,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 224,
+     "transparent_pixels": 32,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#612021",
+       "srgb": [
+        97,
+        32,
+        33
+       ],
+       "oklab": [
+        0.3443,
+        0.0864,
+        0.0369
+       ],
+       "lab": [
+        22.601,
+        29.57,
+        15.151
+       ],
+       "fraction": 0.7321
+      },
+      {
+       "hex": "#864938",
+       "srgb": [
+        134,
+        73,
+        56
+       ],
+       "oklab": [
+        0.4751,
+        0.0716,
+        0.0522
+       ],
+       "lab": [
+        38.057,
+        24.138,
+        21.52
+       ],
+       "fraction": 0.2679
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      112,
+      48,
+      46
+     ],
+     "hex": "#70302E",
+     "lab": [
+      28.847,
+      28.301,
+      15.023
+     ],
+     "oklab": [
+      0.3924,
+      0.0825,
+      0.0407
+     ],
+     "oklch": {
+      "L": 0.3924,
+      "C": 0.092,
+      "h": 26.27
+     },
+     "brightness_L": 28.847,
+     "hue_deg": 26.27,
+     "chroma": 0.092,
+     "l_stddev": 5.726,
+     "spatial_contrast": 5.985,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      112,
+      48,
+      46
+     ],
+     "hex": "#70302E",
+     "srgb_naive": [
+      111,
+      47,
+      42
+     ],
+     "hex_naive": "#6F2F2A",
+     "srgb_linear_mean": [
+      112,
+      50,
+      44
+     ],
+     "hex_linear_mean": "#70322C",
+     "lab": [
+      28.847,
+      28.301,
+      15.023
+     ],
+     "lab_of_oklab_mean": [
+      28.329,
+      27.965,
+      17.071
+     ],
+     "oklab": [
+      0.3924,
+      0.0825,
+      0.0407
+     ],
+     "oklch": {
+      "L": 0.3924,
+      "C": 0.092,
+      "h": 26.27
+     },
+     "brightness_L": 28.847,
+     "hue_deg": 26.27,
+     "chroma": 0.092,
+     "l_stddev": 5.726,
+     "spatial_contrast": 5.985,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 224,
+     "transparent_pixels": 32,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#612021",
+       "srgb": [
+        97,
+        32,
+        33
+       ],
+       "oklab": [
+        0.3443,
+        0.0864,
+        0.0369
+       ],
+       "lab": [
+        22.601,
+        29.57,
+        15.151
+       ],
+       "fraction": 0.7321
+      },
+      {
+       "hex": "#864938",
+       "srgb": [
+        134,
+        73,
+        56
+       ],
+       "oklab": [
+        0.4751,
+        0.0716,
+        0.0522
+       ],
+       "lab": [
+        38.057,
+        24.138,
+        21.52
+       ],
+       "fraction": 0.2679
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      113,
+      49,
+      47
+     ],
+     "hex": "#71312F",
+     "lab": [
+      29.182,
+      28.026,
+      15.322
+     ],
+     "brightness_L": 29.182,
+     "l_stddev": 6.262
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 6.796,
+   "spatial_contrast": 5.985,
+   "busyness": "textured",
+   "lightness_rank": 70,
+   "lightness_percentile": 14.0,
+   "brightness_L": 28.329,
+   "nearest": [
+    {
+     "id": "mangrove_shelf",
+     "hex": "#6D2D2A",
+     "delta_e00": 0.957
+    },
+    {
+     "id": "stripped_mangrove_log",
+     "hex": "#74332E",
+     "delta_e00": 1.37
+    },
+    {
+     "id": "mangrove_planks",
+     "hex": "#763631",
+     "delta_e00": 2.199
+    },
+    {
+     "id": "mangrove_slab",
+     "hex": "#763631",
+     "delta_e00": 2.199
+    },
+    {
+     "id": "stripped_mangrove_wood",
+     "hex": "#783630",
+     "delta_e00": 2.43
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.025,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.007,
+     "cross_hatching": 0.182,
+     "stippling": 0.114,
+     "scumbling": 0.763,
+     "glazing": 0.029,
+     "outline": 0.0
+    },
+    "technique": "scumbling",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.09,
+    "hf_energy": 0.91,
+    "hatch_score": 0.008,
+    "top": {
+     "coherence": 0.025,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.007,
+      "cross_hatching": 0.182,
+      "stippling": 0.114,
+      "scumbling": 0.763,
+      "glazing": 0.029,
+      "outline": 0.0
+     },
+     "technique": "scumbling",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.09,
+     "hf_energy": 0.91,
+     "hatch_score": 0.008
+    }
+   }
+  },
+  {
+   "id": "oak_door",
+   "display_name": "Oak Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "oak",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/oak_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/oak_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/oak_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/oak_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/oak_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     139,
+     108,
+     62
+    ],
+    "hex": "#8B6C3E",
+    "lab": [
+     47.522,
+     6.344,
+     29.917
+    ],
+    "oklab": [
+     0.5142,
+     0.0123,
+     0.0665
+    ],
+    "oklch": {
+     "L": 0.5142,
+     "C": 0.0676,
+     "h": 79.48
+    },
+    "brightness_L": 47.522,
+    "hue_deg": 79.48,
+    "chroma": 0.0676,
+    "l_stddev": 10.195,
+    "spatial_contrast": 7.764,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      139,
+      108,
+      62
+     ],
+     "hex": "#8B6C3E",
+     "srgb_naive": [
+      125,
+      99,
+      57
+     ],
+     "hex_naive": "#7D6339",
+     "srgb_linear_mean": [
+      131,
+      104,
+      60
+     ],
+     "hex_linear_mean": "#83683C",
+     "lab": [
+      47.522,
+      6.344,
+      29.917
+     ],
+     "lab_of_oklab_mean": [
+      43.5,
+      4.337,
+      28.054
+     ],
+     "oklab": [
+      0.5142,
+      0.0123,
+      0.0665
+     ],
+     "oklch": {
+      "L": 0.5142,
+      "C": 0.0676,
+      "h": 79.48
+     },
+     "brightness_L": 47.522,
+     "hue_deg": 79.48,
+     "chroma": 0.0676,
+     "l_stddev": 10.195,
+     "spatial_contrast": 7.764,
+     "busyness": "textured",
+     "unique_opaque_colours": 6,
+     "visible_pixels": 220,
+     "transparent_pixels": 36,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#9A7948",
+       "srgb": [
+        154,
+        121,
+        72
+       ],
+       "oklab": [
+        0.598,
+        0.018,
+        0.0758
+       ],
+       "lab": [
+        52.965,
+        6.606,
+        31.584
+       ],
+       "fraction": 0.55
+      },
+      {
+       "hex": "#65522A",
+       "srgb": [
+        101,
+        82,
+        42
+       ],
+       "oklab": [
+        0.4484,
+        0.0056,
+        0.0616
+       ],
+       "lab": [
+        35.924,
+        2.405,
+        26.191
+       ],
+       "fraction": 0.2545
+      },
+      {
+       "hex": "#4A3C20",
+       "srgb": [
+        74,
+        60,
+        32
+       ],
+       "oklab": [
+        0.364,
+        0.0053,
+        0.0467
+       ],
+       "lab": [
+        26.134,
+        1.921,
+        19.494
+       ],
+       "fraction": 0.1955
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      139,
+      108,
+      62
+     ],
+     "hex": "#8B6C3E",
+     "lab": [
+      47.522,
+      6.344,
+      29.917
+     ],
+     "oklab": [
+      0.5142,
+      0.0123,
+      0.0665
+     ],
+     "oklch": {
+      "L": 0.5142,
+      "C": 0.0676,
+      "h": 79.48
+     },
+     "brightness_L": 47.522,
+     "hue_deg": 79.48,
+     "chroma": 0.0676,
+     "l_stddev": 10.195,
+     "spatial_contrast": 7.764,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      139,
+      108,
+      62
+     ],
+     "hex": "#8B6C3E",
+     "srgb_naive": [
+      125,
+      99,
+      57
+     ],
+     "hex_naive": "#7D6339",
+     "srgb_linear_mean": [
+      131,
+      104,
+      60
+     ],
+     "hex_linear_mean": "#83683C",
+     "lab": [
+      47.522,
+      6.344,
+      29.917
+     ],
+     "lab_of_oklab_mean": [
+      43.5,
+      4.337,
+      28.054
+     ],
+     "oklab": [
+      0.5142,
+      0.0123,
+      0.0665
+     ],
+     "oklch": {
+      "L": 0.5142,
+      "C": 0.0676,
+      "h": 79.48
+     },
+     "brightness_L": 47.522,
+     "hue_deg": 79.48,
+     "chroma": 0.0676,
+     "l_stddev": 10.195,
+     "spatial_contrast": 7.764,
+     "busyness": "textured",
+     "unique_opaque_colours": 6,
+     "visible_pixels": 220,
+     "transparent_pixels": 36,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#9A7948",
+       "srgb": [
+        154,
+        121,
+        72
+       ],
+       "oklab": [
+        0.598,
+        0.018,
+        0.0758
+       ],
+       "lab": [
+        52.965,
+        6.606,
+        31.584
+       ],
+       "fraction": 0.55
+      },
+      {
+       "hex": "#65522A",
+       "srgb": [
+        101,
+        82,
+        42
+       ],
+       "oklab": [
+        0.4484,
+        0.0056,
+        0.0616
+       ],
+       "lab": [
+        35.924,
+        2.405,
+        26.191
+       ],
+       "fraction": 0.2545
+      },
+      {
+       "hex": "#4A3C20",
+       "srgb": [
+        74,
+        60,
+        32
+       ],
+       "oklab": [
+        0.364,
+        0.0053,
+        0.0467
+       ],
+       "lab": [
+        26.134,
+        1.921,
+        19.494
+       ],
+       "fraction": 0.1955
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      122,
+      96,
+      58
+     ],
+     "hex": "#7A603A",
+     "lab": [
+      41.853,
+      5.408,
+      24.998
+     ],
+     "brightness_L": 41.853,
+     "l_stddev": 16.776
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 11.556,
+   "spatial_contrast": 7.764,
+   "busyness": "textured",
+   "lightness_rank": 184,
+   "lightness_percentile": 37.12,
+   "brightness_L": 43.5,
+   "nearest": [
+    {
+     "id": "oak_log",
+     "hex": "#7A613A",
+     "delta_e00": 1.326
+    },
+    {
+     "id": "grass_block",
+     "hex": "#77633D",
+     "delta_e00": 2.127
+    },
+    {
+     "id": "crafting_table",
+     "hex": "#82653F",
+     "delta_e00": 2.717
+    },
+    {
+     "id": "stripped_spruce_wood",
+     "hex": "#745A34",
+     "delta_e00": 3.542
+    },
+    {
+     "id": "stripped_spruce_log",
+     "hex": "#735934",
+     "delta_e00": 3.986
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.263,
+    "orientation": "horizontal",
+    "techniques": {
+     "hatching": 0.322,
+     "cross_hatching": 0.777,
+     "stippling": 0.132,
+     "scumbling": 0.294,
+     "glazing": 0.0,
+     "outline": 0.772
+    },
+    "technique": "cross_hatching",
+    "line_period": 8.0,
+    "line_regularity": 0.252,
+    "scale_px": 4.22,
+    "hf_energy": 0.722,
+    "hatch_score": 0.37,
+    "top": {
+     "coherence": 0.263,
+     "orientation": "horizontal",
+     "techniques": {
+      "hatching": 0.322,
+      "cross_hatching": 0.777,
+      "stippling": 0.132,
+      "scumbling": 0.294,
+      "glazing": 0.0,
+      "outline": 0.772
+     },
+     "technique": "cross_hatching",
+     "line_period": 8.0,
+     "line_regularity": 0.252,
+     "scale_px": 4.22,
+     "hf_energy": 0.722,
+     "hatch_score": 0.37
+    }
+   }
+  },
+  {
+   "id": "oxidized_copper_door",
+   "display_name": "Oxidized Copper Door",
+   "shape": "door",
+   "family": "copper",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": null,
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/oxidized_copper_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/oxidized_copper_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/oxidized_copper_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/oxidized_copper_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/oxidized_copper_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     80,
+     153,
+     127
+    ],
+    "hex": "#50997F",
+    "lab": [
+     57.949,
+     -28.958,
+     6.703
+    ],
+    "oklab": [
+     0.6504,
+     -0.0869,
+     0.0199
+    ],
+    "oklch": {
+     "L": 0.6504,
+     "C": 0.0892,
+     "h": 167.1
+    },
+    "brightness_L": 57.949,
+    "hue_deg": 167.1,
+    "chroma": 0.0892,
+    "l_stddev": 11.442,
+    "spatial_contrast": 6.256,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      80,
+      153,
+      127
+     ],
+     "hex": "#50997F",
+     "srgb_naive": [
+      84,
+      161,
+      132
+     ],
+     "hex_naive": "#54A184",
+     "srgb_linear_mean": [
+      85,
+      164,
+      135
+     ],
+     "hex_linear_mean": "#55A487",
+     "lab": [
+      57.949,
+      -28.958,
+      6.703
+     ],
+     "lab_of_oklab_mean": [
+      60.775,
+      -31.197,
+      7.749
+     ],
+     "oklab": [
+      0.6504,
+      -0.0869,
+      0.0199
+     ],
+     "oklch": {
+      "L": 0.6504,
+      "C": 0.0892,
+      "h": 167.1
+     },
+     "brightness_L": 57.949,
+     "hue_deg": 167.1,
+     "chroma": 0.0892,
+     "l_stddev": 11.442,
+     "spatial_contrast": 6.256,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 204,
+     "transparent_pixels": 52,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#4F9E82",
+       "srgb": [
+        79,
+        158,
+        130
+       ],
+       "oklab": [
+        0.6404,
+        -0.0871,
+        0.0179
+       ],
+       "lab": [
+        59.64,
+        -31.247,
+        7.232
+       ],
+       "fraction": 0.4363
+      },
+      {
+       "hex": "#63BB98",
+       "srgb": [
+        99,
+        187,
+        152
+       ],
+       "oklab": [
+        0.7268,
+        -0.0972,
+        0.0245
+       ],
+       "lab": [
+        69.795,
+        -34.826,
+        9.622
+       ],
+       "fraction": 0.3971
+      },
+      {
+       "hex": "#3B6D5A",
+       "srgb": [
+        59,
+        109,
+        90
+       ],
+       "oklab": [
+        0.4946,
+        -0.0622,
+        0.0144
+       ],
+       "lab": [
+        42.161,
+        -21.816,
+        5.403
+       ],
+       "fraction": 0.1667
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      80,
+      153,
+      127
+     ],
+     "hex": "#50997F",
+     "lab": [
+      57.949,
+      -28.958,
+      6.703
+     ],
+     "oklab": [
+      0.6504,
+      -0.0869,
+      0.0199
+     ],
+     "oklch": {
+      "L": 0.6504,
+      "C": 0.0892,
+      "h": 167.1
+     },
+     "brightness_L": 57.949,
+     "hue_deg": 167.1,
+     "chroma": 0.0892,
+     "l_stddev": 11.442,
+     "spatial_contrast": 6.256,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      80,
+      153,
+      127
+     ],
+     "hex": "#50997F",
+     "srgb_naive": [
+      84,
+      161,
+      132
+     ],
+     "hex_naive": "#54A184",
+     "srgb_linear_mean": [
+      85,
+      164,
+      135
+     ],
+     "hex_linear_mean": "#55A487",
+     "lab": [
+      57.949,
+      -28.958,
+      6.703
+     ],
+     "lab_of_oklab_mean": [
+      60.775,
+      -31.197,
+      7.749
+     ],
+     "oklab": [
+      0.6504,
+      -0.0869,
+      0.0199
+     ],
+     "oklch": {
+      "L": 0.6504,
+      "C": 0.0892,
+      "h": 167.1
+     },
+     "brightness_L": 57.949,
+     "hue_deg": 167.1,
+     "chroma": 0.0892,
+     "l_stddev": 11.442,
+     "spatial_contrast": 6.256,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 204,
+     "transparent_pixels": 52,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#4F9E82",
+       "srgb": [
+        79,
+        158,
+        130
+       ],
+       "oklab": [
+        0.6404,
+        -0.0871,
+        0.0179
+       ],
+       "lab": [
+        59.64,
+        -31.247,
+        7.232
+       ],
+       "fraction": 0.4363
+      },
+      {
+       "hex": "#63BB98",
+       "srgb": [
+        99,
+        187,
+        152
+       ],
+       "oklab": [
+        0.7268,
+        -0.0972,
+        0.0245
+       ],
+       "lab": [
+        69.795,
+        -34.826,
+        9.622
+       ],
+       "fraction": 0.3971
+      },
+      {
+       "hex": "#3B6D5A",
+       "srgb": [
+        59,
+        109,
+        90
+       ],
+       "oklab": [
+        0.4946,
+        -0.0622,
+        0.0144
+       ],
+       "lab": [
+        42.161,
+        -21.816,
+        5.403
+       ],
+       "fraction": 0.1667
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      74,
+      136,
+      112
+     ],
+     "hex": "#4A8870",
+     "lab": [
+      51.453,
+      -24.425,
+      6.972
+     ],
+     "brightness_L": 51.453,
+     "l_stddev": 20.804
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 9.977,
+   "spatial_contrast": 6.256,
+   "busyness": "textured",
+   "lightness_rank": 363,
+   "lightness_percentile": 73.43,
+   "brightness_L": 60.775,
+   "nearest": [
+    {
+     "id": "oxidized_chiseled_copper",
+     "hex": "#53A184",
+     "delta_e00": 0.0
+    },
+    {
+     "id": "waxed_oxidized_chiseled_copper",
+     "hex": "#53A184",
+     "delta_e00": 0.0
+    },
+    {
+     "id": "waxed_oxidized_copper_trapdoor",
+     "hex": "#53A184",
+     "delta_e00": 0.0
+    },
+    {
+     "id": "oxidized_copper",
+     "hex": "#52A285",
+     "delta_e00": 0.357
+    },
+    {
+     "id": "waxed_oxidized_copper",
+     "hex": "#52A285",
+     "delta_e00": 0.357
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.116,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.056,
+     "cross_hatching": 0.839,
+     "stippling": 0.126,
+     "scumbling": 0.0,
+     "glazing": 0.0,
+     "outline": 0.0
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.07,
+    "hf_energy": 0.926,
+    "hatch_score": 0.056,
+    "top": {
+     "coherence": 0.116,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.056,
+      "cross_hatching": 0.839,
+      "stippling": 0.126,
+      "scumbling": 0.0,
+      "glazing": 0.0,
+      "outline": 0.0
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.07,
+     "hf_energy": 0.926,
+     "hatch_score": 0.056
+    }
+   }
+  },
+  {
+   "id": "pale_oak_door",
+   "display_name": "Pale Oak Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "pale_oak",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": false,
+   "has_cutout": false,
+   "has_translucency": false,
+   "model": "minecraft:block/pale_oak_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/pale_oak_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/pale_oak_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/pale_oak_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/pale_oak_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     199,
+     190,
+     189
+    ],
+    "hex": "#C7BEBD",
+    "lab": [
+     77.183,
+     3.017,
+     1.598
+    ],
+    "oklab": [
+     0.9007,
+     0.0099,
+     0.0051
+    ],
+    "oklch": {
+     "L": 0.9007,
+     "C": 0.0111,
+     "h": 27.13
+    },
+    "brightness_L": 77.183,
+    "hue_deg": 27.13,
+    "chroma": 0.0111,
+    "l_stddev": 19.392,
+    "spatial_contrast": 7.111,
+    "busyness": "textured",
+    "has_cutout": false,
+    "has_translucency": false,
+    "partially_transparent": false
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      199,
+      190,
+      189
+     ],
+     "hex": "#C7BEBD",
+     "srgb_naive": [
+      230,
+      220,
+      219
+     ],
+     "hex_naive": "#E6DCDB",
+     "srgb_linear_mean": [
+      233,
+      223,
+      222
+     ],
+     "hex_linear_mean": "#E9DFDE",
+     "lab": [
+      77.183,
+      3.017,
+      1.598
+     ],
+     "lab_of_oklab_mean": [
+      88.482,
+      3.063,
+      2.198
+     ],
+     "oklab": [
+      0.9007,
+      0.0099,
+      0.0051
+     ],
+     "oklch": {
+      "L": 0.9007,
+      "C": 0.0111,
+      "h": 27.13
+     },
+     "brightness_L": 77.183,
+     "hue_deg": 27.13,
+     "chroma": 0.0111,
+     "l_stddev": 19.392,
+     "spatial_contrast": 7.111,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 256,
+     "transparent_pixels": 0,
+     "translucent_pixels": 0,
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false,
+     "dominant_colours": [
+      {
+       "hex": "#FAF3F1",
+       "srgb": [
+        250,
+        243,
+        241
+       ],
+       "oklab": [
+        0.9684,
+        0.0064,
+        0.0048
+       ],
+       "lab": [
+        96.318,
+        1.992,
+        1.792
+       ],
+       "fraction": 0.592
+      },
+      {
+       "hex": "#D1C3C2",
+       "srgb": [
+        209,
+        195,
+        194
+       ],
+       "oklab": [
+        0.8275,
+        0.0155,
+        0.0057
+       ],
+       "lab": [
+        79.887,
+        4.725,
+        2.266
+       ],
+       "fraction": 0.408
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      199,
+      190,
+      189
+     ],
+     "hex": "#C7BEBD",
+     "lab": [
+      77.183,
+      3.017,
+      1.598
+     ],
+     "oklab": [
+      0.9007,
+      0.0099,
+      0.0051
+     ],
+     "oklch": {
+      "L": 0.9007,
+      "C": 0.0111,
+      "h": 27.13
+     },
+     "brightness_L": 77.183,
+     "hue_deg": 27.13,
+     "chroma": 0.0111,
+     "l_stddev": 19.392,
+     "spatial_contrast": 7.111,
+     "busyness": "textured",
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false
+    },
+    "bottom": {
+     "srgb": [
+      199,
+      190,
+      189
+     ],
+     "hex": "#C7BEBD",
+     "srgb_naive": [
+      230,
+      220,
+      219
+     ],
+     "hex_naive": "#E6DCDB",
+     "srgb_linear_mean": [
+      233,
+      223,
+      222
+     ],
+     "hex_linear_mean": "#E9DFDE",
+     "lab": [
+      77.183,
+      3.017,
+      1.598
+     ],
+     "lab_of_oklab_mean": [
+      88.482,
+      3.063,
+      2.198
+     ],
+     "oklab": [
+      0.9007,
+      0.0099,
+      0.0051
+     ],
+     "oklch": {
+      "L": 0.9007,
+      "C": 0.0111,
+      "h": 27.13
+     },
+     "brightness_L": 77.183,
+     "hue_deg": 27.13,
+     "chroma": 0.0111,
+     "l_stddev": 19.392,
+     "spatial_contrast": 7.111,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 256,
+     "transparent_pixels": 0,
+     "translucent_pixels": 0,
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false,
+     "dominant_colours": [
+      {
+       "hex": "#FAF3F1",
+       "srgb": [
+        250,
+        243,
+        241
+       ],
+       "oklab": [
+        0.9684,
+        0.0064,
+        0.0048
+       ],
+       "lab": [
+        96.318,
+        1.992,
+        1.792
+       ],
+       "fraction": 0.592
+      },
+      {
+       "hex": "#D1C3C2",
+       "srgb": [
+        209,
+        195,
+        194
+       ],
+       "oklab": [
+        0.8275,
+        0.0155,
+        0.0057
+       ],
+       "lab": [
+        79.887,
+        4.725,
+        2.266
+       ],
+       "fraction": 0.408
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      216,
+      208,
+      207
+     ],
+     "hex": "#D8D0CF",
+     "lab": [
+      83.615,
+      2.632,
+      1.652
+     ],
+     "brightness_L": 83.615,
+     "l_stddev": 18.806
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 11.86,
+   "spatial_contrast": 7.111,
+   "busyness": "textured",
+   "lightness_rank": 477,
+   "lightness_percentile": 96.55,
+   "brightness_L": 88.482,
+   "nearest": [
+    {
+     "id": "pale_oak_shelf",
+     "hex": "#E3D9D8",
+     "delta_e00": 0.842
+    },
+    {
+     "id": "pale_oak_planks",
+     "hex": "#E4D9D8",
+     "delta_e00": 0.974
+    },
+    {
+     "id": "pale_oak_slab",
+     "hex": "#E4D9D8",
+     "delta_e00": 0.974
+    },
+    {
+     "id": "pearlescent_froglight",
+     "hex": "#EFE6E8",
+     "delta_e00": 2.971
+    },
+    {
+     "id": "stripped_pale_oak_log",
+     "hex": "#F2EAE9",
+     "delta_e00": 3.125
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.04,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.014,
+     "cross_hatching": 0.628,
+     "stippling": 0.094,
+     "scumbling": 0.344,
+     "glazing": 0.0,
+     "outline": 0.0
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 4.22,
+    "hf_energy": 0.818,
+    "hatch_score": 0.019,
+    "top": {
+     "coherence": 0.04,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.014,
+      "cross_hatching": 0.628,
+      "stippling": 0.094,
+      "scumbling": 0.344,
+      "glazing": 0.0,
+      "outline": 0.0
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 4.22,
+     "hf_energy": 0.818,
+     "hatch_score": 0.019
+    }
+   }
+  },
+  {
+   "id": "poplar_door",
+   "display_name": "Poplar Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "poplar",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/poplar_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/poplar_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/poplar_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/poplar_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/poplar_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     148,
+     135,
+     125
+    ],
+    "hex": "#94877D",
+    "lab": [
+     57.066,
+     2.96,
+     6.885
+    ],
+    "oklab": [
+     0.6343,
+     0.0101,
+     0.0183
+    ],
+    "oklch": {
+     "L": 0.6343,
+     "C": 0.0209,
+     "h": 61.17
+    },
+    "brightness_L": 57.066,
+    "hue_deg": 61.17,
+    "chroma": 0.0209,
+    "l_stddev": 8.73,
+    "spatial_contrast": 7.303,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      148,
+      135,
+      125
+     ],
+     "hex": "#94877D",
+     "srgb_naive": [
+      149,
+      136,
+      126
+     ],
+     "hex_naive": "#95887E",
+     "srgb_linear_mean": [
+      151,
+      139,
+      128
+     ],
+     "hex_linear_mean": "#978B80",
+     "lab": [
+      57.066,
+      2.96,
+      6.885
+     ],
+     "lab_of_oklab_mean": [
+      57.474,
+      2.731,
+      6.994
+     ],
+     "oklab": [
+      0.6343,
+      0.0101,
+      0.0183
+     ],
+     "oklch": {
+      "L": 0.6343,
+      "C": 0.0209,
+      "h": 61.17
+     },
+     "brightness_L": 57.066,
+     "hue_deg": 61.17,
+     "chroma": 0.0209,
+     "l_stddev": 8.73,
+     "spatial_contrast": 7.303,
+     "busyness": "textured",
+     "unique_opaque_colours": 11,
+     "visible_pixels": 232,
+     "transparent_pixels": 24,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#988C82",
+       "srgb": [
+        152,
+        140,
+        130
+       ],
+       "oklab": [
+        0.6482,
+        0.0096,
+        0.0182
+       ],
+       "lab": [
+        59.015,
+        2.71,
+        6.955
+       ],
+       "fraction": 0.3966
+      },
+      {
+       "hex": "#7A6B66",
+       "srgb": [
+        122,
+        107,
+        102
+       ],
+       "oklab": [
+        0.5397,
+        0.0162,
+        0.0121
+       ],
+       "lab": [
+        46.462,
+        5.002,
+        4.965
+       ],
+       "fraction": 0.3103
+      },
+      {
+       "hex": "#ACA292",
+       "srgb": [
+        172,
+        162,
+        146
+       ],
+       "oklab": [
+        0.7156,
+        0.0043,
+        0.025
+       ],
+       "lab": [
+        67.042,
+        0.858,
+        9.625
+       ],
+       "fraction": 0.2931
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      148,
+      135,
+      125
+     ],
+     "hex": "#94877D",
+     "lab": [
+      57.066,
+      2.96,
+      6.885
+     ],
+     "oklab": [
+      0.6343,
+      0.0101,
+      0.0183
+     ],
+     "oklch": {
+      "L": 0.6343,
+      "C": 0.0209,
+      "h": 61.17
+     },
+     "brightness_L": 57.066,
+     "hue_deg": 61.17,
+     "chroma": 0.0209,
+     "l_stddev": 8.73,
+     "spatial_contrast": 7.303,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      148,
+      135,
+      125
+     ],
+     "hex": "#94877D",
+     "srgb_naive": [
+      149,
+      136,
+      126
+     ],
+     "hex_naive": "#95887E",
+     "srgb_linear_mean": [
+      151,
+      139,
+      128
+     ],
+     "hex_linear_mean": "#978B80",
+     "lab": [
+      57.066,
+      2.96,
+      6.885
+     ],
+     "lab_of_oklab_mean": [
+      57.474,
+      2.731,
+      6.994
+     ],
+     "oklab": [
+      0.6343,
+      0.0101,
+      0.0183
+     ],
+     "oklch": {
+      "L": 0.6343,
+      "C": 0.0209,
+      "h": 61.17
+     },
+     "brightness_L": 57.066,
+     "hue_deg": 61.17,
+     "chroma": 0.0209,
+     "l_stddev": 8.73,
+     "spatial_contrast": 7.303,
+     "busyness": "textured",
+     "unique_opaque_colours": 11,
+     "visible_pixels": 232,
+     "transparent_pixels": 24,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#A4998C",
+       "srgb": [
+        164,
+        153,
+        140
+       ],
+       "oklab": [
+        0.69,
+        0.0067,
+        0.0218
+       ],
+       "lab": [
+        63.81,
+        1.764,
+        8.282
+       ],
+       "fraction": 0.5664
+      },
+      {
+       "hex": "#857771",
+       "srgb": [
+        133,
+        119,
+        113
+       ],
+       "oklab": [
+        0.5789,
+        0.0143,
+        0.0128
+       ],
+       "lab": [
+        51.121,
+        4.318,
+        5.263
+       ],
+       "fraction": 0.4336
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      134,
+      123,
+      112
+     ],
+     "hex": "#867B70",
+     "lab": [
+      51.543,
+      2.575,
+      7.369
+     ],
+     "brightness_L": 51.543,
+     "l_stddev": 18.427
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 9.171,
+   "spatial_contrast": 7.303,
+   "busyness": "textured",
+   "lightness_rank": 335,
+   "lightness_percentile": 67.75,
+   "brightness_L": 57.474,
+   "nearest": [
+    {
+     "id": "poplar_planks",
+     "hex": "#96897F",
+     "delta_e00": 0.655
+    },
+    {
+     "id": "poplar_slab",
+     "hex": "#96897F",
+     "delta_e00": 0.655
+    },
+    {
+     "id": "poplar_shelf",
+     "hex": "#94877E",
+     "delta_e00": 0.894
+    },
+    {
+     "id": "iron_ore",
+     "hex": "#88817B",
+     "delta_e00": 3.857
+    },
+    {
+     "id": "stripped_poplar_log",
+     "hex": "#A09488",
+     "delta_e00": 4.135
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.104,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.029,
+     "cross_hatching": 0.162,
+     "stippling": 0.516,
+     "scumbling": 0.165,
+     "glazing": 0.0,
+     "outline": 0.0
+    },
+    "technique": "stippling",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.32,
+    "hf_energy": 0.854,
+    "hatch_score": 0.046,
+    "top": {
+     "coherence": 0.104,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.029,
+      "cross_hatching": 0.162,
+      "stippling": 0.516,
+      "scumbling": 0.165,
+      "glazing": 0.0,
+      "outline": 0.0
+     },
+     "technique": "stippling",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.32,
+     "hf_energy": 0.854,
+     "hatch_score": 0.046
+    }
+   }
+  },
+  {
+   "id": "spruce_door",
+   "display_name": "Spruce Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "spruce",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": false,
+   "has_cutout": false,
+   "has_translucency": false,
+   "model": "minecraft:block/spruce_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/spruce_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/spruce_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/spruce_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/spruce_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     106,
+     80,
+     49
+    ],
+    "hex": "#6A5031",
+    "lab": [
+     36.048,
+     6.687,
+     22.634
+    ],
+    "oklab": [
+     0.4459,
+     0.0176,
+     0.053
+    ],
+    "oklch": {
+     "L": 0.4459,
+     "C": 0.0558,
+     "h": 71.66
+    },
+    "brightness_L": 36.048,
+    "hue_deg": 71.66,
+    "chroma": 0.0558,
+    "l_stddev": 7.847,
+    "spatial_contrast": 5.541,
+    "busyness": "smooth",
+    "has_cutout": false,
+    "has_translucency": false,
+    "partially_transparent": false
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      106,
+      80,
+      49
+     ],
+     "hex": "#6A5031",
+     "srgb_naive": [
+      104,
+      79,
+      48
+     ],
+     "hex_naive": "#684F30",
+     "srgb_linear_mean": [
+      105,
+      80,
+      50
+     ],
+     "hex_linear_mean": "#695032",
+     "lab": [
+      36.048,
+      6.687,
+      22.634
+     ],
+     "lab_of_oklab_mean": [
+      35.496,
+      6.256,
+      22.255
+     ],
+     "oklab": [
+      0.4459,
+      0.0176,
+      0.053
+     ],
+     "oklch": {
+      "L": 0.4459,
+      "C": 0.0558,
+      "h": 71.66
+     },
+     "brightness_L": 36.048,
+     "hue_deg": 71.66,
+     "chroma": 0.0558,
+     "l_stddev": 7.847,
+     "spatial_contrast": 5.541,
+     "busyness": "smooth",
+     "unique_opaque_colours": 9,
+     "visible_pixels": 256,
+     "transparent_pixels": 0,
+     "translucent_pixels": 0,
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false,
+     "dominant_colours": [
+      {
+       "hex": "#68502D",
+       "srgb": [
+        104,
+        80,
+        45
+       ],
+       "oklab": [
+        0.4478,
+        0.0155,
+        0.0583
+       ],
+       "lab": [
+        35.734,
+        5.342,
+        24.313
+       ],
+       "fraction": 0.6953
+      },
+      {
+       "hex": "#533F28",
+       "srgb": [
+        83,
+        63,
+        40
+       ],
+       "oklab": [
+        0.3841,
+        0.015,
+        0.0431
+       ],
+       "lab": [
+        28.241,
+        5.337,
+        17.413
+       ],
+       "fraction": 0.3047
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      106,
+      80,
+      49
+     ],
+     "hex": "#6A5031",
+     "lab": [
+      36.048,
+      6.687,
+      22.634
+     ],
+     "oklab": [
+      0.4459,
+      0.0176,
+      0.053
+     ],
+     "oklch": {
+      "L": 0.4459,
+      "C": 0.0558,
+      "h": 71.66
+     },
+     "brightness_L": 36.048,
+     "hue_deg": 71.66,
+     "chroma": 0.0558,
+     "l_stddev": 7.847,
+     "spatial_contrast": 5.541,
+     "busyness": "smooth",
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false
+    },
+    "bottom": {
+     "srgb": [
+      106,
+      80,
+      49
+     ],
+     "hex": "#6A5031",
+     "srgb_naive": [
+      104,
+      79,
+      48
+     ],
+     "hex_naive": "#684F30",
+     "srgb_linear_mean": [
+      105,
+      80,
+      50
+     ],
+     "hex_linear_mean": "#695032",
+     "lab": [
+      36.048,
+      6.687,
+      22.634
+     ],
+     "lab_of_oklab_mean": [
+      35.496,
+      6.256,
+      22.255
+     ],
+     "oklab": [
+      0.4459,
+      0.0176,
+      0.053
+     ],
+     "oklch": {
+      "L": 0.4459,
+      "C": 0.0558,
+      "h": 71.66
+     },
+     "brightness_L": 36.048,
+     "hue_deg": 71.66,
+     "chroma": 0.0558,
+     "l_stddev": 7.847,
+     "spatial_contrast": 5.541,
+     "busyness": "smooth",
+     "unique_opaque_colours": 9,
+     "visible_pixels": 256,
+     "transparent_pixels": 0,
+     "translucent_pixels": 0,
+     "has_cutout": false,
+     "has_translucency": false,
+     "partially_transparent": false,
+     "dominant_colours": [
+      {
+       "hex": "#68502D",
+       "srgb": [
+        104,
+        80,
+        45
+       ],
+       "oklab": [
+        0.4478,
+        0.0155,
+        0.0583
+       ],
+       "lab": [
+        35.734,
+        5.342,
+        24.313
+       ],
+       "fraction": 0.6953
+      },
+      {
+       "hex": "#533F28",
+       "srgb": [
+        83,
+        63,
+        40
+       ],
+       "oklab": [
+        0.3841,
+        0.015,
+        0.0431
+       ],
+       "lab": [
+        28.241,
+        5.337,
+        17.413
+       ],
+       "fraction": 0.3047
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      106,
+      80,
+      49
+     ],
+     "hex": "#6A5031",
+     "lab": [
+      36.139,
+      6.835,
+      22.766
+     ],
+     "brightness_L": 36.139,
+     "l_stddev": 7.478
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 5.604,
+   "spatial_contrast": 5.541,
+   "busyness": "smooth",
+   "lightness_rank": 120,
+   "lightness_percentile": 24.14,
+   "brightness_L": 35.496,
+   "nearest": [
+    {
+     "id": "barrel",
+     "hex": "#715534",
+     "delta_e00": 2.547
+    },
+    {
+     "id": "oak_wood",
+     "hex": "#6C5532",
+     "delta_e00": 2.663
+    },
+    {
+     "id": "spruce_shelf",
+     "hex": "#685330",
+     "delta_e00": 2.804
+    },
+    {
+     "id": "jungle_log",
+     "hex": "#6A5128",
+     "delta_e00": 3.157
+    },
+    {
+     "id": "spruce_planks",
+     "hex": "#735530",
+     "delta_e00": 3.231
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.493,
+    "orientation": "vertical",
+    "techniques": {
+     "hatching": 0.288,
+     "cross_hatching": 0.088,
+     "stippling": 0.051,
+     "scumbling": 0.0,
+     "glazing": 0.199,
+     "outline": 0.134
+    },
+    "technique": "hatching",
+    "line_period": 3.2,
+    "line_regularity": 0.616,
+    "scale_px": 2.89,
+    "hf_energy": 0.967,
+    "hatch_score": 0.442,
+    "top": {
+     "coherence": 0.493,
+     "orientation": "vertical",
+     "techniques": {
+      "hatching": 0.288,
+      "cross_hatching": 0.088,
+      "stippling": 0.051,
+      "scumbling": 0.0,
+      "glazing": 0.199,
+      "outline": 0.134
+     },
+     "technique": "hatching",
+     "line_period": 3.2,
+     "line_regularity": 0.616,
+     "scale_px": 2.89,
+     "hf_energy": 0.967,
+     "hatch_score": 0.442
+    }
+   }
+  },
+  {
+   "id": "warped_door",
+   "display_name": "Warped Door",
+   "shape": "door",
+   "family": "wood",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": "warped",
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": false,
+   "has_translucency": false,
+   "model": "minecraft:block/warped_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/warped_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/warped_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/warped_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/warped_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     43,
+     119,
+     112
+    ],
+    "hex": "#2B7770",
+    "lab": [
+     45.274,
+     -24.083,
+     -3.182
+    ],
+    "oklab": [
+     0.5221,
+     -0.0718,
+     -0.0067
+    ],
+    "oklch": {
+     "L": 0.5221,
+     "C": 0.0721,
+     "h": 185.37
+    },
+    "brightness_L": 45.274,
+    "hue_deg": 185.37,
+    "chroma": 0.0721,
+    "l_stddev": 10.466,
+    "spatial_contrast": 8.371,
+    "busyness": "textured",
+    "has_cutout": false,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      43,
+      119,
+      112
+     ],
+     "hex": "#2B7770",
+     "srgb_naive": [
+      47,
+      120,
+      112
+     ],
+     "hex_naive": "#2F7870",
+     "srgb_linear_mean": [
+      48,
+      123,
+      116
+     ],
+     "hex_linear_mean": "#307B74",
+     "lab": [
+      45.274,
+      -24.083,
+      -3.182
+     ],
+     "lab_of_oklab_mean": [
+      45.591,
+      -24.175,
+      -2.262
+     ],
+     "oklab": [
+      0.5221,
+      -0.0718,
+      -0.0067
+     ],
+     "oklch": {
+      "L": 0.5221,
+      "C": 0.0721,
+      "h": 185.37
+     },
+     "brightness_L": 45.274,
+     "hue_deg": 185.37,
+     "chroma": 0.0721,
+     "l_stddev": 10.466,
+     "spatial_contrast": 8.371,
+     "busyness": "textured",
+     "unique_opaque_colours": 6,
+     "visible_pixels": 201,
+     "transparent_pixels": 55,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#286056",
+       "srgb": [
+        40,
+        96,
+        86
+       ],
+       "oklab": [
+        0.4477,
+        -0.0613,
+        -0.0006
+       ],
+       "lab": [
+        36.908,
+        -21.126,
+        0.154
+       ],
+       "fraction": 0.5174
+      },
+      {
+       "hex": "#3A8887",
+       "srgb": [
+        58,
+        136,
+        135
+       ],
+       "oklab": [
+        0.5782,
+        -0.0744,
+        -0.018
+       ],
+       "lab": [
+        52.125,
+        -23.92,
+        -6.687
+       ],
+       "fraction": 0.2786
+      },
+      {
+       "hex": "#369D91",
+       "srgb": [
+        54,
+        157,
+        145
+       ],
+       "oklab": [
+        0.6341,
+        -0.0948,
+        -0.007
+       ],
+       "lab": [
+        58.919,
+        -32.19,
+        -2.398
+       ],
+       "fraction": 0.204
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      43,
+      119,
+      112
+     ],
+     "hex": "#2B7770",
+     "lab": [
+      45.274,
+      -24.083,
+      -3.182
+     ],
+     "oklab": [
+      0.5221,
+      -0.0718,
+      -0.0067
+     ],
+     "oklch": {
+      "L": 0.5221,
+      "C": 0.0721,
+      "h": 185.37
+     },
+     "brightness_L": 45.274,
+     "hue_deg": 185.37,
+     "chroma": 0.0721,
+     "l_stddev": 10.466,
+     "spatial_contrast": 8.371,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      43,
+      119,
+      112
+     ],
+     "hex": "#2B7770",
+     "srgb_naive": [
+      47,
+      120,
+      112
+     ],
+     "hex_naive": "#2F7870",
+     "srgb_linear_mean": [
+      48,
+      123,
+      116
+     ],
+     "hex_linear_mean": "#307B74",
+     "lab": [
+      45.274,
+      -24.083,
+      -3.182
+     ],
+     "lab_of_oklab_mean": [
+      45.591,
+      -24.175,
+      -2.262
+     ],
+     "oklab": [
+      0.5221,
+      -0.0718,
+      -0.0067
+     ],
+     "oklch": {
+      "L": 0.5221,
+      "C": 0.0721,
+      "h": 185.37
+     },
+     "brightness_L": 45.274,
+     "hue_deg": 185.37,
+     "chroma": 0.0721,
+     "l_stddev": 10.466,
+     "spatial_contrast": 8.371,
+     "busyness": "textured",
+     "unique_opaque_colours": 6,
+     "visible_pixels": 201,
+     "transparent_pixels": 55,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#275B52",
+       "srgb": [
+        39,
+        91,
+        82
+       ],
+       "oklab": [
+        0.4334,
+        -0.0582,
+        0.0006
+       ],
+       "lab": [
+        35.047,
+        -19.845,
+        -0.08
+       ],
+       "fraction": 0.403
+      },
+      {
+       "hex": "#38978F",
+       "srgb": [
+        56,
+        151,
+        143
+       ],
+       "oklab": [
+        0.6191,
+        -0.0884,
+        -0.0113
+       ],
+       "lab": [
+        57.032,
+        -29.516,
+        -4.033
+       ],
+       "fraction": 0.3333
+      },
+      {
+       "hex": "#327B76",
+       "srgb": [
+        50,
+        123,
+        118
+       ],
+       "oklab": [
+        0.5349,
+        -0.0715,
+        -0.0121
+       ],
+       "lab": [
+        47.172,
+        -23.802,
+        -4.084
+       ],
+       "fraction": 0.2637
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      45,
+      127,
+      121
+     ],
+     "hex": "#2D7F79",
+     "lab": [
+      48.228,
+      -25.472,
+      -3.683
+     ],
+     "brightness_L": 48.228,
+     "l_stddev": 11.02
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 9.759,
+   "spatial_contrast": 8.371,
+   "busyness": "textured",
+   "lightness_rank": 198,
+   "lightness_percentile": 39.96,
+   "brightness_L": 45.591,
+   "nearest": [
+    {
+     "id": "warped_wart_block",
+     "hex": "#177879",
+     "delta_e00": 4.135
+    },
+    {
+     "id": "warped_planks",
+     "hex": "#2B6862",
+     "delta_e00": 5.317
+    },
+    {
+     "id": "warped_slab",
+     "hex": "#2B6862",
+     "delta_e00": 5.317
+    },
+    {
+     "id": "warped_shelf",
+     "hex": "#338C85",
+     "delta_e00": 7.799
+    },
+    {
+     "id": "cyan_glazed_terracotta",
+     "hex": "#43757C",
+     "delta_e00": 8.29
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.059,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.021,
+     "cross_hatching": 0.422,
+     "stippling": 0.178,
+     "scumbling": 0.0,
+     "glazing": 0.0,
+     "outline": 0.413
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.41,
+    "hf_energy": 0.871,
+    "hatch_score": 0.028,
+    "top": {
+     "coherence": 0.059,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.021,
+      "cross_hatching": 0.422,
+      "stippling": 0.178,
+      "scumbling": 0.0,
+      "glazing": 0.0,
+      "outline": 0.413
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.41,
+     "hf_energy": 0.871,
+     "hatch_score": 0.028
+    }
+   }
+  },
+  {
+   "id": "weathered_copper_door",
+   "display_name": "Weathered Copper Door",
+   "shape": "door",
+   "family": "copper",
+   "subfamily": "door",
+   "dye_color": null,
+   "wood_type": null,
+   "emits_light": false,
+   "light_level": 0,
+   "gravity": false,
+   "biome_tinted": false,
+   "tint_type": null,
+   "faces_differ": false,
+   "sides_differ": false,
+   "face_delta_e00": 0.0,
+   "side_delta_e00": 0.0,
+   "animated": false,
+   "partially_transparent": true,
+   "has_cutout": true,
+   "has_translucency": false,
+   "model": "minecraft:block/weathered_copper_door_bottom_left",
+   "state": {
+    "facing": "north",
+    "half": "lower",
+    "hinge": "left",
+    "open": "false"
+   },
+   "textures": {
+    "top": [
+     "minecraft:block/weathered_copper_door_bottom"
+    ],
+    "side": [
+     "minecraft:block/weathered_copper_door_bottom"
+    ],
+    "bottom": [
+     "minecraft:block/weathered_copper_door_bottom"
+    ],
+    "side_upper": [
+     "minecraft:block/weathered_copper_door_top"
+    ]
+   },
+   "overall": {
+    "srgb": [
+     107,
+     143,
+     102
+    ],
+    "hex": "#6B8F66",
+    "lab": [
+     55.828,
+     -20.19,
+     18.247
+    ],
+    "oklab": [
+     0.6398,
+     -0.0645,
+     0.0452
+    ],
+    "oklch": {
+     "L": 0.6398,
+     "C": 0.0787,
+     "h": 144.96
+    },
+    "brightness_L": 55.828,
+    "hue_deg": 144.96,
+    "chroma": 0.0787,
+    "l_stddev": 9.606,
+    "spatial_contrast": 5.273,
+    "busyness": "textured",
+    "has_cutout": true,
+    "has_translucency": false,
+    "partially_transparent": true
+   },
+   "faces": {
+    "top": {
+     "srgb": [
+      107,
+      143,
+      102
+     ],
+     "hex": "#6B8F66",
+     "srgb_naive": [
+      109,
+      153,
+      110
+     ],
+     "hex_naive": "#6D996E",
+     "srgb_linear_mean": [
+      110,
+      155,
+      114
+     ],
+     "hex_linear_mean": "#6E9B72",
+     "lab": [
+      55.828,
+      -20.19,
+      18.247
+     ],
+     "lab_of_oklab_mean": [
+      59.18,
+      -23.539,
+      18.023
+     ],
+     "oklab": [
+      0.6398,
+      -0.0645,
+      0.0452
+     ],
+     "oklch": {
+      "L": 0.6398,
+      "C": 0.0787,
+      "h": 144.96
+     },
+     "brightness_L": 55.828,
+     "hue_deg": 144.96,
+     "chroma": 0.0787,
+     "l_stddev": 9.606,
+     "spatial_contrast": 5.273,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 204,
+     "transparent_pixels": 52,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#709462",
+       "srgb": [
+        112,
+        148,
+        98
+       ],
+       "oklab": [
+        0.6274,
+        -0.0614,
+        0.0568
+       ],
+       "lab": [
+        57.565,
+        -22.315,
+        22.52
+       ],
+       "fraction": 0.4755
+      },
+      {
+       "hex": "#71B18A",
+       "srgb": [
+        113,
+        177,
+        138
+       ],
+       "oklab": [
+        0.7052,
+        -0.0802,
+        0.0349
+       ],
+       "lab": [
+        67.118,
+        -29.105,
+        13.583
+       ],
+       "fraction": 0.3676
+      },
+      {
+       "hex": "#5C7155",
+       "srgb": [
+        92,
+        113,
+        85
+       ],
+       "oklab": [
+        0.5243,
+        -0.0369,
+        0.0343
+       ],
+       "lab": [
+        45.278,
+        -13.587,
+        13.048
+       ],
+       "fraction": 0.1569
+      }
+     ]
+    },
+    "side": {
+     "srgb": [
+      107,
+      143,
+      102
+     ],
+     "hex": "#6B8F66",
+     "lab": [
+      55.828,
+      -20.19,
+      18.247
+     ],
+     "oklab": [
+      0.6398,
+      -0.0645,
+      0.0452
+     ],
+     "oklch": {
+      "L": 0.6398,
+      "C": 0.0787,
+      "h": 144.96
+     },
+     "brightness_L": 55.828,
+     "hue_deg": 144.96,
+     "chroma": 0.0787,
+     "l_stddev": 9.606,
+     "spatial_contrast": 5.273,
+     "busyness": "textured",
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true
+    },
+    "bottom": {
+     "srgb": [
+      107,
+      143,
+      102
+     ],
+     "hex": "#6B8F66",
+     "srgb_naive": [
+      109,
+      153,
+      110
+     ],
+     "hex_naive": "#6D996E",
+     "srgb_linear_mean": [
+      110,
+      155,
+      114
+     ],
+     "hex_linear_mean": "#6E9B72",
+     "lab": [
+      55.828,
+      -20.19,
+      18.247
+     ],
+     "lab_of_oklab_mean": [
+      59.18,
+      -23.539,
+      18.023
+     ],
+     "oklab": [
+      0.6398,
+      -0.0645,
+      0.0452
+     ],
+     "oklch": {
+      "L": 0.6398,
+      "C": 0.0787,
+      "h": 144.96
+     },
+     "brightness_L": 55.828,
+     "hue_deg": 144.96,
+     "chroma": 0.0787,
+     "l_stddev": 9.606,
+     "spatial_contrast": 5.273,
+     "busyness": "textured",
+     "unique_opaque_colours": 8,
+     "visible_pixels": 204,
+     "transparent_pixels": 52,
+     "translucent_pixels": 0,
+     "has_cutout": true,
+     "has_translucency": false,
+     "partially_transparent": true,
+     "dominant_colours": [
+      {
+       "hex": "#709462",
+       "srgb": [
+        112,
+        148,
+        98
+       ],
+       "oklab": [
+        0.6274,
+        -0.0614,
+        0.0568
+       ],
+       "lab": [
+        57.565,
+        -22.315,
+        22.52
+       ],
+       "fraction": 0.4755
+      },
+      {
+       "hex": "#71B18A",
+       "srgb": [
+        113,
+        177,
+        138
+       ],
+       "oklab": [
+        0.7052,
+        -0.0802,
+        0.0349
+       ],
+       "lab": [
+        67.118,
+        -29.105,
+        13.583
+       ],
+       "fraction": 0.3676
+      },
+      {
+       "hex": "#5C7155",
+       "srgb": [
+        92,
+        113,
+        85
+       ],
+       "oklab": [
+        0.5243,
+        -0.0369,
+        0.0343
+       ],
+       "lab": [
+        45.278,
+        -13.587,
+        13.048
+       ],
+       "fraction": 0.1569
+      }
+     ]
+    },
+    "side_upper": {
+     "srgb": [
+      97,
+      128,
+      94
+     ],
+     "hex": "#61805E",
+     "lab": [
+      49.946,
+      -17.096,
+      15.388
+     ],
+     "brightness_L": 49.946,
+     "l_stddev": 19.34
+    }
+   },
+   "dominant_colours": [],
+   "l_stddev": 7.677,
+   "spatial_contrast": 5.273,
+   "busyness": "textured",
+   "lightness_rank": 356,
+   "lightness_percentile": 72.01,
+   "brightness_L": 59.18,
+   "nearest": [
+    {
+     "id": "waxed_weathered_copper_trapdoor",
+     "hex": "#6E996E",
+     "delta_e00": 0.0
+    },
+    {
+     "id": "waxed_weathered_copper",
+     "hex": "#6E996F",
+     "delta_e00": 0.277
+    },
+    {
+     "id": "weathered_copper",
+     "hex": "#6E996F",
+     "delta_e00": 0.277
+    },
+    {
+     "id": "waxed_weathered_chiseled_copper",
+     "hex": "#6A976F",
+     "delta_e00": 1.237
+    },
+    {
+     "id": "weathered_chiseled_copper",
+     "hex": "#6A976F",
+     "delta_e00": 1.237
+    }
+   ],
+   "gradient_chains": [],
+   "pattern": {
+    "coherence": 0.147,
+    "orientation": "none",
+    "techniques": {
+     "hatching": 0.04,
+     "cross_hatching": 0.336,
+     "stippling": 0.301,
+     "scumbling": 0.0,
+     "glazing": 0.0,
+     "outline": 0.0
+    },
+    "technique": "cross_hatching",
+    "line_period": null,
+    "line_regularity": 0.0,
+    "scale_px": 3.01,
+    "hf_energy": 0.935,
+    "hatch_score": 0.054,
+    "top": {
+     "coherence": 0.147,
+     "orientation": "none",
+     "techniques": {
+      "hatching": 0.04,
+      "cross_hatching": 0.336,
+      "stippling": 0.301,
+      "scumbling": 0.0,
+      "glazing": 0.0,
+      "outline": 0.0
+     },
+     "technique": "cross_hatching",
+     "line_period": null,
+     "line_regularity": 0.0,
+     "scale_px": 3.01,
+     "hf_energy": 0.935,
+     "hatch_score": 0.054
+    }
+   }
   }
  ],
  "gradient_chains": [

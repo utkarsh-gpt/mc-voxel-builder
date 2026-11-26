@@ -49,6 +49,38 @@ The pass runs before `window_kit`, which then only handles the dark clusters tha
 
 Time: about 0.7–0.9 s per subject with a cached Haiku reply. A cold run is about 20–80 s, dominated by the Haiku CLI latency; the 4 views run in parallel.
 
+## Window frames and real doors
+
+**Detection (framed or not).**
+- One extra Haiku call per subject reads the reference photo and the front drawing (`haiku_style`, cached in `out/cache/fd_style_*.json`). It returns:
+  - the window frame style: surround / shutters / sill_only / none
+  - the trim colour
+  - whether arched windows have a stone surround
+  - the door's material, colour, single/double, and door frame style (surround / stone / none)
+- A pixel check confirms it: `ring_check` compares each box's border band in the aligned drawing (where the casing sits) with the wall band just outside it. Rectangular window kits get a frame only if Haiku says so **and** at least 40% of that kit (or of the subject's rectangular windows) has a ring contrast of dE ≥ 12.
+- The frame colour is Haiku's photo colour, one per subject, so every kit matches. Decisions are stored per kit in `NAME_features.json["kits"]`.
+
+**Blocks** (`mc_map.feature_pass`):
+
+| piece | block, blockstate |
+|---|---|
+| framed window (surround) | The glass moves one block in, giving a reveal with a dark backing behind it. The wall-plane cells of the opening hold the trim, which sits flush with the wall: **head** = closed trapdoor `half=top`; **sill** = closed trapdoor `half=bottom`; **jambs** = open trapdoors on the two side edges (`facing` = along the wall, panel on the edge). |
+| heavier sill (framed windows ≥ 2×3, or style sill_only) | **Shelf** of the same wood one block out under the glass (`facing` = outward, `side_chain=unconnected`, `powered=false`). Its back board sits on the wall and its lips stick out. Smaller framed windows keep the slab sill. |
+| shutters | Open trapdoors flush on the wall beside the opening. |
+| trim wood | The nearest trapdoor to the trim colour, plus the shelf of the same wood type (house: `dark_oak_trapdoor` / `dark_oak_shelf`). |
+| door | Real 2-tall door: `half=lower/upper`, `facing` = outward (the leaf sits on the inner face, so it reads recessed), `open=false`, `powered=false`. Openings 2 or more wide get a double door, with `hinge` on each leaf's outer edge (left/right pair). Extra width becomes glass sidelights and extra height a glass transom. Wood type is the nearest door to Haiku's door colour; metal uses iron/copper. Needs a block underneath. |
+| door frame | **surround** (trim): open-trapdoor jambs at the door edges and a closed `half=top` trapdoor head in front of the leaf, the same wood as the windows, plus a stair lintel. **stone**: wall-post jambs and a slab cornice in the wall's own material where there is room. A top-slab threshold goes outside when the step is free. |
+
+Doors were re-admitted to the dataset by `mc-blocks/add_doors.py`, which copies the trapdoor metadata and computes colour stats from the door textures. `side_upper` holds the upper-half texture. `mc_render` now has door and shelf shapes, and it uses the door upper texture for `half=upper`. Both the gallery render and the viewer bake (`palette[*].boxes` / `bake`) pick these up.
+
+The old `window_kit` no longer adds a second window next to a feature window: a dark cluster within 2 cells of feature-built cells goes back to the wall (`dup_reverted`). `MC_FEATURES=0` still reproduces the pre-feature output exactly.
+
+Results:
+- **house**: Haiku said surround, dark brown trim, confirmed by the ring check (subject share 0.50). 32 of 34 windows are recessed and framed: 50 heads, 47 sills, 36 jambs, 18 shelf sills. Dark-oak double door with a transom and a trapdoor frame. 8 duplicate dark clusters were reverted.
+- **hagia**: Haiku said no window trim (cut into the brick, with brick arch heads, which the arch-corner stairs already give). No frames were added. A single dark-oak door with a stone frame style; the jambs/cornice had no free cells there. 8 duplicate windows were reverted.
+
+Cost: one cached style call per subject, about $0.005 ($0.0095 for both).
+
 ## Next steps
 
 - Doors and windows on the left side reuse the mirrored right drawing. Ask Haiku about the real left drawing when the sheet has one.
