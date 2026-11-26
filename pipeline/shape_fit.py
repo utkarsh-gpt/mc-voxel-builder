@@ -532,7 +532,7 @@ def load_scale(n, mesh_ext):
     sc = json.load(open(p)) if os.path.exists(p) else {"length_m": 40.0, "source": "default (no meta/NAME_scale.json)"}
     return sc, sc["length_m"] / max(mesh_ext[0], mesh_ext[2])
 
-def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, height=True, sym=True, sheet=None):
+def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, height=True, sym=True, sheet=None, facade=True):
     t0 = time.time(); mesh_path = mesh_path or f"out/{n}_lowpoly.glb"
     if not os.path.exists(mesh_path) and os.path.exists(f"art/final/meta/{n}_mesh.json"):   # re-download the recorded mesh (no new generation)
         import urllib.request; os.makedirs(os.path.dirname(mesh_path) or ".", exist_ok=True)
@@ -543,6 +543,12 @@ def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, he
     th = np.arctan2(fn[vert, 2], fn[vert, 0]); rot = float(np.angle((fa[vert]*np.exp(4j*th)).sum())/4)
     if abs(rot) < math.radians(1): rot = 0.0
     Rm = trimesh.transformations.rotation_matrix(rot, [0, 1, 0]); mesh.apply_transform(Rm)
+    # facade on +z: hyper3d puts the facade on either end, and feature_detect / the checks look at the front from +z
+    if facade:
+        import orient
+        G0 = mesh.voxelized(mesh.extents.max()/95).fill().matrix                  # [x, y, z] in the rotated mesh frame
+        if orient.facade_flip(G0, f"ortho/{n}{sheet}_right.png" if sheet else None, log):
+            rot += math.pi; mesh.apply_transform(trimesh.transformations.rotation_matrix(math.pi, [0, 1, 0]))
     stretch = sheet_aspect_fix(mesh, n, sheet, log) if sheet else (1.0, 1.0)
     # 2. scale: metres -> blocks
     scale_info, m_per_unit = load_scale(n, mesh.extents); s = m_per_unit*bpm
@@ -612,6 +618,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("name"); ap.add_argument("--mesh"); ap.add_argument("--bpm", type=float, default=1.0)
     ap.add_argument("--R", type=int, default=8); ap.add_argument("--no-fit", action="store_true"); ap.add_argument("--tag")
     ap.add_argument("--no-height", action="store_true"); ap.add_argument("--no-sym", action="store_true")
+    ap.add_argument("--no-facade-flip", action="store_true", help="skip the facade-on-+z orientation step")
     ap.add_argument("--sheet", help="ortho sheet tag (e.g. _v2): stretch the mesh to the drawing's proportions")
     a = ap.parse_args(); run(a.name, a.mesh, a.bpm, a.R, not a.no_fit, a.tag or ("shapefit_nofit" if a.no_fit else "shapefit"),
-                             height=not a.no_height, sym=not a.no_sym, sheet=a.sheet)
+                             height=not a.no_height, sym=not a.no_sym, sheet=a.sheet, facade=not a.no_facade_flip)

@@ -111,6 +111,25 @@ python shape_view.py out/NAME_views.png "NAME" art/NAME_shapefit.json   # quick 
 
 Small buildings (a house is about 10 m across) come out much cleaner at `--bpm 2`, which still means 2-block doors and floors about 6 blocks tall.
 
+### Stamped / detailed-parts pipeline (parallel)
+
+Same photo to sheets to mesh start as above, then instead of paint / shape-fit / feature-detect it:
+
+1. Voxelizes the mesh at a chosen grid and orients the facade onto +z (`orient.py`)
+2. Stamps each blueprint part as real geometry (`stamp_parts.py` - recesses, rose spokes, portals, etc.; only listed parts)
+3. Optionally resizes to an exact W x H x D (for example 45,80,84)
+4. Labels materials and runs `mc_map` (window kit off, because openings are already carved)
+
+```bash
+cd pipeline
+# reuse an existing sheet + mesh (no fal spend):
+python run_stamped.py cathedral --skip-sheet --skip-mesh --mesh out/cathedral_lowpoly.glb --grid 80 --size 45,80,84
+# or generate sheet + mesh like the original, then stamp:
+python run_stamped.py cathedral --grid 80 --size 45,80,84
+```
+
+Outputs land under `art/final/cathedral_stamped_*` and `out/cathedral_stamped/`. Cathedral is the first subject with a stamper; the blueprint is `specs/detailed-parts-cathedral.md`.
+
 In-game: load a `.schem` with WorldEdit/FAWE (`//schem load` then `//paste`) or a `.litematic` with Litematica. Exports are tagged data version 4325 (1.21.5); those tools upgrade them on newer versions.
 
 ### Viewer

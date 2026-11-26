@@ -77,7 +77,7 @@ NATURAL_OK = {"grass_block"}                  # biome-tinted, but the dataset st
 NATURAL = {"grass": {"grass_block": 10.0}}
 NATURAL_TOP = {"grass": "grass_block"}   # top-exposed voxels of the material use the natural block (its top face is what is seen)    # builder prior (dE bonus): terrain materials prefer the vanilla natural block
 SAT_CAP = False                               # new set: reject blocks far more saturated than the target (no garish lime/orange)
-STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "hagia": {"masonry", "drum_render", "lead_roof", "window_dark"}, "house": {"siding", "trim_brown", "roof_shingle", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"}}
+STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "cathedral_stamped": {"limestone", "roof_slate", "window_dark"}, "hagia": {"masonry", "drum_render", "lead_roof", "window_dark"}, "house": {"siding", "trim_brown", "roof_shingle", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"}}
 STRICT_NOW = set()   # set per run: materials whose out-of-family blocks are not allowed at all
 MAX_STEP = 15.0   # a new ramp block must be within this dE2000 of a block already in the material's ramp
 TECH = {"trim": ["outline"], "shadow": ["hatching", "cross_hatching"], "rough": ["stippling", "scumbling"], "smooth": ["glazing"], "plain": []}
@@ -566,7 +566,7 @@ def tech_label(b, role):
     return f"{t} ({sc:.2f})" if sc >= 0.25 else f"colour only (wanted {'/'.join(TECH[role])}, best {sc:.2f})"
 # ---------- main ----------
 WARM = {"windmill": {"stone": ("#958f81", "#a89f8c")}}   # (palette base, photo stone tone): chroma shift only, L ramp kept
-ACCENT_ALL = {"cathedral", "landscape", "turtle", "hagia", "house"}   # every material may get a low-contrast accent toward its photo base
+ACCENT_ALL = {"cathedral", "cathedral_stamped", "landscape", "turtle", "hagia", "house"}   # every material may get a low-contrast accent toward its photo base
 MAX_BLOCKS_PER_MAT = int(os.environ.get("MC_MAX_BLOCKS", 5))   # colour_proto.py experiments; default unchanged
 ACCENTS = os.environ.get("MC_ACCENTS", "1") == "1"                 # warm/accent dither on (default)
 ROLE_POOLS = os.environ.get("MC_ROLE_POOLS", "1") == "1"           # shadow/trim/rough roles may pull blocks from outside the ramp neighbourhood (default)
