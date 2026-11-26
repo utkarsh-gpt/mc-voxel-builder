@@ -59,5 +59,50 @@
  "feature_kinds": {
   "window": 4,
   "arcade": 20
+ },
+ "rebuild_sails": {
+  "keep_z": [
+   3,
+   13
+  ],
+  "hub": [
+   12.75,
+   19.5
+  ],
+  "length": 17.5,
+  "angle_deg": 52,
+  "width": 3,
+  "inner": 0.22,
+  "z": 15,
+  "sail_hex": "#e8e6df",
+  "spar_hex": "#5b4a3a",
+  "why": "mesh drew sails on front AND back; the drawing's front view has one cross in front of the cap (hub/angle/length measured from the drawing and the old sail voxels)"
+ },
+ "drop_lone_posts": true,
+ "zones": {
+  "mode": "force",
+  "rules": [
+   {
+    "axis": "z",
+    "eq": 15,
+    "m": "sail_white"
+   },
+   {
+    "axis": "z",
+    "eq": 14,
+    "m": "sail_white",
+    "within": {
+     "x": [
+      12,
+      12
+     ],
+     "y": [
+      19,
+      19
+     ]
+    }
+   }
+  ],
+  "why": "the see-through sail lattice took the tower's stone colour from the drawing"
  }
 }

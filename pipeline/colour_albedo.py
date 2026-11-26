@@ -131,7 +131,8 @@ def build(n, sheet=None, deshade=True, toned=None, variant=None, mesh=None, dark
     A0 = dist.argmin(-1); dist = dist[..., :gi]; B = B[:gi]
     # (dark rules) the free dark grey only means "pane" when the albedo is dark (L < 40): a shaded mid-grey thatch/stone stays its material
     if wi is not None: dist[..., wi] = np.where((A0 == gi) & ((tgt[..., 0] < 40) if dark_rules else True), -1, dist[..., wi])
-    dist[..., si] = np.where(A0 == gi + 1, -1, dist[..., si])
+    if not (dark_rules and "siding" not in names):   # house rule (light grey = siding); with dark rules and no siding material
+        dist[..., si] = np.where(A0 == gi + 1, -1, dist[..., si])   # the light grey goes to its nearest real material (was: names[0], which put mid-grey thatch on the cottage walls)
     M = np.full(occ.shape, "", object); A = dist.argmin(-1)
     for i, k in enumerate(names): M[occ & (A == i)] = k
     # 4 cleanup

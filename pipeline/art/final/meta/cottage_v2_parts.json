@@ -45,6 +45,24 @@
  "feature_kinds": {
   "window": 2,
   "door": 1,
-  "chimney": 1
- }
+  "chimney": 0
+ },
+ "kit_overrides": {
+  "window": {
+   "style": "surround",
+   "frame_colour": "#7d3426"
+  }
+ },
+ "notes_fix": "Nov 26 fix: front-only door/window (a back-view door was kept before), window kit = red surround (ref), chimney from the mesh (the detector put it at the back, dark); scale 24 -> 30 m for detail",
+ "zones": {
+  "wall": "wall_white",
+  "roof": "thatch",
+  "chimney": "chimney_brick",
+  "chimney_y": 12,
+  "wall_top": 2,
+  "gable_top": 7,
+  "why": "the drawing projection put mid-grey thatch on the walls and brick round the door; the ref has low white walls (3 blocks under the eave), white gable ends to ~58% of the height, a brick chimney on the ridge",
+  "drop_ground_props": true
+ },
+ "drop_lone_posts": true
 }

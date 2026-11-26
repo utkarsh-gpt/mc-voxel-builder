@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T23:38:48",
+  "generated_at": "2026-11-26T13:46:01",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -81,18 +81,18 @@
       "size": [
         59,
         51,
-        29
+        15
       ],
-      "voxelCount": 20840,
+      "voxelCount": 10390,
       "hasShapes": false,
-      "subCount": 2096,
-      "subPct": 10.1,
-      "paletteSize": 118,
+      "subCount": 1160,
+      "subPct": 11.2,
+      "paletteSize": 71,
       "highlight": true,
       "featured": true,
       "ref": null,
-      "mtime": 1795667904,
-      "bytes": 946180
+      "mtime": 1795718668,
+      "bytes": 475328
     },
     {
       "id": "hagia_frames_mc_blocks",
@@ -755,20 +755,20 @@
       "kind": "v2_mc_blocks",
       "format": "mc_blocks",
       "size": [
-        27,
-        13,
-        15
+        33,
+        16,
+        18
       ],
-      "voxelCount": 1959,
+      "voxelCount": 3907,
       "hasShapes": false,
-      "subCount": 431,
-      "subPct": 22.0,
-      "paletteSize": 48,
+      "subCount": 483,
+      "subPct": 12.4,
+      "paletteSize": 36,
       "highlight": true,
       "featured": false,
       "ref": "refs/cottage.jpg",
-      "mtime": 1795667904,
-      "bytes": 122716
+      "mtime": 1795718668,
+      "bytes": 187216
     },
     {
       "id": "cottage_voxels_subblocks",
@@ -1394,16 +1394,16 @@
         37,
         17
       ],
-      "voxelCount": 1954,
+      "voxelCount": 1886,
       "hasShapes": false,
-      "subCount": 553,
-      "subPct": 28.3,
-      "paletteSize": 69,
+      "subCount": 414,
+      "subPct": 22.0,
+      "paletteSize": 47,
       "highlight": true,
       "featured": false,
       "ref": "refs/windmill.jpg",
-      "mtime": 1795667904,
-      "bytes": 147368
+      "mtime": 1795718668,
+      "bytes": 125242
     },
     {
       "id": "windmill_voxels_subblocks",

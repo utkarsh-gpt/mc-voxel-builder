@@ -1,0 +1,8 @@
+{
+ "old_depth": 28,
+ "new_depth": 13,
+ "factor": 0.464,
+ "voxels_before": 21160,
+ "voxels_after": 10506,
+ "why": "Nov 26 fix: the sheet's side/top views drew a deep tower block, so the mesh was 28 deep for 59 wide; the reference gatehouse is a thin wall (~1/4.5 of the width)"
+}

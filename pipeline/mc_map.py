@@ -76,6 +76,10 @@ PREFER = {"roof_shingle": {"brick", "terracotta", "nether_brick", "mud"}, "trim_
           # buff-grey limestone / pale fantasy stone: a grey stone block when one is within PREF_SLACK (was yellow sandstone on the v2 windmill and the gate)
           "stone": {"stone", "andesite", "tuff", "diorite"}, "gate_stone": {"stone", "andesite", "tuff", "diorite", "calcite"}}
 PREF_SLACK = 4.0
+# per-subject overrides of PREFER (fix round, Nov 26): the v2 windmill's speckled white diorite read as "not stone";
+# andesite is within 0.3 dE of diorite for the drawn buff-grey and reads as clean grey masonry
+PREFER_SUBJ = {"windmill_v2": {"stone": {"andesite", "stone"}}}
+PREFER_NOW = dict(PREFER)
 LEGACY = os.environ.get("MC_LEGACY", "0") == "1"   # A/B switch: 1 = the mapper as it was before DETAIL_DISCOVERY P0
 ACCENT_MAX_DE = float(os.environ.get("MC_ACCENT_MAX_DE", 20.0 if LEGACY else 10.0))   # was 20: white_terracotta on sandstone (16 dE) read as pink patches
 NATURAL_OK = {"grass_block"}                  # biome-tinted, but the dataset stores its plains-tinted colours; only used via NATURAL
@@ -83,7 +87,7 @@ NATURAL = {"grass": {"grass_block": 10.0}}
 NATURAL_TOP = {"grass": "grass_block"}   # top-exposed voxels of the material use the natural block (its top face is what is seen)    # builder prior (dE bonus): terrain materials prefer the vanilla natural block
 SAT_CAP = False                               # new set: reject blocks far more saturated than the target (no garish lime/orange)
 STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "hagia": {"masonry", "drum_render", "lead_roof", "window_dark"}, "house": {"siding", "trim_brown", "roof_shingle", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"},
-          "windmill_v2": {"stone", "cap_slate", "window_dark"}, "cottage_v2": {"wall_white", "window_dark", "chimney_brick"},
+          "windmill_v2": {"stone", "cap_slate", "window_dark"}, "cottage_v2": {"wall_white", "window_dark", "chimney_brick", "thatch"},
           "gate": {"gate_stone", "roof_slate"}}
 STRICT_NOW = set()   # set per run: materials whose out-of-family blocks are not allowed at all
 MAX_STEP = 15.0   # a new ramp block must be within this dE2000 of a block already in the material's ramp
@@ -147,7 +151,7 @@ def choose(s, pool, base_L=None, used=()):
         return min(((x[0][1], x[1]) for x in fam_ok), default=(None, None))[1]
     sc = ok
     best_de = min(x[0][1] for x in sc)
-    pref = PREFER.get(s["m"])
+    pref = PREFER_NOW.get(s["m"])
     if pref:
         pr = [x for x in sc if BL[x[1]]["family"] in pref and x[0][1] <= best_de + PREF_SLACK]
         if pr: sc = pr; best_de = min(x[0][1] for x in sc)
@@ -179,7 +183,13 @@ for b in D["blocks"]:
     if b["shape"] == "wall": TEX_WALL.setdefault(b["textures"]["side"][0], b["id"])
 def wall_of(bid):
     b = BL[bid]; return TEX_WALL.get(b["textures"]["side"][0]) if b["shape"] in ("full_block", "slab", "stairs") else None
-PANES = [b["id"] for b in D["blocks"] if b["shape"] == "pane"]
+PANE_IDS = {b["id"] for b in D["blocks"] if b["shape"] == "pane"}
+# Glass panes are switched off (user, Nov 26: "they keep popping up everywhere"); MC_ALLOW_PANES=1 restores them.
+# blocks.json has no full glass blocks, so windows are filled with the nearest solid block from dark/neutral building
+# families instead (concrete, terracotta, wool, deepslate, blackstone, wood ...).
+ALLOW_PANES = os.environ.get("MC_ALLOW_PANES", "0") == "1"
+WINDOW_FILL_FAM = {"concrete", "terracotta", "wool", "deepslate", "blackstone", "obsidian", "basalt", "tuff"}
+PANES = sorted(PANE_IDS) if ALLOW_PANES else [b["id"] for b in CAND if b["family"] in WINDOW_FILL_FAM]
 # ---------- shape-aware block choice (DETAIL_DISCOVERY.md P0.1) ----------
 # A block that cannot take the shapes its voxels need flattens them to full cubes (white_terracotta has no stairs/slabs).
 # Each slot records the share of its voxels that need a slab / stairs / thin vertical piece; a block pays W_SHAPE per unit of
@@ -298,7 +308,9 @@ def window_kit(G, base_of, mat_blocks, size, near=None):
     for comp in _components([p for p, g in G.items() if g["m"] in WINDOW_MATS]):
         ys = [p[1] for p in comp]; out = collections.Counter(d for p in comp for d in DIR4 if _add(p, d) not in G)
         dup = bool(near) and any((p[0] + dx, p[1] + dy, p[2] + dz) in near for p in comp for dx in (-2, -1, 0, 1, 2) for dy in (-1, 0, 1) for dz in (-2, -1, 0, 1, 2))
-        if max(ys) - min(ys) + 1 < 2 or not out or dup:      # speck (or a duplicate of a feature window): back to the wall material
+        roof = sum(_add(p, (0, 1, 0)) not in G for p in comp) >= 0.5*len(comp)   # dark patch on a roof / chimney top (air above), not in a wall
+        if roof: log["roof_reverted"] += 1
+        if max(ys) - min(ys) + 1 < 2 or not out or dup or roof:      # speck (or a duplicate of a feature window, or a roof patch): back to the wall material
             if dup: log["dup_reverted"] += 1
             for p in comp:
                 nb = collections.Counter(G[_add(p, d)]["m"] for d in N6 if _add(p, d) in G and G[_add(p, d)]["m"] not in WINDOW_MATS)
@@ -367,6 +379,8 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
         if f.get("rect") and f["kind"] in ("window", "door"): groups[(f["kind"], bool(f.get("arch")), f["w"], f["h"])].append(f)
     for gk, fs in groups.items():
         lab = np.mean([hex2lab(f["colour"]) for f in fs], 0); tgt = lab.copy(); tgt[0] = min(tgt[0], 45)
+        fc = kits.get(f"{gk[0]}|{int(gk[1])}|{gk[2]}|{gk[3]}", {}).get("fill_colour")
+        if fc: tgt = hex2lab(fc)   # a hand fill colour from the parts list (lit windows are bright, not darkened glass)
         # glass reads darker than the drawn window (frame + glazing average): the pane nearest a darkened version
         kit_pane[gk] = min(PANES, key=lambda b: dE(tgt, lab_of(BL[b], "side")))
     def trim(q, facing, blk, what):
@@ -431,7 +445,7 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
                 lv = np.array(DIR4_INV[outward]); left = (lv[2], 0, -lv[0])       # the placing player's left (player faces 'facing')
                 for i, u in enumerate(leaves):
                     pl = cells.get((u, y0))
-                    if not pl or _add(pl, (0, -1, 0)) not in G: continue          # a door needs a block under it
+                    if not pl or (pl[1] > 0 and _add(pl, (0, -1, 0)) not in G): continue   # a door needs a block under it (or the ground at y 0)
                     toward_low = (i == 0)                                        # this leaf's hinge sits on its outer edge
                     hinge_dir = tuple(-c for c in ua) if toward_low else ua
                     hinge = "left" if (len(leaves) == 1 or np.dot(left, hinge_dir) > 0) else "right"
@@ -444,7 +458,10 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
                 for (u, y), p in cells.items():
                     if p in built: continue
                     if u in leaves and y <= y0 + 1: continue
-                    G[p] = dict(G[p], id=pane, props={}, m="glass"); built.add(p); log["door_glass"] += 1   # transom / sidelights
+                    if ALLOW_PANES: G[p] = dict(G[p], id=pane, props={}, m="glass"); built.add(p); log["door_glass"] += 1   # transom / sidelights
+                    else:   # no panes: transom / sidelights become the door's own wood (a wide arched door panel, as on the cottage)
+                        pk = nearest("full_block", dl, {"wood"}) or pane
+                        G[p] = dict(G[p], id=pk, props={}, m="door"); built.add(p); log["door_panel"] += 1
                 # threshold: a top slab step just outside the sill line (only where nothing is there and the wall below supports it)
                 for u in range(u0, u1 + 1):
                     pb = cells.get((u, y0))
@@ -579,7 +596,7 @@ MAX_BLOCKS_PER_MAT = int(os.environ.get("MC_MAX_BLOCKS", 5))   # colour_proto.py
 ACCENTS = os.environ.get("MC_ACCENTS", "1") == "1"                 # warm/accent dither on (default)
 ROLE_POOLS = os.environ.get("MC_ROLE_POOLS", "1") == "1"           # shadow/trim/rough roles may pull blocks from outside the ramp neighbourhood (default)
 def run(n):
-    global STRICT_NOW, SAT_CAP; STRICT_NOW = STRICT.get(n, set()); SAT_CAP = n in ACCENT_ALL
+    global STRICT_NOW, SAT_CAP, PREFER_NOW; STRICT_NOW = STRICT.get(n, set()); SAT_CAP = n in ACCENT_ALL; PREFER_NOW = {**PREFER, **PREFER_SUBJ.get(n, {})}
     # colour_albedo.py output (labels colour_mode = albedo): the colours are already clean albedo per material, so no accent
     # dither, <= 3 blocks per material and roles stay inside the material's own ramp
     albedo = json.load(open(f"art/final/meta/{n}_texture_labels.json")).get("colour_mode") == "albedo"
@@ -701,6 +718,10 @@ def run(n):
     fbuilt = None
     if FEATURES and os.path.exists(fp): detail_log["features"], fbuilt = feature_pass(G, json.load(open(fp)), base_of, used_by_mat, T["size"])
     if WINDOW_KIT: detail_log["windows"] = window_kit(G, base_of, used_by_mat, T["size"], fbuilt)
+    if not ALLOW_PANES:   # safety sweep: nothing may leave this function as a glass pane
+        for p_, g_ in G.items():
+            if g_["id"] in PANE_IDS:
+                G[p_] = dict(g_, id=min(PANES, key=lambda b: dE(g_["lab"], lab_of(BL[b], "side"))), props={}); detail_log["panes_swept"] = detail_log.get("panes_swept", 0) + 1
     detail_log["connected"] = connect(G)
     pal, vox_out = {}, []
     for (x, y, z), g in sorted(G.items()):

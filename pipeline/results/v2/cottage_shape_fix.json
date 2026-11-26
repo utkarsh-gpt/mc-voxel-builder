@@ -1,0 +1,32 @@
+{
+ "old": {
+  "front": 0.879,
+  "front_aspect_err_pct": 23.3,
+  "right": 0.575,
+  "right_aspect_err_pct": 52.5,
+  "top": 0.799,
+  "top_aspect_err_pct": 69.5,
+  "mean_iou": 0.751,
+  "speckle_pct": 0.0
+ },
+ "prev": {
+  "front": 0.902,
+  "front_aspect_err_pct": 4.1,
+  "right": 0.581,
+  "right_aspect_err_pct": 44.8,
+  "top": 0.8,
+  "top_aspect_err_pct": 71.7,
+  "mean_iou": 0.761,
+  "speckle_pct": 0.0
+ },
+ "new": {
+  "front": 0.866,
+  "front_aspect_err_pct": 4.1,
+  "right": 0.58,
+  "right_aspect_err_pct": 45.7,
+  "top": 0.796,
+  "top_aspect_err_pct": 72.1,
+  "mean_iou": 0.747,
+  "speckle_pct": 0.0
+ }
+}

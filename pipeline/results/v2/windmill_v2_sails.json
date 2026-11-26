@@ -1,0 +1,23 @@
+{
+ "removed_outside_z": 354,
+ "spar": 105,
+ "sail": 162,
+ "params": {
+  "keep_z": [
+   3,
+   13
+  ],
+  "hub": [
+   12.75,
+   19.5
+  ],
+  "length": 17.5,
+  "angle_deg": 52,
+  "width": 3,
+  "inner": 0.22,
+  "z": 15,
+  "sail_hex": "#e8e6df",
+  "spar_hex": "#5b4a3a",
+  "why": "mesh drew sails on front AND back; the drawing's front view has one cross in front of the cap (hub/angle/length measured from the drawing and the old sail voxels)"
+ }
+}

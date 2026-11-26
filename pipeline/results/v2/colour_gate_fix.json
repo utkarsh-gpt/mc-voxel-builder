@@ -1,0 +1,24 @@
+{
+ "summary": {
+  "de_mean": 14.64,
+  "de_median": 13.03,
+  "de_p90": 24.55,
+  "outlier_pct": 2.5,
+  "palette_emd": 19.91,
+  "de_mean_block": 14.27,
+  "de_p90_block": 22.95,
+  "outlier_pct_block": 1.76,
+  "palette_emd_block": 20.32
+ },
+ "photo": {
+  "camera": [
+   3,
+   5
+  ],
+  "pixel_deltaE": 24.3,
+  "palette_deltaE": 12.2,
+  "lab_hist_intersection": 0.153,
+  "luminance_corr": 0.269,
+  "silhouette_iou": 0.813
+ }
+}

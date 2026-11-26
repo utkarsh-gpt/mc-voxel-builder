@@ -21,7 +21,7 @@
   </script>
 </head>
 <body data-state="loading" data-ready="0">
-  <a class="skip" href="#model-select">Skip to model picker</a>
+  <a class="skip" href="#model-search" id="skip-picker">Skip to model picker</a>
 
   <div id="app">
     <aside id="sidebar" aria-label="Model and details">
@@ -42,12 +42,46 @@
         <ul id="featured" class="chips" role="list"></ul>
       </section>
 
-      <section class="block">
-        <label class="eyebrow" for="model-select">All models</label>
-        <div class="select-wrap">
-          <select id="model-select"></select>
+      <section class="block picker" id="picker" aria-labelledby="picker-label">
+        <h2 class="eyebrow" id="picker-label">Catalogue <span class="eyebrow-note" id="picker-count"></span></h2>
+
+        <!-- narrow screens: compact trigger that opens the browser as a drawer -->
+        <button type="button" class="picker-trigger" id="picker-trigger" aria-expanded="false" aria-controls="picker-body">
+          <span class="pt-text">
+            <span class="pt-subject" id="pt-subject">—</span>
+            <span class="pt-label" id="pt-label">Loading…</span>
+          </span>
+          <span class="pt-hint">Browse</span>
+          <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="picker-body" id="picker-body">
+          <div class="search">
+            <svg class="search-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m10.4 10.4 3.4 3.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <input id="model-search" type="text" role="combobox" aria-haspopup="tree" aria-expanded="true" aria-controls="model-tree"
+                   aria-autocomplete="list" aria-label="Search models" placeholder="Search models"
+                   autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go"
+                   aria-keyshortcuts="/ Control+K Meta+K" />
+            <kbd class="search-kbd" aria-hidden="true">/</kbd>
+            <button type="button" class="search-clear" id="search-clear" aria-label="Clear search" hidden>
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="m3 3 6 6M9 3 3 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="filters" role="group" aria-label="Filter models">
+            <button type="button" class="filter" data-filter="all" aria-pressed="true">All <span class="filter-n" data-n="all"></span></button>
+            <button type="button" class="filter" data-filter="highlight" aria-pressed="false"><span class="diamond" aria-hidden="true">◆</span> Highlights <span class="filter-n" data-n="highlight"></span></button>
+            <button type="button" class="filter" data-filter="mc" aria-pressed="false">MC blocks <span class="filter-n" data-n="mc"></span></button>
+          </div>
+          <ul id="model-tree" class="tree" role="tree" aria-label="Models by subject" tabindex="0"></ul>
+          <p class="picker-empty" id="picker-empty" hidden>
+            Nothing matches <q id="picker-empty-q"></q>.
+            <button type="button" class="link-btn" id="picker-empty-clear">Clear filters</button>
+          </p>
+          <p class="picker-foot" aria-hidden="true">
+            <span><span class="star">★</span> featured <span class="diamond">◆</span> highlight</span>
+            <span><kbd>[</kbd><kbd>]</kbd> step <kbd>/</kbd> search</span>
+          </p>
         </div>
-        <p class="legend" aria-hidden="true"><span class="star">★</span> featured · <span class="diamond">◆</span> highlight</p>
       </section>
 
       <section class="block" aria-labelledby="stats-label">

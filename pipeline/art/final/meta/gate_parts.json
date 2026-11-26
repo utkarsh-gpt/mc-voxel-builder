@@ -58,6 +58,22 @@
  "feature_kinds": {
   "window": 80,
   "arcade": 4,
-  "spire": 4
- }
+  "spire": 0
+ },
+ "squash_z": {
+  "depth": 13,
+  "why": "Nov 26 fix: the sheet's side/top views drew a deep tower block, so the mesh was 28 deep for 59 wide; the reference gatehouse is a thin wall (~1/4.5 of the width)"
+ },
+ "kit_overrides": {
+  "window": {
+   "fill_colour": "#d99a40"
+  }
+ },
+ "zones": {
+  "mode": "roof_not_under_wall",
+  "roof": "roof_slate",
+  "wall": "gate_stone",
+  "why": "dark arch outlines / soffits in the drawing became black roof on vertical stone"
+ },
+ "notes_fix": "spires off: the detector placed a 24-block pole beside the left wing after the squash; the mesh already has the pointed turret caps"
 }

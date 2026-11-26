@@ -1,0 +1,214 @@
+{
+ "sheet": "_s2",
+ "shading": {
+  "materials": [
+   {
+    "ab": [
+     -1.4,
+     12.7
+    ],
+    "share": 0.49,
+    "L60": {
+     "front": 67.3,
+     "right": 67.6,
+     "back": 67.4
+    }
+   },
+   {
+    "ab": [
+     -0.8,
+     8.5
+    ],
+    "share": 0.14,
+    "L60": {
+     "front": 67.0,
+     "right": 67.5,
+     "back": 67.4
+    }
+   }
+  ],
+  "top_vs_front_dL": null,
+  "shadow_share": 0.221,
+  "gradient_std": 2.626,
+  "issues": [
+   "cast shadows / shading: 22% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)"
+  ],
+  "shaded": true
+ },
+ "depth_count": {
+  "front": {
+   "found_recess": 1,
+   "found_open": 2,
+   "listed_recess": 1,
+   "listed_open": 2
+  },
+  "right": {
+   "found_recess": 2,
+   "found_open": 3,
+   "listed_recess": 0,
+   "listed_open": 2
+  },
+  "back": {
+   "found_recess": 0,
+   "found_open": 2,
+   "listed_recess": 0,
+   "listed_open": 2
+  },
+  "left": {
+   "found_recess": 0,
+   "found_open": 3,
+   "listed_recess": 0,
+   "listed_open": 2
+  }
+ },
+ "depth_detail": {
+  "front": {
+   "patches": 3,
+   "recess": 1,
+   "open": 2,
+   "image_hw": [
+    37,
+    27
+   ],
+   "list": [
+    {
+     "kind": "open",
+     "cells": 18,
+     "row": 32,
+     "col": 11,
+     "h": 9,
+     "w": 2
+    },
+    {
+     "kind": "open",
+     "cells": 18,
+     "row": 32,
+     "col": 15,
+     "h": 9,
+     "w": 2
+    },
+    {
+     "kind": "recess",
+     "cells": 8,
+     "row": 30,
+     "col": 9,
+     "h": 5,
+     "w": 2
+    }
+   ]
+  },
+  "right": {
+   "patches": 5,
+   "recess": 2,
+   "open": 3,
+   "image_hw": [
+    37,
+    17
+   ],
+   "list": [
+    {
+     "kind": "open",
+     "cells": 7,
+     "row": 21,
+     "col": 2,
+     "h": 7,
+     "w": 1
+    },
+    {
+     "kind": "open",
+     "cells": 16,
+     "row": 32,
+     "col": 7,
+     "h": 9,
+     "w": 2
+    },
+    {
+     "kind": "open",
+     "cells": 25,
+     "row": 32,
+     "col": 10,
+     "h": 9,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 22,
+     "col": 8,
+     "h": 3,
+     "w": 1
+    },
+    {
+     "kind": "recess",
+     "cells": 8,
+     "row": 32,
+     "col": 5,
+     "h": 8,
+     "w": 1
+    }
+   ]
+  },
+  "back": {
+   "patches": 2,
+   "recess": 0,
+   "open": 2,
+   "image_hw": [
+    37,
+    27
+   ],
+   "list": [
+    {
+     "kind": "open",
+     "cells": 18,
+     "row": 32,
+     "col": 12,
+     "h": 9,
+     "w": 2
+    },
+    {
+     "kind": "open",
+     "cells": 18,
+     "row": 32,
+     "col": 16,
+     "h": 9,
+     "w": 2
+    }
+   ]
+  },
+  "left": {
+   "patches": 3,
+   "recess": 0,
+   "open": 3,
+   "image_hw": [
+    37,
+    17
+   ],
+   "list": [
+    {
+     "kind": "open",
+     "cells": 7,
+     "row": 21,
+     "col": 14,
+     "h": 7,
+     "w": 1
+    },
+    {
+     "kind": "open",
+     "cells": 25,
+     "row": 32,
+     "col": 6,
+     "h": 9,
+     "w": 3
+    },
+    {
+     "kind": "open",
+     "cells": 16,
+     "row": 32,
+     "col": 10,
+     "h": 9,
+     "w": 2
+    }
+   ]
+  }
+ }
+}

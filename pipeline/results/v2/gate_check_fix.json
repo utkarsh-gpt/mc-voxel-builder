@@ -1,0 +1,370 @@
+{
+ "sheet": "_s1",
+ "shading": {
+  "materials": [
+   {
+    "ab": [
+     2.4,
+     6.3
+    ],
+    "share": 0.318,
+    "top_vs_front_dL": -24.4,
+    "L60": {
+     "front": 53.5,
+     "right": 48.7,
+     "back": 55.5,
+     "top": 29.1
+    }
+   },
+   {
+    "ab": [
+     4.1,
+     10.0
+    ],
+    "share": 0.313,
+    "top_vs_front_dL": -27.9,
+    "L60": {
+     "front": 57.9,
+     "right": 57.0,
+     "back": 61.0,
+     "top": 30.1
+    }
+   },
+   {
+    "ab": [
+     3.8,
+     15.2
+    ],
+    "share": 0.184,
+    "top_vs_front_dL": 5.4,
+    "L60": {
+     "front": 63.9,
+     "right": 66.1,
+     "back": 66.8,
+     "top": 69.3
+    }
+   }
+  ],
+  "top_vs_front_dL": -27.9,
+  "shadow_share": 0.35,
+  "gradient_std": 8.861,
+  "issues": [
+   "lighting is not flat: the same material is 28 L darker in the TOP plan than in the FRONT view; draw every view with the same flat, evenly lit colour and no directional light",
+   "cast shadows / shading: 35% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)",
+   "lighting gradients inside flat materials (std 8.9 L); use uniform flat colour per material"
+  ],
+  "shaded": true
+ },
+ "depth_count": {
+  "front": {
+   "found_recess": 9,
+   "found_open": 3,
+   "listed_recess": 13,
+   "listed_open": 3
+  },
+  "right": {
+   "found_recess": 3,
+   "found_open": 0,
+   "listed_recess": 0,
+   "listed_open": 0
+  },
+  "back": {
+   "found_recess": 9,
+   "found_open": 3,
+   "listed_recess": 13,
+   "listed_open": 3
+  },
+  "left": {
+   "found_recess": 3,
+   "found_open": 0,
+   "listed_recess": 0,
+   "listed_open": 0
+  }
+ },
+ "depth_detail": {
+  "front": {
+   "patches": 12,
+   "recess": 9,
+   "open": 3,
+   "image_hw": [
+    51,
+    59
+   ],
+   "list": [
+    {
+     "kind": "open",
+     "cells": 350,
+     "row": 34,
+     "col": 29,
+     "h": 33,
+     "w": 12
+    },
+    {
+     "kind": "open",
+     "cells": 77,
+     "row": 43,
+     "col": 12,
+     "h": 15,
+     "w": 6
+    },
+    {
+     "kind": "open",
+     "cells": 78,
+     "row": 43,
+     "col": 46,
+     "h": 15,
+     "w": 6
+    },
+    {
+     "kind": "recess",
+     "cells": 6,
+     "row": 7,
+     "col": 29,
+     "h": 2,
+     "w": 4
+    },
+    {
+     "kind": "recess",
+     "cells": 13,
+     "row": 22,
+     "col": 25,
+     "h": 8,
+     "w": 5
+    },
+    {
+     "kind": "recess",
+     "cells": 13,
+     "row": 22,
+     "col": 32,
+     "h": 8,
+     "w": 5
+    },
+    {
+     "kind": "recess",
+     "cells": 80,
+     "row": 35,
+     "col": 21,
+     "h": 31,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 80,
+     "row": 35,
+     "col": 36,
+     "h": 31,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 32,
+     "col": 7,
+     "h": 1,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 32,
+     "col": 50,
+     "h": 1,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 35,
+     "row": 43,
+     "col": 9,
+     "h": 16,
+     "w": 4
+    },
+    {
+     "kind": "recess",
+     "cells": 35,
+     "row": 43,
+     "col": 49,
+     "h": 16,
+     "w": 4
+    }
+   ]
+  },
+  "right": {
+   "patches": 3,
+   "recess": 3,
+   "open": 0,
+   "image_hw": [
+    51,
+    15
+   ],
+   "list": [
+    {
+     "kind": "recess",
+     "cells": 9,
+     "row": 22,
+     "col": 5,
+     "h": 5,
+     "w": 2
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 28,
+     "col": 5,
+     "h": 3,
+     "w": 1
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 28,
+     "col": 9,
+     "h": 3,
+     "w": 1
+    }
+   ]
+  },
+  "back": {
+   "patches": 12,
+   "recess": 9,
+   "open": 3,
+   "image_hw": [
+    51,
+    59
+   ],
+   "list": [
+    {
+     "kind": "open",
+     "cells": 350,
+     "row": 34,
+     "col": 30,
+     "h": 33,
+     "w": 12
+    },
+    {
+     "kind": "open",
+     "cells": 78,
+     "row": 43,
+     "col": 13,
+     "h": 15,
+     "w": 6
+    },
+    {
+     "kind": "open",
+     "cells": 77,
+     "row": 43,
+     "col": 47,
+     "h": 15,
+     "w": 6
+    },
+    {
+     "kind": "recess",
+     "cells": 6,
+     "row": 7,
+     "col": 30,
+     "h": 2,
+     "w": 4
+    },
+    {
+     "kind": "recess",
+     "cells": 13,
+     "row": 22,
+     "col": 26,
+     "h": 8,
+     "w": 5
+    },
+    {
+     "kind": "recess",
+     "cells": 13,
+     "row": 22,
+     "col": 33,
+     "h": 8,
+     "w": 5
+    },
+    {
+     "kind": "recess",
+     "cells": 80,
+     "row": 35,
+     "col": 22,
+     "h": 31,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 80,
+     "row": 35,
+     "col": 37,
+     "h": 31,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 32,
+     "col": 8,
+     "h": 1,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 32,
+     "col": 51,
+     "h": 1,
+     "w": 3
+    },
+    {
+     "kind": "recess",
+     "cells": 35,
+     "row": 43,
+     "col": 10,
+     "h": 16,
+     "w": 4
+    },
+    {
+     "kind": "recess",
+     "cells": 35,
+     "row": 43,
+     "col": 50,
+     "h": 16,
+     "w": 4
+    }
+   ]
+  },
+  "left": {
+   "patches": 3,
+   "recess": 3,
+   "open": 0,
+   "image_hw": [
+    51,
+    15
+   ],
+   "list": [
+    {
+     "kind": "recess",
+     "cells": 9,
+     "row": 22,
+     "col": 5,
+     "h": 5,
+     "w": 2
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 28,
+     "col": 5,
+     "h": 3,
+     "w": 1
+    },
+    {
+     "kind": "recess",
+     "cells": 3,
+     "row": 28,
+     "col": 9,
+     "h": 3,
+     "w": 1
+    }
+   ]
+  }
+ }
+}

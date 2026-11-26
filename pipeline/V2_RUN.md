@@ -56,3 +56,40 @@ detached facade). Haiku (feature_detect only) ~$0.10 estimated.
   sheet's side/top views were wrong and were dropped.
 
 Files: `results/v2/` (check, carve, shape, colour summaries, ledger, before/after images).
+
+## Fix round (Nov 26, 2026) — user feedback: no glass panes; fix windmill sails, cottage chimney/window/roof, gate depth
+fal spend this round: **$0** (no new sheets or meshes; separate cap $0.80 via `V2_LEDGER`/`V2_CAP`, unused). Haiku: one
+feature_detect run each for cottage_v2 (after the rescale) and gate (after the squash).
+
+**Glass panes banned** (`mc_map.py`): `PANES` is now a list of solid window-fill blocks (concrete, terracotta, wool,
+deepslate, blackstone, obsidian, basalt, tuff; blocks.json has no full glass blocks); a sweep converts anything that is still
+a pane before output; door transoms/sidelights become the door's own wood. `MC_ALLOW_PANES=1` restores the old behaviour.
+`shape_fit.py`, `feature_detect.py` and the colour stages never place panes. Pane count in the three rebuilt models: 0/0/0.
+(Older viewer models built before this — house*, hagia*, cathedral — still contain panes until they are rebuilt.)
+
+New `run_v2.py` stages / options (all driven by the hand parts list, `art/final/meta/<n>_parts.json`):
+- `sails` (windmill): strip voxels outside the tower's z range (the mesh had sails on front AND back), rebuild ONE sail
+  cross in the plane in front of the cap: 4 stocks at +/-52 deg through the hub (12.75, 19.5), 17.5 long, lattice 3 wide on
+  the trailing side as thin vslabs, axle block to the cap.
+- `squash` (gate): resample the grid along z to 13 blocks (was 28): thin gatehouse wall like the reference.
+- `zones`: `force` (windmill sail plane -> sail_white), `roof_not_under_wall` (gate: no roof label under stone),
+  full geometric zone paint (cottage: white walls 3 high under the eave and gable ends to y 7, thatch elsewhere, brick
+  chimney, ground props dropped).
+- `filter_features`: parts listed on some faces only keep detections from those faces (the cottage had a back door);
+  `kit_overrides` (cottage window = red mangrove surround; gate windows = lit fill #d99a40); `drop_lone_posts` after map.
+- `V2_KEEP_FEATURES=1` reuses the filtered features (no Haiku call).
+Other code: `colour_albedo --dark-rules` no longer sends the free light grey to `names[0]` when there is no siding
+(it put the mid-grey thatch on the cottage walls); `mc_map`: doors may stand on y 0, `PREFER_SUBJ` (windmill stone ->
+andesite: clean grey masonry instead of speckled diorite), lit-window `fill_colour`, cottage thatch STRICT.
+Cottage scale 24 -> 30 m (door/window 4-5 blocks, walls 3).
+
+| model | colour dE mean/p90/EMD (prev) | photo px dE (prev) | shape IoU F/R/T mean (prev; old) | depth count | panes |
+|---|---|---|---|---|---|
+| windmill_v2 | 12.14 / 20.06 / 12.15 (11.11 / 16.62 / 11.13) | 24.8 (28.5) | 0.598/0.448/0.750 = 0.599 (0.568; old 0.611) | open arches 2/2 all faces; drum window 1/1 | 0 |
+| cottage_v2 | 10.15 / 25.74 / 9.72 (7.70 / 17.12 / 8.22) | 17.4 (16.7) | 0.866/0.580/0.796 = 0.747 (0.761; old 0.751) | front recesses 3 found / 2 listed | 0 |
+| gate | 14.64 / 24.55 / 19.91 (14.17 / 25.33 / 18.48) | 24.3 (24.8) | 0.791/0.277/0.469 = 0.512 (0.530) | open 3/3 front+back; recess 9/13 front, 9/13 back | 0 |
+
+The gate's right/top IoU is measured against the sheet's side/top views, which are wrong (a deep tower), so a thinner,
+reference-like gate scores lower there; depth/width is now 13/59 = 0.22 (was 0.47). The cottage's colour score vs the
+drawing went down because the zones overrule the drawing projection, but visually the white walls, red door, red framed
+window, brick ridge chimney and clean roof match the reference better than the old cottage (see the before/after image).
