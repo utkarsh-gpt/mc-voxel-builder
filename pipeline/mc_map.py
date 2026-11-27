@@ -619,29 +619,73 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
         log["kits"] += 1
     log["frame_blocks"] = {k: v["trapdoor"] + ("/" + v["shelf"] if v["shelf"] else "") for k, v in frame.items()}
     # protrusions
+    # A spire is a short wall-post tip (antenna / finial / minaret cap); a chimney is a short stack sitting on a roof.
+    # Never extrude from y=0 or a much-lower terrace just because the detected (x, z) missed the roof by a block —
+    # that is what produced the 1x1 vertical poles hanging from eaves / minarets down to the ground.
     STACK = {"brick", "mud", "terracotta", "stone", "deepslate", "granite", "andesite", "tuff", "blackstone", "nether_brick", "sandstone"}
+    SPIRE_MAX_H, CHIMNEY_MAX_H = 12, 16
+    def roof_under(x, z, yt, radius=2):
+        """highest existing cell strictly below yt in a Chebyshev neighbourhood of (x, z)"""
+        best = None                                                    # (y, x, z, chebyshev)
+        for dx in range(-radius, radius + 1):
+            for dz in range(-radius, radius + 1):
+                xx, zz = x + dx, z + dz
+                if not (0 <= xx < W and 0 <= zz < D): continue
+                for y in range(yt - 1, -1, -1):
+                    if (xx, y, zz) in G:
+                        dist = max(abs(dx), abs(dz))
+                        if best is None or y > best[0] or (y == best[0] and dist < best[3]):
+                            best = (y, xx, zz, dist)
+                        break
+        return best
     for f in feats:
         if f["kind"] not in ("chimney", "spire") or f.get("rect"): continue
         x, z = int(np.clip(round(f["x"] - 0.5), 0, W - 1)), int(np.clip(round(f["z"] - 0.5), 0, D - 1))
-        yb = int(f.get("base_y", 0)) + 1; yt = int(min(H - 1, math.floor(f["y_top"] - 1e-6)))
-        if yt < yb: log[f["kind"] + "_skipped"] += 1; continue
+        yt = int(min(H - 1, math.floor(f["y_top"] - 1e-6)))
+        att = roof_under(x, z, yt)
+        max_h = CHIMNEY_MAX_H if f["kind"] == "chimney" else SPIRE_MAX_H
+        if f.get("h"): max_h = min(max_h, int(math.ceil(float(f["h"]))) + 1)
+        # a 1x1 stack taller than 6 already reads as a pole; only a wider chimney (w or d >= 1.5) may go higher
+        fw = max(1, int(round(float(f.get("w") or 1))))
+        fd = max(1, int(round(float(f.get("d") or 1))))
+        if f["kind"] == "chimney" and (fw >= 2 or fd >= 2):
+            fw, fd = min(max(fw, 2), 3), min(max(fd, 2), 3)
+        else:
+            fw, fd = 1, 1
+            max_h = min(max_h, 6)
+        # skip: nothing to sit on, mesh already reaches the tip, or the nearest roof is far below (a missed column, not a tip)
+        if att is None or yt <= att[0] or (yt - att[0]) > max_h:
+            log[f["kind"] + "_skipped"] += 1; continue
+        if att[3] > 0 and (x, att[0], z) not in G:                     # snap onto the roof we actually attached to
+            x, z = att[1], att[2]
+        yb = att[0] + 1
         lab = hex2lab(f["colour"])
+        # footprint centred on (x, z), each column still required to sit on the same roof level
+        cols = []
+        ox, oz = -((fw - 1)//2), -((fd - 1)//2)
+        for dx in range(fw):
+            for dz in range(fd):
+                xx, zz = x + ox + dx, z + oz + dz
+                if 0 <= xx < W and 0 <= zz < D and (xx, att[0], zz) in G: cols.append((xx, zz))
+        if not cols: log[f["kind"] + "_skipped"] += 1; continue
         if f["kind"] == "chimney":
             pool = [b for b in CAND if b["family"] in STACK and b["shape"] == "full_block" and slab_of(b["id"])]
             bid = min(pool, key=lambda b: dE(lab, lab_of(b, "side")))["id"]
-            for y in range(yb, yt + 1):
-                p = (x, y, z)
-                if p in G: continue
-                G[p] = {"id": bid if y < yt or yt == yb else slab_of(bid), "props": {} if (y < yt or yt == yb) else {"type": "bottom"}, "m": "chimney", "role": "plain", "lab": lab}
-                log["chimney_blocks"] += 1
+            for cx, cz in cols:
+                for y in range(yb, yt + 1):
+                    p = (cx, y, cz)
+                    if p in G: continue
+                    G[p] = {"id": bid if y < yt or yt == yb else slab_of(bid), "props": {} if (y < yt or yt == yb) else {"type": "bottom"}, "m": "chimney", "role": "plain", "lab": lab}
+                    log["chimney_blocks"] += 1
             log["chimneys"] += 1
         else:
             pool = [b for b in CAND if b["shape"] == "full_block" and wall_of(b["id"])]
             wl = wall_of(min(pool, key=lambda b: dE(lab, lab_of(b, "side")))["id"]) if pool else None
             if not wl: continue
-            for y in range(yb, yt + 1):
-                p = (x, y, z)
-                if p not in G: G[p] = {"id": wl, "props": {}, "m": "spire", "role": "plain", "lab": lab}; log["spire_blocks"] += 1
+            for cx, cz in cols:
+                for y in range(yb, yt + 1):
+                    p = (cx, y, cz)
+                    if p not in G: G[p] = {"id": wl, "props": {}, "m": "spire", "role": "plain", "lab": lab}; log["spire_blocks"] += 1
             log["spires"] += 1
     return dict(log), built
 CONN = {"wall", "pane", "bars", "fence"}

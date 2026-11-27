@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T23:05:07",
+  "generated_at": "2026-11-26T23:43:58",
   "default_id": "mosque_combined_mc_blocks",
   "models": [
     {
@@ -14,17 +14,17 @@
         30,
         42
       ],
-      "voxelCount": 11900,
+      "voxelCount": 11839,
       "hasShapes": false,
-      "subCount": 1918,
-      "subPct": 16.1,
-      "paletteSize": 152,
+      "subCount": 1858,
+      "subPct": 15.7,
+      "paletteSize": 150,
       "highlight": true,
       "featured": true,
       "ref": "refs/mosque.jpg",
-      "mtime": 1795752304,
-      "updated_at": 1795752304,
-      "bytes": 616069
+      "mtime": 1795754635,
+      "updated_at": 1795752557,
+      "bytes": 611585
     },
     {
       "id": "wizard_tower_combined_mc_blocks",
@@ -38,17 +38,17 @@
         138,
         36
       ],
-      "voxelCount": 28421,
+      "voxelCount": 28121,
       "hasShapes": false,
-      "subCount": 4127,
-      "subPct": 14.5,
-      "paletteSize": 224,
+      "subCount": 3887,
+      "subPct": 13.8,
+      "paletteSize": 203,
       "highlight": true,
       "featured": true,
       "ref": "refs/wizard_tower.jpg",
-      "mtime": 1795752304,
-      "updated_at": 1795752304,
-      "bytes": 1384676
+      "mtime": 1795754634,
+      "updated_at": 1795752557,
+      "bytes": 1352119
     },
     {
       "id": "rapunzel_tower_v2_combined_mc_blocks",
@@ -62,17 +62,17 @@
         80,
         42
       ],
-      "voxelCount": 9962,
+      "voxelCount": 9455,
       "hasShapes": false,
-      "subCount": 2180,
-      "subPct": 21.9,
-      "paletteSize": 207,
+      "subCount": 1656,
+      "subPct": 17.5,
+      "paletteSize": 214,
       "highlight": true,
       "featured": false,
       "ref": null,
-      "mtime": 1795752304,
-      "updated_at": 1795752304,
-      "bytes": 606255
+      "mtime": 1795754633,
+      "updated_at": 1795752557,
+      "bytes": 588615
     },
     {
       "id": "rapunzel_tower_combined_mc_blocks",

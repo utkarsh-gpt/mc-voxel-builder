@@ -5,79 +5,41 @@
   "geo": 0.5
  },
  "zones": {
-  "wall": {
-   "base": "white_terracotta",
+  "chimney": {
+   "base": "stone_bricks",
    "ladder_dark_to_light": [
-    "stripped_poplar_wood",
-    "white_terracotta"
+    "chiseled_tuff",
+    "tuff",
+    "stone_bricks",
+    "andesite",
+    "smooth_stone"
    ],
    "L": [
-    63.9,
-    74.9
+    39.2,
+    45.8,
+    51.2,
+    56.7,
+    65.1
    ],
-   "base_index": 1,
+   "base_index": 2,
    "surface_split_pct": {
-    "shadow": 4.9,
-    "base": 95.1,
-    "highlight": 0.0
+    "shadow": 34.1,
+    "base": 34.1,
+    "highlight": 31.7
    },
    "blocks": {
-    "white_terracotta": 371,
-    "sandstone_stairs": 20,
-    "stripped_poplar_wood": 19,
-    "sandstone_wall": 2
+    "stone_bricks": 11,
+    "andesite": 10,
+    "tuff": 8,
+    "chiseled_tuff": 5,
+    "smooth_stone": 3,
+    "stone_brick_slab": 3,
+    "tuff_slab": 1
    },
    "counts": {
-    "base": 371,
-    "kept": 22,
-    "shadow": 19,
-    "interior": 460
-   }
-  },
-  "accent": {
-   "base": "spruce_planks",
-   "ladder_dark_to_light": [
-    "jungle_wood",
-    "spruce_planks",
-    "mud_bricks",
-    "jungle_planks"
-   ],
-   "L": [
-    29.8,
-    38.5,
-    46.7,
-    52.2
-   ],
-   "base_index": 1,
-   "surface_split_pct": {
-    "shadow": 8.5,
-    "base": 68.2,
-    "highlight": 23.2
-   },
-   "blocks": {
-    "spruce_planks": 797,
-    "spruce_slab": 250,
-    "brown_wool": 247,
-    "mud_bricks": 227,
-    "jungle_wood": 170,
-    "spruce_trapdoor": 169,
-    "spruce_stairs": 136,
-    "mud_brick_slab": 95,
-    "jungle_planks": 90,
-    "jungle_slab": 68,
-    "mud_brick_stairs": 44,
-    "brown_wool_stairs": 34,
-    "brown_wool_slab": 31,
-    "jungle_trapdoor": 30,
-    "jungle_stairs": 25,
-    "brown_concrete_slab": 13,
-    "brown_concrete_stairs": 13
-   },
-   "counts": {
-    "base": 1664,
-    "highlight": 567,
-    "shadow": 208,
-    "interior": 2180
+    "highlight": 13,
+    "shadow": 14,
+    "base": 14
    }
   },
   "roof": {
@@ -98,37 +60,112 @@
    ],
    "base_index": 2,
    "surface_split_pct": {
-    "shadow": 20.7,
-    "base": 57.8,
-    "highlight": 21.5
+    "shadow": 18.5,
+    "base": 61.1,
+    "highlight": 20.4
    },
    "blocks": {
-    "light_gray_concrete": 466,
-    "light_gray_concrete_slab": 168,
-    "light_gray_concrete_stairs": 163,
-    "tuff_slab": 143,
-    "light_gray_wool_slab": 138,
-    "tuff": 102,
-    "light_gray_wool": 80,
-    "light_gray_wool_stairs": 67,
-    "chiseled_tuff": 23,
-    "tuff_stairs": 17,
-    "stripped_poplar_wood": 11
+    "light_gray_concrete": 448,
+    "light_gray_concrete_stairs": 155,
+    "tuff": 135,
+    "light_gray_wool_slab": 120,
+    "light_gray_concrete_slab": 111,
+    "light_gray_wool_stairs": 58,
+    "light_gray_wool": 45,
+    "chiseled_tuff": 38,
+    "tuff_stairs": 34,
+    "stripped_poplar_wood": 16,
+    "tuff_slab": 9
    },
    "counts": {
-    "shadow": 285,
-    "base": 797,
-    "highlight": 296,
+    "base": 714,
+    "highlight": 239,
+    "shadow": 216,
     "interior": 732
+   }
+  },
+  "wall": {
+   "base": "white_terracotta",
+   "ladder_dark_to_light": [
+    "stripped_poplar_wood",
+    "white_terracotta"
+   ],
+   "L": [
+    63.9,
+    74.9
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 17.0,
+    "base": 83.0,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "white_terracotta": 322,
+    "stripped_poplar_wood": 66,
+    "sandstone_stairs": 20,
+    "sandstone_wall": 2
+   },
+   "counts": {
+    "base": 322,
+    "kept": 22,
+    "shadow": 66,
+    "interior": 460
+   }
+  },
+  "accent": {
+   "base": "spruce_planks",
+   "ladder_dark_to_light": [
+    "jungle_wood",
+    "spruce_planks",
+    "mud_bricks",
+    "jungle_planks"
+   ],
+   "L": [
+    29.8,
+    38.5,
+    46.7,
+    52.2
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 14.1,
+    "base": 62.3,
+    "highlight": 23.7
+   },
+   "blocks": {
+    "spruce_planks": 748,
+    "jungle_wood": 266,
+    "brown_wool": 225,
+    "mud_bricks": 203,
+    "spruce_trapdoor": 127,
+    "spruce_stairs": 126,
+    "mud_brick_slab": 112,
+    "jungle_planks": 89,
+    "spruce_slab": 80,
+    "mud_brick_stairs": 45,
+    "jungle_trapdoor": 38,
+    "brown_wool_slab": 38,
+    "brown_wool_stairs": 34,
+    "jungle_slab": 31,
+    "brown_concrete_stairs": 24,
+    "jungle_stairs": 23,
+    "brown_concrete_slab": 4
+   },
+   "counts": {
+    "highlight": 524,
+    "base": 1378,
+    "shadow": 311,
+    "interior": 2180
    }
   },
   "accent_1": {
    "base": "jungle_planks",
    "ladder_dark_to_light": [
-    "stripped_spruce_log",
+    "stripped_spruce_wood",
     "terracotta",
     "jungle_planks",
-    "stripped_jungle_wood"
+    "stripped_jungle_log"
    ],
    "L": [
     40.0,
@@ -138,65 +175,31 @@
    ],
    "base_index": 2,
    "surface_split_pct": {
-    "shadow": 17.6,
-    "base": 70.3,
-    "highlight": 12.1
+    "shadow": 18.0,
+    "base": 72.8,
+    "highlight": 9.1
    },
    "blocks": {
-    "jungle_planks": 391,
-    "jungle_trapdoor": 102,
-    "terracotta": 92,
-    "stripped_jungle_wood": 50,
-    "jungle_stairs": 37,
-    "stripped_spruce_log": 24,
-    "oak_slab": 21,
-    "jungle_slab": 17,
-    "oak_stairs": 10,
-    "mud_brick_stairs": 9,
-    "mud_brick_slab": 7,
-    "spruce_trapdoor": 1,
+    "jungle_planks": 406,
+    "jungle_trapdoor": 94,
+    "terracotta": 66,
+    "stripped_spruce_wood": 43,
+    "stripped_jungle_log": 42,
+    "jungle_stairs": 38,
+    "jungle_slab": 20,
+    "mud_brick_stairs": 16,
+    "oak_slab": 8,
+    "spruce_trapdoor": 5,
+    "mud_brick_slab": 3,
+    "oak_stairs": 2,
     "mud_brick_wall": 1
    },
    "counts": {
-    "base": 536,
+    "base": 542,
     "shadow": 134,
     "interior": 1116,
-    "highlight": 92,
+    "highlight": 68,
     "kept": 63
-   }
-  },
-  "chimney": {
-   "base": "stone_bricks",
-   "ladder_dark_to_light": [
-    "chiseled_tuff",
-    "tuff",
-    "stone_bricks",
-    "andesite",
-    "smooth_stone"
-   ],
-   "L": [
-    39.2,
-    45.8,
-    51.2,
-    56.7,
-    65.1
-   ],
-   "base_index": 2,
-   "surface_split_pct": {
-    "shadow": 9.5,
-    "base": 57.1,
-    "highlight": 33.3
-   },
-   "blocks": {
-    "stone_bricks": 8,
-    "andesite": 8,
-    "andesite_slab": 3,
-    "tuff": 2
-   },
-   "counts": {
-    "base": 12,
-    "highlight": 7,
-    "shadow": 2
    }
   }
  }

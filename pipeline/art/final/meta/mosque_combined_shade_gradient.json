@@ -22,23 +22,23 @@
    "base_index": 2,
    "surface_split_pct": {
     "shadow": 16.1,
-    "base": 70.2,
-    "highlight": 13.7
+    "base": 69.8,
+    "highlight": 14.1
    },
    "blocks": {
-    "stripped_poplar_log": 1456,
-    "white_terracotta": 311,
+    "stripped_poplar_log": 1449,
+    "white_terracotta": 319,
     "poplar_stairs": 271,
-    "poplar_planks": 86,
-    "stripped_poplar_wood": 79,
+    "poplar_planks": 87,
+    "stripped_poplar_wood": 77,
     "poplar_trapdoor": 59,
     "poplar_slab": 5,
     "light_gray_concrete": 2
    },
    "counts": {
-    "base": 1593,
-    "highlight": 311,
-    "shadow": 365,
+    "base": 1584,
+    "highlight": 319,
+    "shadow": 366,
     "interior": 4057
    }
   },
@@ -47,7 +47,7 @@
    "ladder_dark_to_light": [
     "polished_diorite",
     "pale_oak_planks",
-    "stripped_pale_oak_log",
+    "stripped_pale_oak_wood",
     "snow_block"
    ],
    "L": [
@@ -58,27 +58,27 @@
    ],
    "base_index": 1,
    "surface_split_pct": {
-    "shadow": 18.9,
-    "base": 59.0,
-    "highlight": 22.1
+    "shadow": 18.8,
+    "base": 59.2,
+    "highlight": 22.0
    },
    "blocks": {
-    "pale_oak_planks": 785,
+    "pale_oak_planks": 787,
     "pale_oak_slab": 319,
-    "polished_diorite": 319,
-    "pale_oak_stairs": 259,
+    "polished_diorite": 316,
+    "pale_oak_stairs": 258,
     "white_wool_slab": 234,
-    "stripped_pale_oak_log": 139,
+    "stripped_pale_oak_wood": 141,
     "pale_oak_trapdoor": 137,
-    "white_wool_stairs": 131,
+    "white_wool_stairs": 132,
     "polished_diorite_stairs": 79,
     "polished_diorite_slab": 73,
-    "snow_block": 15
+    "snow_block": 14
    },
    "counts": {
-    "base": 1469,
-    "shadow": 471,
-    "highlight": 550,
+    "base": 1473,
+    "shadow": 468,
+    "highlight": 549,
     "interior": 2500,
     "kept": 40
    }
@@ -138,19 +138,18 @@
    ],
    "base_index": 2,
    "surface_split_pct": {
-    "shadow": 40.0,
-    "base": 60.0,
-    "highlight": 0.0
+    "shadow": 0.0,
+    "base": 66.7,
+    "highlight": 33.3
    },
    "blocks": {
-    "andesite": 2,
-    "andesite_slab": 1,
-    "tuff": 1,
-    "stone_brick_slab": 1
+    "smooth_stone": 1,
+    "sandstone": 1,
+    "sandstone_slab": 1
    },
    "counts": {
-    "base": 3,
-    "shadow": 2
+    "highlight": 1,
+    "base": 2
    }
   }
  }

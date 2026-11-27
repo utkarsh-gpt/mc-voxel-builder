@@ -5,11 +5,36 @@
   "geo": 0.5
  },
  "zones": {
+  "chimney": {
+   "base": "granite",
+   "ladder_dark_to_light": [
+    "cinnabar",
+    "granite",
+    "exposed_cut_copper"
+   ],
+   "L": [
+    43.4,
+    48.0,
+    53.8
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 0.0,
+    "base": 100.0,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "granite": 1
+   },
+   "counts": {
+    "base": 1
+   }
+  },
   "trim_brown": {
    "base": "poplar_log",
    "ladder_dark_to_light": [
     "poplar_log",
-    "oak_wood"
+    "oak_log"
    ],
    "L": [
     27.2,
@@ -23,7 +48,7 @@
    },
    "blocks": {
     "poplar_log": 208,
-    "oak_wood": 30,
+    "oak_log": 30,
     "dark_oak_stairs": 14
    },
    "counts": {
@@ -87,53 +112,26 @@
    "base_index": 1,
    "surface_split_pct": {
     "shadow": 14.6,
-    "base": 76.5,
-    "highlight": 9.0
+    "base": 76.3,
+    "highlight": 9.1
    },
    "blocks": {
-    "bricks": 210,
+    "bricks": 209,
     "brick_stairs": 122,
     "brick_slab": 113,
     "cinnabar": 37,
     "cinnabar_stairs": 34,
     "jungle_slab": 28,
+    "exposed_chiseled_copper": 16,
     "cinnabar_slab": 15,
-    "exposed_chiseled_copper": 15,
     "jungle_stairs": 10,
     "brick_wall": 7
    },
    "counts": {
-    "highlight": 53,
-    "base": 452,
+    "highlight": 54,
+    "base": 451,
     "shadow": 86,
     "interior": 456
-   }
-  },
-  "chimney": {
-   "base": "granite",
-   "ladder_dark_to_light": [
-    "cinnabar",
-    "granite",
-    "exposed_cut_copper"
-   ],
-   "L": [
-    43.4,
-    48.0,
-    53.8
-   ],
-   "base_index": 1,
-   "surface_split_pct": {
-    "shadow": 50.0,
-    "base": 0.0,
-    "highlight": 50.0
-   },
-   "blocks": {
-    "cinnabar": 1,
-    "exposed_cut_copper_slab": 1
-   },
-   "counts": {
-    "shadow": 1,
-    "highlight": 1
    }
   }
  }

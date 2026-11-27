@@ -25,36 +25,36 @@
    ],
    "base_index": 3,
    "surface_split_pct": {
-    "shadow": 26.9,
-    "base": 51.5,
-    "highlight": 21.6
+    "shadow": 27.0,
+    "base": 50.8,
+    "highlight": 22.2
    },
    "blocks": {
-    "andesite": 1775,
-    "stone_bricks": 774,
-    "smooth_stone": 572,
-    "andesite_stairs": 323,
-    "diorite": 277,
+    "andesite": 1778,
+    "stone_bricks": 790,
+    "smooth_stone": 584,
+    "andesite_stairs": 327,
+    "diorite": 309,
     "tuff_bricks": 234,
-    "deepslate": 76,
-    "diorite_stairs": 65,
-    "andesite_slab": 55,
-    "andesite_wall": 54,
-    "stone_brick_stairs": 24,
-    "stone_brick_wall": 15,
-    "cobbled_deepslate_stairs": 10,
-    "tuff_brick_stairs": 8,
-    "diorite_slab": 8,
-    "stone_brick_slab": 8,
-    "tuff_brick_wall": 4,
-    "diorite_wall": 4,
+    "deepslate": 87,
+    "diorite_stairs": 60,
+    "andesite_wall": 58,
+    "andesite_slab": 56,
+    "stone_brick_stairs": 35,
+    "diorite_slab": 12,
+    "cobbled_deepslate_stairs": 9,
+    "tuff_brick_wall": 8,
+    "stone_brick_wall": 8,
+    "tuff_brick_stairs": 5,
+    "stone_brick_slab": 3,
+    "diorite_wall": 3,
     "tuff_brick_slab": 1
    },
    "counts": {
-    "base": 2207,
-    "shadow": 1154,
-    "highlight": 926,
-    "interior": 3592
+    "base": 2219,
+    "highlight": 968,
+    "shadow": 1180,
+    "interior": 3612
    }
   },
   "roof_slate": {
@@ -73,29 +73,30 @@
    ],
    "base_index": 1,
    "surface_split_pct": {
-    "shadow": 9.9,
-    "base": 66.0,
-    "highlight": 24.0
+    "shadow": 13.7,
+    "base": 60.6,
+    "highlight": 25.7
    },
    "blocks": {
-    "deepslate_tiles": 452,
-    "deepslate_tile_stairs": 314,
-    "deepslate_brick_stairs": 148,
-    "blackstone": 93,
-    "deepslate_bricks": 85,
-    "deepslate_tile_slab": 50,
-    "polished_basalt": 47,
-    "blackstone_stairs": 23,
-    "deepslate_brick_slab": 18,
+    "deepslate_tiles": 436,
+    "deepslate_tile_stairs": 295,
+    "deepslate_brick_stairs": 173,
+    "blackstone": 132,
+    "deepslate_bricks": 107,
+    "deepslate_tile_slab": 47,
+    "blackstone_stairs": 40,
+    "polished_basalt": 28,
+    "deepslate_brick_slab": 21,
     "blackstone_slab": 4,
     "deepslate_tile_wall": 3,
-    "blackstone_wall": 3
+    "deepslate_brick_wall": 2,
+    "blackstone_wall": 1
    },
    "counts": {
-    "base": 819,
-    "interior": 400,
-    "shadow": 123,
-    "highlight": 298
+    "base": 781,
+    "interior": 414,
+    "highlight": 331,
+    "shadow": 177
    }
   }
  }

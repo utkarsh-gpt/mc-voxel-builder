@@ -451,7 +451,7 @@ def detect(n, tag=None, K=8, log=print, llm=True):
                 xi = int(np.clip(round(xa), 0, W - 1)); col = tops[xi]; zb = float(np.argmax(col)) if (col >= 0).any() else D/2; dz = a["w"]
             used.add((va, i))
             prot3.append({"kind": a["kind"], "x": round(float(xa), 2), "z": round(float(zb), 2), "w": a["w"], "d": round(float(dz), 2),
-                          "y_top": round(float(ytop), 2), "colour": a["colour"], "views": [va] + ([vb] if best else [])})
+                          "y_top": round(float(ytop), 2), "h": a.get("h"), "colour": a["colour"], "views": [va] + ([vb] if best else [])})
     for vb in ("right", "left"):                                     # seen only from a side: x from the model's ridge there
         for j, b in enumerate(debug.get(vb, {}).get("prot", [])):
             if (vb, j) in used: continue
@@ -472,7 +472,7 @@ def detect(n, tag=None, K=8, log=print, llm=True):
             if xa is None:
                 col = tops[:, zi]; m = col.max(); xa = float(np.median(np.flatnonzero(col == m))) if m >= 0 else W/2
             prot3.append({"kind": b["kind"], "x": round(float(xa), 2), "z": round(float(zb), 2), "w": b["w"], "d": b["w"], "y_top": round(float(ytop), 2),
-                          "colour": b["colour"], "views": [vb]})
+                          "h": b.get("h"), "colour": b["colour"], "views": [vb]})
     # dedupe (front and back can both see the same chimney)
     keep = []
     for p in sorted(prot3, key=lambda p: -len(p["views"])):
@@ -480,7 +480,20 @@ def detect(n, tag=None, K=8, log=print, llm=True):
         keep.append(p)
     for p in keep:
         X, Z = int(np.clip(round(p["x"] - 0.5), 0, W - 1)), int(np.clip(round(p["z"] - 0.5), 0, D - 1))
-        p["base_y"] = int(tops[X, Z]) if tops[X, Z] >= 0 else 0
+        # nearest / highest roof under y_top in a small neighbourhood — an off-by-one eave must not fall back to y=0
+        # (that default is what made mc_map extrude a ground-to-tip 1x1 pole beside a minaret or roof edge)
+        y_top = p["y_top"]; best_y = -1
+        for dx in range(-2, 3):
+            for dz in range(-2, 3):
+                xx, zz = int(np.clip(X + dx, 0, W - 1)), int(np.clip(Z + dz, 0, D - 1))
+                t = int(tops[xx, zz])
+                if t >= 0 and t < y_top and t > best_y: best_y = t
+        if best_y < 0:
+            p["base_y"] = -1                                          # no roof under the tip: skip at map time
+        else:
+            p["base_y"] = best_y
+            if p.get("h") and (y_top - best_y) > float(p["h"]) + 2:
+                p["base_y"] = int(max(best_y, math.floor(y_top - float(p["h"]) - 1)))
         feats.append(dict(p, kind=p["kind"], cells=None))
     # frames: per-subject style from Haiku (photo + drawing), confirmed per kit by the drawing's ring contrast
     style = {}

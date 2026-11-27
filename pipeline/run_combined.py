@@ -16,7 +16,7 @@ per subject N (writes the variant N_combined; N's own files are never touched):
   7. mc_map N_combined with MC_GLASS=windows -> out/combined/N_combined_mapped.json (glass only in feature-pass openings)
   8. shade_gradient on that model, sampling N's own ortho sheets (sheet_subject=N), auto zones for uncurated materials
      -> art/final/N_combined_mc_blocks.json (+ schematics)
-  9. audit: glass outside stamped openings, creaking_heart, through-openings still open
+  9. audit: glass outside stamped openings, creaking_heart, stray 1x1 poles, detached ground scraps
 Spend: $0 (no fal, no LLM: feature_detect runs with llm=False and only when no cached features exist).
 """
 import argparse, collections, json, os, subprocess, sys
@@ -104,6 +104,97 @@ def drop_lone_posts(p):
         json.dump(d, open(p, "w"))
     return len(gone)
 
+def _components(occ):
+    """6-connected components, largest first. occ is an (x,y,z) set or a list of voxels."""
+    cells = set(occ); seen = set(); comps = []
+    for p in cells:
+        if p in seen: continue
+        stack = [p]; seen.add(p); comp = [p]
+        while stack:
+            x, y, z = stack.pop()
+            for dx, dy, dz in ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)):
+                n = (x + dx, y + dy, z + dz)
+                if n in cells and n not in seen:
+                    seen.add(n); stack.append(n); comp.append(n)
+        comps.append(comp)
+    comps.sort(key=len, reverse=True)
+    return comps
+
+def drop_detached_scraps(occ, ground_h=2):
+    """Drop leftover terrain: a flat ground-level component disconnected from the main structure.
+    Mid-air parts (hanging lanterns, flying buttresses) and the main body are kept."""
+    cells = list(zip(*np.nonzero(occ)))
+    comps = _components(cells)
+    if len(comps) <= 1: return occ, 0
+    keep, dropped = set(comps[0]), 0
+    for comp in comps[1:]:
+        ys = [p[1] for p in comp]
+        if (max(ys) - min(ys) + 1) <= ground_h and min(ys) <= 1:
+            dropped += len(comp); continue
+        keep.update(comp)
+    if not dropped: return occ, 0
+    out = np.zeros_like(occ)
+    for x, y, z in keep: out[x, y, z] = True
+    return out, dropped
+
+def _lonely_runs(occ, min_h=4):
+    """Contiguous 1x1 vertical runs with no 4-neighbour in the xz plane, length >= min_h."""
+    by_xz = collections.defaultdict(list)
+    for x, y, z in occ: by_xz[(x, z)].append(y)
+    dirs = ((1, 0), (-1, 0), (0, 1), (0, -1)); runs = []
+    for (x, z), ys in by_xz.items():
+        ys = sorted(ys); run = [ys[0]]
+        for y in ys[1:]:
+            if y == run[-1] + 1: run.append(y)
+            else:
+                runs.append((x, z, run)); run = [y]
+        runs.append((x, z, run))
+    out = []
+    for x, z, run in runs:
+        lonely = [y for y in run if sum(((x + dx, y, z + dz) in occ) for dx, dz in dirs) == 0]
+        if not lonely: continue
+        sub = [lonely[0]]; subs = []
+        for y in lonely[1:]:
+            if y == sub[-1] + 1: sub.append(y)
+            else: subs.append(sub); sub = [y]
+        subs.append(sub)
+        for sub in subs:
+            if len(sub) >= min_h: out.append((x, z, sub))
+    return out
+
+def drop_stray_poles(path, min_h=4):
+    """Remove 1x1 vertical columns that hang in the air, run down to the ground, or are absurdly tall.
+    A real finial / chimney sits on a roof (solid cell immediately below) and stays short."""
+    d = json.load(open(path)); occ = {(v["x"], v["y"], v["z"]) for v in d["voxels"]}; gone = set()
+    for x, z, sub in _lonely_runs(occ, min_h):
+        h, y0 = len(sub), sub[0]
+        below = (x, y0 - 1, z) in occ
+        # hanging / ground-reaching poles, absurdly tall columns, or any 1x1 stick of 8+ (already reads as a pillar)
+        if (y0 <= 1 and h >= min_h) or (not below and h >= min_h) or h >= 8:
+            gone.update((x, y, z) for y in sub)
+    if gone:
+        d["voxels"] = [v for v in d["voxels"] if (v["x"], v["y"], v["z"]) not in gone]
+        for q in d["palette"].values(): q["count"] = 0
+        for v in d["voxels"]: d["palette"][v["b"]]["count"] += 1
+        json.dump(d, open(path, "w"))
+    return len(gone)
+
+def _pole_and_scrap_metrics(d):
+    occ = {(v["x"], v["y"], v["z"]) for v in d["voxels"]}
+    poles = _lonely_runs(occ, 8)
+    # a leftover pole: 1x1 run of height >= 8 that reaches the ground, hangs (no cell below), or is >= 16 tall
+    bad = []
+    for x, z, sub in poles:
+        h, y0 = len(sub), sub[0]
+        if (y0 <= 1 and h >= 8) or ((x, y0 - 1, z) not in occ and h >= 8) or h >= 8:
+            bad.append((x, z, sub))
+    comps = _components(occ); ground = []
+    for comp in comps[1:]:
+        ys = [p[1] for p in comp]
+        if (max(ys) - min(ys) + 1) <= 2 and min(ys) <= 1: ground.append(comp)
+    return {"stray_poles": len(bad), "stray_pole_blocks": sum(len(s) for _, _, s in bad),
+            "ground_scraps": len(ground), "ground_scrap_blocks": sum(len(c) for c in ground)}
+
 def audit(a, feats2):
     d = json.load(open(f"art/final/{a}_mc_blocks.json")); pal = d["palette"]
     ids = collections.Counter(pal[v["b"]]["id"] for v in d["voxels"])
@@ -118,8 +209,12 @@ def audit(a, feats2):
                 for k in range(-3, 4):
                     pl = r["plane"] + k; ok.add((u, y, pl) if r["axis"] == "z" else (pl, y, u))
     stray = [g for g in glass if g not in ok]
+    extra = _pole_and_scrap_metrics(d)
+    if extra["stray_poles"] or extra["ground_scraps"]:
+        print("  AUDIT WARN stray poles/scraps", extra)
     return {"blocks": len(d["voxels"]), "glass": len(glass), "glass_ids": {k: c for k, c in ids.items() if "pane" in k or "glass" in k},
-            "stray_glass": len(stray), "creaking_heart": ids.get("creaking_heart", 0), "shroomlight": ids.get("shroomlight", 0)}
+            "stray_glass": len(stray), "creaking_heart": ids.get("creaking_heart", 0), "shroomlight": ids.get("shroomlight", 0),
+            **extra}
 
 def run(n, organic_flag=False, orient_apply=False, detect=False, no_peaks=False):
     a = f"{n}_combined"; print(f"== {n} -> {a}")
@@ -160,6 +255,8 @@ def run(n, organic_flag=False, orient_apply=False, detect=False, no_peaks=False)
         for pr, m, rm in zip(prep, mats, rowm): pr["material"] = m; pr["row_materials"] = {str(y): v for y, v in sorted(rm.items())}
         rep["peaks"] = prep; rep["counts"]["peaks"] = len(prep)
         rep["peaks_cells"] = {f"{c[0]},{c[1]},{c[2]}": k for c, k in owner.items()}
+    occ2, n_scrap = drop_detached_scraps(occ2)
+    if n_scrap: print(f"  dropped {n_scrap} detached ground-scrap voxels"); rep.setdefault("counts", {})["ground_scraps_dropped"] = n_scrap
     new = write_alias(n, a, T, L, N, occ2, feats2, fj, rep, organic, override, pshapes if not organic and not no_peaks else None)
     print(f"  occupancy {int(occ.sum())} -> {int(occ2.sum())} (new cells {new})")
     os.makedirs("out/combined", exist_ok=True); mapped = f"out/combined/{a}_mapped.json"
@@ -168,6 +265,8 @@ def run(n, organic_flag=False, orient_apply=False, detect=False, no_peaks=False)
     print(r.stdout[-800:], r.stderr[-1500:])
     if r.returncode: raise SystemExit("mc_map failed")
     if P.get("drop_lone_posts"): print("  lone posts dropped", drop_lone_posts(mapped))
+    n_poles = drop_stray_poles(mapped)
+    if n_poles: print(f"  dropped {n_poles} stray 1x1 pole voxels")
     import shade_gradient
     w = {"cottage_v2": (0.25, 0.75)}.get(n, (0.5, 0.5))
     shade_gradient.run(a, a, w[0], w[1], model=mapped, sheet_subject=n, sheet_tag=tag, auto=True)
