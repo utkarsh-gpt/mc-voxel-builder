@@ -15,7 +15,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 from scipy import ndimage
 import fal_client
-import ortho_gen, ortho_verify, ortho_clean, shading_check, fal_shape, vox
+import ortho_gen, ortho_verify, ortho_clean, shading_check, fal_shape, vox, orient, llm
 
 SHEET_USD, MESH_USD = 0.039, 0.20
 HAIKU = "claude-haiku-5-5"
@@ -111,9 +111,12 @@ def mesh(tag, cap):
     return glb, res["model_mesh"]["url"]
 
 def voxels(glb, grid, tag):
-    d = fal_shape.voxelize(glb, grid); d["name"] = f"cathedral_{tag}_g{grid}"; p = f"{OUT}/{tag}_g{grid}.json"; json.dump(d, open(p, "w"))
+    d = fal_shape.voxelize(glb, grid); d["name"] = f"cathedral_{tag}_g{grid}"; p = f"{OUT}/{tag}_g{grid}.json"
     W, H, D = d["size"]; occ = np.zeros((W, H, D), bool)
     for v in d["voxels"]: occ[v["x"], v["y"], v["z"]] = True
+    if orient.facade_flip(occ, f"ortho/cathedral_{tag}_right.png"):          # facade must be on +z, the face "front" looks at
+        d = orient.flip_voxel_dict(d); occ = orient.flip_occ(occ).copy(); d["orientation"] = "flipped 180 about y (facade was on -z)"
+    json.dump(d, open(p, "w"))
     return occ, p
 
 # ---------- flat grey renders ----------
@@ -209,9 +212,7 @@ Reply with ONLY one JSON object:
 
 def haiku_check(bp_path, renders, tag):
     p = CHECK.format(photo=os.path.abspath("refs/cathedral.jpg"), bp=os.path.abspath(bp_path), renders=", ".join(os.path.abspath(x) for x in renders.values()))
-    r = subprocess.run(["claude", "-p", "--model", HAIKU, "--output-format", "json", p, "--allowedTools", "Read"], capture_output=True, text=True, timeout=900)
-    try: env = json.loads(r.stdout); text = env.get("result", ""); cost = float(env.get("total_cost_usd") or 0)
-    except Exception: text, cost = r.stdout, 0.0
+    text, cost = llm.ask(p, images=[os.path.abspath("refs/cathedral.jpg"), *map(os.path.abspath, renders.values())], model=HAIKU)
     spend(f"haiku check {tag}", cost, 1e9)
     m = re.search(r"\{.*\}", text, re.S)
     try: out = json.loads(m.group(0))

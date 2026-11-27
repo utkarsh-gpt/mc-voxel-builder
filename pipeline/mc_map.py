@@ -86,7 +86,7 @@ NATURAL_OK = {"grass_block"}                  # biome-tinted, but the dataset st
 NATURAL = {"grass": {"grass_block": 10.0}}
 NATURAL_TOP = {"grass": "grass_block"}   # top-exposed voxels of the material use the natural block (its top face is what is seen)    # builder prior (dE bonus): terrain materials prefer the vanilla natural block
 SAT_CAP = False                               # new set: reject blocks far more saturated than the target (no garish lime/orange)
-STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "hagia": {"masonry", "drum_render", "lead_roof", "window_dark"}, "house": {"siding", "trim_brown", "roof_shingle", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"},
+STRICT = {"cathedral": {"limestone", "roof_slate", "window_dark"}, "cathedral_stamped": {"limestone", "roof_slate", "window_dark"}, "hagia": {"masonry", "drum_render", "lead_roof", "window_dark"}, "house": {"siding", "trim_brown", "roof_shingle", "window_dark"}, "landscape": {"rock_grey", "rock_ochre", "rock_dark", "sand", "foam", "water"}, "turtle": {"skin"},
           "windmill_v2": {"stone", "cap_slate", "window_dark"}, "cottage_v2": {"wall_white", "window_dark", "chimney_brick", "thatch"},
           "gate": {"gate_stone", "roof_slate"}}
 STRICT_NOW = set()   # set per run: materials whose out-of-family blocks are not allowed at all
@@ -605,18 +605,29 @@ def tech_label(b, role):
     return f"{t} ({sc:.2f})" if sc >= 0.25 else f"colour only (wanted {'/'.join(TECH[role])}, best {sc:.2f})"
 # ---------- main ----------
 WARM = {"windmill": {"stone": ("#958f81", "#a89f8c")}}   # (palette base, photo stone tone): chroma shift only, L ramp kept
-ACCENT_ALL = {"cathedral", "landscape", "turtle", "hagia", "house"}   # every material may get a low-contrast accent toward its photo base
+ACCENT_ALL = {"cathedral", "cathedral_stamped", "landscape", "turtle", "hagia", "house"}   # every material may get a low-contrast accent toward its photo base
 MAX_BLOCKS_PER_MAT = int(os.environ.get("MC_MAX_BLOCKS", 5))   # colour_proto.py experiments; default unchanged
 ACCENTS = os.environ.get("MC_ACCENTS", "1") == "1"                 # warm/accent dither on (default)
 ROLE_POOLS = os.environ.get("MC_ROLE_POOLS", "1") == "1"           # shadow/trim/rough roles may pull blocks from outside the ramp neighbourhood (default)
+# Variant runs (NAME_stamped from William's run_stamped.py, NAME_combined from run_combined.py) are the same subject:
+# the subject-keyed rules (STRICT, ACCENT_ALL, WARM, PREFER_SUBJ, CRISP, eave lips) must follow them. f5a1ee7 fixed this
+# for cathedral_stamped by adding the alias to STRICT / ACCENT_ALL; subject_key() generalises that fix to any alias.
+VARIANT_SUFFIXES = ("_stamped", "_combined")
+def subject_key(n):
+    for suf in VARIANT_SUFFIXES:
+        if n.endswith(suf): return n[: -len(suf)]
+    return n
+
 def run(n):
-    global STRICT_NOW, SAT_CAP, PREFER_NOW; STRICT_NOW = STRICT.get(n, set()); SAT_CAP = n in ACCENT_ALL; PREFER_NOW = {**PREFER, **PREFER_SUBJ.get(n, {})}
+    k = subject_key(n)
+    global STRICT_NOW, SAT_CAP, PREFER_NOW; STRICT_NOW = STRICT.get(n, STRICT.get(k, set())); SAT_CAP = n in ACCENT_ALL or k in ACCENT_ALL; PREFER_NOW = {**PREFER, **PREFER_SUBJ.get(n, PREFER_SUBJ.get(k, {}))}
     # colour_albedo.py output (labels colour_mode = albedo): the colours are already clean albedo per material, so no accent
     # dither, <= 3 blocks per material and roles stay inside the material's own ramp
     albedo = json.load(open(f"art/final/meta/{n}_texture_labels.json")).get("colour_mode") == "albedo"
     maxb = 3 if albedo else MAX_BLOCKS_PER_MAT; accents = ACCENTS and not albedo; role_pools = ROLE_POOLS and not albedo
     T, F = mc_features.features(n)
-    if n in ACCENT_ALL:
+    if n not in WARM and k in WARM: WARM[n] = WARM[k]          # variant runs inherit the subject's warm shift
+    if n in ACCENT_ALL or k in ACCENT_ALL:
         bases = json.load(open(f"art/final/meta/{n}_texture_labels.json")).get("bases", {})
         WARM[n] = {}
         for mm, bhex in bases.items():
@@ -634,12 +645,12 @@ def run(n):
         if s and s.get("type") == "vslab":
             dx, dz = AXV[s["align"]]; v["s"] = dict(s, backed=(v["x"]+dx, v["y"], v["z"]+dz) in occ_set)
     LBL = json.load(open(f"art/final/meta/{n}_texture_labels.json")); zones = LBL["zones"]
-    crisp = CRISP.get(n) or {tuple(p) for p in LBL.get("crisp", [])}
+    crisp = CRISP.get(n) or CRISP.get(k) or {tuple(p) for p in LBL.get("crisp", [])}
     for v in F:
         v["lab"] = hex2lab(v["hex"]); lstd = NOISE_SCALE*(v["noise"] if v["noise"] is not None else 8.0); v["lstd"] = lstd
         partner = any((v["m"], o) in crisp or (o, v["m"]) in crisp for o in v["boundary"])
-        lip = n in ("windmill", "cottage", "bonsai") and (n == "windmill" and v["m"] == "cap_slate" and v["under_open"]) or (n == "cottage" and v["m"] == "thatch" and v["under_open"] and v["y"] == zones["ye"]) \
-              or (n == "bonsai" and v["m"] == "pot" and v["top_open"] and v["y"] >= zones["yp"])
+        lip = k in ("windmill", "cottage", "bonsai") and (k == "windmill" and v["m"] == "cap_slate" and v["under_open"]) or (k == "cottage" and v["m"] == "thatch" and v["under_open"] and v["y"] == zones["ye"]) \
+              or (k == "bonsai" and v["m"] == "pot" and v["top_open"] and v["y"] >= zones["yp"])
         if not v["surf"]: role = "plain"
         elif (partner or lip) and v["m"] not in ("sail_white", "foliage"): role = "trim"
         elif v["sh"] <= -2 or v["open"] < -0.35 or (v["sh"] < 0 and v["under_open"]) or (v.get("blend") and v["blend"][0] in ("thatch", "cap_slate", "soil")): role = "shadow"
@@ -695,7 +706,7 @@ def run(n):
     # warm dither: no vanilla stone sits at the photo's warm-limestone tone, so sprinkle a family-legal warm accent through the
     # base block's plain/rough voxels (ordered 3D dither, fraction p) so the wall's average colour moves toward the photo tone
     warm_info = {}
-    acc_mats = list(WARM.get(n, {})) + ([mm for mm in base_of if any(v["m"] == mm and "accent_target" in v for v in F)] if n in ACCENT_ALL else [])
+    acc_mats = list(WARM.get(n, {})) + ([mm for mm in base_of if any(v["m"] == mm and "accent_target" in v for v in F)] if (n in ACCENT_ALL or k in ACCENT_ALL) else [])
     if not accents: acc_mats = []
     for mm in acc_mats:
         vs = [v for v in F if v["m"] == mm and ("warm_shift" in v or "accent_target" in v)]

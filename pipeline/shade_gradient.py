@@ -92,13 +92,14 @@ def photo_front_L(occ, spec):
 def ladder(base, zone):
     """dark -> light list of full blocks around 'base' (index of base returned too)"""
     cur, ns, nh, step, tol, fams = ZONES[zone]
-    ok = lambda b: b in MM.BL and MM.allowed(MM.BL[b]) and "pane" not in b and b != "creaking_heart"
-    cands = {b for b in CURATED[cur] if ok(b)} | {b["id"] for b in MM.CAND if b["family"] in fams}
+    ok = lambda b: (b in MM.BL and MM.allowed(MM.BL[b]) and "pane" not in b and b != "creaking_heart"
+                    and (cur != "auto" or MM.dE(MM.lab_of(MM.BL[b], "top"), MM.lab_of(MM.BL[b], "side")) <= 15))   # auto: no grass-topped / log-ended blocks
+    cands = {b for b in CURATED.get(cur, []) if ok(b)} | {b["id"] for b in MM.CAND if b["family"] in fams and ok(b["id"])}
     l0 = L_of(base); ab0 = l0[1:]
     def cost(b, t):
         l = L_of(b); dab = float(np.hypot(*(l[1:] - ab0)))
         if dab > tol: return None
-        return abs(l[0] - t) + 0.6*dab + (0 if b in CURATED[cur] else 5.0) + (0 if MM.BL[b]["family"] == MM.BL[base]["family"] else 2.0)
+        return abs(l[0] - t) + 0.6*dab + (0 if b in CURATED.get(cur, []) else 5.0) + (0 if MM.BL[b]["family"] == MM.BL[base]["family"] else 2.0)
     out = {0: base}; used = {base}
     for sgn, k in ((-1, ns), (1, nh)):
         prevL = l0[0]
@@ -122,7 +123,26 @@ def variant(full, shape):
 
 GLASS_MATS = {"glass"}   # the only material a glass pane may carry (feature-pass / eyebrow window glazing)
 
-def run(src, out, w_tex=0.5, w_geo=0.5, log=print, photo=None, eyebrows=None, model=None):
+AUTO_SKIP = PROTECT | {"window_dark", "window_lit", "glass", "glass_dark", ""}
+
+def auto_zones(d, log=print):
+    """SME-15: any material without a curated ZONES entry (house siding, turtle shell, cathedral limestone ...) gets a
+    data-driven ladder around its own base block: 2 shadow + 2 highlight steps of 6 L*, within 12 a*b* of the base, from the
+    base's family first (no curated list; any family within 12 a*b*). Windows / doors / frames / glass stay protected."""
+    pal = d["palette"]; c = collections.defaultdict(collections.Counter)
+    for v in d["voxels"]:
+        q = pal[v["b"]]; m = q.get("material") or ""
+        if m in AUTO_SKIP or m in ZONES or "pane" in q["id"] or "glass" in q["id"]: continue
+        if MM.BL.get(q["id"], {}).get("shape") == "full_block" and q["id"] != BACKING: c[m][q["id"]] += 1
+    added = {}; ALL_FAMS = {b["family"] for b in MM.CAND}
+    for m, cnt in c.items():
+        base = cnt.most_common(1)[0][0]; fam = MM.BL[base]["family"]
+        ZONES[m] = ("auto", 2, 2, 6.0, 12.0, ALL_FAMS); added[m] = base   # any family within 12 a*b* (same family preferred)
+    CURATED.setdefault("auto", [])
+    if added: log("auto zones", added)
+    return added
+
+def run(src, out, w_tex=0.5, w_geo=0.5, log=print, photo=None, eyebrows=None, model=None, sheet_subject=None, sheet_tag=None, auto=False):
     """photo: front-photo shadow projection spec (path, x_anchors, y_anchors, w_photo, w_geo, keep) - off by default, the
     general pipeline samples shadows from the shaded ortho sheets + 3D geometry only; eyebrows: eyebrow_arch spec;
     model: alternative source model file (e.g. the MC_GLASS=windows colour-mapping rerun) instead of art/final/SRC_mc_blocks.json"""
@@ -136,10 +156,12 @@ def run(src, out, w_tex=0.5, w_geo=0.5, log=print, photo=None, eyebrows=None, mo
     def solid(x, y, z): return 0 <= x < W and 0 <= y < H and 0 <= z < D and occ[x, y, z]
     surf = occ & ~ndimage.binary_erosion(pad, np.ones((3, 3, 3)))[1:-1, 1:-1, 1:-1]
     # (a) texture: shaded sheet lightness per block (best-facing sample, no de-shade)
-    tag = json.load(open(f"art/final/meta/{src}_views.json"))["chosen"]
+    ss = sheet_subject or src                     # whose ortho sheets to sample (a variant run samples its subject's sheets)
+    tag = sheet_tag if sheet_tag is not None else json.load(open(f"art/final/meta/{ss}_views.json"))["chosen"]
+    if auto: auto_zones(d, log)
     g = ndimage.gaussian_filter(occ.astype(float), 1.0); nrm = -np.stack(np.gradient(g), -1); nrm /= np.linalg.norm(nrm, axis=-1, keepdims=True) + 1e-9
     Lsh = np.full(occ.shape, np.nan); best = np.full(occ.shape, -1.0)
-    for r in CA.samples(src, tag, occ, nrm):
+    for r in CA.samples(ss, tag, occ, nrm):
         x, y, z = r[:3]
         if r[4] > best[x, y, z]: best[x, y, z] = r[4]; Lsh[x, y, z] = r[5]
     # (b) geometry

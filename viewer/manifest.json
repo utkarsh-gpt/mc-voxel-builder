@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T18:37:19",
+  "generated_at": "2026-11-26T19:09:26",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -838,6 +838,29 @@
       "bytes": 125565
     },
     {
+      "id": "gate_combined_mc_blocks",
+      "file": "models/gate_combined_mc_blocks.json",
+      "name": "gate_combined_mc_blocks",
+      "subject": "gate",
+      "kind": "combined_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        59,
+        51,
+        15
+      ],
+      "voxelCount": 9917,
+      "hasShapes": false,
+      "subCount": 1372,
+      "subPct": 13.8,
+      "paletteSize": 150,
+      "highlight": true,
+      "featured": false,
+      "ref": null,
+      "mtime": 1795738157,
+      "bytes": 538431
+    },
+    {
       "id": "gate_grad_mc_blocks",
       "file": "models/gate_grad_mc_blocks.json",
       "name": "gate_grad_mc_blocks",
@@ -1054,6 +1077,34 @@
       "bytes": 54254
     },
     {
+      "id": "house_combined_mc_blocks",
+      "file": "models/house_combined_mc_blocks.json",
+      "name": "house_combined_mc_blocks",
+      "subject": "house",
+      "kind": "combined_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        22,
+        20,
+        23
+      ],
+      "voxelCount": 3784,
+      "hasShapes": false,
+      "subCount": 787,
+      "subPct": 20.8,
+      "paletteSize": 125,
+      "highlight": true,
+      "featured": false,
+      "ref": "refs/house.jpg",
+      "refCredit": {
+        "text": "Photo: Corey Coyle, Wikimedia Commons, CC BY 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:American_Foursquare_Style_House_-_panoramio_(1).jpg",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mtime": 1795738157,
+      "bytes": 274270
+    },
+    {
       "id": "house_fd_mc_blocks",
       "file": "models/house_fd_mc_blocks.json",
       "name": "house_fd_mc_blocks",
@@ -1207,6 +1258,29 @@
       "ref": "refs/landscape.jpg",
       "mtime": 1795470716,
       "bytes": 1825778
+    },
+    {
+      "id": "turtle_combined_mc_blocks",
+      "file": "models/turtle_combined_mc_blocks.json",
+      "name": "turtle_combined_mc_blocks",
+      "subject": "turtle",
+      "kind": "combined_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        27,
+        11,
+        30
+      ],
+      "voxelCount": 2051,
+      "hasShapes": false,
+      "subCount": 532,
+      "subPct": 25.9,
+      "paletteSize": 88,
+      "highlight": true,
+      "featured": false,
+      "ref": "refs/turtle.jpg",
+      "mtime": 1795738157,
+      "bytes": 166031
     },
     {
       "id": "turtle_hymv",

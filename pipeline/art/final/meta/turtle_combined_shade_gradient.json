@@ -1,0 +1,157 @@
+{
+ "source": "out/combined/turtle_combined_mapped.json",
+ "weights": {
+  "tex": 0.5,
+  "geo": 0.5
+ },
+ "zones": {
+  "shell": {
+   "base": "spruce_planks",
+   "ladder_dark_to_light": [
+    "stripped_dark_oak_wood",
+    "jungle_wood",
+    "spruce_planks",
+    "dirt",
+    "brown_mushroom_block"
+   ],
+   "L": [
+    25.2,
+    29.8,
+    38.5,
+    44.0,
+    50.2
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 23.2,
+    "base": 54.3,
+    "highlight": 22.5
+   },
+   "blocks": {
+    "spruce_planks": 239,
+    "jungle_wood": 84,
+    "spruce_stairs": 52,
+    "dirt": 51,
+    "spruce_slab": 50,
+    "mud_brick_slab": 41,
+    "spruce_trapdoor": 32,
+    "stripped_dark_oak_wood": 31,
+    "mud_brick_stairs": 31,
+    "jungle_trapdoor": 26,
+    "brown_concrete_slab": 22,
+    "bamboo_block": 19,
+    "jungle_slab": 14,
+    "brown_concrete_stairs": 12,
+    "brown_mushroom_block": 10,
+    "dark_oak_trapdoor": 9,
+    "jungle_stairs": 8,
+    "poplar_log": 4,
+    "bamboo_mosaic_stairs": 3,
+    "oak_trapdoor": 3
+   },
+   "counts": {
+    "shadow": 172,
+    "base": 402,
+    "highlight": 167,
+    "interior": 657
+   }
+  },
+  "skin": {
+   "base": "light_gray_wool",
+   "ladder_dark_to_light": [
+    "tuff",
+    "light_gray_concrete",
+    "light_gray_wool",
+    "smooth_stone"
+   ],
+   "L": [
+    45.8,
+    52.1,
+    58.8,
+    65.1
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 18.1,
+    "base": 75.9,
+    "highlight": 6.0
+   },
+   "blocks": {
+    "light_gray_wool": 163,
+    "light_gray_wool_slab": 91,
+    "light_gray_concrete": 39,
+    "light_gray_wool_stairs": 26,
+    "smooth_stone": 24,
+    "light_gray_concrete_slab": 16,
+    "mossy_stone_brick_slab": 11,
+    "tuff_slab": 10,
+    "mossy_stone_bricks": 9,
+    "mossy_stone_brick_stairs": 6,
+    "light_gray_concrete_stairs": 4,
+    "tuff": 2,
+    "tuff_stairs": 2
+   },
+   "counts": {
+    "shadow": 73,
+    "base": 306,
+    "highlight": 24,
+    "interior": 164
+   }
+  },
+  "algae": {
+   "base": "lime_wool",
+   "ladder_dark_to_light": [
+    "lime_concrete",
+    "lime_wool"
+   ],
+   "L": [
+    62.4,
+    68.2
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 31.9,
+    "base": 68.1,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "lime_wool_slab": 25,
+    "lime_wool_stairs": 16,
+    "lime_concrete": 11,
+    "lime_concrete_slab": 8,
+    "lime_wool": 6,
+    "lime_concrete_stairs": 3
+   },
+   "counts": {
+    "base": 47,
+    "shadow": 22
+   }
+  },
+  "coral_pink": {
+   "base": "cherry_planks",
+   "ladder_dark_to_light": [
+    "stripped_cherry_wood",
+    "cherry_planks"
+   ],
+   "L": [
+    67.2,
+    77.0
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 0.0,
+    "base": 100.0,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "cherry_planks": 6,
+    "cherry_trapdoor": 6,
+    "cherry_slab": 3,
+    "cherry_stairs": 2
+   },
+   "counts": {
+    "base": 17
+   }
+  }
+ }
+}
