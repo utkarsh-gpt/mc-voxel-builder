@@ -76,6 +76,7 @@ def toned_blocks(T, occ, toned, deshade, bases, info):
         inner = occ48 & ~surf48
         for x, y, z in np.argwhere(inner): vox_.append({"x": int(x), "y": int(y), "z": int(z), "c": pal.setdefault("#000000", f"q{len(pal)}")})
         src = toned.replace(".json", "_albedo.json"); src = os.path.join("out/albedo", os.path.basename(src))
+        os.makedirs(os.path.dirname(src), exist_ok=True)
         json.dump({"name": "toned_albedo", "size": d48["size"], "palette": {k: h for h, k in pal.items()}, "voxels": vox_}, open(src, "w"))
         info["mesh_shading_fit"] = fit; info["mesh_V_mean"] = round(float(V.mean()), 3)
     tr = T["transform"]; keys = np.argwhere(occ); ctr = keys + 0.5

@@ -1,0 +1,203 @@
+{
+ "source": "out/combined/rapunzel_tower_v2_combined_mapped.json",
+ "weights": {
+  "tex": 0.5,
+  "geo": 0.5
+ },
+ "zones": {
+  "wall": {
+   "base": "white_terracotta",
+   "ladder_dark_to_light": [
+    "stripped_poplar_wood",
+    "white_terracotta"
+   ],
+   "L": [
+    63.9,
+    74.9
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 4.9,
+    "base": 95.1,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "white_terracotta": 371,
+    "sandstone_stairs": 20,
+    "stripped_poplar_wood": 19,
+    "sandstone_wall": 2
+   },
+   "counts": {
+    "base": 371,
+    "kept": 22,
+    "shadow": 19,
+    "interior": 460
+   }
+  },
+  "accent": {
+   "base": "spruce_planks",
+   "ladder_dark_to_light": [
+    "jungle_wood",
+    "spruce_planks",
+    "mud_bricks",
+    "jungle_planks"
+   ],
+   "L": [
+    29.8,
+    38.5,
+    46.7,
+    52.2
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 8.5,
+    "base": 68.2,
+    "highlight": 23.2
+   },
+   "blocks": {
+    "spruce_planks": 797,
+    "spruce_slab": 250,
+    "brown_wool": 247,
+    "mud_bricks": 227,
+    "jungle_wood": 170,
+    "spruce_trapdoor": 169,
+    "spruce_stairs": 136,
+    "mud_brick_slab": 95,
+    "jungle_planks": 90,
+    "jungle_slab": 68,
+    "mud_brick_stairs": 44,
+    "brown_wool_stairs": 34,
+    "brown_wool_slab": 31,
+    "jungle_trapdoor": 30,
+    "jungle_stairs": 25,
+    "brown_concrete_slab": 13,
+    "brown_concrete_stairs": 13
+   },
+   "counts": {
+    "base": 1664,
+    "highlight": 567,
+    "shadow": 208,
+    "interior": 2180
+   }
+  },
+  "roof": {
+   "base": "light_gray_concrete",
+   "ladder_dark_to_light": [
+    "chiseled_tuff",
+    "tuff",
+    "light_gray_concrete",
+    "light_gray_wool",
+    "stripped_poplar_wood"
+   ],
+   "L": [
+    39.2,
+    45.8,
+    52.1,
+    58.8,
+    63.9
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 20.7,
+    "base": 57.8,
+    "highlight": 21.5
+   },
+   "blocks": {
+    "light_gray_concrete": 466,
+    "light_gray_concrete_slab": 168,
+    "light_gray_concrete_stairs": 163,
+    "tuff_slab": 143,
+    "light_gray_wool_slab": 138,
+    "tuff": 102,
+    "light_gray_wool": 80,
+    "light_gray_wool_stairs": 67,
+    "chiseled_tuff": 23,
+    "tuff_stairs": 17,
+    "stripped_poplar_wood": 11
+   },
+   "counts": {
+    "shadow": 285,
+    "base": 797,
+    "highlight": 296,
+    "interior": 732
+   }
+  },
+  "accent_1": {
+   "base": "jungle_planks",
+   "ladder_dark_to_light": [
+    "stripped_spruce_log",
+    "terracotta",
+    "jungle_planks",
+    "stripped_jungle_wood"
+   ],
+   "L": [
+    40.0,
+    45.8,
+    52.2,
+    58.1
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 17.6,
+    "base": 70.3,
+    "highlight": 12.1
+   },
+   "blocks": {
+    "jungle_planks": 391,
+    "jungle_trapdoor": 102,
+    "terracotta": 92,
+    "stripped_jungle_wood": 50,
+    "jungle_stairs": 37,
+    "stripped_spruce_log": 24,
+    "oak_slab": 21,
+    "jungle_slab": 17,
+    "oak_stairs": 10,
+    "mud_brick_stairs": 9,
+    "mud_brick_slab": 7,
+    "spruce_trapdoor": 1,
+    "mud_brick_wall": 1
+   },
+   "counts": {
+    "base": 536,
+    "shadow": 134,
+    "interior": 1116,
+    "highlight": 92,
+    "kept": 63
+   }
+  },
+  "chimney": {
+   "base": "stone_bricks",
+   "ladder_dark_to_light": [
+    "chiseled_tuff",
+    "tuff",
+    "stone_bricks",
+    "andesite",
+    "smooth_stone"
+   ],
+   "L": [
+    39.2,
+    45.8,
+    51.2,
+    56.7,
+    65.1
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 9.5,
+    "base": 57.1,
+    "highlight": 33.3
+   },
+   "blocks": {
+    "stone_bricks": 8,
+    "andesite": 8,
+    "andesite_slab": 3,
+    "tuff": 2
+   },
+   "counts": {
+    "base": 12,
+    "highlight": 7,
+    "shadow": 2
+   }
+  }
+ }
+}

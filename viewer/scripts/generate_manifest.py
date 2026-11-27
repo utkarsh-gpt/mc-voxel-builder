@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build manifest.json from models/*.json and refs/."""
-import json, os, re, time
+import json, os, re, subprocess, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -26,7 +26,8 @@ HIGHLIGHT_SUFFIXES = (
 # Reruns shown in the viewer but never featured over the original build of their subject.
 NOT_FEATURED = {"windmill_v2_mc_blocks", "cottage_v2_mc_blocks",
                 "windmill_grad_mc_blocks", "cottage_grad_mc_blocks", "gate_grad_mc_blocks",
-                "gate_combined_mc_blocks", "house_combined_mc_blocks", "turtle_combined_mc_blocks"}
+                "gate_combined_mc_blocks", "house_combined_mc_blocks", "turtle_combined_mc_blocks",
+                "rapunzel_tower_v2_combined_mc_blocks"}
 
 # Prefer these as the default featured model per subject (first match wins).
 FEATURED_PRIORITY = (
@@ -44,7 +45,38 @@ FEATURED_PRIORITY = (
     "_best",
 )
 
-SUBJECTS = ("rapunzel_tower", "bonsai", "cottage", "windmill", "mushroom", "lighthouse", "lantern", "teapot")
+SUBJECTS = ("rapunzel_tower", "wizard_tower", "mosque", "bonsai", "cottage", "windmill", "mushroom", "lighthouse", "lantern", "teapot")
+
+def git_commit_times():
+    """Map model filename -> last git commit unix time (newest commit first).
+
+    Untracked / uncommitted files are omitted so callers can fall back to
+    mtime, which automatically floats new models to the top of the catalogue.
+    """
+    times = {}
+    try:
+        out = subprocess.check_output(
+            ["git", "log", "--format=%ct", "--name-only", "--", "viewer/models/"],
+            cwd=ROOT.parent,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return times
+    cur = None
+    for line in out.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.isdigit():
+            cur = int(line)
+            continue
+        if cur is None:
+            continue
+        name = Path(line).name
+        if name.endswith(".json") and name not in times:
+            times[name] = cur
+    return times
 
 def subject_of(stem):
     for s in sorted(SUBJECTS, key=len, reverse=True):
@@ -93,6 +125,7 @@ def mc_stats(data):
 
 def main():
     items = []
+    git_times = git_commit_times()
     for path in sorted(MODELS.glob("*.json")):
         stem = path.stem
         try:
@@ -114,7 +147,8 @@ def main():
             has_shapes = bool(data.get("shapes"))
         subj = subject_of(stem)
         kind = kind_of(stem, subj)
-        mtime = path.stat().st_mtime
+        mtime = int(path.stat().st_mtime)
+        updated_at = git_times.get(path.name, mtime)
         items.append({
             "id": stem,
             "file": f"models/{path.name}",
@@ -132,7 +166,8 @@ def main():
             "featured": False,
             "ref": ref_for(subj),
             **({"refCredit": credit_for(subj)} if credit_for(subj) else {}),
-            "mtime": int(mtime),
+            "mtime": mtime,
+            "updated_at": updated_at,
             "bytes": path.stat().st_size,
         })
 
@@ -146,27 +181,26 @@ def main():
             # exact suffix match, never the 4x fine expansion or baked intermediates
             hits = [g for g in group if g["id"].endswith(suf) and not is_derived(g["id"]) and g["id"] not in NOT_FEATURED]
             if hits:
-                chosen = max(hits, key=lambda g: g["mtime"])   # newest final wins (e.g. house_mc_blocks over house_1m_mc_blocks)
+                chosen = max(hits, key=lambda g: g["updated_at"])   # newest final wins (e.g. house_mc_blocks over house_1m_mc_blocks)
                 break
         if not chosen:
             non_fine = [g for g in group if not is_derived(g["id"])]
             if non_fine:
-                chosen = sorted(non_fine, key=lambda g: g["mtime"], reverse=True)[0]
+                chosen = sorted(non_fine, key=lambda g: g["updated_at"], reverse=True)[0]
         if chosen:
             chosen["featured"] = True
 
-    # Featured first, then other highlights, then the rest, grouped by subject.
+    # Newest first so the written catalogue, default_id, and viewer picker agree.
     def sort_key(it):
-        return (0 if it["featured"] else 1 if it["highlight"] else 2, it["subject"], it["kind"])
+        return (-it["updated_at"], 0 if it["featured"] else 1 if it["highlight"] else 2, it["id"])
     items.sort(key=sort_key)
 
+    preferred = [it for it in items if not is_derived(it["id"])]
     manifest = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
-        "default_id": next((it["id"] for it in items if it["featured"] and it["subject"] == "windmill"), None),
+        "default_id": (preferred[0]["id"] if preferred else (items[0]["id"] if items else None)),
         "models": items,
     }
-    if not manifest["default_id"]:
-        manifest["default_id"] = next((it["id"] for it in items if it["featured"]), items[0]["id"] if items else None)
     OUT.write_text(json.dumps(manifest, indent=2))
     print(f"wrote {OUT} ({len(items)} models), default={manifest['default_id']}")
 

@@ -11,7 +11,7 @@ V = json.load(open(next(p for p in (f"out/{n}_verify.json", f"art/final/meta/{n}
 if a.views: V["views_used"] = a.views.split(",")   # override (A/B test of the drop policy)
 with ThreadPoolExecutor(4) as ex: urls = list(ex.map(lambda v: fal_client.upload_file(f"ortho/{n}{tag}_{v}.png"), V["views_used"]))   # parallel uploads
 res = fal_client.subscribe("hyper3d/lowpoly/image-to-3d", arguments={
-    "image_urls": urls, "image_labels": [LAB[v] for v in V["views_used"]], "prompt": ortho_verify.SPEC[n][0],
+    "image_urls": urls, "image_labels": [LAB[v] for v in V["views_used"]], "prompt": ortho_verify.get_spec(n)[0],
     "face_count": a.faces, "geometry_file_format": "glb", "material": "Shaded"})
 glb = f"out/{n}_lowpoly{a.suffix}.glb"; os.makedirs("out", exist_ok=True); urllib.request.urlretrieve(res["model_mesh"]["url"], glb)
 # out/ is not checked in (and is lost when a machine is rebuilt): keep the mesh URL so shape_fit can re-download instead of paying again

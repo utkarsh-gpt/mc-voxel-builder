@@ -1,0 +1,148 @@
+{
+ "subject": "rapunzel_tower_v2",
+ "organic": false,
+ "summary": "A tall, tapered, ivy-covered stone tower that flares under a round timber-framed chamber. A lattice-railed balcony ring sits at the chamber base, and arched windows, a central arched opening and flower boxes sit on the walls. A steep scalloped purple conical roof caps the chamber, with a small arched window, a ball-and-spike finial and a pot-shaped ornament on the roof edge. A smaller conical turret sits behind the roof on the back left.",
+ "parts": {
+  "tower_shaft": {
+   "kind": "mass",
+   "count": 1,
+   "where": "Base of the build, from the ground up to the chamber's underside.",
+   "notes": "Tall tapered stone column, flared at top, ivy-covered.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  },
+  "chamber": {
+   "kind": "mass",
+   "count": 1,
+   "where": "Sits on top of the shaft, under the roof cone.",
+   "notes": "Round timber-framed room, widest storey, sits on the shaft.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  },
+  "roof_cone": {
+   "kind": "mass",
+   "count": 1,
+   "where": "Caps the chamber, rising from the eave to the finial.",
+   "notes": "Steep scalloped conical roof, eaves overhang the chamber.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  },
+  "side_turret": {
+   "kind": "mass",
+   "count": 1,
+   "where": "Behind the main roof, on the back left of the chamber.",
+   "notes": "Small conical turret with its own pointed roof, set behind.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  },
+  "balcony": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "chamber",
+   "face": "all",
+   "where": "Ring at the chamber's base, between the shaft top and the windows.",
+   "notes": "Projecting lattice-railed ring on brackets, proud of the walls.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "chamber_window": {
+   "kind": "feature",
+   "count": 3,
+   "parent": "chamber",
+   "face": [
+    "front",
+    "left"
+   ],
+   "where": "Row of arched windows in the chamber wall, above the balcony and under the eave.",
+   "notes": "Narrow arched windows set back into the timber-framed wall.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "arched_opening": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "chamber",
+   "face": "front",
+   "where": "Centre of the front wall, between the windows, under the eave.",
+   "notes": "Arched opening set back under the eave, flanked by flower boxes.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "flower_box": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "chamber",
+   "face": "front",
+   "where": "Two planters under the roof eave, either side of the central opening.",
+   "notes": "Flower boxes proud of the wall under the eave.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "roof_window": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "roof_cone",
+   "face": "front",
+   "where": "Small arched window in the upper cone, below the finial.",
+   "notes": "Small arched window set back in the upper cone.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "spire_finial": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "roof_cone",
+   "face": "top",
+   "where": "Ball and spike on the very tip of the cone, above the roof window.",
+   "notes": "Ball finial with a thin spike on the apex.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "eave_ornament": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "chamber",
+   "face": "right",
+   "where": "Right edge of the roof, above the balcony and beside the chamber windows.",
+   "notes": "Small pot-shaped ornament standing on the roof edge.",
+   "built_as": [
+    "proud",
+    "outline"
+   ]
+  },
+  "roof_dormer": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "roof_cone",
+   "face": "left",
+   "where": "On the upper left flank of the roof cone, between the side turret and main spire.",
+   "notes": "Small pointed dormer with a tiny window, projecting from cone flank.",
+   "built_as": [
+    "proud"
+   ],
+   "id": "roof_dormer"
+  }
+ },
+ "open": [],
+ "source": "parts_list.py (auto, claude-haiku-5-5)",
+ "model": "claude-haiku-5-5",
+ "cost_usd": 0.0138,
+ "_cached": false,
+ "verified": true,
+ "verify_notes": "Missing small pointed roof dormer on cone's left flank; rest matches.",
+ "_verify_cached": false
+}

@@ -441,7 +441,7 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
             if p in G and G[p]["m"] != "frame": return p        # trim another opening put outside the wall is not the wall
         return None
     def nearest(shape, lab, fam=None, extra=()):
-        ids = [t for t in BL if BL[t]["shape"] == shape and not t.startswith("waxed_") and not t.endswith("_nylium") and (fam is None or BL[t]["family"] in fam)] + list(extra)   # nylium: netherrack sides under a teal/red top (was a teal stripe over the house door)
+        ids = [t for t in BL if BL[t]["shape"] == shape and t not in BAN_ID and not t.startswith("waxed_") and not t.endswith("_nylium") and (fam is None or BL[t]["family"] in fam)] + [e for e in extra if e not in BAN_ID]
         return min(ids, key=lambda t: dE(lab, lab_of(BL[t], "side"))) if ids else None
     def kit_of(f): return kits.get(f.get("kit") or f"{f['kind']}|{int(bool(f.get('arch')))}|{f['w']}|{f['h']}", {})
     # one frame material per subject style (consistent across kits): trim trapdoor + the shelf of the same wood

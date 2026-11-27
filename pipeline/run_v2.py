@@ -86,9 +86,18 @@ def stage_parts(n):
     print(n, "parts", "organic" if P.get("organic") else f"{nparts} parts", "verified=" + str(bool(P.get("verified"))), f"usd={cost:.4f}")
 
 def _sheet_key(tag, geo, shade):
-    """pick by framing pass, then aspect error, then shade_score (lower is better)."""
+    """pick by framing pass, then view integrity, then aspect error, then shade_score (lower is better).
+
+    A sheet whose back panel is a second top plan, or that has to drop more views, loses to a
+    slightly shadier sheet that still has a real rear elevation (this is what made mosque _s2
+    the correct pick over _s1/_s1e).
+    """
     fr = (geo or {}).get("framing") or {}
-    return (0 if fr.get("pass") else 1, float(fr.get("aspect_error") or 99.0), shade_score(shade))
+    issues = (geo or {}).get("issues") or []
+    bad = set((geo or {}).get("bad_views") or [])
+    dup = 1 if (geo or {}).get("back_is_top") or any("second top plan" in i for i in issues) else 0
+    n_drop = len([v for v in VIEWS if v in bad and v != "front"])
+    return (0 if fr.get("pass") else 1, dup, n_drop, float(fr.get("aspect_error") or 99.0), shade_score(shade))
 
 def stage_sheets(n, k=1, with_photo=None):
     """Generate 1 sheet first; only buy sheet 2 on framing failure. Skip the deshade edit if shade already passes."""
@@ -125,9 +134,9 @@ def stage_sheets(n, k=1, with_photo=None):
 
 def stage_mesh(n):
     if fal_left() < COST["hyper3d/lowpoly/image-to-3d"]: raise SystemExit("fal cap")
-    spend(f"fal mesh {n}", COST["hyper3d/lowpoly/image-to-3d"])
     r = subprocess.run([sys.executable, "ortho_lowpoly.py", n], capture_output=True, text=True); print(r.stdout[-600:], r.stderr[-1500:])
     if r.returncode: raise SystemExit("mesh failed")
+    spend(f"fal mesh {n}", COST["hyper3d/lowpoly/image-to-3d"])
 
 def stage_paint(n):
     tag = json.load(open(f"art/final/meta/{n}_views.json"))["chosen"]
@@ -416,28 +425,47 @@ def stage_check(n):
 
 def _tick(timings, name, t0):
     timings[name] = round(time.time() - t0, 3); print(f"  timing {name} {timings[name]:.3f}s")
+    path = timings.get("_path")
+    if path:
+        json.dump({k: v for k, v in timings.items() if k != "_path"}, open(path, "w"), indent=1)
 
 def stage_combined(n):
     import run_combined
     return run_combined.run(n)
 
 def stage_all(n):
-    """Unattended end-to-end driver with overlapping waits. Writes out/<n>_timings.json."""
+    """Unattended end-to-end driver with overlapping waits. Writes out/<n>_timings.json.
+
+    Resume mid-run with V2_FROM=<stage> (prep|parts|sheets|mesh|paint|shape|carve|sails|squash|palette|albedo|zones|combined)
+    without re-buying earlier fal stages. Existing out/<n>_timings.json values are kept and extended.
+    """
     from concurrent.futures import ThreadPoolExecutor
     import parts_list, auto_cfg
+    start = os.environ.get("V2_FROM") or "prep"
+    order = ["prep", "parts", "sheets", "mesh", "paint", "shape", "carve", "sails", "squash", "palette", "albedo", "zones", "combined"]
+    if start not in order: raise SystemExit(f"unknown V2_FROM={start}")
+    def _go(stage):
+        return order.index(stage) >= order.index(start)
     timings, t_all = {}, time.time()
+    if os.path.exists(f"out/{n}_timings.json"):
+        try: timings = json.load(open(f"out/{n}_timings.json"))
+        except Exception: timings = {}
     os.makedirs("out/v2", exist_ok=True)
+    timings["_path"] = f"out/{n}_timings.json"
 
     t0 = time.time()
-    if not os.path.exists(f"refs/{n}_fal_in.png"):
-        if not any(os.path.exists(f"refs/{n}{ext}") for ext in (".jpg", ".png")):
-            raise SystemExit(f"no reference photo refs/{n}.jpg")
-        import gen_refs; gen_refs.prep(n)
-    _tick(timings, "prep", t0)
+    if _go("prep"):
+        if not os.path.exists(f"refs/{n}_fal_in.png"):
+            if not any(os.path.exists(f"refs/{n}{ext}") for ext in (".jpg", ".png")):
+                raise SystemExit(f"no reference photo refs/{n}.jpg")
+            import gen_refs; gen_refs.prep(n)
+        _tick(timings, "prep", t0)
 
     t0 = time.time()
     existing = parts_list.load(n)
-    if existing and existing.get("parts") is not None:
+    if not _go("sheets") and not _go("parts"):
+        P = existing or {}
+    elif existing and existing.get("parts") is not None:
         P = existing; print(n, "parts reused", "organic" if P.get("organic") else f"{sum(1 for _ in parts_list.iter_parts(P))} parts")
         _tick(timings, "parts_generate", t0)
         t1 = time.time(); stage_sheets(n); _tick(timings, "sheets", t1)
@@ -482,21 +510,28 @@ def stage_all(n):
             print("  auto_cfg.prep failed:", e)
 
     t_mesh = time.time()
-    with ThreadPoolExecutor(2) as ex:
-        f_mesh = ex.submit(stage_mesh, n)
-        f_pre = ex.submit(_prefetch)
-        f_mesh.result(); f_pre.result()
-    _tick(timings, "mesh_and_prefetch", t_mesh)
+    if _go("mesh"):
+        with ThreadPoolExecutor(2) as ex:
+            f_mesh = ex.submit(stage_mesh, n)
+            f_pre = ex.submit(_prefetch)
+            f_mesh.result(); f_pre.result()
+        _tick(timings, "mesh_and_prefetch", t_mesh)
 
-    t0 = time.time(); stage_paint(n); _tick(timings, "paint", t0)
-    t0 = time.time(); stage_shape(n); _tick(timings, "shape", t0)
-    t0 = time.time(); stage_carve(n); _tick(timings, "carve", t0)
-    t0 = time.time(); stage_sails(n); _tick(timings, "sails", t0)
-    t0 = time.time(); stage_squash(n); _tick(timings, "squash", t0)
+    if _go("paint"):
+        t0 = time.time(); stage_paint(n); _tick(timings, "paint", t0)
+    if _go("shape"):
+        t0 = time.time(); stage_shape(n); _tick(timings, "shape", t0)
+    if _go("carve"):
+        t0 = time.time(); stage_carve(n); _tick(timings, "carve", t0)
+    if _go("sails"):
+        t0 = time.time(); stage_sails(n); _tick(timings, "sails", t0)
+    if _go("squash"):
+        t0 = time.time(); stage_squash(n); _tick(timings, "squash", t0)
 
-    t0 = time.time()
-    import palette_generic; palette_generic.run(n)
-    _tick(timings, "palette", t0)
+    if _go("palette"):
+        t0 = time.time()
+        import palette_generic; palette_generic.run(n)
+        _tick(timings, "palette", t0)
 
     def _albedo():
         r = subprocess.run([sys.executable, "colour_albedo.py", n, "--sheet", tag, "--mesh", f"out/{n}_lowpoly.glb", "--dark-rules"],
@@ -510,21 +545,36 @@ def stage_all(n):
         r = subprocess.run([sys.executable, "feature_detect.py", n, "--sheet", tag], capture_output=True, text=True)
         print(r.stdout[-1500:], r.stderr[-2500:])
         if r.returncode: raise SystemExit("feature_detect failed")
+        try:
+            feat = json.load(open(f"art/final/meta/{n}_features.json"))
+            c = float((feat.get("llm") or feat).get("cost_usd") or 0)
+            if c: spend(f"haiku features {n}", c)
+        except Exception as e:
+            print("  feature_detect cost missing:", e)
         filter_features(n)
 
-    t0 = time.time()
-    with ThreadPoolExecutor(2) as ex:
-        fa = ex.submit(_albedo); ff = ex.submit(_features)
-        fa.result(); ff.result()
-    _tick(timings, "albedo_and_features", t0)
+    if _go("albedo"):
+        t0 = time.time()
+        with ThreadPoolExecutor(2) as ex:
+            fa = ex.submit(_albedo); ff = ex.submit(_features)
+            fa.result(); ff.result()
+        _tick(timings, "albedo_and_features", t0)
 
-    t0 = time.time(); stage_zones(n); _tick(timings, "zones", t0)
-    t0 = time.time(); stage_combined(n); _tick(timings, "combined", t0)
+    if _go("zones"):
+        t0 = time.time(); stage_zones(n); _tick(timings, "zones", t0)
+    if _go("combined"):
+        t0 = time.time(); stage_combined(n); _tick(timings, "combined", t0)
 
-    timings["all"] = round(time.time() - t_all, 3)
-    json.dump(timings, open(f"out/{n}_timings.json", "w"), indent=1)
-    print(n, "timings", json.dumps(timings))
-    return timings
+    # `all` is the sum of recorded stage times (resume-safe); also log this process's wall clock.
+    stage_sum = sum(v for k, v in timings.items() if isinstance(v, (int, float)) and k not in ("all", "resume_wall"))
+    timings["resume_wall"] = round(time.time() - t_all, 3)
+    timings["all"] = round(stage_sum, 3)
+    if start != "prep":
+        timings["resumed_from"] = start
+    out_t = {k: v for k, v in timings.items() if k != "_path"}
+    json.dump(out_t, open(f"out/{n}_timings.json", "w"), indent=1)
+    print(n, "timings", json.dumps(out_t))
+    return out_t
 
 STAGES = {"parts": stage_parts, "sheets": stage_sheets, "mesh": stage_mesh, "paint": stage_paint, "shape": stage_shape, "carve": stage_carve, "sails": stage_sails, "squash": stage_squash,
           "colour": stage_colour, "zones": stage_zones, "map": stage_map, "grad": stage_grad, "check": stage_check, "combined": stage_combined, "all": stage_all}

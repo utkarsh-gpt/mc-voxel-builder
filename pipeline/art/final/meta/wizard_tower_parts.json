@@ -1,0 +1,148 @@
+{
+ "subject": "wizard_tower",
+ "organic": false,
+ "summary": "A tall, slender round stone tower. A wide upper lantern room with a projecting eave sits on the shaft, with pale recessed bays and a row of small lit openings below its roof. A tall pointed conical spire with a small finial rises from the lantern. Two small pointed-roof turrets stand on balconies projecting from the shaft at different heights, each with a pale tapering shape hanging beneath it. A pointed arched door is set low in the base of the shaft. The finished building must still read as a single slim shaft crowned by a lantern and spire, with the two side turrets clearly projecting from the sides.",
+ "parts": {
+  "shaft": {
+   "kind": "mass",
+   "count": 1,
+   "face": "all",
+   "where": "Full height of the tower body, from the base up to the underside of the lantern.",
+   "notes": "Round stone shaft, plain, rising straight under the lantern.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "lantern": {
+   "kind": "mass",
+   "count": 1,
+   "face": "all",
+   "where": "Wide upper room sitting on top of the shaft, with a projecting eave above it.",
+   "notes": "Round upper room, wider than the shaft, with a projecting eave.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "spire": {
+   "kind": "mass",
+   "count": 1,
+   "face": "all",
+   "where": "Pointed conical roof on top of the lantern, rising to the finial.",
+   "notes": "Tall pointed conical spire over the lantern, ending in a finial.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "side_turret": {
+   "kind": "mass",
+   "count": 2,
+   "face": "all",
+   "where": "One on each side of the shaft, at different heights, standing on a balcony projecting from the shaft.",
+   "notes": "Small pointed-roof turret standing on its own balcony ledge.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "door": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "shaft",
+   "face": "front",
+   "where": "Low on the front of the shaft, at ground level near the base.",
+   "notes": "Pointed arched door, recessed into the shaft.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "shaft_pilaster": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "shaft",
+   "face": "front",
+   "where": "Vertical strips running up the front of the shaft from the base to the lantern.",
+   "notes": "Vertical ribs standing proud of the shaft face.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "balcony": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "shaft",
+   "face": [
+    "left",
+    "right"
+   ],
+   "where": "Projects from the shaft on each side, below its turret, carried on an arched bracket.",
+   "notes": "Stone ledge with an arched bracket beneath it.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "drape": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "side_turret",
+   "face": "front",
+   "where": "Hangs beneath each side turret's balcony ledge, tapering downward.",
+   "notes": "Pale tapering shape hanging below the balcony ledge.",
+   "built_as": [
+    "proud",
+    "outline"
+   ]
+  },
+  "lantern_window": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "lantern",
+   "face": "front",
+   "where": "Upper front of the lantern, centred among the pale bays.",
+   "notes": "Arched window with a dark frame, set back in the wall.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "lantern_bay": {
+   "kind": "feature",
+   "count": 3,
+   "parent": "lantern",
+   "face": "front",
+   "where": "Pale bays on the lantern's upper front, either side of the arched window, reaching up to the eave.",
+   "notes": "Pale recessed panels between the lantern's pillars.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "lit_opening": {
+   "kind": "feature",
+   "count": 3,
+   "parent": "lantern",
+   "face": "front",
+   "where": "Lower band of the lantern, under the pale bays and just above the shaft.",
+   "notes": "Small glowing openings set back between narrow pillars.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "finial": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "spire",
+   "face": "top",
+   "where": "Small cross or knob at the very tip of the spire.",
+   "notes": "Small upright finial on the spire tip.",
+   "built_as": [
+    "proud",
+    "outline"
+   ]
+  }
+ },
+ "open": [],
+ "source": "parts_list.py (auto, claude-haiku-5-5)",
+ "model": "claude-haiku-5-5",
+ "cost_usd": 0.0134,
+ "_cached": false,
+ "verified": true,
+ "verify_notes": "Structure list matches both references: shaft, lantern, spire, turrets, balconies, drapes, door and finial are all present with correct built_as.",
+ "_verify_cached": false
+}

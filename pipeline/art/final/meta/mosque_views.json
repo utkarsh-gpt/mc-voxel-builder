@@ -1,0 +1,12 @@
+{
+ "chosen": "_s2",
+ "views_used": [
+  "front",
+  "right",
+  "back"
+ ],
+ "views_dropped": [
+  "top"
+ ],
+ "note": "v2 run: sheet _s1 first; _s2 only on framing failure; deshade edit skipped when shade_score already passes; chosen by framing pass, then aspect error, then shade_score"
+}

@@ -116,9 +116,16 @@ def _bbox(m):
     return int(ys.min()), int(ys.max()), int(xs.min()), int(xs.max())
 
 def framing_check(prefix, n=None):
-    """Fail a sheet whose elevations are cropped, squashed, or badly proportioned vs the cut-out."""
+    """Fail a sheet whose elevations are cropped, squashed, or badly proportioned vs the cut-out.
+
+    `bad_views` lists every framing problem (used to decide whether to buy sheet 2).
+    `drop_views` is the narrower set that is actually unusable as a Hyper3D input:
+    missing panels, or a top plan whose scale is clearly wrong. Crop, margin and
+    photo-aspect drift stay on the sheet (they trigger a retry) but do not, by
+    themselves, drop an otherwise useful elevation from the mesh.
+    """
     import ortho_gen, math, ortho_carve
-    issues, bad = [], set()
+    issues, bad, drop = [], set(), set()
     n = n or prefix.rsplit("_", 1)[0]
     try: a_ref = ortho_gen.cutout_aspect(n)
     except Exception: a_ref = 1.0
@@ -126,7 +133,7 @@ def framing_check(prefix, n=None):
     for v in VIEWS:
         path = f"ortho/{prefix}_{v}.png"
         if not os.path.exists(path):
-            issues.append(f"{v} panel missing"); bad.add(v); continue
+            issues.append(f"{v} panel missing"); bad.add(v); drop.add(v); continue
         m, _ = ortho_carve.mask_of(path); M[v] = m; bb[v] = _bbox(m)
     rec = {"a_ref": round(float(a_ref), 3), "pass": True, "aspect_error": None}
     def a_of(v):
@@ -166,8 +173,8 @@ def framing_check(prefix, n=None):
         cap = 1.15 * max(fw, sw, 1)
         rec["top_long"], rec["top_cap"] = int(top_long), round(cap, 1)
         if top_long > cap:
-            issues.append(f"top-view largest dim {top_long}px > 1.15 * max(front_w {fw}, side_w {sw})"); bad.add("top")
-    rec["issues"] = issues; rec["bad_views"] = sorted(bad); rec["pass"] = not issues
+            issues.append(f"top-view largest dim {top_long}px > 1.15 * max(front_w {fw}, side_w {sw})"); bad.add("top"); drop.add("top")
+    rec["issues"] = issues; rec["bad_views"] = sorted(bad); rec["drop_views"] = sorted(drop); rec["pass"] = not issues
     return rec
 
 def geo_checks(prefix):
@@ -187,10 +194,19 @@ def geo_checks(prefix):
     issues += sc["issues"]
     n = prefix.rsplit("_", 1)[0]
     fr = framing_check(prefix, n)
-    issues += fr["issues"]; bad |= set(fr["bad_views"])
+    issues += fr["issues"]; bad |= set(fr.get("drop_views") or [])
+    # The "back" panel is sometimes drawn as a second top plan; drop it and flag the sheet.
+    bt = resize(M["back"].astype(float), M["top"].shape, order=1) > .5
+    denom = float((bt | M["top"]).sum()) or 1.0
+    iou_bt = float((bt & M["top"]).sum()) / denom
+    rec_extra = {"back_top_iou": round(iou_bt, 3)}
+    if iou_bt >= 0.60 and iou < 0.75:
+        issues.append(f"back panel looks like a second top plan (IoU with top {iou_bt:.2f}), not a rear elevation")
+        bad.add("back")
+        rec_extra["back_is_top"] = True
     return {"sizes_hw": {v: list(map(int, hw[v])) for v in VIEWS}, "front_back_mirror_iou": round(iou, 3), "issues": issues, "bad_views": sorted(bad),
             "shading": {k: sc[k] for k in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")},
-            "framing": fr}
+            "framing": fr, **rec_extra}
 
 VERIFY_MODEL = "claude-haiku-5-5"   # Haiku-only verification (Sonnet confirm pass removed for cost)
 def llm_check(n, prefix, geo, model=VERIFY_MODEL):

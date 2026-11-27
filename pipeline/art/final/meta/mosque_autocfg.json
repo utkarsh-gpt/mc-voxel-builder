@@ -1,0 +1,352 @@
+{
+ "subject": "mosque",
+ "auto": true,
+ "partial": false,
+ "src": "art/mosque_shapefit.json",
+ "mats": {
+  "wall": {
+   "hint": "#99b5d5",
+   "ramp": [
+    -2,
+    2,
+    6,
+    5,
+    "chromatic"
+   ],
+   "kw": {
+    "dh": 4,
+    "cd": 0.05,
+    "cu": 0.04
+   },
+   "placement": "DEF",
+   "prior": null,
+   "role": "wall",
+   "photo_share": 0.2088
+  },
+  "trim": {
+   "hint": "#877976",
+   "ramp": [
+    -1,
+    1,
+    5,
+    4,
+    "neutral"
+   ],
+   "kw": {
+    "db_up": -1.0,
+    "db_dn": 0.5
+   },
+   "placement": null,
+   "prior": null,
+   "role": "trim",
+   "photo_share": 0.1762
+  },
+  "trim_1": {
+   "hint": "#627999",
+   "ramp": [
+    -1,
+    1,
+    5,
+    4,
+    "chromatic"
+   ],
+   "kw": {
+    "dh": 4,
+    "cd": 0.05,
+    "cu": 0.04
+   },
+   "placement": null,
+   "prior": null,
+   "role": "trim",
+   "photo_share": 0.1623
+  },
+  "trim_2": {
+   "hint": "#bfc5d1",
+   "ramp": [
+    -1,
+    1,
+    5,
+    4,
+    "neutral"
+   ],
+   "kw": {
+    "db_up": -1.0,
+    "db_dn": 0.5
+   },
+   "placement": null,
+   "prior": null,
+   "role": "trim",
+   "photo_share": 0.1474
+  },
+  "trim_3": {
+   "hint": "#61524f",
+   "ramp": [
+    -1,
+    1,
+    5,
+    4,
+    "neutral"
+   ],
+   "kw": {
+    "db_up": -1.0,
+    "db_dn": 0.5
+   },
+   "placement": null,
+   "prior": null,
+   "role": "trim",
+   "photo_share": 0.1013
+  },
+  "window_dark": {
+   "hint": "#2e2a2a",
+   "ramp": [
+    -1,
+    0,
+    5,
+    0,
+    "neutral"
+   ],
+   "kw": {
+    "db_dn": 0.5
+   },
+   "placement": null,
+   "prior": "dark",
+   "role": "window_dark",
+   "photo_share": 0.0
+  }
+ },
+ "hint_only": [
+  "trim_1",
+  "trim_2",
+  "trim_3"
+ ],
+ "max_share": {
+  "trim_1": 0.18,
+  "trim_2": 0.18,
+  "trim_3": 0.152
+ },
+ "blend": [],
+ "crisp": [
+  [
+   "wall",
+   "window_dark"
+  ],
+  [
+   "trim",
+   "window_dark"
+  ],
+  [
+   "trim_1",
+   "window_dark"
+  ],
+  [
+   "trim_2",
+   "window_dark"
+  ],
+  [
+   "trim_3",
+   "window_dark"
+  ],
+  [
+   "wall",
+   "trim"
+  ],
+  [
+   "wall",
+   "trim_1"
+  ],
+  [
+   "wall",
+   "trim_2"
+  ],
+  [
+   "wall",
+   "trim_3"
+  ]
+ ],
+ "families": {
+  "wall": [
+   "amethyst",
+   "andesite",
+   "calcite",
+   "concrete",
+   "diorite",
+   "end_stone",
+   "granite",
+   "mud",
+   "purpur",
+   "sandstone",
+   "stone",
+   "terracotta",
+   "tuff",
+   "wool"
+  ],
+  "trim": [
+   "andesite",
+   "brick",
+   "concrete",
+   "diorite",
+   "granite",
+   "mud",
+   "soil",
+   "stone",
+   "terracotta",
+   "tuff",
+   "wood"
+  ],
+  "trim_1": [
+   "amethyst",
+   "brick",
+   "concrete",
+   "granite",
+   "mud",
+   "purpur",
+   "soil",
+   "terracotta",
+   "wood",
+   "wool"
+  ],
+  "trim_2": [
+   "brick",
+   "calcite",
+   "concrete",
+   "diorite",
+   "end_stone",
+   "granite",
+   "mud",
+   "quartz",
+   "snow",
+   "soil",
+   "terracotta",
+   "wood",
+   "wool"
+  ],
+  "trim_3": [
+   "andesite",
+   "brick",
+   "concrete",
+   "diorite",
+   "granite",
+   "mud",
+   "soil",
+   "stone",
+   "terracotta",
+   "tuff",
+   "wood"
+  ],
+  "window_dark": [
+   "basalt",
+   "blackstone",
+   "concrete",
+   "deepslate",
+   "obsidian",
+   "terracotta",
+   "wood",
+   "wool"
+  ]
+ },
+ "prefer": {
+  "wall": [
+   "terracotta"
+  ],
+  "trim": [
+   "terracotta"
+  ],
+  "trim_1": [
+   "terracotta"
+  ],
+  "trim_2": [
+   "brick",
+   "granite",
+   "mud",
+   "soil",
+   "terracotta",
+   "wood"
+  ],
+  "trim_3": [
+   "terracotta"
+  ]
+ },
+ "roles": {
+  "wall": "wall",
+  "trim": "trim",
+  "trim_1": "trim",
+  "trim_2": "trim",
+  "trim_3": "trim",
+  "window_dark": "window_dark"
+ },
+ "clusters": [
+  {
+   "hex": "#99b5d5",
+   "lab": [
+    72.73,
+    -2.47,
+    -18.86
+   ],
+   "share": 0.2088
+  },
+  {
+   "hex": "#877976",
+   "lab": [
+    52.01,
+    4.94,
+    3.84
+   ],
+   "share": 0.1762
+  },
+  {
+   "hex": "#627999",
+   "lab": [
+    50.04,
+    0.0,
+    -20.27
+   ],
+   "share": 0.1623
+  },
+  {
+   "hex": "#bfc5d1",
+   "lab": [
+    79.32,
+    0.67,
+    -7.04
+   ],
+   "share": 0.1474
+  },
+  {
+   "hex": "#61524f",
+   "lab": [
+    36.13,
+    5.93,
+    3.85
+   ],
+   "share": 0.1013
+  },
+  {
+   "hex": "#282318",
+   "lab": [
+    13.85,
+    0.41,
+    8.17
+   ],
+   "share": 0.0757
+  },
+  {
+   "hex": "#dcbfa7",
+   "lab": [
+    79.25,
+    6.37,
+    16.13
+   ],
+   "share": 0.0674
+  },
+  {
+   "hex": "#524425",
+   "lab": [
+    29.72,
+    1.11,
+    20.94
+   ],
+   "share": 0.0609
+  }
+ ],
+ "voxel_roles": true
+}

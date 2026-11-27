@@ -372,10 +372,10 @@ async function loadDroppedFile(file) {
 
 // The picker is a search box (role=combobox) driving a subject → variant tree
 // (role=tree, aria-activedescendant). Subjects collapse; inside a subject the
-// featured / highlight builds show first and earlier passes sit behind a
-// "+ N earlier passes" row. A search or filter opens every matching subject.
+// newest builds show first and earlier passes sit behind a "+ N earlier
+// passes" row. A search or filter opens every matching subject. Groups and
+// models are ordered newest-to-oldest by updated_at (mtime fallback).
 
-const SUBJECT_ORDER = ["windmill", "cottage", "bonsai"];
 const WORDS = {
   mc: "MC", fd: "FD", hy: "HY", hymv: "HYMV", fbt: "FBT", "1m": "1M",
   lowpoly: "low-poly", subblocks: "sub-blocks", shapefit: "shape-fit",
@@ -396,6 +396,14 @@ const cat = {
 
 const capitalise = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 const subjectOf = (m) => m.subject || "other";
+const updatedAt = (m) => Number(m.updated_at ?? m.mtime ?? 0);
+const byNewest = (a, b) => updatedAt(b) - updatedAt(a) || a.id.localeCompare(b.id);
+const isDerivedId = (id) => /_fine|_baked/.test(id);
+function newestId(models) {
+  const usable = models.filter((m) => !isDerivedId(m.id));
+  const pool = usable.length ? usable : models;
+  return pool.slice().sort(byNewest)[0]?.id;
+}
 
 // Pass/variant name with the subject prefix stripped: "cottage_v2_mc_blocks"
 // reads "v2 · MC blocks", "bonsai_lowpoly_half_sub" reads "low-poly half sub".
@@ -436,16 +444,15 @@ function buildCatalogue(models) {
     if (!bySubj.has(s)) bySubj.set(s, []);
     bySubj.get(s).push(m);
   }
-  const rank = (s) => {
-    const i = SUBJECT_ORDER.indexOf(s);
-    return i === -1 ? SUBJECT_ORDER.length : i;
-  };
-  const info = (m) => cat.info.get(m.id);
   cat.groups = [...bySubj.keys()]
-    .sort((a, b) => rank(a) - rank(b) || a.localeCompare(b))
+    .sort((a, b) => {
+      const ta = Math.max(...bySubj.get(a).map(updatedAt));
+      const tb = Math.max(...bySubj.get(b).map(updatedAt));
+      return tb - ta || a.localeCompare(b);
+    })
     .map((subject) => {
       const items = bySubj.get(subject);
-      items.sort((a, b) => info(a).tier - info(b).tier || info(a).label.localeCompare(info(b).label));
+      items.sort(byNewest);
       const withRef = items.find((m) => m.featured && m.ref) || items.find((m) => m.ref);
       return { subject, title: capitalise(subject), ref: withRef?.ref, models: items };
     });
@@ -866,7 +873,7 @@ function syncUrl(id) {
 function populateFeatured(models) {
   const list = $("featured");
   if (!list) return;
-  const featured = models.filter((m) => m.featured);
+  const featured = models.filter((m) => m.featured).sort(byNewest);
   list.closest("section").hidden = !featured.length;
   list.replaceChildren(
     ...featured.map((m) => {
@@ -1036,7 +1043,7 @@ async function loadCatalogue() {
   }
   buildCatalogue(manifest.models);
   populateFeatured(manifest.models);
-  const start = idFromUrl() || manifest.default_id || manifest.models[0]?.id;
+  const start = idFromUrl() || manifest.default_id || newestId(manifest.models);
   if (!start) {
     setPlate({ eyebrow: "Catalogue", title: "No models yet" });
     setState("idle", "No models in the catalogue. Drop a JSON file to view one.");

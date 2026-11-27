@@ -1,0 +1,168 @@
+{
+ "subject": "mosque",
+ "organic": false,
+ "summary": "A pale cream mosque with a large patterned dome rising from the centre of a flat-roofed hall. A smaller patterned dome sits on the right-hand block. Two slender minarets stand on the left and right, each with stacked balconies and a small domed cap. A low arcade of arched openings runs along the left wing. A tall arched portal, recessed and dark, is set in the right front. Small arched windows and doors are set into the plain walls, and a crenellated parapet runs along the roofline.",
+ "parts": {
+  "main_block": {
+   "kind": "mass",
+   "count": 1,
+   "face": "all",
+   "where": "Central flat-roofed hall, the largest block. The large dome rises from its roof, and the left wing and right block attach to its sides.",
+   "notes": "Plain cream walls, flat roof, with the dome rising from its centre.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "left_wing": {
+   "kind": "mass",
+   "count": 1,
+   "face": "all",
+   "where": "Lower block on the left side of the main hall, below the left minaret, with a flat roof.",
+   "notes": "Lower flat-roofed wing, open arcade along its front.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "dome": {
+   "kind": "mass",
+   "count": 1,
+   "face": "top",
+   "where": "Large dome on the roof of the main block, above the centre and left of the right block. Its drum base sits on the parapet.",
+   "notes": "Ribbed, patterned dome with a finial, on a drum.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "small_dome": {
+   "kind": "mass",
+   "count": 1,
+   "face": "top",
+   "where": "Smaller dome on the right block, sitting above the right-hand flat roof and below the right minaret's base level.",
+   "notes": "Smaller patterned dome on a short drum.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "minaret": {
+   "kind": "mass",
+   "count": 2,
+   "face": "top",
+   "where": "Two slender towers, one on the left front corner and one on the right. The left tower is the taller of the two and rises from a square base; the right one has a smaller square base.",
+   "notes": "Slender tapering shaft with a domed lantern cap on top.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "dome_drum_windows": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "dome",
+   "face": "all",
+   "where": "Ring of small arched openings around the base of the dome drum, below the dome and above the roofline.",
+   "notes": "Small arched openings set back in the drum base.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "minaret_balcony": {
+   "kind": "feature",
+   "count": 5,
+   "parent": "minaret",
+   "face": "all",
+   "where": "Stacked balcony rings on each minaret shaft, spaced up the tower and below the lantern cap.",
+   "notes": "Projecting balcony rings stacked up each shaft.",
+   "built_as": [
+    "proud",
+    "outline"
+   ]
+  },
+  "minaret_cap": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "minaret",
+   "face": "top",
+   "where": "Small domed lantern on the top of each minaret, above the highest balcony.",
+   "notes": "Small domed lantern cap on top of each minaret.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "arcade": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "left_wing",
+   "face": "front",
+   "where": "Row of arched openings along the front of the left wing, under its flat roofline.",
+   "notes": "Row of arched openings, open, shallow recess along the front.",
+   "built_as": [
+    "open"
+   ]
+  },
+  "portal": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "front",
+   "where": "Tall arched entrance on the right front of the main block, at ground level and rising to about the height of the lower window band.",
+   "notes": "Tall arched doorway, deep recess, dark wood door.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "small_door": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "main_block",
+   "face": "front",
+   "where": "Small doors at ground level on the lower front wall, beside the arcade and below the window band.",
+   "notes": "Small plain doors set into the lower wall.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "window": {
+   "kind": "feature",
+   "count": 7,
+   "parent": "main_block",
+   "face": "front",
+   "where": "Rows of small arched windows on the front walls, in the upper band above the arcade and beside the portal.",
+   "notes": "Small arched windows set back in plain walls.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "parapet": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "top",
+   "where": "Low crenellated parapet along the roofline of the main block, between the dome base and the flat roof edge.",
+   "notes": "Low crenellated parapet along the roof edge.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "front_arcade": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "front",
+   "where": "Row of arched openings along the ground floor of the right front, left of the portal and right of the small doors.",
+   "notes": "Row of shallow arched recesses along the ground floor, columns between arches.",
+   "built_as": [
+    "set_back"
+   ],
+   "id": "front_arcade"
+  }
+ },
+ "open": [
+  "arcade"
+ ],
+ "source": "parts_list.py (auto, claude-haiku-5-5)",
+ "model": "claude-haiku-5-5",
+ "cost_usd": 0.0123,
+ "_cached": false,
+ "verified": true,
+ "verify_notes": "Missing ground-floor arch row on right front; added as a set-back feature.",
+ "_verify_cached": false
+}

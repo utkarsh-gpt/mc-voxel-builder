@@ -1,0 +1,157 @@
+{
+ "source": "out/combined/mosque_combined_mapped.json",
+ "weights": {
+  "tex": 0.5,
+  "geo": 0.5
+ },
+ "zones": {
+  "trim": {
+   "base": "stripped_poplar_log",
+   "ladder_dark_to_light": [
+    "light_gray_concrete",
+    "poplar_planks",
+    "stripped_poplar_log",
+    "white_terracotta"
+   ],
+   "L": [
+    52.1,
+    58.0,
+    63.9,
+    74.9
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 16.1,
+    "base": 70.2,
+    "highlight": 13.7
+   },
+   "blocks": {
+    "stripped_poplar_log": 1456,
+    "white_terracotta": 311,
+    "poplar_stairs": 271,
+    "poplar_planks": 86,
+    "stripped_poplar_wood": 79,
+    "poplar_trapdoor": 59,
+    "poplar_slab": 5,
+    "light_gray_concrete": 2
+   },
+   "counts": {
+    "base": 1593,
+    "highlight": 311,
+    "shadow": 365,
+    "interior": 4057
+   }
+  },
+  "trim_2": {
+   "base": "pale_oak_planks",
+   "ladder_dark_to_light": [
+    "polished_diorite",
+    "pale_oak_planks",
+    "stripped_pale_oak_log",
+    "snow_block"
+   ],
+   "L": [
+    77.8,
+    87.5,
+    94.7,
+    99.3
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 18.9,
+    "base": 59.0,
+    "highlight": 22.1
+   },
+   "blocks": {
+    "pale_oak_planks": 785,
+    "pale_oak_slab": 319,
+    "polished_diorite": 319,
+    "pale_oak_stairs": 259,
+    "white_wool_slab": 234,
+    "stripped_pale_oak_log": 139,
+    "pale_oak_trapdoor": 137,
+    "white_wool_stairs": 131,
+    "polished_diorite_stairs": 79,
+    "polished_diorite_slab": 73,
+    "snow_block": 15
+   },
+   "counts": {
+    "base": 1469,
+    "shadow": 471,
+    "highlight": 550,
+    "interior": 2500,
+    "kept": 40
+   }
+  },
+  "trim_3": {
+   "base": "spruce_planks",
+   "ladder_dark_to_light": [
+    "jungle_wood",
+    "spruce_planks",
+    "mud_bricks",
+    "jungle_planks"
+   ],
+   "L": [
+    29.8,
+    38.5,
+    46.7,
+    52.2
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 20.4,
+    "base": 57.0,
+    "highlight": 22.6
+   },
+   "blocks": {
+    "spruce_planks": 38,
+    "jungle_wood": 16,
+    "mud_bricks": 13,
+    "spruce_stairs": 9,
+    "mud_brick_stairs": 7,
+    "spruce_trapdoor": 5,
+    "brown_concrete_stairs": 2,
+    "jungle_trapdoor": 1,
+    "spruce_slab": 1,
+    "mud_brick_slab": 1
+   },
+   "counts": {
+    "shadow": 19,
+    "interior": 109,
+    "base": 53,
+    "highlight": 21
+   }
+  },
+  "chimney": {
+   "base": "andesite",
+   "ladder_dark_to_light": [
+    "tuff",
+    "stone_bricks",
+    "andesite",
+    "smooth_stone"
+   ],
+   "L": [
+    45.8,
+    51.2,
+    56.7,
+    65.1
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 40.0,
+    "base": 60.0,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "andesite": 2,
+    "andesite_slab": 1,
+    "tuff": 1,
+    "stone_brick_slab": 1
+   },
+   "counts": {
+    "base": 3,
+    "shadow": 2
+   }
+  }
+ }
+}

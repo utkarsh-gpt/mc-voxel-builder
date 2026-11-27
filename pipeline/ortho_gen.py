@@ -93,6 +93,7 @@ LIGHTING RULE: draw flat ALBEDO colour only, as if the object were lit evenly fr
 Keep every thin part (sails, legs, branches, foliage clumps) with the same proportions as in the photo.
 The four views must describe ONE consistent 3D object: widths in the front view equal widths in the top view, depths in the right view equal depths in the top view.
 The TOP view is a true plan seen from directly overhead, not tilted: anything lying in a vertical plane (such as windmill sails) appears as a thin straight line.
+The BACK panel is always a straight-on rear ELEVATION (same scale and horizon as the front), NEVER a second top plan or a copy of the top-right panel.
 No frames, borders, captions or labels anywhere."""
 
 def make_prompt(hint, extra="", layout="grid", aspect=1.0):
