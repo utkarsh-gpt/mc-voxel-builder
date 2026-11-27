@@ -110,3 +110,36 @@ picked by IoU). All models have 0 creaking_heart.
 Cathedral (optional) was tried with features re-detected image-only and the `_bpB3` sheet. It is not deployed: the
 image-only detector reports 4 chimneys and 7 spires on the old 13x26x32 model, and mc_map's protrusion builder turns
 them into brown poles. It needs a parts list (or William's higher-resolution mesh) first.
+
+## House "black spots" fix (Nov 26, 2026)
+
+**Cause.** All 147 of the neutral-dark blocks (L* < 45, C* < 8) on the house_combined exterior were `trim_brown`:
+119 pale_oak_wood, 20 acacia_wood, 4 tuff_brick_stairs, 3 gray_wool_stairs and 1 cracked_deepslate_bricks.
+- The de-shaded albedo trim colour is #534039, a dull brown (L* 29, C* 10). `mc_map` matched it to pale_oak_wood, which
+  is grey bark (C* 4.7) and the nearest block by dE2000 among the preferred wood family. On the pale siding it reads as
+  black.
+- The automatic shade ladder in `shade_gradient` then added grey steps (acacia, tuff, gray wool, deepslate) within 12
+  a*b* of that grey base.
+- The flat house_mc_blocks had the same problem (132 pale_oak_wood).
+
+These were **not** the cause:
+- No backing block (polished_blackstone) touches open air in either version. The 64 visible ones sit behind window
+  glass or frames, by design.
+- `stamp_generic` added 0 new cells on the house.
+
+A separate artefact: the door's transom panel was warped_nylium, a teal stripe. Its top differs from its side, and the
+door panel picker didn't exclude it.
+
+**Fix (general).**
+- `mc_map` chroma guard: a dark (L* < 45), chromatic (C* >= 8) target may not be matched by a block with less than half
+  its chroma. Turn it off with `MC_CHROMA_GUARD=0`. house trim_brown → poplar_log.
+  - The guard changes nothing in gate, windmill_v2, cottage_v2 or turtle (checked block by block).
+- `mc_map` door panels and other `nearest()` picks skip *_nylium.
+- `shade_gradient` auto ladders:
+  - the same chroma rule;
+  - no step darker than 0.75 × the base L*;
+  - no terrain blocks (soil, organic, moss, mushroom) unless the base is terrain, so there is no dirt on a roof.
+  - Curated zones (gate, windmill, cottage) are unchanged.
+
+**Result.** Neutral-dark exterior blocks went from 147 to **0**, with 0 backing exposed to air, 142 window-only glass
+panes (0 stray) and 0 creaking_heart. dE mean 12.61 → 12.54 and p90 28.29 → 28.22.

@@ -99,6 +99,10 @@ def ladder(base, zone):
     def cost(b, t):
         l = L_of(b); dab = float(np.hypot(*(l[1:] - ab0)))
         if dab > tol: return None
+        if cur == "auto":   # SME-15 house fix: an automatic ladder never greys a chromatic material (brown trim -> deepslate)
+            C0, Cb = float(np.hypot(*ab0)), float(np.hypot(*l[1:]))   # and never steps darker than 3/4 of the base's L*
+            if (C0 >= 8 and Cb < 0.5*C0) or l[0] < AUTO_FLOOR*l0[0]: return None
+            if MM.BL[b]["family"] in AUTO_TERRAIN and MM.BL[b]["family"] != MM.BL[base]["family"]: return None   # no dirt on a roof
         return abs(l[0] - t) + 0.6*dab + (0 if b in CURATED.get(cur, []) else 5.0) + (0 if MM.BL[b]["family"] == MM.BL[base]["family"] else 2.0)
     out = {0: base}; used = {base}
     for sgn, k in ((-1, ns), (1, nh)):
@@ -123,6 +127,8 @@ def variant(full, shape):
 
 GLASS_MATS = {"glass"}   # the only material a glass pane may carry (feature-pass / eyebrow window glazing)
 
+AUTO_TERRAIN = {"soil", "organic", "moss", "mushroom"}   # auto ladders: terrain blocks only for a terrain base
+AUTO_FLOOR = 0.75   # auto ladders: darkest step >= 0.75 x base L*
 AUTO_SKIP = PROTECT | {"window_dark", "window_lit", "glass", "glass_dark", ""}
 
 def auto_zones(d, log=print):

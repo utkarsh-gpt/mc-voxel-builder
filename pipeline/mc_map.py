@@ -123,10 +123,15 @@ def ramp_hood(base):
     out |= nb; fam = BL[base]["family"]; out |= {b["id"] for b in CAND if b["family"] == fam}
     return out
 HATCH_POOL = {b["id"] for b in CAND if max(b.get("pattern", {}).get("techniques", {}).get(t, 0) for t in ("hatching", "cross_hatching")) >= 0.3}
+CHROMA_GUARD = os.environ.get("MC_CHROMA_GUARD", "1") == "1"
+CHROMA_MIN, CHROMA_KEEP, CHROMA_MAX_L = 8.0, 0.5, 45.0   # dark (L* < 45) chromatic targets (C* >= 8) keep at least half their chroma
 def slot_cost(b, s, base_L=None, used=()):
     """base_L: L* of the block chosen for the next shade toward the base (same sign), so the ramp stays monotonic"""
     c = face_lab(b, s["f_top"]); de = dE(s["lab"], c)
     if not hue_ok(s["lab"], c, 16 if s["m"] in GREYISH else 12): return 1e9, de
+    if CHROMA_GUARD:   # SME-15 house fix: a chromatic target (brown trim C* 10) must not be matched by a grey block (pale_oak_wood
+        Ct, Cb = float(np.hypot(*s["lab"][1:])), float(np.hypot(*c[1:]))   # C* 4.7): next to pale siding it reads as a black stain
+        if Ct >= CHROMA_MIN and s["lab"][0] < CHROMA_MAX_L and Cb < CHROMA_KEEP*Ct: return 1e9, de
     noise = W_N*min(3.0, abs(s["lstd"] - b["overall"]["l_stddev"])/3.0)
     ts = tech_score(b, s["role"]); tech = W_T*(1 - ts) if ts is not None else 0.0
     mono = 0.0
@@ -375,7 +380,7 @@ def feature_pass(G, fj, base_of, mat_blocks, size):
             if p in G and G[p]["m"] != "frame": return p        # trim another opening put outside the wall is not the wall
         return None
     def nearest(shape, lab, fam=None, extra=()):
-        ids = [t for t in BL if BL[t]["shape"] == shape and not t.startswith("waxed_") and (fam is None or BL[t]["family"] in fam)] + list(extra)
+        ids = [t for t in BL if BL[t]["shape"] == shape and not t.startswith("waxed_") and not t.endswith("_nylium") and (fam is None or BL[t]["family"] in fam)] + list(extra)   # nylium: netherrack sides under a teal/red top (was a teal stripe over the house door)
         return min(ids, key=lambda t: dE(lab, lab_of(BL[t], "side"))) if ids else None
     def kit_of(f): return kits.get(f.get("kit") or f"{f['kind']}|{int(bool(f.get('arch')))}|{f['w']}|{f['h']}", {})
     # one frame material per subject style (consistent across kits): trim trapdoor + the shelf of the same wood

@@ -6,40 +6,30 @@
  },
  "zones": {
   "trim_brown": {
-   "base": "pale_oak_wood",
+   "base": "poplar_log",
    "ladder_dark_to_light": [
-    "cracked_deepslate_tiles",
-    "cracked_deepslate_bricks",
-    "pale_oak_wood",
-    "acacia_wood",
-    "tuff"
+    "poplar_log",
+    "oak_wood"
    ],
    "L": [
-    21.7,
-    27.1,
-    33.7,
-    41.1,
-    45.8
+    27.2,
+    37.7
    ],
-   "base_index": 2,
+   "base_index": 0,
    "surface_split_pct": {
-    "shadow": 1.6,
-    "base": 75.4,
-    "highlight": 23.0
+    "shadow": 0.0,
+    "base": 87.4,
+    "highlight": 12.6
    },
    "blocks": {
-    "pale_oak_wood": 190,
-    "acacia_wood": 30,
-    "tuff": 17,
-    "tuff_stairs": 7,
-    "tuff_brick_stairs": 4,
-    "gray_wool_stairs": 3,
-    "cracked_deepslate_bricks": 1
+    "poplar_log": 208,
+    "oak_wood": 30,
+    "dark_oak_stairs": 14
    },
    "counts": {
-    "shadow": 4,
-    "base": 190,
-    "highlight": 58,
+    "kept": 14,
+    "base": 208,
+    "highlight": 30,
     "interior": 259
    }
   },
@@ -85,68 +75,60 @@
   "roof_shingle": {
    "base": "bricks",
    "ladder_dark_to_light": [
-    "brown_wool",
     "cinnabar",
     "bricks",
     "exposed_chiseled_copper"
    ],
    "L": [
-    34.7,
     43.4,
     47.0,
     53.0
    ],
-   "base_index": 2,
+   "base_index": 1,
    "surface_split_pct": {
-    "shadow": 23.2,
-    "base": 67.9,
+    "shadow": 14.6,
+    "base": 76.5,
     "highlight": 9.0
    },
    "blocks": {
-    "bricks": 181,
-    "brick_stairs": 113,
-    "brick_slab": 101,
-    "cinnabar": 51,
+    "bricks": 210,
+    "brick_stairs": 122,
+    "brick_slab": 113,
+    "cinnabar": 37,
+    "cinnabar_stairs": 34,
     "jungle_slab": 28,
-    "brown_wool_stairs": 25,
-    "cinnabar_stairs": 18,
-    "cinnabar_slab": 18,
+    "cinnabar_slab": 15,
     "exposed_chiseled_copper": 15,
-    "brown_wool": 15,
     "jungle_stairs": 10,
-    "brown_wool_slab": 9,
-    "brick_wall": 6,
-    "cinnabar_wall": 1
+    "brick_wall": 7
    },
    "counts": {
     "highlight": 53,
-    "base": 401,
-    "shadow": 137,
+    "base": 452,
+    "shadow": 86,
     "interior": 456
    }
   },
   "chimney": {
    "base": "granite",
    "ladder_dark_to_light": [
-    "brown_wool",
-    "dirt",
+    "cinnabar",
     "granite",
     "exposed_cut_copper"
    ],
    "L": [
-    34.7,
-    44.0,
+    43.4,
     48.0,
     53.8
    ],
-   "base_index": 2,
+   "base_index": 1,
    "surface_split_pct": {
     "shadow": 50.0,
     "base": 0.0,
     "highlight": 50.0
    },
    "blocks": {
-    "brown_wool": 1,
+    "cinnabar": 1,
     "exposed_cut_copper_slab": 1
    },
    "counts": {

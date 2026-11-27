@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T19:09:26",
+  "generated_at": "2026-11-26T19:17:45",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -1092,7 +1092,7 @@
       "hasShapes": false,
       "subCount": 787,
       "subPct": 20.8,
-      "paletteSize": 125,
+      "paletteSize": 114,
       "highlight": true,
       "featured": false,
       "ref": "refs/house.jpg",
@@ -1101,8 +1101,8 @@
         "url": "https://commons.wikimedia.org/wiki/File:American_Foursquare_Style_House_-_panoramio_(1).jpg",
         "license_url": "https://creativecommons.org/licenses/by/3.0/"
       },
-      "mtime": 1795738157,
-      "bytes": 274270
+      "mtime": 1795738663,
+      "bytes": 263803
     },
     {
       "id": "house_fd_mc_blocks",
