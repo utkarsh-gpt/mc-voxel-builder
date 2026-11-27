@@ -86,6 +86,61 @@ PREF_SLACK = 4.0
 # andesite is within 0.3 dE of diorite for the drawn buff-grey and reads as clean grey masonry
 PREFER_SUBJ = {"windmill_v2": {"stone": {"andesite", "stone"}}}
 PREFER_NOW = dict(PREFER)
+
+_SUBJ = None
+_AUTO = {}
+
+def _auto(subject=None):
+    s = subject if subject is not None else _SUBJ
+    if not s: return {}
+    if s not in _AUTO:
+        rec = {}
+        fp = f"art/final/meta/{s}_autocfg.json"
+        if os.path.exists(fp):
+            try: rec = json.load(open(fp)) or {}
+            except Exception: rec = {}
+        _AUTO[s] = rec
+    return _AUTO[s]
+
+def _fallback_fams(mat):
+    s = (mat or "").lower()
+    if any(w in s for w in ("window", "glass", "pane", "dark_detail")):
+        return set(FAMILIES.get("window_dark") or {"deepslate", "blackstone", "basalt", "concrete", "wool", "obsidian", "terracotta", "wood"})
+    if any(w in s for w in ("roof", "slate", "shingle", "thatch", "cap")):
+        return set(FAMILIES.get("roof_slate") or {"deepslate", "blackstone", "basalt", "tuff", "stone", "terracotta", "brick"})
+    if any(w in s for w in ("trim", "timber", "wood", "door", "frame")):
+        return set(FAMILIES.get("trim_brown") or {"wood", "terracotta", "mud", "brick", "granite", "soil"})
+    if any(w in s for w in ("grass", "foliage", "ivy", "moss", "algae")):
+        return set(FAMILIES.get("foliage") or {"moss", "terracotta", "wool", "concrete", "organic"})
+    if any(w in s for w in ("ground", "soil", "sand")):
+        return set(FAMILIES.get("sand") or {"soil", "mud", "sandstone", "terracotta"})
+    if any(w in s for w in ("body", "skin", "shell")):
+        return set(FAMILIES.get("shell") or {"wood", "mud", "terracotta", "stone"})
+    return set(FAMILIES.get("stone") or {"stone", "andesite", "tuff", "diorite", "sandstone", "terracotta", "mud", "calcite"})
+
+def fams_for(mat, subject=None):
+    """FAMILIES entry, else auto-cfg families, else a role/colour/name fallback. Never raises KeyError."""
+    if not mat: return set()
+    if mat in FAMILIES: return set(FAMILIES[mat])
+    rec = _auto(subject)
+    fams = (rec.get("families") or {}).get(mat)
+    if fams: return set(fams)
+    role = (rec.get("roles") or {}).get(mat)
+    if role:
+        try:
+            import auto_cfg
+            if role in auto_cfg.ROLE_FAMS: return set(auto_cfg.ROLE_FAMS[role])
+        except Exception:
+            pass
+    return _fallback_fams(mat)
+
+def prefer_for(mat, subject=None):
+    """PREFER / PREFER_SUBJ first, then auto-cfg prefer. Returns a set or None."""
+    if mat in PREFER_NOW and PREFER_NOW[mat]: return set(PREFER_NOW[mat])
+    rec = _auto(subject)
+    pref = (rec.get("prefer") or {}).get(mat)
+    return set(pref) if pref else None
+
 LEGACY = os.environ.get("MC_LEGACY", "0") == "1"   # A/B switch: 1 = the mapper as it was before DETAIL_DISCOVERY P0
 ACCENT_MAX_DE = float(os.environ.get("MC_ACCENT_MAX_DE", 20.0 if LEGACY else 10.0))   # was 20: white_terracotta on sandstone (16 dE) read as pink patches
 NATURAL_OK = {"grass_block"}                  # biome-tinted, but the dataset stores its plains-tinted colours; only used via NATURAL
@@ -146,7 +201,7 @@ def slot_cost(b, s, base_L=None, used=()):
         if s["sh"] < 0 and L > base_L + 1: mono = 10
         if s["sh"] > 0 and L < base_L - 1: mono = 10
     reuse = -2.0 if b["id"] in used else 0.0
-    fam = 0.0 if b["family"] in FAMILIES.get(s["m"], {b["family"]}) else (1e9 if s["m"] in STRICT_NOW else W_FAM)
+    fam = 0.0 if b["family"] in fams_for(s["m"]) else (1e9 if s["m"] in STRICT_NOW else W_FAM)
     if b["id"] in NATURAL_OK and b["id"] not in NATURAL.get(s["m"], {}): return 1e9, de
     fam -= NATURAL.get(s["m"], {}).get(b["id"], 0.0)
     if SAT_CAP:
@@ -158,11 +213,11 @@ def choose(s, pool, base_L=None, used=()):
     sc = [(slot_cost(BL[i], s, base_L, used), i) for i in pool if i in BL and allowed(BL[i])]
     ok = [x for x in sc if x[0][0] < 1e8]
     if not ok:   # hue guard rejected everything: plain nearest colour (in-family first for strict materials)
-        fam_ok = [x for x in sc if s["m"] not in STRICT_NOW or BL[x[1]]["family"] in FAMILIES.get(s["m"], set())] or sc
+        fam_ok = [x for x in sc if s["m"] not in STRICT_NOW or BL[x[1]]["family"] in fams_for(s["m"])] or sc
         return min(((x[0][1], x[1]) for x in fam_ok), default=(None, None))[1]
     sc = ok
     best_de = min(x[0][1] for x in sc)
-    pref = PREFER_NOW.get(s["m"])
+    pref = prefer_for(s["m"])
     if pref:
         pr = [x for x in sc if BL[x[1]]["family"] in pref and x[0][1] <= best_de + PREF_SLACK]
         if pr: sc = pr; best_de = min(x[0][1] for x in sc)
@@ -248,7 +303,7 @@ def _place(bid, shape, mat_blocks, target, mat=None):
         if size <= 0.3 and td and dE(target, lab_of(BL[td], "top")) <= 10: return td, {"half": half, "open": "false", "facing": "north"}, "trapdoor"
         sl = slab_of(bid)
         if not sl:   # nearest material block that has a slab, if close in colour
-            fam = FAMILIES.get(mat, set())
+            fam = fams_for(mat)
             for pool in (set(mat_blocks), {b["id"] for b in CAND if b["family"] in fam}):     # material's own ramp first, then its families
                 alt = sorted([(dE(target, lab_of(BL[m], "top" if half == "bottom" else "side")), m) for m in pool if slab_of(m)])
                 if alt and alt[0][0] <= 6: sl = slab_of(alt[0][1]); break
@@ -265,7 +320,7 @@ def _place(bid, shape, mat_blocks, target, mat=None):
             # free-standing thin piece (mullion, pinnacle, spire edge, fin): stone gets its wall block, centred
             wl = wall_of(bid)
             if not wl:
-                for pool in (set(mat_blocks), {b["id"] for b in CAND if b["family"] in FAMILIES.get(mat, set())}):
+                for pool in (set(mat_blocks), {b["id"] for b in CAND if b["family"] in fams_for(mat)}):
                     alt = sorted([(dE(target, lab_of(BL[m], "side")), m) for m in pool if wall_of(m)])
                     if alt and alt[0][0] <= 10: wl = wall_of(alt[0][1]); break
             if wl and not trapdoor_of(bid): return wl, {}, "wall (thin piece)"
@@ -274,7 +329,7 @@ def _place(bid, shape, mat_blocks, target, mat=None):
         if td and dE(target, lab_of(BL[td], "side")) > 10: td = None
         if not td:   # a trapdoor of a close-coloured wood/copper block (e.g. pale oak for white sails)
             alt = sorted([(dE(target, lab_of(BL[t], "side")), t) for t in BL if BL[t]["shape"] == "trapdoor" and not t.startswith("waxed_")
-                          and BL[t]["family"] in FAMILIES.get(mat, set())])     # only trapdoor families that suit this material
+                          and BL[t]["family"] in fams_for(mat)])     # only trapdoor families that suit this material
             if alt and alt[0][0] <= 10: td = alt[0][1]
         if td: return td, {"open": "true", "facing": FACE_OPP.get(shape.get("align"), "north"), "half": "bottom"}, "trapdoor (vertical)"
         return bid, {}, "full (no vertical piece)"
@@ -282,7 +337,7 @@ def _place(bid, shape, mat_blocks, target, mat=None):
         props = {"facing": shape["facing"], "half": shape.get("half", "bottom"), "shape": shape.get("shape", "straight")}
         st = stairs_of(bid)
         if not st:   # the stair of the material's closest block that has one (own ramp first, then its families)
-            fam = FAMILIES.get(mat, set())
+            fam = fams_for(mat)
             for pool in (set(mat_blocks), {b["id"] for b in CAND if b["family"] in fam}):
                 alt = sorted([(dE(target, lab_of(BL[m], "side")), m) for m in pool if stairs_of(m)])
                 if alt and alt[0][0] <= 12: st = stairs_of(alt[0][1]); break
@@ -291,7 +346,7 @@ def _place(bid, shape, mat_blocks, target, mat=None):
         if t == "wall":
             wl = wall_of(bid)
             if not wl:
-                for pool in (set(mat_blocks), {b["id"] for b in CAND if b["family"] in FAMILIES.get(mat, set())}):
+                for pool in (set(mat_blocks), {b["id"] for b in CAND if b["family"] in fams_for(mat)}):
                     alt = sorted([(dE(target, lab_of(BL[m], "side")), m) for m in pool if wall_of(m)])
                     if alt and alt[0][0] <= 10: wl = wall_of(alt[0][1]); break
             if wl: return wl, {}, "wall"
@@ -631,7 +686,13 @@ def subject_key(n):
 
 def run(n):
     k = subject_key(n)
-    global STRICT_NOW, SAT_CAP, PREFER_NOW; STRICT_NOW = STRICT.get(n, STRICT.get(k, set())); SAT_CAP = n in ACCENT_ALL or k in ACCENT_ALL; PREFER_NOW = {**PREFER, **PREFER_SUBJ.get(n, PREFER_SUBJ.get(k, {}))}
+    global STRICT_NOW, SAT_CAP, PREFER_NOW, _SUBJ
+    _SUBJ = k
+    STRICT_NOW = STRICT.get(n, STRICT.get(k, set())); SAT_CAP = n in ACCENT_ALL or k in ACCENT_ALL; PREFER_NOW = {**PREFER, **PREFER_SUBJ.get(n, PREFER_SUBJ.get(k, {}))}
+    rec = _auto(k)
+    if rec.get("prefer"):
+        for m, pref in rec["prefer"].items():
+            PREFER_NOW.setdefault(m, set(pref) if not isinstance(pref, set) else pref)
     # colour_albedo.py output (labels colour_mode = albedo): the colours are already clean albedo per material, so no accent
     # dither, <= 3 blocks per material and roles stay inside the material's own ramp
     albedo = json.load(open(f"art/final/meta/{n}_texture_labels.json")).get("colour_mode") == "albedo"
@@ -729,7 +790,7 @@ def run(n):
         if "accent_target" in vs[0] and dE(bl, tgt) <= 5: continue    # base block already close enough
         best = (dE(bl, tgt), None, 0.0)
         for b in CAND:
-            if b["family"] not in FAMILIES[mm] or b["id"] == base or abs(lab_of(b, "side")[0] - bl[0]) > 12: continue   # low-contrast accents only (no spots)
+            if b["family"] not in fams_for(mm) or b["id"] == base or abs(lab_of(b, "side")[0] - bl[0]) > 12: continue   # low-contrast accents only (no spots)
             if dE(lab_of(b, "side"), bl) > ACCENT_MAX_DE or dE(lab_of(b, "side"), tgt) > 20: continue   # an accent must sit between base and target and stay low-contrast (a 16 dE accent reads as patches)
             if not hue_ok(tgt, lab_of(b, "side")): continue   # never grey out (or recolour) the material
             if b["id"] in NATURAL_OK: continue

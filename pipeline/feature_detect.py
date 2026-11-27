@@ -15,7 +15,7 @@ How it works (no fal, no LLM; ~1 s per subject):
      = chimney / turret, thinner = spire / antenna / finial. Their depth comes from the perpendicular view (matched by height),
      else from the model's ridge at that column.
 usage: python feature_detect.py NAME [--sheet _v1] [--K 8]  -> art/final/meta/NAME_features.json, out/NAME_features_debug.png"""
-import argparse, json, os, math, collections
+import argparse, json, os, math, collections, re
 import numpy as np
 from PIL import Image, ImageDraw
 from scipy import ndimage
@@ -561,34 +561,107 @@ def _drawing_grid(m, sx, sy, mirror, Wc, Hc):
     return G, F
 
 MIN_PEAK_IOU = 0.65
+CAP_PART = re.compile(r"spire|cap|roof|turret|finial|pinnacle|dome|lantern|tower")
+CHIMNEY_PART = re.compile(r"chimney|stack|flue|vent")
+
+def _shift_grid(G, dx, dy, H, Wc):
+    """integer shift of a bottom-up drawing grid onto the mesh grid (out-of-range = False)."""
+    out = np.zeros((G.shape[0], Wc), bool)
+    js = np.arange(G.shape[0]); is_ = np.arange(min(G.shape[1], Wc))
+    for i in is_:
+        i2 = i + dx
+        if i2 < 0 or i2 >= Wc: continue
+        for j in js:
+            j2 = j + dy
+            if 0 <= j2 < G.shape[0]:
+                out[j2, i2] = G[j, i]
+    return out
+
+def _align_shift(G, Pm, H, Wc, rad=3):
+    """best integer (dx, dy) in +-rad maximising IoU of G against the mesh projection Pm."""
+    best = (-1.0, 0, 0)
+    Ph = Pm[:H] if Pm.shape[0] >= H else Pm
+    for dy in range(-rad, rad + 1):
+        for dx in range(-rad, rad + 1):
+            Gs = _shift_grid(G, dx, dy, H, Wc)[:H, :Wc]
+            B = Ph[:Gs.shape[0], :Wc]
+            A = Gs[:B.shape[0], :B.shape[1]]
+            un = int((A | B).sum())
+            iou = float((A & B).sum()) / max(un, 1)
+            if iou > best[0]: best = (iou, dx, dy)
+    return best
+
+def _facade_mesh_top(hit, depth, c0, c1, H):
+    """Roofline per column from the 3 facade-nearest surface layers.
+
+    A 1-deep front skin that sticks UP (>= 3 above the layer behind it) is dropped (antennas).
+    Lower front decorations (buttresses, trim) stay out of the way because we use the max of
+    what remains, so a tall body behind a short facade protrusion still sets the top."""
+    Wc = c1 - c0
+    tops = np.full(Wc, -1, int)
+    for i in range(Wc):
+        col = c0 + i
+        layers = {}
+        for r in range(H):
+            if not hit[r, col]: continue
+            j = H - 1 - r
+            d = int(depth[r, col])
+            layers[d] = max(layers.get(d, -1), j)
+        if not layers: continue
+        near = [(d, layers[d]) for d in sorted(layers, reverse=True)[:3]]
+        while len(near) >= 2 and near[0][1] >= near[1][1] + 3:
+            near.pop(0)
+        tops[i] = max(t for _, t in near)
+    return tops
+
+def _parts_peak_budget(n):
+    """kind -> allowed count from meta/<n>_parts.json, or None if no parts file (no filter)."""
+    pp = f"art/final/meta/{n}_parts.json"
+    if not os.path.exists(pp): return None
+    try:
+        import parts_list
+        P = parts_list.load(n)
+    except Exception:
+        P = json.load(open(pp))
+    if not P or P.get("organic"): return {"tower_cap": 0, "chimney": 0}
+    bud = {"tower_cap": 0, "chimney": 0}
+    try:
+        parts = list(parts_list.iter_parts(P))
+    except Exception:
+        parts = []
+        raw = P.get("parts") or {}
+        if isinstance(raw, dict):
+            for pid, v in raw.items():
+                parts.append({"id": pid, "count": int((v or {}).get("count") or 1)})
+        elif isinstance(raw, list):
+            for v in raw:
+                parts.append({"id": (v or {}).get("id") or "", "count": int((v or {}).get("count") or 1)})
+    for p in parts:
+        pid = (p.get("id") or "").lower().replace("-", "_")
+        if CAP_PART.search(pid): bud["tower_cap"] += int(p.get("count") or 1)
+        if CHIMNEY_PART.search(pid): bud["chimney"] += int(p.get("count") or 1)
+    return bud
+
 def above_mesh_peaks(n, tag, occ, views=("front", "back"), log=print, min_cells=4):
     """Structure the drawing shows ABOVE the voxel mesh's top (tower caps, turrets, spires, finials, chimneys the mesh clipped).
 
-    The usual align() stretches the drawing onto the mesh's bounding box, which hides exactly this case (a drawing taller than
-    the mesh is squashed to fit). Here the drawing is scaled by the mesh WIDTH (sx) and a vertical scale sy fitted on the part
-    the two share (IoU over the mesh's own rows, sy within +-25% of sx), anchored at the ground, so anything drawn above the
-    mesh lands in rows the mesh does not have.
-
-    A region counts only if
-      - it is a 4-connected group of drawing cells above the mesh column top in every column it covers (>= min_cells), and
-      - the peak is then rebuilt WHOLE from the drawing: from the drawn tip down through the run containing it until the outline
-        widens by >= 3 blocks in one row (the shoulder where a cap meets the roof / gable / wider body), shifted -1..+1 column
-        to best overlap the mesh stub it replaces, and
-      - it is SUPPORTED: >= 60% of its base row has mesh solid in the 3 rows directly under it (+-1 column) - a real cap sits on
-        a real tower / roof; a free-standing strip next to a wing (the old stray pole) has nothing under it and is dropped.
-    Shape: width per row from the bottom up; tapering (top width <= 0.6 x bottom width, or a 1-2 wide tip) -> tower_cap
-    (built_as outline); otherwise chimney / parapet (built_as proud).
-    Depth: the supporting voxels' z (front/back) run under the base: centre zc, depth = min(their z width, base width), and each
-    row's depth shrinks with its width (a square cap stays square, a cone stays a cone).
+    Guards (in order): integer (dx, dy) silhouette alignment; 3-layer facade mesh_top (drop upward 1-deep skins);
+    stop the tip-to-shoulder walk when the mesh already covers >= 60% of the drawn width; minimum excess; novelty
+    (<= 35% of the profile already solid); base_y at or above the median mesh top; depth (no 1-deep wide skins, no
+    through-model chimneys); one peak per x-range per view; parts-list kind/count filter; size budget (<= 3% of model voxels).
     Returns [{"kind", "built_as", "view", "cells": [[x, y, z]...], "colour", "rows", "support", "base_y"}]"""
     W, H, D = occ.shape; out = []; view_iou = {}
+    n_vox = int(occ.sum()); size_cap = max(8, int(0.03 * n_vox))
     for view in views:
         path = f"ortho/{n}{tag}_{'right' if view == 'left' else view}.png"
         if not os.path.exists(path): continue
         hit, xyz, depth = view_maps(occ, view)
-        P = hit[::-1]                                                    # bottom-up rows
-        cols = np.nonzero(P.any(0))[0]; c0, c1 = cols.min(), cols.max() + 1; Pm = P[:, c0:c1]; Wc = c1 - c0
-        mesh_top = np.array([np.nonzero(Pm[:, i])[0].max() if Pm[:, i].any() else -1 for i in range(Wc)])
+        P = hit[::-1]
+        cols = np.nonzero(P.any(0))[0]
+        if cols.size == 0: continue
+        c0, c1 = cols.min(), cols.max() + 1; Pm = P[:, c0:c1]; Wc = c1 - c0
+        mesh_top = _facade_mesh_top(hit, depth, c0, c1, H)
+        med_top = float(np.median(mesh_top[mesh_top >= 0])) if (mesh_top >= 0).any() else 0.0
         m, rgb = ortho_carve.mask_of(path); h, w = m.shape; sx = w / Wc
         best = None
         for mirror in (False, True):
@@ -598,23 +671,28 @@ def above_mesh_peaks(n, tag, occ, views=("front", "back"), log=print, min_cells=
                 A, B = G[:H], Pm[:H]
                 iou = (A & B).sum()/max((A | B).sum(), 1)
                 if best is None or iou > best[0]: best = (iou, f, mirror)
-        iou, f, mirror = best; sy = sx*f; Hc = max(H, int(np.ceil(h/sy)) + 1); view_iou[view] = float(iou)
-        G, Fr = _drawing_grid(m, sx, sy, mirror, Wc, Hc)
+        iou, f, mirror = best; sy = sx*f; Hc = max(H, int(np.ceil(h/sy)) + 1)
+        G0, Fr0 = _drawing_grid(m, sx, sy, mirror, Wc, Hc)
+        _, dx, dy = _align_shift(G0, Pm, H, Wc, 3)
+        G = _shift_grid(G0, dx, dy, G0.shape[0], Wc)
+        A, B = G[:H, :Wc], Pm[:H, :Wc]
+        iou = float((A & B).sum()) / max(int((A | B).sum()), 1)
+        view_iou[view] = iou
         above = np.zeros_like(G)
         for i in range(Wc):
             above[mesh_top[i] + 1:, i] = G[mesh_top[i] + 1:, i]
         lab, k = ndimage.label(above)
-        log(f"  {n} {view}: drawing over mesh, sx {sx:.1f}px sy {sy:.1f}px (x{f:.2f}) IoU {iou:.3f} mirror {mirror}; {k} above-mesh regions")
+        log(f"  {n} {view}: drawing over mesh, sx {sx:.1f}px sy {sy:.1f}px (x{f:.2f}) IoU {iou:.3f} mirror {mirror} shift ({dx},{dy}); {k} above-mesh regions")
         rgbm = rgb[:, ::-1] if mirror else rgb; mm_ = m[:, ::-1] if mirror else m
         xs_of = {}
         for i in range(c0, c1):
             col_hits = [xyz[r, i] for r in range(H) if hit[r, i]]
             if col_hits: xs_of[i - c0] = int(col_hits[0][0])
-        def wx(i):   # image column (relative to the mesh bbox) -> world x
+        def wx(i):
             if i in xs_of: return xs_of[i]
             return int(c0 + i) if view == "front" else int(W - 1 - (c0 + i))
         def run_at(j, cols_prev):
-            """the drawing run in row j overlapping cols_prev"""
+            if j < 0 or j >= G.shape[0]: return None
             row = G[j]; best = None
             for a in range(Wc):
                 if row[a] and (a == 0 or not row[a - 1]):
@@ -622,57 +700,78 @@ def above_mesh_peaks(n, tag, occ, views=("front", "back"), log=print, min_cells=
                     while b + 1 < Wc and row[b + 1]: b += 1
                     if b >= cols_prev[0] and a <= cols_prev[1]: best = (a, b) if best is None else (min(best[0], a), max(best[1], b))
             return best
+        view_peaks = []
         for c in range(1, k + 1):
             jj, ii = np.nonzero(lab == c)
             if len(jj) < min_cells: continue
-            # the region only says "the mesh is short here"; the peak itself is rebuilt whole from the drawing: walk down from
-            # the drawn tip through the run that contains it until the outline widens by >= 3 in one row (the peak's shoulder:
-            # where a cap / spire meets the roof, gable or wider body)
+            excess = []
+            for i in np.unique(ii):
+                js = jj[ii == i]
+                if js.size == 0: continue
+                excess.append((int(i), int(js.max()) - int(mesh_top[i])))
+            if not excess: continue
+            max_ex = max(e for _, e in excess)
+            ex_min = max(3, int(round(0.06 * H)))
+            if max_ex < ex_min:
+                log(f"    dropped (excess {max_ex} < {ex_min}) cols {int(ii.min())}..{int(ii.max())}"); continue
+            cols_ex = {i: e for i, e in excess}
+            if not any(e >= 2 and cols_ex.get(i - 1, 0) >= 2 for i, e in excess):
+                log(f"    dropped (no 2 adjacent columns with excess >= 2) cols {int(ii.min())}..{int(ii.max())}"); continue
             tip = int(jj.max()); r = (int(ii[jj == tip].min()), int(ii[jj == tip].max())); rows = []
             j = tip
             while j >= 0:
                 rr = run_at(j, r)
                 if rr is None: break
                 if rows and (rr[1] - rr[0] + 1) >= (rows[-1][2] - rows[-1][1] + 1) + 3: break
+                if 0 <= j < H:
+                    cov = float(Pm[j, rr[0]:rr[1] + 1].mean()) if rr[1] >= rr[0] else 0.0
+                    if cov >= 0.60: break
                 rows.append((j, rr[0], rr[1])); r = rr; j -= 1
-            rows = rows[::-1]; jb = rows[0][0]; base = j                                   # base: first row below the peak
-            info = {"view": view, "cols": [int(c0 + ii.min()), int(c0 + ii.max())], "rows": len(rows), "region_cells": len(jj)}
+            if len(rows) < 2:
+                log(f"    dropped (no shoulder / reaches the ground) view={view} tip={tip}"); continue
+            rows = rows[::-1]; base = j
+            info = {"view": view, "cols": [int(c0 + ii.min()), int(c0 + ii.max())], "rows": len(rows), "region_cells": len(jj), "shift_align": [dx, dy]}
             if base < 0 or len(rows) < 2: log(f"    dropped (no shoulder / reaches the ground) {info}"); continue
-            # registration: the drawing can sit a block off the mesh; shift the peak by -1/0/+1 columns to best overlap the mesh
-            # stub it should replace (if any)
             def ov(sh):
                 return sum(int(Pm[jr, a + sh:b + sh + 1].sum()) for jr, a, b in rows if jr < H and 0 <= a + sh and b + sh < Wc)
             shift = max((0, -1, 1), key=lambda sh: (ov(sh), -abs(sh)))
-            drawn = list(rows)                                                            # unshifted: where to sample colour
+            drawn = list(rows)
             rows = [(jr, a + shift, b + shift) for jr, a, b in rows if 0 <= a + shift and b + shift < Wc]
+            if not rows: continue
             a0, b0 = rows[0][1], rows[0][2]
-            # support: something solid directly under the base row (rows base-2..base, +-1 column for registration)
             under = Pm[max(0, base - 2):base + 1].any(0) if base < H else np.zeros(Wc, bool)
             under = under | np.roll(under, 1) | np.roll(under, -1)
-            sup = float(under[a0:b0 + 1].mean())
-            info["shift"] = shift
-            info["support"] = round(sup, 2)
+            sup = float(under[a0:b0 + 1].mean()) if b0 >= a0 else 0.0
+            info["shift"] = shift; info["support"] = round(sup, 2)
             if sup < 0.6: log(f"    dropped unsupported region (nothing solid under its base row) {info}"); continue
-            # clean profile: widths never grow going up (cummin from the base), every row centred on the peak's median centre
+            if base < med_top - 1:
+                log(f"    dropped (base_y {base} < median mesh_top {med_top:.1f} - 1) {info}"); continue
             ctr = float(np.median([(a + b)/2 for _, a, b in rows])); wcur = 10**6; clean = []
             for jr, a, b in rows:
                 wcur = min(wcur, b - a + 1); lo = int(np.floor(ctr - (wcur - 1)/2 + 1e-6)); clean.append((jr, max(0, lo), min(Wc - 1, lo + wcur - 1)))
             rows = clean
             widths = [b - a + 1 for _, a, b in rows]; wb, wt = max(widths), widths[-1]
             taper = wt <= max(2, 0.6*wb)
-            if taper and len(rows) >= 4:   # a cap / spire: a clean linear taper to a 1-block apex above the base (eave) row
+            if taper and len(rows) >= 4:
                 w1, n1 = widths[1], len(rows) - 1
                 fit = [widths[0]] + [max(1, int(round(w1 - (w1 - 1)*i/max(1, n1 - 1)))) for i in range(n1)]
                 rows = [(jr, max(0, int(np.floor(ctr - (wf - 1)/2 + 1e-6))), min(Wc - 1, int(np.floor(ctr - (wf - 1)/2 + 1e-6)) + wf - 1)) for (jr, _, _), wf in zip(rows, fit)]
                 widths = fit
+            prof_n = solid_n = 0
+            for jr, a, b in rows:
+                for i in range(a, b + 1):
+                    prof_n += 1
+                    if jr < H and 0 <= i < Wc and Pm[jr, i]: solid_n += 1
+            if prof_n and solid_n / prof_n > 0.35:
+                log(f"    dropped (novelty {solid_n}/{prof_n} = {solid_n/prof_n:.2f} already solid) {info}"); continue
             px = []
-            for jr, a, b in drawn[len(drawn)//3:]:                                        # the cap above its eave / shoulder
+            for jr, a, b in drawn[len(drawn)//3:]:
                 r1 = int(h - jr*sy); r0 = int(max(0, r1 - sy))
                 for i in range(a, b + 1):
                     blk = rgbm[r0:r1, int(i*sx):int((i + 1)*sx)]; mk = mm_[r0:r1, int(i*sx):int((i + 1)*sx)]
                     if mk.any(): px.append(np.median(blk[mk], 0))
             col = "#%02x%02x%02x" % tuple(int(v) for v in np.median(px, 0)) if px else None
-            row_col = {}   # per-row drawn colour: a turret's stone body under its slate cap keeps its own material
+            row_col = {}
             for jr, a, b in drawn:
                 r1 = int(h - jr*sy); r0 = int(max(0, r1 - sy)); q = []
                 for i in range(a, b + 1):
@@ -680,27 +779,40 @@ def above_mesh_peaks(n, tag, occ, views=("front", "back"), log=print, min_cells=
                     if mk.any(): q.append(np.median(blk[mk], 0))
                 if q: row_col[int(jr)] = "#%02x%02x%02x" % tuple(int(v) for v in np.median(q, 0))
             bx = sorted({wx(i) for i in range(a0, b0 + 1)}); by = int(base)
-            zs = sorted({z for x in bx for z in range(D) if occ[x, by, z]})
+            mt = [int(mesh_top[i]) for i in range(a0, b0 + 1) if 0 <= i < Wc and mesh_top[i] >= 0]
+            y_body = int(np.median(mt)) if mt else by
+            zs = sorted({z for x in bx for y in range(max(0, y_body - 2), min(H, y_body + 1)) for z in range(D)
+                         if 0 <= x < W and occ[x, y, z]})
             if not zs: log(f"    dropped (no voxels under the base) {info}"); continue
             runs = np.split(np.array(zs), np.nonzero(np.diff(zs) > 1)[0] + 1)
-            run = runs[-1] if view == "front" else runs[0]                               # the run on this view's facade side
+            run = runs[-1] if view == "front" else runs[0]
             zw = min(len(run), wb); zc = (run.min() + run.max())/2
+            if zw < 2 and wb >= 3:
+                log(f"    dropped (depth {zw} < 2 with base width {wb} >= 3) {info}"); continue
+            if zw >= 0.75 * D and wb < 0.5 * W:
+                log(f"    dropped (through-model depth {zw} >= 0.75*{D} and width {wb} < 0.5*{W}) {info}"); continue
             cells = []
             for jr, a, b in rows:
                 xa, xb = sorted((wx(a), wx(b))); wr = xb - xa + 1
-                dz = max(1, int(round(zw*wr/wb))); za = int(round(zc - (dz - 1)/2)); zb = za + dz - 1
+                dz = max(1, int(round(zw*wr/wb))) if wb else 1; za = int(round(zc - (dz - 1)/2)); zb = za + dz - 1
                 for x in range(xa, xb + 1):
                     for z in range(max(0, za), min(D - 1, zb) + 1): cells.append([int(x), int(jr), int(z)])
+            if len(cells) > size_cap:
+                log(f"    dropped (size {len(cells)} > 3% of {n_vox} = {size_cap}) {info}"); continue
             kind = "tower_cap" if taper else "chimney"
             xr = sorted((wx(min(a for _, a, _ in rows)), wx(max(b for _, _, b in rows))))
-            out.append(dict(kind=kind, built_as="outline" if taper else "proud", view=view, cells=cells, colour=col, row_colours=row_col,
-                            rows=[[jr, *sorted((wx(a), wx(b)))] for jr, a, b in rows], support=sup, base_y=by,
-                            above_from=int(ii.size and jj.min()), x=xr, z=[int(run.min()), int(run.max())], info=info))
+            peak = dict(kind=kind, built_as="outline" if taper else "proud", view=view, cells=cells, colour=col, row_colours=row_col,
+                        rows=[[jr, *sorted((wx(a), wx(b)))] for jr, a, b in rows], support=sup, base_y=by,
+                        above_from=int(ii.size and jj.min()), x=xr, z=[int(run.min()), int(run.max())], tip=tip, info=info)
+            view_peaks.append(peak)
             log(f"    {kind}: x {xr[0]}..{xr[1]} base y {by} rows {len(rows)} widths {widths} support {sup:.2f} z {run.min()}..{run.max()} (depth {zw}) colour {col} -> {len(cells)} voxels")
-    # false-spike guards (windmill sails, a turtle's head, a 1-wide pole):
-    #   - the view's drawing must register on the mesh (IoU >= MIN_PEAK_IOU), otherwise its "above" cells are misregistration
-    #   - a peak must be at least 2 wide somewhere and 3 rows tall
-    #   - when both the front and the back drawing exist, BOTH must show the peak (x ranges overlap within 1 block)
+        view_peaks.sort(key=lambda p: -p.get("tip", 0))
+        kept_view = []
+        for p in view_peaks:
+            if any(min(p["x"][1], q["x"][1]) + 1 >= max(p["x"][0], q["x"][0]) for q in kept_view):
+                log(f"    dropped {p['kind']} x {p['x']} ({p['view']}): same x-range as a taller peak"); continue
+            kept_view.append(p)
+        out.extend(kept_view)
     ok_views = {v for v, i in view_iou.items() if i >= MIN_PEAK_IOU}
     cand = [p for p in out if p["view"] in ok_views and max(r[2] - r[1] + 1 for r in p["rows"]) >= 2 and len(p["rows"]) >= 3]
     for p in out:
@@ -712,6 +824,23 @@ def above_mesh_peaks(n, tag, occ, views=("front", "back"), log=print, min_cells=
             other = "back" if p["view"] == "front" else "front"
             if not any(q["view"] == other and min(p["x"][1], q["x"][1]) + 1 >= max(p["x"][0], q["x"][0]) for q in cand):
                 log(f"    dropped {p['kind']} x {p['x']} ({p['view']}): not confirmed by the {other} drawing"); continue
-        if any(q["view"] != p["view"] and min(p["x"][1], q["x"][1]) + 1 >= max(p["x"][0], q["x"][0]) for q in keep): continue   # same peak, other view
+        rival = next((q for q in keep if q["view"] != p["view"] and min(p["x"][1], q["x"][1]) + 1 >= max(p["x"][0], q["x"][0])), None)
+        if rival is not None:
+            # both views confirmed the same cap — keep the fuller reconstruction
+            if len(p.get("cells") or []) > len(rival.get("cells") or []):
+                keep.remove(rival); keep.append(p)
+            continue
         keep.append(p)
+    bud = _parts_peak_budget(n)
+    if bud is not None:
+        used = {"tower_cap": 0, "chimney": 0}
+        filtered = []
+        for p in keep:
+            knd = p["kind"]; allow = bud.get(knd, 0)
+            if allow <= 0:
+                log(f"    dropped {knd} x {p['x']}: parts list has no matching {knd} part"); continue
+            if used[knd] >= allow:
+                log(f"    dropped {knd} x {p['x']}: already have {used[knd]} of {allow} listed {knd} parts"); continue
+            used[knd] += 1; filtered.append(p)
+        keep = filtered
     return keep

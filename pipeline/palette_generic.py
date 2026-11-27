@@ -86,6 +86,24 @@ CFG = {
    "blend": [("shell", "algae", 0)], "crisp": [("shell", "coral"), ("shell", "coral_pink"), ("shell", "fan")]}}
 DETAIL_MAX = 0.12   # detail materials may cover at most 12% of the surface (keeps accents accents)
 
+_CFG_CACHE = {}
+
+def get_cfg(n):
+    """Hand CFG[n] wins as a whole entry; otherwise auto_cfg.build(n) (cached to meta/<n>_autocfg.json)."""
+    if n in CFG:
+        C = dict(CFG[n])
+        if not C.get("src"):
+            C["src"] = f"art/{n}_shapefit.json"
+        return C
+    if n in _CFG_CACHE:
+        return _CFG_CACHE[n]
+    import auto_cfg
+    rec = auto_cfg.build(n)
+    C = auto_cfg.as_cfg(rec)
+    _CFG_CACHE[n] = C
+    return C
+
+
 def photo_bases(n, mats, hint_only=()):
     im = Image.open(f"refs/{n}.jpg"); m = scorer.ref_mask(im)
     lab = skc.rgb2lab(np.asarray(im.convert("RGB"))[m].astype(float)[None]/255)[0]
@@ -107,7 +125,7 @@ def photo_bases(n, mats, hint_only=()):
     return out, info
 
 def run(n):
-    C = CFG[n]; mats = C["mats"]; bases, binfo = photo_bases(n, mats, C.get("hint_only", ()))
+    C = get_cfg(n); mats = C["mats"]; bases, binfo = photo_bases(n, mats, C.get("hint_only", ()))
     d, occ, occw, lab0 = PT.load(C["src"]); W, H, D = occ.shape; X, Y, Z = np.indices(occ.shape)
     lab_s = PT.smooth_lab(lab0, occ, passes=1); surf = PT.surface(occ)
     g = ndimage.gaussian_filter(occ.astype(float), 1.0); Nrm = -np.stack(np.gradient(g), -1); Nrm /= np.linalg.norm(Nrm, axis=-1, keepdims=True) + 1e-9
@@ -203,7 +221,7 @@ def run(n):
         LAB[(M == k) & ~surf] = ramps[k][0]
     # gradient blends (same rule as palette_texture: chain length from the colour gap, ragged edge, no skipped step)
     blend_info, BLm = [], {}
-    for A_, B_, shB in C["blend"]:
+    for A_, B_, shB in C.get("blend", ()):
         mA, mB = (M == A_), (M == B_)
         if not mA.any() or not mB.any(): continue
         dist_b = ndimage.distance_transform_edt(~mB); dj = dist_b + 0.9*PT.noise(occ.shape, 2, f"blend{A_}{B_}", False)
@@ -231,7 +249,7 @@ def run(n):
     out = dict(d, palette=pal, voxels=vs, name=f"{n}_voxels_textured")
     out["texture"] = {"rules": "TEXTURE_RULES.md + palette_generic.py", "photo_bases": binfo, "materials": {k: int((M == k).sum()) for k in names}, "blends": blend_info}
     open(dst, "w").write(json.dumps(out))
-    open(f"art/final/meta/{n}_texture_labels.json", "w").write(json.dumps({"subject": n, "size": d["size"], "zones": Z_, "crisp": C["crisp"], "bases": bases, "voxels": [
+    open(f"art/final/meta/{n}_texture_labels.json", "w").write(json.dumps({"subject": n, "size": d["size"], "zones": Z_, "crisp": list(C.get("crisp", ())), "hints": {k: mats[k][0] for k in names}, "bases": bases, "voxels": [
         {"x": int(x), "y": int(y), "z": int(z), "m": M[x, y, z], "sh": int(IDX[x, y, z]) if surf[x, y, z] else 0, "surf": bool(surf[x, y, z]),
          **({"blend": BLm[(x, y, z)]} if (x, y, z) in BLm else {})} for x, y, z in np.argwhere(occ)]}))
     if "--fine" in sys.argv: subblock.expand(dst, dst.replace(".json", "_fine.json"))   # 4x render grid: only the old gallery/score tools read it (they build it on demand)

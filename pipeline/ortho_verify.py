@@ -92,6 +92,84 @@ Automatic geometric checks already found: {geo}
 Reply with ONLY a JSON object: {{"pass": true/false, "bad_views": [subset of "front","right","back","top"], "issues": ["short specific fix instructions for the image generator"]}}"""
 VIEWS = ("front", "right", "back", "top")
 
+def auto_spec(n, parts=None):
+    """Fallback (hint, specifics) so unseen subjects never KeyError on SPEC[n]."""
+    if n in SPEC: return SPEC[n]
+    hint = n.replace("_", " ")
+    summary = ""
+    try:
+        import parts_list
+        P = parts if parts is not None else parts_list.load(n)
+        if P: summary = (P.get("summary") or "").strip()
+    except Exception:
+        P = parts; summary = ((P or {}).get("summary") or "").strip()
+    spec = (summary[:400] + " Draw ONLY the subject, isolated, no extra props, ground, sky or labels.") if summary else (
+        f"Draw the {hint} exactly as in the photo: isolated, complete, no extra props, ground, sky or labels. Colours sampled from the photo.")
+    return hint, spec
+
+def get_spec(n, parts=None):
+    return SPEC[n] if n in SPEC else auto_spec(n, parts)
+
+def _bbox(m):
+    ys, xs = np.nonzero(m)
+    if len(ys) == 0: return None
+    return int(ys.min()), int(ys.max()), int(xs.min()), int(xs.max())
+
+def framing_check(prefix, n=None):
+    """Fail a sheet whose elevations are cropped, squashed, or badly proportioned vs the cut-out."""
+    import ortho_gen, math, ortho_carve
+    issues, bad = [], set()
+    n = n or prefix.rsplit("_", 1)[0]
+    try: a_ref = ortho_gen.cutout_aspect(n)
+    except Exception: a_ref = 1.0
+    M, bb = {}, {}
+    for v in VIEWS:
+        path = f"ortho/{prefix}_{v}.png"
+        if not os.path.exists(path):
+            issues.append(f"{v} panel missing"); bad.add(v); continue
+        m, _ = ortho_carve.mask_of(path); M[v] = m; bb[v] = _bbox(m)
+    rec = {"a_ref": round(float(a_ref), 3), "pass": True, "aspect_error": None}
+    def a_of(v):
+        b = bb.get(v)
+        if not b: return None
+        y0, y1, x0, x1 = b
+        return (y1 - y0 + 1) / max(x1 - x0 + 1, 1)
+    errs = []
+    for v in ("front", "back"):
+        ad = a_of(v)
+        if ad is None or a_ref <= 0: continue
+        err = abs(math.log(ad / a_ref))
+        rec[f"a_{v}"] = round(ad, 3); rec[f"ln_err_{v}"] = round(err, 3); errs.append(err)
+        if err > math.log(1.25):
+            issues.append(f"{v} aspect {ad:.2f} drifts from cut-out {a_ref:.2f} by more than 25%"); bad.add(v)
+    rec["aspect_error"] = round(min(errs) if errs else 99.0, 3) if errs else 99.0
+    for v in ("front", "right", "back"):
+        m, b = M.get(v), bb.get(v)
+        if m is None or b is None: continue
+        h, w = m.shape; y0, y1, x0, x1 = b
+        if y0 <= 1 or y1 >= h - 2:
+            issues.append(f"{v} silhouette touches the top or bottom of the panel (cropped)"); bad.add(v)
+        long = max(h, w); subj = max(y1 - y0 + 1, x1 - x0 + 1)
+        if subj / long > 0.92:
+            issues.append(f"{v} silhouette fills {100*subj/long:.0f}% of the panel's long axis (need >=10% margin)"); bad.add(v)
+    if bb.get("front") and bb.get("right"):
+        hf = bb["front"][1] - bb["front"][0] + 1
+        hs = bb["right"][1] - bb["right"][0] + 1
+        rec["side_vs_front_h"] = round(hs / max(hf, 1), 3)
+        if max(hf, hs) / max(min(hf, hs), 1) > 1.08:
+            issues.append(f"side height {hs}px differs from front {hf}px by more than 8%"); bad.add("right")
+    if bb.get("top") and (bb.get("front") or bb.get("right")):
+        tw = bb["top"][3] - bb["top"][2] + 1; th = bb["top"][1] - bb["top"][0] + 1
+        top_long = max(tw, th)
+        fw = (bb["front"][3] - bb["front"][2] + 1) if bb.get("front") else 0
+        sw = (bb["right"][3] - bb["right"][2] + 1) if bb.get("right") else 0
+        cap = 1.15 * max(fw, sw, 1)
+        rec["top_long"], rec["top_cap"] = int(top_long), round(cap, 1)
+        if top_long > cap:
+            issues.append(f"top-view largest dim {top_long}px > 1.15 * max(front_w {fw}, side_w {sw})"); bad.add("top")
+    rec["issues"] = issues; rec["bad_views"] = sorted(bad); rec["pass"] = not issues
+    return rec
+
 def geo_checks(prefix):
     M = {v: ortho_carve.mask_of(f"ortho/{prefix}_{v}.png")[0] for v in VIEWS}
     hw = {v: M[v].shape for v in VIEWS}; issues, bad = [], set()
@@ -107,12 +185,16 @@ def geo_checks(prefix):
     if iou < 0.75: issues.append(f"back silhouette is not the mirror of the front (IoU {iou:.2f})"); bad.add("back")
     sc = shading_check.check(prefix.rsplit("_", 1)[0], "_" + prefix.rsplit("_", 1)[1])   # flat-albedo check (image only, free)
     issues += sc["issues"]
+    n = prefix.rsplit("_", 1)[0]
+    fr = framing_check(prefix, n)
+    issues += fr["issues"]; bad |= set(fr["bad_views"])
     return {"sizes_hw": {v: list(map(int, hw[v])) for v in VIEWS}, "front_back_mirror_iou": round(iou, 3), "issues": issues, "bad_views": sorted(bad),
-            "shading": {k: sc[k] for k in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")}}
+            "shading": {k: sc[k] for k in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")},
+            "framing": fr}
 
 VERIFY_MODEL = "claude-haiku-5-5"   # Haiku-only verification (Sonnet confirm pass removed for cost)
 def llm_check(n, prefix, geo, model=VERIFY_MODEL):
-    p = LLM_PROMPT.format(sheet=os.path.abspath(f"ortho/{prefix}_sheet.png"), photo=os.path.abspath(f"refs/{n}.jpg"), hint=SPEC[n][0],
+    p = LLM_PROMPT.format(sheet=os.path.abspath(f"ortho/{prefix}_sheet.png"), photo=os.path.abspath(f"refs/{n}.jpg"), hint=get_spec(n)[0],
                           geo="; ".join(geo["issues"]) or "none")
     out = subprocess.run(["claude", "-p", "--model", model, p, "--allowedTools", "Read"], capture_output=True, text=True, timeout=300).stdout
     m = re.search(r"\{.*\}", out, re.S)
@@ -128,7 +210,7 @@ def parts_extra(n, parts_prompt=None):
     return ("\n" + block) if block else ""
 
 def gen(n, tag, extra, parts_prompt=None):
-    hint, spec = SPEC[n]
+    hint, spec = get_spec(n)
     # --no-parts: we already inlined the auto-loaded block into --extra, so ortho_gen must not append it a second time
     r = subprocess.run([sys.executable, "ortho_gen.py", n, hint, "--tag", tag, "--with-photo", "--no-parts",
                         "--extra", f"{COM} {spec}{extra}{parts_extra(n, parts_prompt)}"], capture_output=True, text=True)

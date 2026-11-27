@@ -56,7 +56,7 @@ Each part must have:
 - parent: required on a feature, the mass part id it sits on
 - face: "front", "right", "back", "left", "top", "all", or a list of those. Required on a feature.
 - where: one or two sentences naming the face or side, the height on that face, and the neighbours (above, below, beside, between).
-- notes: detailed plain-word notes on the facade and architecture as the pictures show them: form and outline; how it is divided into tiers, bands or bays; the shape of arches, heads and tops; mouldings, tracery, mullions, hoods and trim; what stands proud of the wall, what is set back into it, and what is open or cut through; how deep a recess is and how far a solid stands out; how the part repeats and where the rhythm changes; how it meets the parts around it. As long as the part needs. Plain words taken from the pictures. Do NOT invent anything the pictures do not show. Do NOT rely on colour to say what a part is: "a dark window" is not a note; "a pointed opening set back into the wall with a ledge under it" is. Colours, materials, sizes and coordinates are optional and never evidence that a part exists.
+- notes: at most 15 words. Form, depth (set back / proud / open / outline) and how it meets its neighbours, as the pictures show. No colour-only notes ("a dark window" is not a note; "pointed opening set back with a ledge under it" is). Do not invent anything the pictures do not show.
 - built_as: a non-empty list of one or more of:
   set_back — a recess in a wall: a window, a door, a portal, a niche, a panel. The wall face is in front of it, and its floor is deeper than the wall.
   open — a hole or gap you can see through or past (a see-through arch, an arcade passage).
@@ -94,9 +94,11 @@ Reject it (and describe how to fix it) if any of these is true:
 If the list is complete and accurate, reply with ONLY:
 {{"ok": true, "notes": "one short sentence"}}
 
-If anything is wrong, reply with ONLY a JSON object that includes the full corrected blueprint (same schema as the input). You may add a part, correct a count, a parent, a face, a where, notes, or built_as. You may not remove a part the list already had unless that part is not in the pictures at all.
+If anything is wrong, reply with ONLY a compact patch (not a full blueprint). You may add a part, correct a count, a parent, a face, a where, notes, or built_as. You may not remove a part the list already had unless that part is not in the pictures at all. Keep notes <= 15 words.
 {{"ok": false, "notes": "what is wrong and what you changed",
-  "revised": {{"subject": "...", "organic": false, "summary": "...", "parts": {{...}}}}}}
+  "add": {{"new_id": {{"kind": "feature", "count": 1, "parent": "...", "face": "front", "where": "...", "notes": "...", "built_as": ["set_back"]}}}},
+  "update": {{"existing_id": {{"count": 8, "notes": "..."}}}},
+  "remove": ["id_not_in_the_pictures"]}}
 """
 
 
@@ -193,7 +195,7 @@ def schema_issues(bp):
         if not (p.get("where") or "").strip(): issues.append(f"{pid}: missing where")
         notes = (p.get("notes") or "").strip()
         if not notes: issues.append(f"{pid}: missing notes")
-        elif len(notes) < 24 or notes.lower().replace("_", " ") == pid.replace("_", " "): issues.append(f"{pid}: thin notes")
+        elif len(notes.split()) < 3 or notes.lower().replace("_", " ") == pid.replace("_", " "): issues.append(f"{pid}: thin notes")
         raw_b = p.get("built_as"); raw = raw_b if isinstance(raw_b, list) else ([raw_b] if raw_b else [])
         b = built_list(p)
         if not b: issues.append(f"{pid}: missing built_as")
@@ -226,23 +228,29 @@ def normalize(bp, subject):
     bp["open"] = [k for k, p in parts.items() if "open" in built_list(p)] if not bp["organic"] else []
     return bp
 
+def _shorten(text, words=12, chars=120):
+    s = " ".join((text or "").split())
+    w = s.split()
+    if len(w) > words: s = " ".join(w[:words])
+    if len(s) > chars: s = s[:chars].rsplit(" ", 1)[0]
+    return s
+
 def prompt_block(parts_json):
-    """concise per-part block for the ortho sheet prompt (same style as blueprint.prompt_parts run A). '' if organic."""
+    """compact per-part block for the ortho sheet prompt (~60-120 chars / <=12 words of notes each). '' if organic."""
     if not parts_json or parts_json.get("organic"): return ""
     plist = list(iter_parts(parts_json))
     if not plist: return ""
-    lines = ["THE BUILDING IS MADE OF THESE PARTS. Draw every part below as its own separate shape, at its count, built in depth "
-             "the way its BUILT AS says (" + "; ".join(GEO.values()) + "). Every part is its own line here; none is left to appear by chance, "
-             "and none may be only a colour or a dark patch on a flat wall."]
+    lines = ["THE BUILDING IS MADE OF THESE PARTS. Draw every part as its own shape, at its count, built in depth "
+             "as BUILT AS says (set_back=recess, open=see-through, proud=stands out, outline=changes the silhouette). "
+             "No part may be only a colour or a dark patch on a flat wall."]
     for p in plist:
         face = p.get("face", p.get("faces"))
         if face in ("all", None) or face == ["front", "right", "back", "left"] or face == ["all"]: face_s = ""
-        else: face_s = ", face " + (",".join(face) if isinstance(face, list) else str(face))
+        else: face_s = " face " + (",".join(face) if isinstance(face, list) else str(face))
         built = built_list(p) or ["outline"]
-        note = p.get("built_note") or "; ".join(GEO[b] for b in built if b in GEO)
-        notes = p.get("notes") or p.get("where") or ""
-        lines.append(f"[{p['id']}] {p['count']} x ({p.get('kind') or 'feature'}{face_s}). WHERE: {p.get('where') or ''} "
-                     f"NOTES: {notes} BUILT AS {', '.join(built).upper()}: {note}")
+        notes = _shorten(p.get("notes") or p.get("where") or "", 12, 120)
+        where = _shorten(p.get("where") or "", 8, 80)
+        lines.append(f"[{p['id']}] x{p['count']} {p.get('kind') or 'feature'}{face_s} @ {where} — {notes} [{', '.join(built)}]")
     return "\n".join(lines)
 
 def prompt_for(n):
@@ -270,25 +278,62 @@ def _merge_parts(old, new):
         if k not in np_: np_[k] = v
     new = dict(new); new["parts"] = np_; return new
 
+def apply_patch(bp, data):
+    """Apply a compact verify patch (add / update / remove) or a legacy full 'revised' blueprint."""
+    if data.get("revised"):
+        return _merge_parts(bp, data["revised"])
+    out = dict(bp)
+    parts = _as_dict(out.get("parts"))
+    for pid in data.get("remove") or []:
+        parts.pop(str(pid), None)
+    for pid, fields in (data.get("update") or {}).items():
+        if pid in parts and isinstance(fields, dict):
+            q = dict(parts[pid]); q.update(fields); parts[pid] = q
+    for pid, fields in (data.get("add") or {}).items():
+        if isinstance(fields, dict):
+            q = dict(fields); q.setdefault("id", pid)
+            parts[str(pid)] = q
+    if data.get("organic") is True:
+        out["organic"] = True; parts = {}
+    elif data.get("organic") is False:
+        out["organic"] = False
+    if data.get("summary"): out["summary"] = data["summary"]
+    out["parts"] = parts
+    return out
+
+def visible_delta(old, new):
+    """True if verify added/removed a visible part or changed a visible-face count (sheet should be regenerated)."""
+    if bool((old or {}).get("organic")) != bool((new or {}).get("organic")): return True
+    def vis(P):
+        out = {}
+        if (P or {}).get("organic"): return out
+        for p in iter_parts(P or {}):
+            out[p["id"]] = int(p.get("count") or 1)
+        return out
+    a, b = vis(old), vis(new)
+    return set(a) != set(b) or any(a[k] != b[k] for k in a)
+
 def verify(subject, bp, images=None, model=None, force=False):
     images = find_images(subject, images)
     bp = normalize(bp, subject)
     issues = schema_issues(bp)
-    schema = ("\nProgrammatic schema issues already found, please fix them in revised:\n- " + "\n- ".join(issues) + "\n") if issues else ""
-    text, cost, cached = _ask(VER_PROMPT.format(images=_img_block(images), blueprint=json.dumps({k: bp[k] for k in ("subject", "summary", "organic", "parts") if k in bp}, indent=1),
+    schema = ("\nProgrammatic schema issues already found, please fix them in the patch:\n- " + "\n- ".join(issues) + "\n") if issues else ""
+    slim = {k: bp[k] for k in ("subject", "summary", "organic") if k in bp}
+    slim["parts"] = {pid: {kk: vv for kk, vv in p.items() if kk in ("kind", "count", "parent", "face", "where", "notes", "built_as")}
+                     for pid, p in _as_dict(bp.get("parts")).items()}
+    text, cost, cached = _ask(VER_PROMPT.format(images=_img_block(images), blueprint=json.dumps(slim, indent=1),
                                                 schema=schema), images, model, force)
     data = _parse(text)
     notes = (data.get("notes") or data.get("verify_notes") or "").strip()
-    revised = data.get("revised")
-    # organic stays organic: ignore a confused revision that tries to list anatomy
-    if bp.get("organic") and (not revised or revised.get("organic", True)):
+    has_patch = bool(data.get("revised") or data.get("add") or data.get("update") or data.get("remove") or ("organic" in data and data.get("ok") is False))
+    if bp.get("organic") and not (has_patch and data.get("organic") is False):
         bp["verified"] = True
         bp["verify_notes"] = "classified organic; no architectural parts list"
         bp["parts"] = {}; bp["open"] = []
     elif data.get("ok") and not issues:
         bp["verified"] = True; bp["verify_notes"] = notes or "list matches the pictures"
-    elif revised:
-        rev = normalize(_merge_parts(bp, revised), subject)
+    elif has_patch:
+        rev = normalize(apply_patch(bp, data), subject)
         issues2 = schema_issues(rev)
         rev["verified"] = not issues2
         rev["verify_notes"] = notes or ("revised; schema still failing: " + "; ".join(issues2) if issues2 else "revised to match the pictures")

@@ -276,17 +276,39 @@ def stamp(occ, features, parts=None, log=print):
     return occ, {"counts": dict(rep), "parts": extra}, feats2
 
 
+def _peak_delta(occ, p):
+    """dry-run a peak against occ: (removed, added, prof, top, need_h). Does not mutate occ."""
+    W, H, D = occ.shape
+    prof = {tuple(c) for c in p["cells"] if 0 <= c[0] < W and 0 <= c[2] < D}
+    if not prof: return 0, 0, prof, 0, H
+    top = max(c[1] for c in prof)
+    need_h = max(H, top + 1)
+    x0, x1 = p["x"]; z0, z1 = p["z"]; removed = added = 0
+    for x in range(x0, x1 + 1):
+        for y in range(p["base_y"] + 1, need_h):
+            for z in range(z0, z1 + 1):
+                if y < H and occ[x, y, z] and (x, y, z) not in prof: removed += 1
+    for c in prof:
+        on = (c[1] < H and occ[c])
+        if not on: added += 1
+    return removed, added, prof, top, need_h
+
 def stamp_peaks(occ, peaks, log=print):
     """above-mesh peaks (feature_detect.above_mesh_peaks): rebuild each tower cap / turret / spire / chimney from its drawn
     profile. Inside the peak's box (its x range, the supporting z run, rows above its base) every voxel outside the profile is
-    removed (the clipped, ragged mesh stub) and every profile cell is filled. Returns occ2, report, {cell: peak index}."""
+    removed (the clipped, ragged mesh stub) and every profile cell is filled. Returns occ2, report, {cell: peak index}.
+
+    Safety valve: skip any peak whose dry-run would remove more than max(8, 0.3 * added) cells."""
     occ = occ.copy(); W, H, D = occ.shape; owner = {}; rep = []; shapes = {}
     for k, p in enumerate(peaks):
-        prof = {tuple(c) for c in p["cells"] if 0 <= c[0] < W and 0 <= c[2] < D}
+        removed, added, prof, top, need_h = _peak_delta(occ, p)
         if not prof: continue
-        top = max(c[1] for c in prof)
-        if top >= H:   # grow the grid upward for a peak taller than the mesh
-            occ = np.concatenate([occ, np.zeros((W, top - H + 1, D), bool)], 1); H = occ.shape[1]
+        budget = max(8, 0.3 * added)
+        if removed > budget:
+            log(f"  peak {k}: SKIP {p.get('kind')} x {p.get('x')} (removed {removed} > max(8, 0.3*{added})={budget:.1f})")
+            continue
+        if need_h > H:
+            occ = np.concatenate([occ, np.zeros((W, need_h - H, D), bool)], 1); H = occ.shape[1]
         x0, x1 = p["x"]; z0, z1 = p["z"]; removed = added = 0
         for x in range(x0, x1 + 1):
             for y in range(p["base_y"] + 1, H):

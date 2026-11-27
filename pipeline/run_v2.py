@@ -4,7 +4,10 @@ shading), one Hyper3D lowpoly mesh, ortho_paint + tone, shape_fit, explicit OPEN
 palette_generic -> feature_detect (Haiku) -> colour_albedo (deshade) -> mc_map (albedo) + schematics, then free checks:
 shading_check, shape_compare, colour_score and blueprint.count_openings vs a short parts list (meta/NAME_parts.json).
 No Haiku retry loops: the mesh is generated once (a manual re-roll only if it is visibly broken).
-usage: python run_v2.py NAME STAGE [STAGE ...]   stages: parts sheets mesh paint shape carve sails squash colour zones map grad check   (or: all)
+usage: python run_v2.py NAME STAGE [STAGE ...]   stages: parts sheets mesh paint shape carve sails squash colour zones map grad check combined   (or: all)
+`all` is the unattended driver: prep, parts generate || verify overlapping sheet 1, framing-gated sheet 2,
+mesh || (haiku style + auto_cfg.prep), paint, shape, then palette || feature alignment, then run_combined.
+Per-stage wall-clock times are written to out/<n>_timings.json.
 `parts` (steps 1-2 of specs/detailed-parts.md) runs first: parts_list.ensure writes meta/NAME_parts.json from the
 reference photo if it is missing, and gen_sheet injects parts_list.prompt_block into the ortho sheet. Hand-written
 parts files are left untouched ($0). fal spend is logged in out/v2_ledger.json (cap $1.50 for the three subjects)."""
@@ -47,29 +50,31 @@ def fal_call(model, args, item):
     spend(f"fal {item}", COST[model]); return fal_client.subscribe(model, arguments=args)
 
 def split(n, tag):
-    im = Image.open(f"ortho/{n}{tag}_sheet.png").convert("RGB"); W, H = im.size
-    for k, box in {"front": (0, 0, W//2, H//2), "right": (W//2, 0, W, H//2), "back": (0, H//2, W//2, H), "top": (W//2, H//2, W, H)}.items():
-        im.crop(box).save(f"ortho/{n}{tag}_{k}.png")
+    import ortho_gen
+    ortho_gen.split_sheet(f"ortho/{n}{tag}_sheet.png", f"ortho/{n}{tag}")
     for v in VIEWS: ortho_clean.clean(f"ortho/{n}{tag}_{v}.png")
 
 def shade_score(r):   # lower = flatter
     return r["shadow_share"] + 0.02*r["gradient_std"] + 0.01*abs(r["top_vs_front_dL"] or 0)
 
 def gen_sheet(n, tag, with_photo):
-    import ortho_gen
-    hint, spec = ortho_verify.SPEC[n]
+    import ortho_gen, parts_list
+    hint, spec = ortho_verify.get_spec(n)
     urls = [fal_client.upload_file(f"refs/{n}_fal_in.png")] + ([fal_client.upload_file(f"refs/{n}.jpg")] if with_photo else [])
-    import parts_list
     block = parts_list.prompt_for(n)
     extra = " " + ortho_verify.COM + " " + spec + " " + STRONG + (("\n" + block) if block else "")
-    prompt = ortho_gen.PROMPT.format(hint=hint, extra=extra)
-    res = fal_call("fal-ai/nano-banana/edit", {"prompt": prompt, "image_urls": urls, "aspect_ratio": "1:1", "output_format": "png", "num_images": 1}, f"sheet {n}{tag}")
+    aspect = ortho_gen.cutout_aspect(n); layout = ortho_gen.sheet_layout(aspect)
+    prompt = ortho_gen.make_prompt(hint, extra, layout, aspect)
+    res = fal_call("fal-ai/nano-banana/edit", {"prompt": prompt, "image_urls": urls, "aspect_ratio": ortho_gen.layout_aspect_ratio(layout), "output_format": "png", "num_images": 1}, f"sheet {n}{tag}")
     urllib.request.urlretrieve(res["images"][0]["url"], f"ortho/{n}{tag}_sheet.png"); split(n, tag)
-    open(f"out/v2/{n}{tag}_prompt.txt", "w").write(prompt)
+    os.makedirs("out/v2", exist_ok=True); open(f"out/v2/{n}{tag}_prompt.txt", "w").write(prompt)
 
 def edit_sheet(n, src, tag):
+    import ortho_gen
     url = fal_client.upload_file(f"ortho/{n}{src}_sheet.png")
-    res = fal_call("fal-ai/nano-banana/edit", {"prompt": EDIT, "image_urls": [url], "aspect_ratio": "1:1", "output_format": "png", "num_images": 1}, f"deshade-edit {n}{tag}")
+    im = Image.open(f"ortho/{n}{src}_sheet.png")
+    layout = ortho_gen.layout_of_image(im)
+    res = fal_call("fal-ai/nano-banana/edit", {"prompt": EDIT, "image_urls": [url], "aspect_ratio": ortho_gen.layout_aspect_ratio(layout), "output_format": "png", "num_images": 1}, f"deshade-edit {n}{tag}")
     urllib.request.urlretrieve(res["images"][0]["url"], f"ortho/{n}{tag}_sheet.png"); split(n, tag)
 
 def stage_parts(n):
@@ -80,26 +85,43 @@ def stage_parts(n):
     nparts = sum(1 for _ in parts_list.iter_parts(P))
     print(n, "parts", "organic" if P.get("organic") else f"{nparts} parts", "verified=" + str(bool(P.get("verified"))), f"usd={cost:.4f}")
 
-def stage_sheets(n, k=2):
+def _sheet_key(tag, geo, shade):
+    """pick by framing pass, then aspect error, then shade_score (lower is better)."""
+    fr = (geo or {}).get("framing") or {}
+    return (0 if fr.get("pass") else 1, float(fr.get("aspect_error") or 99.0), shade_score(shade))
+
+def stage_sheets(n, k=1, with_photo=None):
+    """Generate 1 sheet first; only buy sheet 2 on framing failure. Skip the deshade edit if shade already passes."""
     if not os.path.exists(f"art/final/meta/{n}_parts.json"): stage_parts(n)
-    with_photo = n not in ("gate", "rapunzel_tower")   # these photos have trees / rocks / cliffs: only the cut-out goes to fal
-    rows = {}
-    for i in range(1, k + 1):
-        t = f"_s{i}"
-        if not os.path.exists(f"ortho/{n}{t}_sheet.png"): gen_sheet(n, t, with_photo)
-        rows[t] = shading_check.check(n, t)
-    best = min(rows, key=lambda t: shade_score(rows[t]))
-    te = best + "e"
-    if not os.path.exists(f"ortho/{n}{te}_sheet.png"): edit_sheet(n, best, te)
-    rows[te] = shading_check.check(n, te)
-    chosen = min(rows, key=lambda t: shade_score(rows[t]))
-    geo = {t: ortho_verify.geo_checks(n + t) for t in rows}
+    if with_photo is None:
+        with_photo = n not in ("gate", "rapunzel_tower")
+    rows, geo = {}, {}
+    def ensure(tag):
+        if not os.path.exists(f"ortho/{n}{tag}_sheet.png"): gen_sheet(n, tag, with_photo)
+        rows[tag] = shading_check.check(n, tag)
+        geo[tag] = ortho_verify.geo_checks(n + tag)
+        return tag
+    ensure("_s1")
+    fr1 = geo["_s1"].get("framing") or {}
+    if (not fr1.get("pass")) and k >= 1:
+        ensure("_s2")
+    best = min(rows, key=lambda t: _sheet_key(t, geo[t], rows[t]))
+    if rows[best].get("shaded"):
+        te = best + "e"
+        if not os.path.exists(f"ortho/{n}{te}_sheet.png"): edit_sheet(n, best, te)
+        rows[te] = shading_check.check(n, te)
+        geo[te] = ortho_verify.geo_checks(n + te)
+    chosen = min(rows, key=lambda t: _sheet_key(t, geo[t], rows[t]))
     bad = [v for v in geo[chosen]["bad_views"] if v != "front"]
     used = [v for v in VIEWS if v not in bad]
-    out = {"chosen": chosen, "views_used": used, "views_dropped": bad, "candidates": {t: {k_: rows[t][k_] for k_ in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")} | {"score": round(shade_score(rows[t]), 4), "geo_issues": geo[t]["issues"]} for t in rows},
-           "note": "v2 run: sheets _s1.._sK with the STRONG lighting rule, _sKe = nano-banana edit pass (remove shading) on the flattest; chosen = flattest by shading_check"}
-    json.dump(out, open(f"out/{n}_verify.json", "w"), indent=1); json.dump(out, open(f"art/final/meta/{n}_views.json", "w"), indent=1)
-    print(n, "chosen", chosen, json.dumps(out["candidates"][chosen]), "views", used)
+    out = {"chosen": chosen, "views_used": used, "views_dropped": bad,
+           "candidates": {t: {k_: rows[t][k_] for k_ in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")} | {"score": round(shade_score(rows[t]), 4), "geo_issues": geo[t]["issues"], "framing": geo[t].get("framing")} for t in rows},
+           "note": "v2 run: sheet _s1 first; _s2 only on framing failure; deshade edit skipped when shade_score already passes; chosen by framing pass, then aspect error, then shade_score"}
+    json.dump(out, open(f"out/{n}_verify.json", "w"), indent=1)
+    os.makedirs("art/final/meta", exist_ok=True)
+    json.dump({"chosen": chosen, "views_used": used, "views_dropped": bad, "note": out["note"]}, open(f"art/final/meta/{n}_views.json", "w"), indent=1)
+    print(n, "chosen", chosen, json.dumps({k: out["candidates"][chosen][k] for k in out["candidates"][chosen] if k != "framing"}), "views", used)
+    return out
 
 def stage_mesh(n):
     if fal_left() < COST["hyper3d/lowpoly/image-to-3d"]: raise SystemExit("fal cap")
@@ -392,9 +414,121 @@ def stage_check(n):
     json.dump(out, open(f"out/v2/{n}_check.json", "w"), indent=1, default=str)
     print(n, json.dumps(dc)); print(n, "shading", json.dumps({k: out["shading"][k] for k in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")}))
 
+def _tick(timings, name, t0):
+    timings[name] = round(time.time() - t0, 3); print(f"  timing {name} {timings[name]:.3f}s")
+
+def stage_combined(n):
+    import run_combined
+    return run_combined.run(n)
+
+def stage_all(n):
+    """Unattended end-to-end driver with overlapping waits. Writes out/<n>_timings.json."""
+    from concurrent.futures import ThreadPoolExecutor
+    import parts_list, auto_cfg
+    timings, t_all = {}, time.time()
+    os.makedirs("out/v2", exist_ok=True)
+
+    t0 = time.time()
+    if not os.path.exists(f"refs/{n}_fal_in.png"):
+        if not any(os.path.exists(f"refs/{n}{ext}") for ext in (".jpg", ".png")):
+            raise SystemExit(f"no reference photo refs/{n}.jpg")
+        import gen_refs; gen_refs.prep(n)
+    _tick(timings, "prep", t0)
+
+    t0 = time.time()
+    existing = parts_list.load(n)
+    if existing and existing.get("parts") is not None:
+        P = existing; print(n, "parts reused", "organic" if P.get("organic") else f"{sum(1 for _ in parts_list.iter_parts(P))} parts")
+        _tick(timings, "parts_generate", t0)
+        t1 = time.time(); stage_sheets(n); _tick(timings, "sheets", t1)
+    else:
+        P, c1 = parts_list.generate(n)
+        _tick(timings, "parts_generate", t0)
+        os.makedirs("art/final/meta", exist_ok=True)
+        json.dump(P, open(parts_list.path_of(n), "w"), indent=1)
+        if c1: spend(f"haiku parts {n}", c1)
+        with_photo = n not in ("gate", "rapunzel_tower")
+        t_sheet = time.time()
+        with ThreadPoolExecutor(2) as ex:
+            f_ver = ex.submit(parts_list.verify, n, P)
+            f_sh = ex.submit(lambda: (gen_sheet(n, "_s1", with_photo) or True))
+            P2, c2 = f_ver.result(); f_sh.result()
+        _tick(timings, "parts_verify_and_sheet1", t_sheet)
+        if c2: spend(f"haiku parts-verify {n}", c2)
+        P2 = parts_list._preserve_hand(existing, P2)
+        json.dump(P2, open(parts_list.path_of(n), "w"), indent=1)
+        if parts_list.visible_delta(P, P2):
+            t_re = time.time()
+            print(n, "verify changed visible parts — regenerating sheet 1")
+            src = f"ortho/{n}_s1_sheet.png"
+            if os.path.exists(src): os.replace(src, f"ortho/{n}_s1_preverify_sheet.png")
+            gen_sheet(n, "_s1", with_photo)
+            _tick(timings, "sheet1_regenerate", t_re)
+        t_fr = time.time(); stage_sheets(n, with_photo=with_photo); _tick(timings, "sheets_select", t_fr)
+        P = P2
+
+    tag = json.load(open(f"art/final/meta/{n}_views.json"))["chosen"]
+
+    def _prefetch():
+        try:
+            import feature_detect as fd
+            st, c, cached = fd.haiku_style(n, tag)
+            if c: spend(f"haiku style {n}", c)
+        except Exception as e:
+            print("  haiku_style prefetch failed:", e)
+        try:
+            auto_cfg.prep(n)
+        except Exception as e:
+            print("  auto_cfg.prep failed:", e)
+
+    t_mesh = time.time()
+    with ThreadPoolExecutor(2) as ex:
+        f_mesh = ex.submit(stage_mesh, n)
+        f_pre = ex.submit(_prefetch)
+        f_mesh.result(); f_pre.result()
+    _tick(timings, "mesh_and_prefetch", t_mesh)
+
+    t0 = time.time(); stage_paint(n); _tick(timings, "paint", t0)
+    t0 = time.time(); stage_shape(n); _tick(timings, "shape", t0)
+    t0 = time.time(); stage_carve(n); _tick(timings, "carve", t0)
+    t0 = time.time(); stage_sails(n); _tick(timings, "sails", t0)
+    t0 = time.time(); stage_squash(n); _tick(timings, "squash", t0)
+
+    t0 = time.time()
+    import palette_generic; palette_generic.run(n)
+    _tick(timings, "palette", t0)
+
+    def _albedo():
+        r = subprocess.run([sys.executable, "colour_albedo.py", n, "--sheet", tag, "--mesh", f"out/{n}_lowpoly.glb", "--dark-rules"],
+                           capture_output=True, text=True)
+        print(r.stdout[-1500:], r.stderr[-2500:])
+        if r.returncode: raise SystemExit("colour_albedo failed")
+        r = subprocess.run([sys.executable, "noise_measure.py", n], capture_output=True, text=True)
+        if r.returncode: raise SystemExit("noise_measure failed")
+
+    def _features():
+        r = subprocess.run([sys.executable, "feature_detect.py", n, "--sheet", tag], capture_output=True, text=True)
+        print(r.stdout[-1500:], r.stderr[-2500:])
+        if r.returncode: raise SystemExit("feature_detect failed")
+        filter_features(n)
+
+    t0 = time.time()
+    with ThreadPoolExecutor(2) as ex:
+        fa = ex.submit(_albedo); ff = ex.submit(_features)
+        fa.result(); ff.result()
+    _tick(timings, "albedo_and_features", t0)
+
+    t0 = time.time(); stage_zones(n); _tick(timings, "zones", t0)
+    t0 = time.time(); stage_combined(n); _tick(timings, "combined", t0)
+
+    timings["all"] = round(time.time() - t_all, 3)
+    json.dump(timings, open(f"out/{n}_timings.json", "w"), indent=1)
+    print(n, "timings", json.dumps(timings))
+    return timings
+
 STAGES = {"parts": stage_parts, "sheets": stage_sheets, "mesh": stage_mesh, "paint": stage_paint, "shape": stage_shape, "carve": stage_carve, "sails": stage_sails, "squash": stage_squash,
-          "colour": stage_colour, "zones": stage_zones, "map": stage_map, "grad": stage_grad, "check": stage_check}
+          "colour": stage_colour, "zones": stage_zones, "map": stage_map, "grad": stage_grad, "check": stage_check, "combined": stage_combined, "all": stage_all}
 if __name__ == "__main__":
     os.makedirs("out/v2", exist_ok=True)
     n, *st = sys.argv[1:]
-    for s in (list(STAGES) if st == ["all"] else st): print("==", n, s); STAGES[s](n)
+    for s in (["all"] if st == ["all"] else st): print("==", n, s); STAGES[s](n)

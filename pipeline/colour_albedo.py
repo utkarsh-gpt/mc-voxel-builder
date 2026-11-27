@@ -90,7 +90,16 @@ def build(n, sheet=None, deshade=True, toned=None, variant=None, mesh=None, dark
     for v in T["voxels"]: occ[v["x"], v["y"], v["z"]] = True
     surf = PT.surface(occ)
     g = ndimage.gaussian_filter(occ.astype(float), 1.0); nrm = -np.stack(np.gradient(g), -1); nrm /= np.linalg.norm(nrm, axis=-1, keepdims=True) + 1e-9
-    names = list(Lb.get("hints") or Lb["bases"]); hint = Lb.get("hints") or Lb["bases"]
+    try:
+        import palette_generic as PG
+        C = PG.get_cfg(n)
+        cfg_hints = {k: (C["mats"][k][0] if isinstance(C["mats"][k], (list, tuple)) else C["mats"][k].get("hint")) for k in C["mats"]}
+    except Exception:
+        cfg_hints = {}
+    hint = Lb.get("hints") or Lb.get("bases") or cfg_hints
+    if cfg_hints and not Lb.get("hints") and not Lb.get("bases"):
+        hint = cfg_hints
+    names = list(hint)
     B0 = np.array([hexlab(hint[k]) for k in names]); dark = [k for k in names if k.startswith("window")]
     info = {"sheet": sheet, "deshade": deshade, "mesh": mesh or f"out/proxy/{n}_lowpoly.glb", "toned": toned or f"art/{n}_lowpoly_rendered_toned.json"}
     # 1 samples + 2 de-shade (fit on all samples, one colour per block = best-facing de-shaded sample)

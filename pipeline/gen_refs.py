@@ -25,7 +25,7 @@ def prep(n):
     if k: sz = np.bincount(lab.ravel()); sz[0] = 0; m = sz[lab] >= 0.05*sz.max()
     Image.fromarray((m*255).astype(np.uint8)).save(f"refs/{n}_mask.png")
     a = np.asarray(im).copy(); a[~m] = 255; ys, xs = np.nonzero(m); a = a[ys.min():ys.max()+1, xs.min():xs.max()+1]
-    s = int(max(a.shape[:2])*1.1); c = Image.new("RGB", (s, s), "white"); c.paste(Image.fromarray(a), ((s-a.shape[1])//2, (s-a.shape[0])//2))
+    s = int(round(max(a.shape[:2]) / 0.70)); c = Image.new("RGB", (s, s), "white"); c.paste(Image.fromarray(a), ((s-a.shape[1])//2, (s-a.shape[0])//2))  # long axis fills ~70% (was 91%)
     c.resize((768, 768), Image.LANCZOS).save(f"refs/{n}_fal_in.png"); print(n, "mask cover", round(float(m.mean()), 3))
 if __name__ == "__main__":
     for n in [x for x in sys.argv[1:] if not x.startswith("--")]:
