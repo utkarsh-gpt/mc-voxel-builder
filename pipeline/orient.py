@@ -9,7 +9,13 @@ Convention (same as the sheet and vox.render): the right elevation is seen from 
 facade is the LEFT end of the right elevation. The mesh is flipped (a 180 degree turn about y) when the facade is on -z.
 The facade is the end with the spires/towers; the right drawing only breaks ties (see facade_flip).
 
-    flip = facade_flip(occ, "ortho/NAME_right.png")      # occ[x, y, z] bool
+    flip = facade_flip(occ, "ortho/NAME_right.png", front_path="ortho/NAME_front.png")      # occ[x, y, z] bool
+
+A 180 degree turn about y mirrors the front silhouette (x -> -x), so for a subject that is NOT left-right symmetric
+(one tall turret, a wing on one side) the front elevation tells the ends apart too: the mesh faces backwards when the
+MIRRORED front drawing fits its +z projection better than the plain one. When the tall end is ambiguous, the right
+profile and this front-mirror cue are both scored and the one with the larger margin decides (symmetric subjects tie on
+the front cue and fall back to the right profile).
 """
 import json
 import numpy as np
@@ -53,6 +59,18 @@ def fit_scores(occ, drawing_path):
     return _iou(D, P), _iou(D, P[:, ::-1])
 
 
+def front_projection(occ):
+    """front elevation silhouette seen from +z: rows top -> bottom (y descending), image left = -x (x to the right)"""
+    return _crop(occ.any(2).T[::-1])
+
+
+def front_fit_scores(occ, drawing_path):
+    """(iou plain, iou mirrored) of the front-elevation drawing against the voxel +z projection"""
+    P = front_projection(occ)
+    D = np.asarray(Image.fromarray(drawing_mask(drawing_path).astype(np.uint8) * 255).resize(P.shape[::-1], Image.NEAREST)) > 127
+    return _iou(D, P), _iou(D, P[:, ::-1])
+
+
 def spire_position(occ):
     """z of the tallest part (spires, towers) as a fraction of the length: 0 = -z end, 1 = +z end"""
     xs, ys, zs = np.nonzero(occ)
@@ -60,27 +78,38 @@ def spire_position(occ):
     return float(zs[top].mean() / max(occ.shape[2] - 1, 1))
 
 
-def facade_flip(occ, drawing_path=None, log=print):
+def facade_flip(occ, drawing_path=None, log=print, front_path=None):
     """True when the facade is on the -z end and the model must be turned 180 degrees about y.
 
     1. The tall end (spires, towers) is the facade. Used whenever the tall part is clearly on one half (|z - 0.5| > TALL).
-    2. Otherwise (towers at both ends, or no towers) the right-elevation drawing decides, with a margin.
+    2. Otherwise (towers at both ends, or no towers) the drawings decide, each with a margin: the right elevation's
+       profile (plain vs flipped) and, when `front_path` is given, the front elevation (plain vs mirrored: a turned
+       mesh shows the mirror image from +z). The cue with the larger margin wins; below MARGIN on both, keep.
        The drawing is NOT used first: the sheet's right view is sometimes drawn from the other side (towers at the image
-       right), and a silhouette from +z and -z are identical mirror images, so only the side profile can tell the ends apart.
+       right), and a symmetric front reads the same either way.
     """
     zt = spire_position(occ)
     if abs(zt - 0.5) > TALL:
         flip = zt < 0.5
         log(f"  orientation: tall end at z={zt:.2f} -> facade on {'-z: FLIP 180' if flip else '+z: keep'}")
         return flip
+    cues = []
     if drawing_path:
         try:
-            a, b = fit_scores(occ, drawing_path)
-            flip = b > a + MARGIN
-            log(f"  orientation: tall end ambiguous (z={zt:.2f}); right-elevation fit plain {a:.3f} vs flipped {b:.3f} -> {'FLIP 180' if flip else 'keep'}")
-            return flip
+            a, b = fit_scores(occ, drawing_path); cues.append(("right-elevation fit", a, b))
         except Exception as e:
-            log(f"  orientation: drawing fit failed ({e})")
+            log(f"  orientation: right drawing fit failed ({e})")
+    if front_path:
+        try:
+            a, b = front_fit_scores(occ, front_path); cues.append(("front mirror fit", a, b))
+        except Exception as e:
+            log(f"  orientation: front drawing fit failed ({e})")
+    if cues:
+        name, a, b = max(cues, key=lambda c: abs(c[2] - c[1]))
+        flip = b > a + MARGIN
+        txt = "; ".join(f"{nm} plain {x:.3f} vs {'flipped' if nm.startswith('right') else 'mirrored'} {y:.3f}" for nm, x, y in cues)
+        log(f"  orientation: tall end ambiguous (z={zt:.2f}); {txt} -> {name} decides: {'FLIP 180' if flip else 'keep'}")
+        return flip
     log(f"  orientation: ambiguous (tall end z={zt:.2f}), keep")
     return False
 

@@ -22,6 +22,7 @@ CACHE = "out/cache"
 META = "art/final/meta"
 BUILT = ("set_back", "open", "proud", "outline")
 KINDS = ("mass", "feature")
+SYMMETRY = ("bilateral", "near", "asymmetric")   # left-right silhouette, from the photo; shape_fit: "asymmetric" vetoes x mirroring
 FACES = ("front", "right", "back", "left", "top", "all")
 GEO = {"set_back": "set back: a recess cut into the wall, the wall face in front of it and its floor deeper than the wall",
        "open": "open: a hole or gap you can see through or past",
@@ -46,8 +47,13 @@ First classify the subject:
 - ORGANIC: an animal, plant, character, tree, statue, creature, or other non-building. No architectural parts list.
 - STRUCTURE: a building, gate, tower, bridge, vehicle-like architecture, or similar.
 
+Also judge the LEFT-RIGHT symmetry of the subject's silhouette as seen from its front (towers, turrets, minarets, wings, columns and annexes included, not just the central body):
+- "bilateral": the left and right halves are mirror images, including every tower / turret / wing
+- "near": mirror images apart from small details (a door off-centre, a different window)
+- "asymmetric": a tower, turret, minaret, wing, column or other large part exists or differs on only one side
+
 If ORGANIC, reply with ONLY this JSON object and nothing else:
-{{"subject": "{subject}", "organic": true, "summary": "one paragraph of what the subject is, as the pictures show it", "parts": {{}}}}
+{{"subject": "{subject}", "organic": true, "symmetry": "bilateral, near or asymmetric", "summary": "one paragraph of what the subject is, as the pictures show it", "parts": {{}}}}
 
 If a STRUCTURE, list every visible part. Repeated pieces share one id and a count (three doors are "door" with count 3; two towers are "tower" with count 2).
 Each part must have:
@@ -67,7 +73,7 @@ A part that is only a colour, a dark patch, or a drawing on a flat wall is not a
 Do not emit voxels, coordinates, or dimensions.
 
 Reply with ONLY a JSON object and nothing else:
-{{"subject": "{subject}", "organic": false, "summary": "one paragraph of what the finished building must still read as",
+{{"subject": "{subject}", "organic": false, "symmetry": "bilateral, near or asymmetric", "summary": "one paragraph of what the finished building must still read as",
   "parts": {{"part_id": {{"kind": "mass or feature", "count": 1, "parent": "mass_id (features only)", "face": "front", "where": "...", "notes": "...", "built_as": ["set_back"]}}}}}}
 """
 
@@ -110,11 +116,13 @@ def load(n):
     return json.load(open(p)) if os.path.exists(p) else None
 
 def find_images(n, images=None):
+    """the ORIGINAL photo only: the rembg cut-out (refs/N_fal_in.png) can slice off pale walls / columns / bases and
+    then the list describes the damaged silhouette. The cut-out is a fallback only when no photo exists."""
     if images: return [os.path.abspath(p) for p in images if os.path.exists(p)]
-    out = []
-    for p in (f"refs/{n}_fal_in.png", f"refs/{n}.png", f"refs/{n}.jpg"):
-        if os.path.exists(p): out.append(os.path.abspath(p))
-    return out
+    for p in (f"refs/{n}.jpg", f"refs/{n}.png", f"refs/{n}.jpeg"):
+        if os.path.exists(p): return [os.path.abspath(p)]
+    p = f"refs/{n}_fal_in.png"
+    return [os.path.abspath(p)] if os.path.exists(p) else []
 
 def _as_dict(parts):
     if not parts: return {}
@@ -208,6 +216,9 @@ def normalize(bp, subject):
     bp["subject"] = bp.get("subject") or subject
     bp["organic"] = bool(bp.get("organic"))
     bp["summary"] = " ".join((bp.get("summary") or "").split())
+    sym = str(bp.get("symmetry") or "").strip().lower()
+    if sym in SYMMETRY: bp["symmetry"] = sym
+    else: bp.pop("symmetry", None)          # unknown / missing: no veto (shape_fit uses it only to veto x mirroring)
     parts = {}
     for pid, p in _as_dict(bp.get("parts")).items():
         q = dict(p)
@@ -258,7 +269,7 @@ def prompt_for(n):
 
 def generate(subject, images=None, model=None, force=False):
     images = find_images(subject, images)
-    if not images: raise SystemExit(f"no reference image for {subject} (tried refs/{subject}_fal_in.png, .png, .jpg)")
+    if not images: raise SystemExit(f"no reference image for {subject} (tried refs/{subject}.jpg, .png, .jpeg, then refs/{subject}_fal_in.png)")
     text, cost, cached = _ask(GEN_PROMPT.format(subject=subject, images=_img_block(images)), images, model, force)
     bp = normalize(_parse(text), subject)
     if not bp.get("parts") and not bp.get("organic"):
@@ -298,6 +309,7 @@ def apply_patch(bp, data):
     elif data.get("organic") is False:
         out["organic"] = False
     if data.get("summary"): out["summary"] = data["summary"]
+    if data.get("symmetry"): out["symmetry"] = data["symmetry"]
     out["parts"] = parts
     return out
 

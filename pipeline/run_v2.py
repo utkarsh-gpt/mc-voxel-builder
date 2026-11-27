@@ -24,11 +24,7 @@ STRONG = ("ABSOLUTE LIGHTING RULE (this sheet is checked by a program that rejec
           "undersides, recesses, arch soffits, the inside of window reveals and the area under every roof edge are NOT darker. "
           "No cast shadows at all, no ambient occlusion, no gradients, no rim light, no specular highlights, no vignetting. "
           "Only genuinely dark materials (glass, dark slate, openings into a dark interior) are dark. Thin dark outlines are allowed.")
-EDIT = ("This image is an orthographic 2x2 reference sheet (front, right side, back, top plan). Repaint it as FLAT ALBEDO colour: remove every "
-        "shadow, shading gradient, ambient occlusion, darkened underside, darkened recess and directional lighting so that each material has "
-        "one uniform colour and lightness in all four panels (the roof in the top plan as bright as in the front view). Keep EVERYTHING else "
-        "exactly: the same 2x2 layout, panel positions, scale, outlines, shapes, proportions, number of parts, openings, windows and genuinely "
-        "dark materials. Open see-through arches stay filled with the white background. Pure white background, no text, labels or frames.")
+# deshade edit prompt: ortho_gen.edit_prompt(layout), built from the sheet's persisted layout (no hardcoded 2x2)
 VIEWS = ("front", "right", "back", "top")
 
 def spend(item, usd):
@@ -51,31 +47,45 @@ def fal_call(model, args, item):
 
 def split(n, tag):
     import ortho_gen
-    ortho_gen.split_sheet(f"ortho/{n}{tag}_sheet.png", f"ortho/{n}{tag}")
+    ortho_gen.split_sheet(f"ortho/{n}{tag}_sheet.png", f"ortho/{n}{tag}")     # layout from ortho/N_TAG_sheet.json first
     for v in VIEWS: ortho_clean.clean(f"ortho/{n}{tag}_{v}.png")
 
 def shade_score(r):   # lower = flatter
     return r["shadow_share"] + 0.02*r["gradient_std"] + 0.01*abs(r["top_vs_front_dL"] or 0)
 
-def gen_sheet(n, tag, with_photo):
+def gen_sheet(n, tag, with_photo=None, aspect=None):
+    """one nano-banana sheet. Inputs: the loose crop of the original photo (refs/N_crop.png, background intact) and the full
+    photo as image 2 when the crop is a small part of it (with_photo=None: automatic; no per-subject exceptions).
+    Layout from estimate_aspect (max(rembg box, loose crop) * 1.15) unless `aspect` is given; persisted in _sheet.json."""
     import ortho_gen, parts_list
     hint, spec = ortho_verify.get_spec(n)
-    urls = [fal_client.upload_file(f"refs/{n}_fal_in.png")] + ([fal_client.upload_file(f"refs/{n}.jpg")] if with_photo else [])
+    imgs = ortho_gen.input_images(n, with_photo)
+    urls = [fal_client.upload_file(p) for p in imgs]
     block = parts_list.prompt_for(n)
     extra = " " + ortho_verify.COM + " " + spec + " " + STRONG + (("\n" + block) if block else "")
-    aspect = ortho_gen.cutout_aspect(n); layout = ortho_gen.sheet_layout(aspect)
-    prompt = ortho_gen.make_prompt(hint, extra, layout, aspect)
-    res = fal_call("fal-ai/nano-banana/edit", {"prompt": prompt, "image_urls": urls, "aspect_ratio": ortho_gen.layout_aspect_ratio(layout), "output_format": "png", "num_images": 1}, f"sheet {n}{tag}")
-    urllib.request.urlretrieve(res["images"][0]["url"], f"ortho/{n}{tag}_sheet.png"); split(n, tag)
+    aspect = aspect or ortho_gen.estimate_aspect(n); layout = ortho_gen.choose_layout(aspect)
+    prompt = ortho_gen.make_prompt(hint, extra, layout, aspect, isolate=True)
+    res = fal_call("fal-ai/nano-banana/edit", {"prompt": prompt, "image_urls": urls, "aspect_ratio": layout["canvas_aspect"], "output_format": "png", "num_images": 1}, f"sheet {n}{tag}")
+    out = f"ortho/{n}{tag}_sheet.png"; urllib.request.urlretrieve(res["images"][0]["url"], out)
+    ortho_gen.save_sheet_json(out, layout, aspect_est=round(float(aspect), 3), inputs=[os.path.basename(p) for p in imgs])
+    split(n, tag)
     os.makedirs("out/v2", exist_ok=True); open(f"out/v2/{n}{tag}_prompt.txt", "w").write(prompt)
 
 def edit_sheet(n, src, tag):
     import ortho_gen
-    url = fal_client.upload_file(f"ortho/{n}{src}_sheet.png")
-    im = Image.open(f"ortho/{n}{src}_sheet.png")
-    layout = ortho_gen.layout_of_image(im)
-    res = fal_call("fal-ai/nano-banana/edit", {"prompt": EDIT, "image_urls": [url], "aspect_ratio": ortho_gen.layout_aspect_ratio(layout), "output_format": "png", "num_images": 1}, f"deshade-edit {n}{tag}")
-    urllib.request.urlretrieve(res["images"][0]["url"], f"ortho/{n}{tag}_sheet.png"); split(n, tag)
+    sp = f"ortho/{n}{src}_sheet.png"
+    url = fal_client.upload_file(sp)
+    layout = ortho_gen.layout_for_sheet(sp)                       # _sheet.json first, image aspect only for legacy sheets
+    res = fal_call("fal-ai/nano-banana/edit", {"prompt": ortho_gen.edit_prompt(layout), "image_urls": [url], "aspect_ratio": layout["canvas_aspect"], "output_format": "png", "num_images": 1}, f"deshade-edit {n}{tag}")
+    out = f"ortho/{n}{tag}_sheet.png"; urllib.request.urlretrieve(res["images"][0]["url"], out)
+    ortho_gen.save_sheet_json(out, layout, edited_from=src); split(n, tag)
+
+def elevation_aspect(n, tag):
+    """measured height:width of the drawn front elevation (ortho_carve.mask_of), None if unavailable"""
+    import ortho_carve
+    try:
+        m, _ = ortho_carve.mask_of(f"ortho/{n}{tag}_front.png"); return m.shape[0] / max(m.shape[1], 1)
+    except Exception: return None
 
 def stage_parts(n):
     """steps 1-2: look at the reference photo(s), write and verify meta/N_parts.json (cached / hand-written = $0)."""
@@ -97,23 +107,30 @@ def _sheet_key(tag, geo, shade):
     bad = set((geo or {}).get("bad_views") or [])
     dup = 1 if (geo or {}).get("back_is_top") or any("second top plan" in i for i in issues) else 0
     n_drop = len([v for v in VIEWS if v in bad and v != "front"])
-    return (0 if fr.get("pass") else 1, dup, n_drop, float(fr.get("aspect_error") or 99.0), shade_score(shade))
+    # aspect_error in 0.1 ln buckets: a 1-2% consistency difference must not outrank a flatter (better) sheet
+    return (0 if fr.get("pass") else 1, dup, n_drop, round(float(fr.get("aspect_error") or 99.0), 1), shade_score(shade))
 
 def stage_sheets(n, k=1, with_photo=None):
     """Generate 1 sheet first; only buy sheet 2 on framing failure. Skip the deshade edit if shade already passes."""
     if not os.path.exists(f"art/final/meta/{n}_parts.json"): stage_parts(n)
-    if with_photo is None:
-        with_photo = n not in ("gate", "rapunzel_tower")
     rows, geo = {}, {}
-    def ensure(tag):
-        if not os.path.exists(f"ortho/{n}{tag}_sheet.png"): gen_sheet(n, tag, with_photo)
+    def ensure(tag, aspect=None):
+        if not os.path.exists(f"ortho/{n}{tag}_sheet.png"): gen_sheet(n, tag, with_photo, aspect)
         rows[tag] = shading_check.check(n, tag)
         geo[tag] = ortho_verify.geo_checks(n + tag)
         return tag
     ensure("_s1")
     fr1 = geo["_s1"].get("framing") or {}
     if (not fr1.get("pass")) and k >= 1:
-        ensure("_s2")
+        a2 = None; iss = fr1.get("issues") or []
+        tb = any("touches the top or bottom" in i for i in iss); lr = any("touches the left or right" in i for i in iss)
+        if tb != lr:                                     # elevation cut off on one axis: size _s2's panels from what was drawn
+            import ortho_gen
+            am = elevation_aspect(n, "_s1"); ae = ortho_gen.estimate_aspect(n)
+            if am:
+                a2 = max(am * 1.25, ae) if tb else min(am / 1.25, ae)       # taller panels for a top/bottom crop, wider for a side crop
+                print(n, f"_s1 cropped ({'top/bottom' if tb else 'left/right'}): _s2 layout from elevation aspect {am:.2f} -> {a2:.2f}")
+        ensure("_s2", a2)
     best = min(rows, key=lambda t: _sheet_key(t, geo[t], rows[t]))
     if rows[best].get("shaded"):
         te = best + "e"
@@ -145,7 +162,7 @@ def stage_paint(n):
 
 def stage_shape(n):
     import shape_fit; tag = json.load(open(f"art/final/meta/{n}_views.json"))["chosen"]
-    shape_fit.run(n, f"out/{n}_lowpoly.glb", sheet=tag)
+    shape_fit.run(n, f"out/{n}_lowpoly.glb", sheet=tag)   # also deletes the stale art/N_shapefit_uncarved.json stage_carve would re-read
 
 # ---------- explicit OPEN parts ----------
 def see_through(n, tag, occ, view, K=8):
@@ -459,6 +476,7 @@ def stage_all(n):
             if not any(os.path.exists(f"refs/{n}{ext}") for ext in (".jpg", ".png")):
                 raise SystemExit(f"no reference photo refs/{n}.jpg")
             import gen_refs; gen_refs.prep(n)
+        import ortho_gen; ortho_gen.ensure_crop(n)          # loose photo crop for the sheet ($0 from the existing mask)
         _tick(timings, "prep", t0)
 
     t0 = time.time()
@@ -475,7 +493,7 @@ def stage_all(n):
         os.makedirs("art/final/meta", exist_ok=True)
         json.dump(P, open(parts_list.path_of(n), "w"), indent=1)
         if c1: spend(f"haiku parts {n}", c1)
-        with_photo = n not in ("gate", "rapunzel_tower")
+        with_photo = None                      # automatic (ortho_gen.input_images); no per-subject exceptions
         t_sheet = time.time()
         with ThreadPoolExecutor(2) as ex:
             f_ver = ex.submit(parts_list.verify, n, P)
@@ -542,7 +560,10 @@ def stage_all(n):
         if r.returncode: raise SystemExit("noise_measure failed")
 
     def _features():
-        r = subprocess.run([sys.executable, "feature_detect.py", n, "--sheet", tag], capture_output=True, text=True)
+        # V2_NO_LLM=1: image-only detector ($0 offline rebuilds; the Haiku grid cache is keyed by the model, so any
+        # geometry change would otherwise re-buy the per-view Haiku calls)
+        extra = ["--no-llm"] if os.environ.get("V2_NO_LLM") == "1" else []
+        r = subprocess.run([sys.executable, "feature_detect.py", n, "--sheet", tag] + extra, capture_output=True, text=True)
         print(r.stdout[-1500:], r.stderr[-2500:])
         if r.returncode: raise SystemExit("feature_detect failed")
         try:

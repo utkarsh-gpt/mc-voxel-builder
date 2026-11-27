@@ -222,7 +222,7 @@ def run(n, organic_flag=False, orient_apply=False, detect=False, no_peaks=False)
     fp = f"art/final/meta/{n}_features.json"; pp = f"art/final/meta/{n}_parts.json"
     P = json.load(open(pp)) if os.path.exists(pp) else {}
     tag = pick_tag(n, occ)
-    flip = orient.facade_flip(occ, f"ortho/{n}{tag}_right.png")
+    flip = orient.facade_flip(occ, f"ortho/{n}{tag}_right.png", front_path=f"ortho/{n}{tag}_front.png")
     if flip and orient_apply:
         occ = orient.flip_occ(occ).copy()
         for d in (T, L, N): orient.flip_voxel_dict(d)

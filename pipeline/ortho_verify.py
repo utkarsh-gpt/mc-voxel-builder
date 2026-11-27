@@ -7,6 +7,7 @@ import argparse, json, os, re, subprocess, sys, numpy as np
 from PIL import Image
 from skimage.transform import resize
 import ortho_carve, ortho_clean, shading_check
+from scipy import ndimage
 COM = ("Match the photo EXACTLY in shape, proportions, number of parts and colours; do not stylise, simplify, beautify or add anything. "
        "Draw ONLY the main object: no props, ground lines, walls or base plates. Colours must be sampled from the photo. No labels, text or panel frames. "
        "Flat albedo colours with NO shadows, shading, ambient occlusion or directional light: the same material has the same colour in every panel.")
@@ -116,65 +117,82 @@ def _bbox(m):
     return int(ys.min()), int(ys.max()), int(xs.min()), int(xs.max())
 
 def framing_check(prefix, n=None):
-    """Fail a sheet whose elevations are cropped, squashed, or badly proportioned vs the cut-out.
+    """Fail a sheet whose elevations are cropped, squashed, or inconsistent with each other.
 
-    `bad_views` lists every framing problem (used to decide whether to buy sheet 2).
-    `drop_views` is the narrower set that is actually unusable as a Hyper3D input:
-    missing panels, or a top plan whose scale is clearly wrong. Crop, margin and
-    photo-aspect drift stay on the sheet (they trigger a retry) but do not, by
-    themselves, drop an otherwise useful elevation from the mesh.
-    """
-    import ortho_gen, math, ortho_carve
-    issues, bad, drop = [], set(), set()
+    The old test compared the front ELEVATION's aspect with the 3/4-view photo cut-out, which measures a different
+    projection (and a cut-out rembg may have clipped). Proportions are now checked by INTERNAL panel consistency:
+      hard (fail the sheet -> buys sheet 2): an elevation touching any panel edge / filling > 92% of it, side height vs
+        front height > 8%, front vs back aspect (h/w) > 25%
+      soft (rank only + mark the top plan bad): front width vs top width, right width vs top depth > 25%
+    `aspect_error` (the _sheet_key tie-break) = the largest ln-ratio among the elevation pairs (+ top pairs within 25%).
+    `bad_views` lists every framing problem; `drop_views` is the narrower set unusable as a Hyper3D input (missing
+    panels, or a top plan whose scale is clearly wrong)."""
+    import math, ortho_carve
+    issues, soft, bad, drop = [], [], set(), set()
     n = n or prefix.rsplit("_", 1)[0]
-    try: a_ref = ortho_gen.cutout_aspect(n)
-    except Exception: a_ref = 1.0
     M, bb = {}, {}
     for v in VIEWS:
         path = f"ortho/{prefix}_{v}.png"
         if not os.path.exists(path):
             issues.append(f"{v} panel missing"); bad.add(v); drop.add(v); continue
-        m, _ = ortho_carve.mask_of(path); M[v] = m; bb[v] = _bbox(m)
-    rec = {"a_ref": round(float(a_ref), 3), "pass": True, "aspect_error": None}
-    def a_of(v):
-        b = bb.get(v)
-        if not b: return None
-        y0, y1, x0, x1 = b
-        return (y1 - y0 + 1) / max(x1 - x0 + 1, 1)
-    errs = []
-    for v in ("front", "back"):
-        ad = a_of(v)
-        if ad is None or a_ref <= 0: continue
-        err = abs(math.log(ad / a_ref))
-        rec[f"a_{v}"] = round(ad, 3); rec[f"ln_err_{v}"] = round(err, 3); errs.append(err)
-        if err > math.log(1.25):
-            issues.append(f"{v} aspect {ad:.2f} drifts from cut-out {a_ref:.2f} by more than 25%"); bad.add(v)
-    rec["aspect_error"] = round(min(errs) if errs else 99.0, 3) if errs else 99.0
-    for v in ("front", "right", "back"):
-        m, b = M.get(v), bb.get(v)
-        if m is None or b is None: continue
-        h, w = m.shape; y0, y1, x0, x1 = b
-        if y0 <= 1 or y1 >= h - 2:
-            issues.append(f"{v} silhouette touches the top or bottom of the panel (cropped)"); bad.add(v)
-        long = max(h, w); subj = max(y1 - y0 + 1, x1 - x0 + 1)
-        if subj / long > 0.92:
-            issues.append(f"{v} silhouette fills {100*subj/long:.0f}% of the panel's long axis (need >=10% margin)"); bad.add(v)
-    if bb.get("front") and bb.get("right"):
-        hf = bb["front"][1] - bb["front"][0] + 1
-        hs = bb["right"][1] - bb["right"][0] + 1
+        im = np.asarray(Image.open(path).convert("RGB"))
+        m, _ = ortho_carve.mask_of(path); M[v] = (m, im.shape[:2])
+        # mask_of returns the mask CROPPED to the subject (so a bbox of it always touches its own edges, which made
+        # every sheet fail framing): locate the subject inside the full panel from its non-white extent instead
+        full = ndimage.binary_closing(im.min(-1) < 235, np.ones((5, 5)))
+        lab, k = ndimage.label(full)
+        if k:
+            sz = np.bincount(lab.ravel()); sz[0] = 0; full = sz[lab] >= 0.04 * sz.max()
+        bbf = _bbox(full)
+        bb[v] = (0, m.shape[0] - 1, 0, m.shape[1] - 1) if bbf is None else bbf
+        bb[v + "_wh"] = (m.shape[1], m.shape[0])
+    rec = {"pass": True, "aspect_error": None, "check": "internal panel consistency"}
+    wh = lambda v: bb.get(v + "_wh")
+    ratios = {}
+    def pair(key, a, b):
+        if a and b: ratios[key] = round(abs(math.log(a / b)), 3)
+    if wh("front") and wh("back"):
+        af = wh("front")[1] / wh("front")[0]; ab = wh("back")[1] / wh("back")[0]
+        rec["a_front"], rec["a_back"] = round(af, 3), round(ab, 3); pair("front_back_aspect", af, ab)
+        if ratios["front_back_aspect"] > math.log(1.25):
+            issues.append(f"front aspect {af:.2f} vs back {ab:.2f} differ by more than 25%"); bad.add("back")
+    if wh("front") and wh("right"):
+        hf, hs = wh("front")[1], wh("right")[1]; pair("front_right_height", hf, hs)
         rec["side_vs_front_h"] = round(hs / max(hf, 1), 3)
         if max(hf, hs) / max(min(hf, hs), 1) > 1.08:
             issues.append(f"side height {hs}px differs from front {hf}px by more than 8%"); bad.add("right")
-    if bb.get("top") and (bb.get("front") or bb.get("right")):
-        tw = bb["top"][3] - bb["top"][2] + 1; th = bb["top"][1] - bb["top"][0] + 1
-        top_long = max(tw, th)
-        fw = (bb["front"][3] - bb["front"][2] + 1) if bb.get("front") else 0
-        sw = (bb["right"][3] - bb["right"][2] + 1) if bb.get("right") else 0
+    if wh("top"):
+        tw, th = wh("top")
+        if wh("front"):
+            pair("front_top_width", wh("front")[0], tw)
+            if ratios["front_top_width"] > math.log(1.25): soft.append(f"top width {tw}px vs front width {wh('front')[0]}px differ by more than 25%"); bad.add("top")
+        if wh("right"):
+            pair("right_top_depth", wh("right")[0], th)
+            if ratios["right_top_depth"] > math.log(1.25): soft.append(f"top depth {th}px vs side width {wh('right')[0]}px differ by more than 25%"); bad.add("top")
+    rec["consistency_ln"] = ratios
+    # rank on the elevations; the top plan counts only while it is consistent (an inconsistent top is marked bad and
+    # dropped from the mesh, so it must not decide between two sheets)
+    rank = {k: v for k, v in ratios.items() if not k.endswith(("top_width", "top_depth")) or v <= math.log(1.25)}
+    rec["aspect_error"] = round(max(rank.values()), 3) if rank else 99.0
+    for v in ("front", "right", "back"):
+        if v not in M: continue
+        h, w = M[v][1]; y0, y1, x0, x1 = bb[v]
+        if y0 <= 1 or y1 >= h - 2:
+            issues.append(f"{v} silhouette touches the top or bottom of the panel (cropped)"); bad.add(v)
+        if x0 <= 1 or x1 >= w - 2:
+            issues.append(f"{v} silhouette touches the left or right side of the panel (cropped)"); bad.add(v)
+        sw, sh = wh(v); long = max(h, w); subj = max(sh, sw)
+        if subj / long > 0.92:
+            issues.append(f"{v} silhouette fills {100*subj/long:.0f}% of the panel's long axis (need >=10% margin)"); bad.add(v)
+    if wh("top") and (wh("front") or wh("right")):
+        tw, th = wh("top"); top_long = max(tw, th)
+        fw = wh("front")[0] if wh("front") else 0; sw = wh("right")[0] if wh("right") else 0
         cap = 1.15 * max(fw, sw, 1)
         rec["top_long"], rec["top_cap"] = int(top_long), round(cap, 1)
         if top_long > cap:
             issues.append(f"top-view largest dim {top_long}px > 1.15 * max(front_w {fw}, side_w {sw})"); bad.add("top"); drop.add("top")
-    rec["issues"] = issues; rec["bad_views"] = sorted(bad); rec["drop_views"] = sorted(drop); rec["pass"] = not issues
+    rec["issues"] = issues + soft; rec["soft_issues"] = soft; rec["bad_views"] = sorted(bad); rec["drop_views"] = sorted(drop)
+    rec["pass"] = not issues
     return rec
 
 def geo_checks(prefix):

@@ -400,34 +400,94 @@ def mirror_shape(s, axis):
         a, b = list(sw); s[a], s[b] = s[b], s[a]
     return s
 
-def symmetrise(cells, frac, log=print):
-    """detect mirror planes (x and z) on the block occupancy; if the model is mirror-symmetric (IoU > 0.9), copy the half
-    that agrees better with the regularised field onto the other half (shapes mirrored)"""
-    occ = frac > 0.5; info = {}
-    for axis in (0, 2):
-        n = occ.shape[axis]; best = (0, None)
-        for c2 in range(n - 6, n + 7):                                 # mirror plane at c2/2 (block units)
-            idx = c2 - 1 - np.arange(n); ok = (idx >= 0) & (idx < n)
-            a = np.take(occ, np.flatnonzero(ok), axis); b = np.take(occ, idx[ok], axis)
-            v = (a & b).sum() / max((a | b).sum(), 1)
-            if v > best[0]: best = (v, c2)
-        info["xz"[axis // 2]] = {"iou": round(float(best[0]), 3), "plane": best[1] / 2}
-        if best[0] < 0.9: continue
-        c2 = best[1]
-        have = np.zeros(occ.shape, bool)
-        for k in cells: have[k] = True
-        v = np.arange(n); low = 2*v + 1 < c2; high = 2*v + 1 > c2
-        bad = np.moveaxis(have != occ, axis, 0).reshape(n, -1).sum(1)
-        keep_low = bad[low].sum() <= bad[high].sum(); new = {}
-        for k, sh in cells.items():
-            w = k[axis]
-            if 2*w + 1 == c2: new[k] = sh; continue
-            if (2*w + 1 < c2) != keep_low: continue
-            new[k] = sh; m = list(k); m[axis] = c2 - 1 - w; new[tuple(m)] = mirror_shape(sh, axis)
-        cells = {k: x for k, x in new.items() if all(0 <= k[i] < occ.shape[i] for i in range(3))}
-        info["xz"[axis // 2]]["applied"] = "low half" if keep_low else "high half"
+def _mirror_plane(occ, axis):
+    """best mirror plane c2 (plane at c2/2 block units) near the middle of `axis`, by occupancy IoU"""
+    n = occ.shape[axis]; best = (0.0, n)
+    for c2 in range(n - 6, n + 7):
+        idx = c2 - 1 - np.arange(n); ok = (idx >= 0) & (idx < n)
+        if ok.sum() < 2: continue
+        a = np.take(occ, np.flatnonzero(ok), axis); b = np.take(occ, idx[ok], axis)
+        v = (a & b).sum() / max((a | b).sum(), 1)
+        if v > best[0]: best = (float(v), c2)
+    return best
+
+def _reflect(occ, axis, c2):
+    """occ reflected across the plane c2/2 on `axis`; cells whose mirror falls outside the grid read as empty"""
+    n = occ.shape[axis]; idx = c2 - 1 - np.arange(n); ok = (idx >= 0) & (idx < n)
+    src = np.take(occ, np.clip(idx, 0, n - 1), axis)
+    mask_shape = [1, 1, 1]; mask_shape[axis] = n
+    return src & ok.reshape(mask_shape)
+
+def symmetrise(cells, frac, log=print, organic=False, haiku=None, axes=None):
+    """Repair-only mirror symmetry (Opus review, step 3).
+
+    Global IoU is the wrong test (a missing minaret barely moves it) and copying a whole half invents geometry, so:
+      * organic subjects are skipped; only the x axis is considered for structures (z mirroring off unless
+        SHAPE_FIT_SYM_Z=1); a Haiku parts-list tag "symmetry": "asymmetric" vetoes x (Haiku never forces mirroring)
+      * disagreement = occ XOR reflect(occ); the model counts as mirror-symmetric only if NO 26-connected
+        disagreement component exceeds max(4, 0.2% of the occupied cells) and none spans more than 3 blocks on any axis
+      * if it is, only those small disagreement blobs are repaired (fill the missing twin or delete the stray cell,
+        decided by the regularised field `frac` of the pair); matching cells are never touched."""
+    have = np.zeros(frac.shape, bool)
+    for k in cells: have[k] = True
+    info = {}
+    if organic:
+        info["skipped"] = "organic"; log(f"  symmetry: {info}"); return cells, info
+    if axes is None: axes = (0, 2) if os.environ.get("SHAPE_FIT_SYM_Z") == "1" else (0,)
+    for axis in axes:
+        key = "xz"[axis // 2]
+        v, c2 = _mirror_plane(have, axis); rec = {"iou": round(v, 3), "plane": c2 / 2}
+        info[key] = rec
+        if axis == 0 and (haiku or "").lower() == "asymmetric":
+            rec["vetoed"] = "parts_list symmetry=asymmetric"; continue
+        R = _reflect(have, axis, c2); D = have ^ R
+        thr = max(4, int(0.002 * have.sum()))
+        lab, k = ndimage.label(D, np.ones((3, 3, 3)))
+        sizes = np.bincount(lab.ravel())[1:] if k else np.zeros(0, int)
+        spans = [max(s.stop - s.start for s in sl) for sl in ndimage.find_objects(lab)] if k else []
+        rec.update({"disagree_cells": int(D.sum()), "components": int(k), "largest": int(sizes.max()) if k else 0,
+                    "largest_span": int(max(spans)) if spans else 0, "thr": thr})
+        if k and (sizes.max() > thr or max(spans) > 3):
+            rec["applied"] = None; rec["reason"] = "asymmetric (large disagreement)"; continue
+        if not k:
+            rec["applied"] = "already symmetric"; continue
+        n = have.shape[axis]; filled = deleted = 0; new = dict(cells)
+        for p in map(tuple, np.argwhere(D & have)):              # occupied cell whose twin is empty (or outside the grid)
+            m = list(p); m[axis] = c2 - 1 - p[axis]; m = tuple(m)
+            inside = 0 <= m[axis] < n
+            pair = (frac[p] + (frac[m] if inside else 0.0)) / 2
+            if inside and pair >= 0.5:
+                if m not in new: new[m] = mirror_shape(cells[p], axis); filled += 1
+            else:
+                new.pop(p, None); deleted += 1
+        cells = new; have = np.zeros(frac.shape, bool)
+        for kk in cells: have[kk] = True
+        rec["applied"] = f"repaired {filled} filled / {deleted} deleted"
     log(f"  symmetry: {info}")
     return cells, info
+
+def bridge_floating(cells, log=print):
+    """post-pass connectivity: a component that does not reach the ground and floats one empty block above the main body
+    (a dome cap / spire lifted by a 1-block gap) is bridged by filling that gap; reports anything still floating"""
+    if not cells: return cells, {}
+    keys = np.array(list(cells.keys())); g = np.zeros(keys.max(0) + 1, bool); g[tuple(keys.T)] = True
+    lab, k = ndimage.label(g, np.ones((3, 3, 3)))
+    if k <= 1: return cells, {"floating_components": 0, "bridged_cells": 0, "still_floating_cells": 0}
+    ground = set(np.unique(lab[:, 0, :])) - {0}
+    if not ground: ground = {int(np.bincount(lab.ravel())[1:].argmax()) + 1}
+    main = np.isin(lab, list(ground)); bridged = 0; still = 0
+    for i in range(1, k + 1):
+        if i in ground: continue
+        comp = lab == i; pts = np.argwhere(comp); fix = []
+        for x, y, z in pts:
+            if y >= 2 and not g[x, y-1, z] and main[x, y-2, z]: fix.append((int(x), int(y-1), int(z)))
+        if fix:
+            for c in fix: cells[c] = None
+            bridged += len(fix)
+        else: still += int(comp.sum())
+    rec = {"floating_components": int(k - len(ground)), "bridged_cells": bridged, "still_floating_cells": still}
+    if bridged or still: log(f"  connectivity: {rec}")
+    return cells, rec
 
 def sturdy_face(s, toward):
     """does a neighbour with shape s present a full face toward direction `toward` (from the neighbour's point of view)?"""
@@ -492,21 +552,92 @@ def chamfer(A_pts, B_pts):
 def iou(a, b): return float((a & b).sum() / max((a | b).sum(), 1))
 
 # ---------------------------------------------------------------- main
-def sheet_aspect_fix(mesh, n, tag, log=print):
-    """per-axis stretch so the mesh's front (x:y) and top (x:z) proportions match the ortho drawing (thin spikes such as
-    finials/minarets removed by a morphological opening before taking bounding boxes). Returns (kx, kz) applied to x, z."""
+def speck_filter(m):
+    """drop connected components whose bbox is < 2% of the subject bbox in BOTH width and height (paint specks, stray
+    marks); thin-but-long parts (minarets, spires, turret shafts) are long on one axis and survive"""
+    m = ndimage.binary_fill_holes(m)
+    lab, k = ndimage.label(m, np.ones((3, 3)))
+    if k <= 1: return m
+    ys, xs = np.nonzero(m); H = ys.max() - ys.min() + 1; W = xs.max() - xs.min() + 1
+    keep = np.zeros(k + 1, bool)
+    for i, sl in enumerate(ndimage.find_objects(lab), 1):
+        h, w = sl[0].stop - sl[0].start, sl[1].stop - sl[1].start
+        keep[i] = not (h < 0.02*H and w < 0.02*W)
+    return keep[lab]
+
+def bbox_wh(m):
+    ys, xs = np.nonzero(m)
+    return (xs.max() - xs.min() + 1), (ys.max() - ys.min() + 1)
+
+def mesh_silhouette(mesh, axes, px):
+    """filled orthographic silhouette of the mesh: vertex coordinates `axes` = (u, v) -> image (col, row) with v up,
+    rasterised at about `px` pixels along the longer side (same pixel scale as the drawing it is compared with)"""
+    from PIL import Image, ImageDraw
+    V = mesh.vertices[:, list(axes)]; lo, hi = V.min(0), V.max(0); s = (px - 1) / max((hi - lo).max(), 1e-9)
+    P = (V - lo) * s; P[:, 1] = (hi[1] - lo[1]) * s - P[:, 1]
+    W, H = int(np.ceil((hi[0] - lo[0]) * s)) + 1, int(np.ceil((hi[1] - lo[1]) * s)) + 1
+    im = Image.new("1", (W, H), 0); dr = ImageDraw.Draw(im)
+    for f in P[mesh.faces]: dr.polygon([tuple(p) for p in f], fill=1, outline=1)
+    return np.asarray(im, bool)
+
+def mesh_mask_of(sil, key):
+    """the mesh silhouette through the SAME operator as the drawing: drawn as a flat grey figure on a white panel (10%
+    margin) and passed to ortho_carve.mask_of (rembg + non-white closing / 9x9 opening / component rules), so whatever that
+    operator trims from a drawing (thin side protrusions, ground lines) is trimmed from the mesh too"""
+    import hashlib, ortho_carve
     from PIL import Image
-    def bbox_aspect(m):
-        r = max(2, int(0.03*max(m.shape))); m = ndimage.binary_opening(m, iterations=r)
-        ys, xs = np.nonzero(m); return (xs.max() - xs.min() + 1)/(ys.max() - ys.min() + 1)
-    sheet = {v: np.asarray(Image.open(f"ortho/{n}{tag}_{v}.png").convert("L")) < 235 for v in ("front", "top")}
-    p = mesh.extents.max()/95; G = mesh.voxelized(p).fill().matrix
-    front = G.any(2).T[::-1]; top = G.any(1).T                       # [y, x] and [z, x]
-    kx = bbox_aspect(sheet["front"])/bbox_aspect(front)              # x relative to y
-    kz = kx*bbox_aspect(top)/bbox_aspect(sheet["top"])                # z from the plan's x:z
-    kx, kz = float(np.clip(kx, 0.6, 1.6)), float(np.clip(kz, 0.6, 1.6))
-    log(f"  drawing proportions: stretch x*{kx:.3f}, z*{kz:.3f} (y fixed)")
-    mesh.apply_scale([kx, 1.0, kz]); return kx, kz
+    h, w = sil.shape; p = max(4, int(0.1 * max(h, w)))
+    img = np.full((h + 2*p, w + 2*p, 3), 255, np.uint8); img[p:p+h, p:p+w][sil] = (110, 110, 110)
+    os.makedirs("out/cache", exist_ok=True)
+    path = f"out/cache/meshsil_{key}_{hashlib.sha1(sil.tobytes()).hexdigest()[:12]}.png"
+    if not os.path.exists(path): Image.fromarray(img).save(path)
+    return ortho_carve.mask_of(path)[0]
+
+def views_dropped(n):
+    p = f"art/final/meta/{n}_views.json"
+    return set(json.load(open(p)).get("views_dropped") or []) if os.path.exists(p) else set()
+
+def sheet_aspect_fix(mesh, n, tag, log=print):
+    """measure the drawing's proportions against the mesh with ONE silhouette operator: ortho_carve.mask_of + speck_filter
+    on the drawing AND on the mesh silhouette (rasterised at the drawing's pixel scale, drawn as a flat figure on white).
+    No size-dependent opening (the old r=3% opening erased thin towers / minarets / turrets from the drawing only). Dropped views (meta/NAME_views.json) are never read.
+
+    Default: diagnostic only, returns (1, 1, diag) and leaves the Hyper3D mesh alone. Opt-in SHAPE_FIT_ASPECT_STRETCH=1:
+    x is stretched only when front and back agree within 5% and |ln k| > 0.10 (clamped to [0.85, 1.18]); z follows the
+    top plan under the same gate, or keeps the mesh's own x:z when the top was dropped. Returns (kx, kz, diag)."""
+    import ortho_carve
+    drop = views_dropped(n); diag = {"views_dropped": sorted(drop)}
+    def draw(v):
+        p = f"ortho/{n}{tag}_{v}.png"
+        if v in drop or not os.path.exists(p): return None
+        return speck_filter(ortho_carve.mask_of(p)[0])
+    def ratio(dm, axes):          # drawing (w/h) / mesh (w/h), mesh rasterised at the drawing's long side
+        if dm is None: return None
+        w, h = bbox_wh(dm); mm = speck_filter(mesh_mask_of(mesh_silhouette(mesh, axes, max(w, h)), f"{n}{tag}_{axes[0]}{axes[1]}"))
+        mw, mh = bbox_wh(mm); return (w / h) / (mw / mh)
+    k_front, k_back = ratio(draw("front"), (0, 1)), ratio(draw("back"), (0, 1))
+    top = draw("top"); k_top_rel = ratio(top, (0, 2))            # drawing x:z over mesh x:z
+    for key, val in (("k_front", k_front), ("k_back", k_back), ("k_top_xz", k_top_rel)):
+        diag[key] = None if val is None else round(float(val), 3)
+    kx = kz = 1.0; why = "diagnostic only (SHAPE_FIT_ASPECT_STRETCH!=1)"
+    if os.environ.get("SHAPE_FIT_ASPECT_STRETCH") == "1":
+        why = []
+        if k_front is None or k_back is None: why.append("x: front or back missing/dropped")
+        elif abs(math.log(k_front / k_back)) > math.log(1.05): why.append(f"x: front {k_front:.3f} / back {k_back:.3f} disagree >5%")
+        else:
+            k = math.sqrt(k_front * k_back)
+            if abs(math.log(k)) > 0.10: kx = float(np.clip(k, 0.85, 1.18)); why.append(f"x stretched {kx:.3f}")
+            else: why.append(f"x: |ln {k:.3f}| <= 0.10")
+        if k_top_rel is None: kz = kx; why.append("z: top dropped -> keep mesh x:z")
+        else:
+            kzr = kx / k_top_rel                                  # z so that the plan's x:z matches the drawing
+            kz = float(np.clip(kzr, 0.85, 1.18)) if abs(math.log(kzr)) > 0.10 else kx
+            why.append(f"z {kz:.3f}")
+        why = "; ".join(why)
+    diag.update({"applied": [round(kx, 3), round(kz, 3)], "why": why})
+    log(f"  drawing proportions: {diag}")
+    if (kx, kz) != (1.0, 1.0): mesh.apply_scale([kx, 1.0, kz])
+    return kx, kz, diag
 
 def painted_colours(n_stem, mesh_path, ctr, rot, stretch, s, translate, path=None):
     """colour block centres from the painted model (art/<stem>_rendered_toned.json: ortho-painted + toned to the photo, the
@@ -527,10 +658,20 @@ def painted_colours(n_stem, mesh_path, ctr, rot, stretch, s, translate, path=Non
     return col48[k[0], k[1], k[2]].astype(float)
 
 def load_scale(n, mesh_ext):
-    """meta/NAME_scale.json: {"length_m": longest horizontal side, ...}; falls back to 40 m"""
+    """metres per mesh unit. meta/NAME_scale.json {"length_m": longest horizontal side} wins unchanged ("explicit").
+    Otherwise one general rule on the final (post-stretch) extents, H = max(x, z), V = y:
+        s = min(40/H, 64/V)                 40 m long side ("default_40w"), height capped at 64 ("cap_64h")
+        if s*V < 24 and s*H < 56: s = min(56/H, 24/V)   low wide subjects get up to 56 wide / 24 tall ("floor_24h")"""
     p = f"art/final/meta/{n}_scale.json"
-    sc = json.load(open(p)) if os.path.exists(p) else {"length_m": 40.0, "source": "default (no meta/NAME_scale.json)"}
-    return sc, sc["length_m"] / max(mesh_ext[0], mesh_ext[2])
+    H, V = float(max(mesh_ext[0], mesh_ext[2])), float(mesh_ext[1])
+    if os.path.exists(p):
+        sc = dict(json.load(open(p))); sc["branch"] = "explicit"; return sc, sc["length_m"] / H
+    s = min(40.0 / H, 64.0 / V); branch = "default_40w" if 40.0 / H <= 64.0 / V else "cap_64h"
+    if s * V < 24.0 and s * H < 56.0:
+        s = min(56.0 / H, 24.0 / V); branch = "floor_24h"
+    sc = {"length_m": round(s * H, 2), "height_m": round(s * V, 2), "branch": branch,
+          "source": f"default rule ({branch}; no meta/NAME_scale.json): s=min(40/H, 64/V), floor min(56/H, 24/V) when under 24 tall"}
+    return sc, s
 
 def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, height=True, sym=True, sheet=None, facade=True):
     t0 = time.time(); mesh_path = mesh_path or f"out/{n}_lowpoly.glb"
@@ -547,13 +688,16 @@ def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, he
     if facade:
         import orient as facade_orient
         G0 = mesh.voxelized(mesh.extents.max()/95).fill().matrix                  # [x, y, z] in the rotated mesh frame
-        if facade_orient.facade_flip(G0, f"ortho/{n}{sheet}_right.png" if sheet else None, log):
+        if facade_orient.facade_flip(G0, f"ortho/{n}{sheet}_right.png" if sheet else None, log,
+                                     front_path=f"ortho/{n}{sheet}_front.png" if sheet else None):
             rot += math.pi; mesh.apply_transform(trimesh.transformations.rotation_matrix(math.pi, [0, 1, 0]))
-    stretch = sheet_aspect_fix(mesh, n, sheet, log) if sheet else (1.0, 1.0)
+    aspect_diag = {}
+    if sheet: kx, kz, aspect_diag = sheet_aspect_fix(mesh, n, sheet, log); stretch = (kx, kz)
+    else: stretch = (1.0, 1.0)
     # 2. scale: metres -> blocks
     scale_info, m_per_unit = load_scale(n, mesh.extents); s = m_per_unit*bpm
     mesh.apply_scale(s); t1 = -mesh.bounds[0] + [1, 0, 1]; mesh.apply_translation(t1)
-    log(f"{n}: rotate {math.degrees(rot):.1f} deg, {scale_info['length_m']} m -> {s:.2f} blocks per mesh unit, extents {np.round(mesh.extents, 1)} blocks")
+    log(f"{n}: rotate {math.degrees(rot):.1f} deg, scale branch {scale_info.get('branch')}: {scale_info['length_m']} m -> {s:.2f} blocks per mesh unit, extents {np.round(mesh.extents, 1)} blocks")
     sp, scol, fi = fal_shape.surface_colours(mesh, int(min(400000, 16*mesh.area)), seed=0)
     N = mesh.face_normals[fi]
     prims, rstats, shift = [], {}, np.zeros(3)
@@ -574,8 +718,13 @@ def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, he
     hstats = {}
     if fit:
         if height: cells, hstats = heightfield_pass(cells, frac, prims, sp, N, log=log)
-        if sym: cells, sym = symmetrise(cells, frac, log=log)
+        if sym:
+            try:
+                import parts_list; P = parts_list.load(n) or {}
+            except Exception: P = {}
+            cells, sym = symmetrise(cells, frac, log=log, organic=bool(P.get("organic")), haiku=P.get("symmetry"))
         else: sym = {}
+    cells, conn_rec = bridge_floating(cells, log=log) if fit else (cells, {})
     cells = connect(prune_slivers(cells))
     # colour: nearest coloured surface sample to the block centre
     keys = np.array(list(cells.keys())); ctr = keys + 0.5
@@ -596,6 +745,8 @@ def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, he
          "format_note": "voxel 's' = shape (absent = full block): slab{size 0.5|0.1875,align} vslab{size,axis,align} stairs{facing,half,shape} "
                         "wall{north..west: none|low|tall, up} fence{north..west: bool}; geometry = vanilla models (shape_fit.boxes01)"}
     open(f"art/{n}_{tag}.json", "w").write(json.dumps(d))
+    stale = f"art/{n}_{tag}_uncarved.json"     # run_v2.stage_carve re-reads this copy; a fresh fit makes it stale
+    if os.path.exists(stale): os.remove(stale)
     # metrics: everything in metres (blocks / bpm)
     G = raster_model(cells, size, R); Gs = np.argwhere(surface_cells(G))/R
     cnt = {}
@@ -608,7 +759,7 @@ def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, he
            "occupancy_iou_vs_mesh": round(iou(G, O[:G.shape[0], :G.shape[1], :G.shape[2]]), 3),
            "occupancy_iou_vs_regularised": round(iou(G, F[:G.shape[0], :G.shape[1], :G.shape[2]]), 3),
            "surface_distance_m_vs_mesh": {k: round(v/bpm, 3) for k, v in chamfer(sp[np.random.default_rng(0).choice(len(sp), min(60000, len(sp)), replace=False)], Gs).items()},
-           "regularise": rstats, "heightfield": hstats, "symmetry": sym, "primitives": [p.desc() | {"support_pts": int(len(p.idx))} for p in prims], "seconds": round(time.time() - t0, 1)}
+           "regularise": rstats, "heightfield": hstats, "symmetry": sym, "connectivity": conn_rec, "scale_branch": scale_info.get("branch"), "aspect": aspect_diag, "primitives": [p.desc() | {"support_pts": int(len(p.idx))} for p in prims], "seconds": round(time.time() - t0, 1)}
     json.dump(rep, open(f"out/{n}_{tag}_report.json", "w"), indent=1)
     log(f"  {len(cells)} blocks, size {size}, shaped {rep['pct_shaped']}%: {cnt}")
     log(f"  IoU vs mesh {rep['occupancy_iou_vs_mesh']}, surface distance (m) {rep['surface_distance_m_vs_mesh']}  [{rep['seconds']}s]")
