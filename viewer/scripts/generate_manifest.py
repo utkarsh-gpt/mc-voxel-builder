@@ -44,7 +44,7 @@ FEATURED_PRIORITY = (
     "_best",
 )
 
-SUBJECTS = ("bonsai", "cottage", "windmill", "mushroom", "lighthouse", "lantern", "teapot")
+SUBJECTS = ("rapunzel_tower", "bonsai", "cottage", "windmill", "mushroom", "lighthouse", "lantern", "teapot")
 
 def subject_of(stem):
     for s in sorted(SUBJECTS, key=len, reverse=True):

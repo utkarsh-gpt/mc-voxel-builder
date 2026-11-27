@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T19:44:01",
+  "generated_at": "2026-11-26T21:34:35",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -238,6 +238,29 @@
       "ref": "refs/mushroom.jpg",
       "mtime": 1795470697,
       "bytes": 555647
+    },
+    {
+      "id": "rapunzel_tower_combined_mc_blocks",
+      "file": "models/rapunzel_tower_combined_mc_blocks.json",
+      "name": "rapunzel_tower_combined_mc_blocks",
+      "subject": "rapunzel_tower",
+      "kind": "combined_mc_blocks",
+      "format": "mc_blocks",
+      "size": [
+        23,
+        75,
+        21
+      ],
+      "voxelCount": 5551,
+      "hasShapes": false,
+      "subCount": 787,
+      "subPct": 14.2,
+      "paletteSize": 143,
+      "highlight": true,
+      "featured": true,
+      "ref": null,
+      "mtime": 1795746874,
+      "bytes": 362961
     },
     {
       "id": "teapot_fal_refined",

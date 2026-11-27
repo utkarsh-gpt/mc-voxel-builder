@@ -56,6 +56,17 @@ CFG = {
     "window_lit":   ("#e8b860", (-1, 0, 5, 0, "chromatic"), dict(dh=3, cd=0.04, cu=0.03), None, None)},   # no dark panes: the slit windows are lit; the dark material is the slate
    "hint_only": ("window_lit",),
    "blend": [], "crisp": [("gate_stone", "roof_slate"), ("gate_stone", "window_lit")]},
+ "rapunzel_tower": {"src": "art/rapunzel_tower_shapefit.json", "mats": {
+    "shaft_stone":  ("#c6a47a", (-2, 2, 6, 5, "chromatic"), dict(dh=4, cd=0.05, cu=0.04), DEF, None),
+    "plaster":      ("#e8d5b0", (-2, 1, 6, 4, "chromatic"), dict(dh=3, cd=0.04, cu=0.03), DEF, None),
+    "timber":       ("#5a3a28", (-1, 1, 5, 4, "chromatic"), dict(dh=3, cd=0.04, cu=0.03), DEF, None),
+    "roof_slate":   ("#7a6b9a", (-2, 1, 5, 6, "chromatic"), dict(dh=4, cd=0.04, cu=0.04), dict(DEF, w_h=0.2), "high"),
+    "corbel":       ("#b45a45", (-1, 1, 6, 5, "chromatic"), dict(dh=4, cd=0.05, cu=0.03), None, None),
+    "ivy":          ("#4e7a3a", (-1, 1, 6, 6, "chromatic"), dict(dh=7, cd=0.05, cu=0.05), None, None),
+    "window_dark":  ("#2e2a2a", (-1, 0, 5, 0, "neutral"), dict(db_dn=0.5), None, "dark")},
+   "hint_only": ("corbel", "timber", "ivy"),
+   "max_share": {"timber": 0.18, "corbel": 0.08, "ivy": 0.12, "window_dark": 0.08},
+   "blend": [("shaft_stone", "ivy", 0)], "crisp": [("plaster", "timber"), ("plaster", "window_dark"), ("shaft_stone", "window_dark"), ("roof_slate", "plaster"), ("corbel", "shaft_stone"), ("timber", "window_dark")]},
  "landscape": {"src": "art/landscape_lowpoly_half_sub.json", "mats": {
     "grass":       ("#7da343", (-2, 2, 7, 6, "chromatic"), dict(dh=7, cd=0.06, cu=0.06), ORG, "top"),
     "rock_grey":   ("#7d7a72", (-2, 2, 6, 5, "neutral"), dict(db_up=1.2, db_dn=0.8), DEF, None),

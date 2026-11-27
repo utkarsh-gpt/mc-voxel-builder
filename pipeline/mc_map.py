@@ -41,7 +41,7 @@ FAMILIES = {
  "soil": {"soil", "mud", "wood", "terracotta", "wool"},
  # new set (cathedral / landscape / turtle)
  "limestone": {"sandstone", "mud", "terracotta", "dripstone", "granite", "end_stone", "calcite"},   # warm honey stone: no greys
- "roof_slate": {"deepslate", "blackstone", "basalt", "tuff", "stone", "andesite", "concrete", "terracotta"},
+ "roof_slate": {"deepslate", "blackstone", "basalt", "tuff", "stone", "andesite", "concrete", "terracotta", "wool", "purpur"},
  "window_dark": {"deepslate", "blackstone", "basalt", "concrete", "wool", "obsidian", "terracotta", "wood"},
  "grass": {"moss", "soil", "terracotta", "wool", "concrete", "organic"},
  "rock_grey": {"stone", "andesite", "tuff", "diorite", "deepslate", "dripstone", "calcite", "basalt", "granite", "mud"},
@@ -66,7 +66,13 @@ FAMILIES = {
  "roof_shingle": {"brick", "terracotta", "granite", "mud", "nether_brick", "wood", "red_sandstone", "resin"},
  # gate (pale fantasy stone, slate roofs, lit slit windows)
  "gate_stone": {"stone", "andesite", "diorite", "calcite", "tuff", "end_stone", "sandstone", "mud", "dripstone"},
- "window_lit": {"terracotta", "concrete", "wool", "wood", "sandstone", "honeycomb"}}
+ "window_lit": {"terracotta", "concrete", "wool", "wood", "sandstone", "honeycomb"},
+ # rapunzel_tower
+ "shaft_stone": {"sandstone", "end_stone", "terracotta", "mud", "dripstone", "calcite", "granite"},   # warm tan shaft
+ "plaster": {"sandstone", "end_stone", "terracotta", "wool", "concrete", "calcite", "quartz", "diorite"},
+ "timber": {"wood", "terracotta", "mud", "brick", "granite", "soil"},
+ "corbel": {"terracotta", "brick", "granite", "mud", "nether_brick", "red_sandstone", "wood"},
+ "ivy": {"moss", "terracotta", "wool", "concrete", "organic"}}
 W_FAM = 10.0
 # role-suited families: when another block is within PREF_SLACK dE of the best colour match, take the one a builder would use
 # for that role (a brown roof in brick/terracotta rather than granite, trim in wood). Not for siding: pale paint has no

@@ -1,0 +1,148 @@
+{
+ "subject": "rapunzel_tower",
+ "organic": false,
+ "summary": "A tall, slender tower standing on a narrow, tapering stone shaft that is wider at its base and narrower where it meets the top, with ivy climbing its face. Above the shaft sits a wooden gallery with lattice trim and corbels, and on that a round-to-polygonal upper room with cream walls, a set of pointed windows on each side, and a pointed arched doorway at the front. The room is capped by a steep, tiled, purple conical roof with a flared eave, a small finial at the apex, and a red turned ornament on the right eave. A smaller turret with its own pointed roof rises behind the left side. The finished building must read as one tall column with a richly decorated tower-room and steep pointed roof on top, with a secondary turret behind it and flower and ivy greenery softening the top of the shaft.",
+ "parts": {
+  "tower_shaft": {
+   "kind": "mass",
+   "count": 1,
+   "where": "The full height of the building from the ground up to the gallery at the top, the widest and lowest part of the silhouette, supporting everything above it.",
+   "notes": "A tall, tapering column. It is wider at the base and narrows gradually as it rises, so the outline leans slightly inward toward the top. The face is rough, uneven stone laid in irregular courses, with ivy and leafy growth clinging to it in patches, thickest near the top, where the greenery spills over the edge of the gallery. No windows or doors are visible on the shaft. The top of the shaft flares out slightly under the gallery to meet the wider ring above it. The shaft carries the lantern room, the gallery, the corbels under the gallery, and the back turret.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  },
+  "gallery": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "tower_shaft",
+   "face": "all",
+   "where": "A wooden deck ring at the top of the shaft, just under the lantern room and above the ivy-covered stone, projecting outward past the face of the shaft.",
+   "notes": "A wide wooden platform or balcony ring that flares slightly outward from the top of the shaft, so its outer edge projects past the stone face. Its outer edge is a visible board fascia with a flat top surface. The lantern room stands on its top surface, and the corbels hang under its outer edge. It reads as a ledge that the lantern room and its lattice band sit on, not as a thin trim line.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "corbel": {
+   "kind": "feature",
+   "count": 4,
+   "parent": "tower_shaft",
+   "face": "all",
+   "where": "Just under the wooden gallery, at the top of the shaft, spaced around the circumference and projecting outward and downward below the gallery edge. Each one sits between the shaft top and the underside of the gallery.",
+   "notes": "Short pendant brackets that stand out from the shaft and hold up the gallery above. Each bracket is a curved, bulging corbel that narrows toward its lower tip, and the tip ends in a small rounded bulb or knob. The brackets are evenly placed around the circle, with about four visible in the reference images. They read as a row of supports under a projecting ledge, not as a continuous band.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "lantern_room": {
+   "kind": "mass",
+   "count": 1,
+   "where": "The upper chamber, sitting directly on top of the gallery and the shaft, roughly the same width or slightly wider than the top of the shaft. Its eaves reach out to meet the flared base of the roof above.",
+   "notes": "A round-to-polygonal room with a plaster or cream-coloured wall face. Its outline is a soft, slightly faceted cylinder rather than a sharp box. The lower part of the room has a horizontal band of wooden lattice trim, with diagonal crossing pieces forming a framed diamond pattern. Above that band the walls are smooth. The room is pierced by pointed, arched windows on its sides and a pointed arched doorway at the front, which are described separately. A row of small pointed arches or wooden trim runs along the top of the wall where the room meets the roof. The room is the main living space and carries the windows, doorway, lattice band, and roof.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  },
+  "gallery_lattice": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "lantern_room",
+   "face": "all",
+   "where": "A horizontal band on the lower part of the lantern room, just above the top of the gallery and below the windows, running all the way around the room.",
+   "notes": "A wooden band of crossed lattice or diamond-patterned trim, with diagonal pieces meeting at regular intervals to make a row of open diamonds across the wall. The lattice stands slightly proud of the cream wall, and the lattice sits on top of the gallery ledge. The band is interrupted only at the doorway.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "window": {
+   "kind": "feature",
+   "count": 4,
+   "parent": "lantern_room",
+   "face": [
+    "left",
+    "right"
+   ],
+   "where": "Two on the left side of the lantern room and two on the right, all in the middle height of the wall, above the lattice band and below the roof eave, with the doorway between the left pair and the right pair on the front.",
+   "notes": "Each window is a pointed, arched opening set into the wall with a plain sill beneath it. On each side of the room there is a taller pointed window next to a narrow slit window, both set back into the wall. The taller window is divided by a narrow vertical mullion. The openings look recessed rather than flat, so the wall reads as having depth at each window. The pointed top is sharper than a round arch.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "front_door": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "lantern_room",
+   "face": "front",
+   "where": "Centred on the front of the lantern room, in the middle height of the wall, between the two pairs of windows, and directly under the pointed spire.",
+   "notes": "A tall, pointed arched opening set into the front wall, with a wooden frame around the edge. The opening is recessed, so the wall face sits in front of a deeper floor inside. A flower and ivy garland hangs over its top and runs along the top of the front wall. The arch is narrow and tall, not round.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "spire_roof": {
+   "kind": "mass",
+   "count": 1,
+   "face": "top",
+   "where": "The steep, pointed cone sitting on top of the lantern room, starting from a flared eave at the top of the lantern wall and rising to a narrow point above.",
+   "notes": "A tall, steep cone with a curved profile, so the upper part is narrower and the lower part flares out at the eave. The eave is wide and projects beyond the walls of the lantern room. The cone is covered with overlapping roof tiles or scales, which read as a fine repeating pattern across its whole surface, flowing around the curve. The roof is the dominant upper outline of the tower, and it carries the finial at the top, the dormer window set into its upper part, and the red ornament on its right eave.",
+   "built_as": [
+    "outline"
+   ]
+  },
+  "finial": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "spire_roof",
+   "face": "top",
+   "where": "At the very top of the spire roof, at the apex of the cone, and the highest point of the whole building.",
+   "notes": "A small ball or bulb on the apex, with a short pointed spike rising above it. The ball is round and sits on a narrow neck at the tip of the cone. The spike is slim and tapered, the highest point of the tower.",
+   "built_as": [
+    "proud",
+    "outline"
+   ]
+  },
+  "dormer": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "spire_roof",
+   "face": "front",
+   "where": "Set into the upper part of the spire roof on the front, a short way below the finial and above the lantern eave.",
+   "notes": "A small pointed arched window set into the sloping roof surface. The opening is recessed into the roof, with a pointed top and a narrow vertical frame. It reads as a little window cut into the cone rather than a separate protruding box.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "eave_finial": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "spire_roof",
+   "face": "right",
+   "where": "On the right-hand edge of the roof eave, a little way out from the cone and above the right-hand windows of the lantern room.",
+   "notes": "A small turned ornament on a short post, standing out from the roof edge. It has a bulbous body and a narrow neck, so it reads as a finial or lantern on a bracket, projecting outward from the eave.",
+   "built_as": [
+    "proud",
+    "outline"
+   ]
+  },
+  "back_turret": {
+   "kind": "mass",
+   "count": 1,
+   "where": "Behind the left side of the lantern room, rising from behind the eave on that side, with its roof top just above the main eave and below the main spire point.",
+   "notes": "A smaller round turret with a narrow, tall pointed roof, set back behind the main lantern room on the left-rear side. Its roof is a steep cone with a sharp point and a small finial above. It is clearly smaller and set further back than the main lantern room, so it reads as a secondary tower behind the main one.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  }
+ },
+ "open": [],
+ "verified": true,
+ "verify_notes": "The list is missing the wooden gallery: a visible projecting wooden deck/balcony ring at the top of the shaft, with the corbels under its edge and the lantern room standing on it. I added it as a feature on tower_shaft. The rest checks out: organic is false, the counts (4 windows, 4 corbels, 1 each of the others) match, and the built_as tags are right. The small finial on the back turret is described in back_turret's notes, so I left it there.",
+ "source": "parts_list.py (auto, claude-haiku-5-5)",
+ "model": "claude-haiku-5-5",
+ "cost_usd": 0.0158,
+ "carve_axes": [],
+ "drop_lone_posts": true
+}

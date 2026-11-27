@@ -82,7 +82,7 @@ def stage_parts(n):
 
 def stage_sheets(n, k=2):
     if not os.path.exists(f"art/final/meta/{n}_parts.json"): stage_parts(n)
-    with_photo = n != "gate"   # the gate photo has trees / rocks: only the cut-out goes to fal
+    with_photo = n not in ("gate", "rapunzel_tower")   # these photos have trees / rocks / cliffs: only the cut-out goes to fal
     rows = {}
     for i in range(1, k + 1):
         t = f"_s{i}"

@@ -545,9 +545,9 @@ def run(n, mesh_path=None, bpm=1.0, R=8, fit=True, tag="shapefit", log=print, he
     Rm = trimesh.transformations.rotation_matrix(rot, [0, 1, 0]); mesh.apply_transform(Rm)
     # facade on +z: hyper3d puts the facade on either end, and feature_detect / the checks look at the front from +z
     if facade:
-        import orient
+        import orient as facade_orient
         G0 = mesh.voxelized(mesh.extents.max()/95).fill().matrix                  # [x, y, z] in the rotated mesh frame
-        if orient.facade_flip(G0, f"ortho/{n}{sheet}_right.png" if sheet else None, log):
+        if facade_orient.facade_flip(G0, f"ortho/{n}{sheet}_right.png" if sheet else None, log):
             rot += math.pi; mesh.apply_transform(trimesh.transformations.rotation_matrix(math.pi, [0, 1, 0]))
     stretch = sheet_aspect_fix(mesh, n, sheet, log) if sheet else (1.0, 1.0)
     # 2. scale: metres -> blocks

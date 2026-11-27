@@ -1,0 +1,13 @@
+Rapunzel's Tower (Disney's Tangled, 2010) — official-style production still of the
+hidden-valley tower (full height from the ivy-clad stone shaft to the finial, with
+the corbelled timber-framed upper room, pointed blue-slate conical roof, side turret
+and dormers). Cropped from the 1876×1080 WallpaperFlare original.
+
+Source page: https://www.wallpaperflare.com/disney-rapunzel-s-tower-wallpaper-movie-tangled-cgi-built-structure-wallpaper-ttmps
+Original image: https://r4.wallpaperflare.com/wallpaper/793/417/306/movie-tangled-cgi-disney-wallpaper-cb7c2a465ab79a8975a6affe0f7d499b.jpg
+Original size: 1876×1080 px. Crop used: (730, 0, 1170, 1080) → 440×1080.
+A matching HD frame also appears as tangled-disneyscreencaps.com-10380.jpg (1920×1080)
+on https://animationscreencaps.com/tangled-2010/
+
+Copyright: Walt Disney Animation Studios / Walt Disney Pictures. Used only as a local
+pipeline reference; this image is kept out of git.

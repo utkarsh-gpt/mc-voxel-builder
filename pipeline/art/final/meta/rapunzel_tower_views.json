@@ -1,0 +1,58 @@
+{
+ "chosen": "_s2",
+ "views_used": [
+  "front",
+  "right",
+  "back"
+ ],
+ "views_dropped": [
+  "top"
+ ],
+ "candidates": {
+  "_s1": {
+   "top_vs_front_dL": 20.1,
+   "shadow_share": 0.23,
+   "gradient_std": 7.501,
+   "shaded": true,
+   "score": 0.581,
+   "geo_issues": [
+    "top view width 277px differs from front/back width 226/212px",
+    "side-view depth 207px does not match top-view depth 271px",
+    "back silhouette is not the mirror of the front (IoU 0.56)",
+    "lighting is not flat: the same material is 20 L lighter in the TOP plan than in the FRONT view; draw every view with the same flat, evenly lit colour and no directional light",
+    "cast shadows / shading: 23% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)",
+    "lighting gradients inside flat materials (std 7.5 L); use uniform flat colour per material"
+   ]
+  },
+  "_s2": {
+   "top_vs_front_dL": -15.3,
+   "shadow_share": 0.199,
+   "gradient_std": 6.569,
+   "shaded": true,
+   "score": 0.4834,
+   "geo_issues": [
+    "top view width 285px differs from front/back width 113/114px",
+    "side-view depth 107px does not match top-view depth 269px",
+    "back silhouette is not the mirror of the front (IoU 0.64)",
+    "lighting is not flat: the same material is 15 L darker in the TOP plan than in the FRONT view; draw every view with the same flat, evenly lit colour and no directional light",
+    "cast shadows / shading: 20% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)",
+    "lighting gradients inside flat materials (std 6.6 L); use uniform flat colour per material"
+   ]
+  },
+  "_s2e": {
+   "top_vs_front_dL": null,
+   "shadow_share": 0.225,
+   "gradient_std": 6.596,
+   "shaded": true,
+   "score": 0.3569,
+   "geo_issues": [
+    "front width 115px vs back 99px",
+    "top view width 16px differs from front/back width 115/99px",
+    "side-view depth 117px does not match top-view depth 10px",
+    "cast shadows / shading: 22% of wall and roof pixels are shaded copies of their material; remove all shadows (eaves, overhangs, porch, ambient occlusion)",
+    "lighting gradients inside flat materials (std 6.6 L); use uniform flat colour per material"
+   ]
+  }
+ },
+ "note": "v2 run: sheets _s1.._sK with the STRONG lighting rule, _sKe = nano-banana edit pass (remove shading) on the flattest; chosen = flattest by shading_check | MANUAL OVERRIDE: chose _s2 over auto _s2e because the deshade edit blanked the top panel and simplified the elevations; _s2 keeps the full-height stone shaft in front/right/back. Top dropped (wrong scale, roof-only disk)."
+}

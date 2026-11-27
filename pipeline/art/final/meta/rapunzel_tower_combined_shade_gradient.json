@@ -1,0 +1,231 @@
+{
+ "source": "out/combined/rapunzel_tower_combined_mapped.json",
+ "weights": {
+  "tex": 0.5,
+  "geo": 0.5
+ },
+ "zones": {
+  "roof_slate": {
+   "base": "purpur_block",
+   "ladder_dark_to_light": [
+    "purpur_block"
+   ],
+   "L": [
+    58.4
+   ],
+   "base_index": 0,
+   "surface_split_pct": {
+    "shadow": 0.0,
+    "base": 100.0,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "purpur_block": 430,
+    "purpur_stairs": 135,
+    "purpur_slab": 94
+   },
+   "counts": {
+    "base": 659,
+    "interior": 321
+   }
+  },
+  "corbel": {
+   "base": "jungle_planks",
+   "ladder_dark_to_light": [
+    "stripped_spruce_log",
+    "terracotta",
+    "jungle_planks",
+    "stripped_jungle_wood"
+   ],
+   "L": [
+    40.0,
+    45.8,
+    52.2,
+    58.1
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 16.3,
+    "base": 72.8,
+    "highlight": 10.9
+   },
+   "blocks": {
+    "jungle_planks": 183,
+    "terracotta": 48,
+    "stripped_jungle_wood": 28,
+    "jungle_stairs": 28,
+    "jungle_trapdoor": 28,
+    "jungle_slab": 20,
+    "stripped_spruce_log": 7,
+    "oak_stairs": 3,
+    "oak_slab": 2,
+    "mud_brick_stairs": 2
+   },
+   "counts": {
+    "highlight": 38,
+    "base": 254,
+    "shadow": 57,
+    "interior": 275
+   }
+  },
+  "timber": {
+   "base": "mud_bricks",
+   "ladder_dark_to_light": [
+    "stripped_spruce_log",
+    "mud_bricks",
+    "exposed_chiseled_copper"
+   ],
+   "L": [
+    40.0,
+    46.7,
+    53.0
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 11.4,
+    "base": 70.8,
+    "highlight": 17.8
+   },
+   "blocks": {
+    "mud_bricks": 454,
+    "exposed_chiseled_copper": 107,
+    "mud_brick_stairs": 96,
+    "stripped_spruce_log": 87,
+    "mud_brick_slab": 47,
+    "jungle_stairs": 22,
+    "jungle_slab": 22,
+    "spruce_stairs": 8,
+    "mud_brick_wall": 4,
+    "spruce_slab": 2
+   },
+   "counts": {
+    "base": 601,
+    "highlight": 151,
+    "kept": 55,
+    "shadow": 97,
+    "interior": 930
+   }
+  },
+  "plaster": {
+   "base": "sandstone",
+   "ladder_dark_to_light": [
+    "birch_planks",
+    "sandstone",
+    "smooth_sandstone"
+   ],
+   "L": [
+    71.7,
+    81.7,
+    85.4
+   ],
+   "base_index": 1,
+   "surface_split_pct": {
+    "shadow": 10.9,
+    "base": 81.0,
+    "highlight": 8.1
+   },
+   "blocks": {
+    "sandstone": 190,
+    "birch_planks": 26,
+    "smooth_sandstone": 13,
+    "sandstone_stairs": 10,
+    "smooth_sandstone_stairs": 5,
+    "smooth_sandstone_slab": 2,
+    "birch_stairs": 1
+   },
+   "counts": {
+    "shadow": 27,
+    "base": 200,
+    "highlight": 20,
+    "interior": 269
+   }
+  },
+  "ivy": {
+   "base": "green_wool",
+   "ladder_dark_to_light": [
+    "green_wool",
+    "lime_terracotta",
+    "bamboo_block"
+   ],
+   "L": [
+    42.7,
+    47.2,
+    56.8
+   ],
+   "base_index": 0,
+   "surface_split_pct": {
+    "shadow": 0.0,
+    "base": 81.7,
+    "highlight": 18.3
+   },
+   "blocks": {
+    "green_wool": 266,
+    "lime_terracotta": 49,
+    "green_wool_stairs": 31,
+    "bamboo_block": 18,
+    "green_wool_slab": 2
+   },
+   "counts": {
+    "base": 299,
+    "highlight": 67,
+    "interior": 267
+   }
+  },
+  "shaft_stone": {
+   "base": "yellow_terracotta",
+   "ladder_dark_to_light": [
+    "yellow_terracotta"
+   ],
+   "L": [
+    59.3
+   ],
+   "base_index": 0,
+   "surface_split_pct": {
+    "shadow": 0.0,
+    "base": 100.0,
+    "highlight": 0.0
+   },
+   "blocks": {
+    "yellow_terracotta": 302,
+    "stripped_jungle_wood": 31
+   },
+   "counts": {
+    "base": 333,
+    "interior": 309
+   }
+  },
+  "chimney": {
+   "base": "andesite",
+   "ladder_dark_to_light": [
+    "tuff",
+    "stone_bricks",
+    "andesite",
+    "smooth_stone"
+   ],
+   "L": [
+    45.8,
+    51.2,
+    56.7,
+    65.1
+   ],
+   "base_index": 2,
+   "surface_split_pct": {
+    "shadow": 22.2,
+    "base": 66.7,
+    "highlight": 11.1
+   },
+   "blocks": {
+    "andesite": 5,
+    "tuff": 1,
+    "stone_bricks": 1,
+    "smooth_stone": 1,
+    "andesite_slab": 1
+   },
+   "counts": {
+    "shadow": 2,
+    "base": 6,
+    "highlight": 1
+   }
+  }
+ }
+}

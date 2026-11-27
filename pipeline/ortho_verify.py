@@ -67,6 +67,17 @@ SPEC["gate"] = ("fantasy gothic stone gatehouse", "Specifics: a Minecraft-style 
    "FRONT and BACK = the arch facade viewed straight on; RIGHT SIDE = the narrow end (an end tower and the wing roof end, depth about 1/5 of the width); "
    "TOP = a long thin plan with the slate caps as squares. Draw ONLY the gatehouse: NO trees, branches, leaves, grass, ground, rocks, cliffs, sky or clouds, "
    "and nothing behind the open arches.")
+SPEC["rapunzel_tower"] = ("Rapunzel's tower from Tangled", "Specifics: a very TALL, SLENDER fairy-tale stone TOWER, isolated, no cliffs, trees, ground, grass, sky or water. "
+   "CRITICAL PROPORTION (do not crop): the building is a LONG STONE COLUMN with a small room on top. In the FRONT, RIGHT and BACK panels the warm tan limestone SHAFT (about #C6A47A) must be fully drawn from the ground line up to the red corbels and must occupy about 55-65% of the tower's total height (from ground to the green finial). "
+   "The shaft is a plain tapering cylinder, wider at the base, with climbing ivy (about #4E7A3A). It is several times taller than the upper room. NEVER crop the shaft, NEVER sit the upper room on the bottom of the panel, NEVER replace the shaft with a short stub. "
+   "The shaft is topped by a RING of short reddish-terracotta corbels (about #B45A45) that carry a wider, circular timber-framed upper room. The upper room has cream plaster walls (about #E8D5B0), "
+   "dark brown timber framing (about #5A3A28) in an X and post-and-beam pattern around the lower storey of the room, flower boxes and hanging baskets, a large dark arched window opening on the front, "
+   "and smaller dark windows on the sides. A small side turret with its own pointed slate cap juts from the left (front-left) of the upper room; a tiny crenellated chimney-stack sits on the right roof slope. "
+   "The main roof is a tall pointed CONICAL roof of blue-lavender slate (about #7A6B9A) with a thin finial topped by a green sphere. One or two small dormer windows sit in the roof cone. "
+   "FRONT = the facade with the large arched window facing us; RIGHT SIDE = the same tower turned 90 degrees (the side turret is toward the back of that panel); "
+   "BACK = the rear of the upper room (more windows, no large balcony opening if the front had one); TOP = a circular plan, the conical roof as a filled circle, the side turret as a smaller circle on one side. "
+   "Proportions are critical: the upper room is wider than the shaft (it jettes out on corbels); the shaft is a plain cylinder; the roof spire is the highest point. "
+   "Draw ONLY the tower: no canyon walls, waterfalls, trees, rocks, people, hair, or ground.")
 LLM_PROMPT = """You are checking an AI-generated orthographic reference sheet before it is used to build a 3D model.
 Read the sheet image {sheet} (2x2 panels: top-left FRONT, top-right RIGHT SIDE, bottom-left BACK, bottom-right TOP plan with the front at the bottom)
 and the reference photo {photo} of the real object ({hint}).
