@@ -1,0 +1,12 @@
+{
+ "subject": "turtle",
+ "organic": true,
+ "summary": "A sea turtle, shown as a living animal: a broad, domed carapace with large scutes outlined by raised seams, a small head with a beaked snout and scaled skin, and four paddle-like flippers, the front pair long and broad with scaled, plated surfaces. The shell is overgrown with a green moss-like cover, pink and orange coral-like growths, purple fan-shaped sea fans, and small barnacle-encrusted clusters, so the carapace reads as a reef-covered rock.",
+ "parts": {},
+ "open": [],
+ "verified": true,
+ "verify_notes": "classified organic; no architectural parts list",
+ "source": "parts_list.py (auto, claude-haiku-5-5)",
+ "model": "claude-haiku-5-5",
+ "cost_usd": 0.0117
+}

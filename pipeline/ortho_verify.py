@@ -108,9 +108,19 @@ def llm_check(n, prefix, geo, model=VERIFY_MODEL):
     try: return json.loads(m.group(0))
     except Exception: return {"pass": False, "bad_views": [], "issues": ["unparseable LLM reply"], "raw": out[-500:]}
 
-def gen(n, tag, extra):
+def parts_extra(n, parts_prompt=None):
+    """parts-list + detailed notes for the sheet prompt; empty for organic subjects or when no list exists."""
+    if parts_prompt is not None: return ("\n" + parts_prompt) if parts_prompt else ""
+    try:
+        import parts_list; block = parts_list.prompt_for(n)
+    except Exception: block = ""
+    return ("\n" + block) if block else ""
+
+def gen(n, tag, extra, parts_prompt=None):
     hint, spec = SPEC[n]
-    r = subprocess.run([sys.executable, "ortho_gen.py", n, hint, "--tag", tag, "--with-photo", "--extra", f"{COM} {spec}{extra}"], capture_output=True, text=True)
+    # --no-parts: we already inlined the auto-loaded block into --extra, so ortho_gen must not append it a second time
+    r = subprocess.run([sys.executable, "ortho_gen.py", n, hint, "--tag", tag, "--with-photo", "--no-parts",
+                        "--extra", f"{COM} {spec}{extra}{parts_extra(n, parts_prompt)}"], capture_output=True, text=True)
     if r.returncode: raise SystemExit(r.stderr[-800:])
     for v in VIEWS: ortho_clean.clean(f"ortho/{n}{tag}_{v}.png")
 

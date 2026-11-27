@@ -4,8 +4,10 @@ shading), one Hyper3D lowpoly mesh, ortho_paint + tone, shape_fit, explicit OPEN
 palette_generic -> feature_detect (Haiku) -> colour_albedo (deshade) -> mc_map (albedo) + schematics, then free checks:
 shading_check, shape_compare, colour_score and blueprint.count_openings vs a short parts list (meta/NAME_parts.json).
 No Haiku retry loops: the mesh is generated once (a manual re-roll only if it is visibly broken).
-usage: python run_v2.py NAME STAGE [STAGE ...]   stages: sheets mesh paint shape carve sails squash colour zones map grad check   (or: all)
-fal spend is logged in out/v2_ledger.json (cap $1.50 for the three subjects)."""
+usage: python run_v2.py NAME STAGE [STAGE ...]   stages: parts sheets mesh paint shape carve sails squash colour zones map grad check   (or: all)
+`parts` (steps 1-2 of specs/detailed-parts.md) runs first: parts_list.ensure writes meta/NAME_parts.json from the
+reference photo if it is missing, and gen_sheet injects parts_list.prompt_block into the ortho sheet. Hand-written
+parts files are left untouched ($0). fal spend is logged in out/v2_ledger.json (cap $1.50 for the three subjects)."""
 import argparse, fcntl, json, os, subprocess, sys, time, urllib.request
 import numpy as np
 from PIL import Image
@@ -57,7 +59,10 @@ def gen_sheet(n, tag, with_photo):
     import ortho_gen
     hint, spec = ortho_verify.SPEC[n]
     urls = [fal_client.upload_file(f"refs/{n}_fal_in.png")] + ([fal_client.upload_file(f"refs/{n}.jpg")] if with_photo else [])
-    prompt = ortho_gen.PROMPT.format(hint=hint, extra=" " + ortho_verify.COM + " " + spec + " " + STRONG)
+    import parts_list
+    block = parts_list.prompt_for(n)
+    extra = " " + ortho_verify.COM + " " + spec + " " + STRONG + (("\n" + block) if block else "")
+    prompt = ortho_gen.PROMPT.format(hint=hint, extra=extra)
     res = fal_call("fal-ai/nano-banana/edit", {"prompt": prompt, "image_urls": urls, "aspect_ratio": "1:1", "output_format": "png", "num_images": 1}, f"sheet {n}{tag}")
     urllib.request.urlretrieve(res["images"][0]["url"], f"ortho/{n}{tag}_sheet.png"); split(n, tag)
     open(f"out/v2/{n}{tag}_prompt.txt", "w").write(prompt)
@@ -67,7 +72,16 @@ def edit_sheet(n, src, tag):
     res = fal_call("fal-ai/nano-banana/edit", {"prompt": EDIT, "image_urls": [url], "aspect_ratio": "1:1", "output_format": "png", "num_images": 1}, f"deshade-edit {n}{tag}")
     urllib.request.urlretrieve(res["images"][0]["url"], f"ortho/{n}{tag}_sheet.png"); split(n, tag)
 
+def stage_parts(n):
+    """steps 1-2: look at the reference photo(s), write and verify meta/N_parts.json (cached / hand-written = $0)."""
+    import parts_list
+    P, cost = parts_list.ensure(n)
+    if cost: spend(f"haiku parts {n}", cost)
+    nparts = sum(1 for _ in parts_list.iter_parts(P))
+    print(n, "parts", "organic" if P.get("organic") else f"{nparts} parts", "verified=" + str(bool(P.get("verified"))), f"usd={cost:.4f}")
+
 def stage_sheets(n, k=2):
+    if not os.path.exists(f"art/final/meta/{n}_parts.json"): stage_parts(n)
     with_photo = n != "gate"   # the gate photo has trees / rocks: only the cut-out goes to fal
     rows = {}
     for i in range(1, k + 1):
@@ -217,10 +231,11 @@ def stage_squash(n):
 def filter_features(n):
     """keep only feature kinds the parts list names, at most the listed count each (highest evidence first): the detector
     otherwise turns sail tips into spires, a pole into a door, tower tops into chimneys"""
+    import parts_list
     P = json.load(open(f"art/final/meta/{n}_parts.json")); allow = P.get("feature_kinds")
     if allow is None: return
     p = f"art/final/meta/{n}_features.json"; F = json.load(open(p)); keep, drop = [], {}
-    faces = {q["id"]: set(q["faces"]) for q in P["parts"] if len(q.get("faces", [])) < 4}   # a part listed on some faces only
+    faces = {q["id"]: set(q["faces"]) for q in parts_list.iter_parts(P) if len(q.get("faces") or []) < 4}   # a part listed on some faces only
     for f in sorted(F["features"], key=lambda f: -(f.get("evidence") or 0)):
         k = f["kind"]
         if k in faces and f.get("view") and f["view"] not in faces[k]: drop[k + "@" + f["view"]] = drop.get(k + "@" + f["view"], 0) + 1; continue
@@ -359,6 +374,7 @@ def stage_grad(n):
 
 def stage_check(n):
     import blueprint, colour_score, shape_compare
+    import parts_list
     tag = json.load(open(f"art/final/meta/{n}_views.json"))["chosen"]; P = json.load(open(f"art/final/meta/{n}_parts.json"))
     d = json.load(open(f"art/final/{n}_mc_blocks.json")); W, H, D = d["size"]; occ = np.zeros((W, H, D), bool)
     for v in d["voxels"]:
@@ -366,15 +382,17 @@ def stage_check(n):
         occ[v["x"], v["y"], v["z"]] = True
     oc = blueprint.count_openings(occ)
     req = {f: {"recess": 0, "open": 0} for f in ("front", "right", "back", "left")}
-    for p in P["parts"]:
-        if p["built_as"] not in ("open", "set_back"): continue          # proud / outline parts are not openings
-        for f in p["faces"]: req[f]["open" if p["built_as"] == "open" else "recess"] += p["count"]
+    for p in parts_list.iter_parts(P):
+        if not parts_list.has_built(p, "open", "set_back"): continue          # proud / outline parts are not openings
+        kind = "recess" if parts_list.has_built(p, "set_back") else "open"
+        for f in p["faces"]:
+            if f in req: req[f][kind] += p["count"]
     dc = {f: {"found_recess": oc[f]["recess"], "found_open": oc[f]["open"], "listed_recess": req[f]["recess"], "listed_open": req[f]["open"]} for f in req}
     out = {"sheet": tag, "shading": shading_check.check(n, tag), "depth_count": dc, "depth_detail": oc}
     json.dump(out, open(f"out/v2/{n}_check.json", "w"), indent=1, default=str)
     print(n, json.dumps(dc)); print(n, "shading", json.dumps({k: out["shading"][k] for k in ("top_vs_front_dL", "shadow_share", "gradient_std", "shaded")}))
 
-STAGES = {"sheets": stage_sheets, "mesh": stage_mesh, "paint": stage_paint, "shape": stage_shape, "carve": stage_carve, "sails": stage_sails, "squash": stage_squash,
+STAGES = {"parts": stage_parts, "sheets": stage_sheets, "mesh": stage_mesh, "paint": stage_paint, "shape": stage_shape, "carve": stage_carve, "sails": stage_sails, "squash": stage_squash,
           "colour": stage_colour, "zones": stage_zones, "map": stage_map, "grad": stage_grad, "check": stage_check}
 if __name__ == "__main__":
     os.makedirs("out/v2", exist_ok=True)

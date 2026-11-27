@@ -1,21 +1,26 @@
 # v2 run: windmill, cottage, gate (Nov 25, 2026)
 
-Driver: `run_v2.py <subject> [sheets mesh paint shape carve colour map check]`.
+Driver: `run_v2.py <subject> [parts sheets mesh paint shape carve colour map check]`.
 Subjects: `windmill_v2` and `cottage_v2` (rerun from the original refs), `gate` (new, user-provided image; the image
 and its sheets are kept out of git via `.git/info/exclude` — only the derived block model is committed).
 
 ## Method
-1. **Sheets** (nano-banana/edit, $0.039 each): ortho prompt + flat-albedo rule made stronger (`STRONG`), 2 sheets,
+1. **Parts** (`parts_list.py`, Haiku, $0 when `meta/<n>_parts.json` already exists): look at the reference
+   photo(s), write every part with `where`, detailed facade notes and `built_as`, then check the list against
+   the pictures (specs/detailed-parts.md steps 1-2). The verified block is injected into the sheet prompt so
+   nano-banana draws each part as real depth, not a flat dark patch. Organic subjects get `"organic": true`
+   and an empty prompt block. Hand-written lists are never overwritten.
+2. **Sheets** (nano-banana/edit, $0.039 each): ortho prompt + flat-albedo rule made stronger (`STRONG`), 2 sheets,
    then one edit pass (`EDIT`, "remove all shading") on the flattest. Pick by
    `shadow_share + 0.02*gradient_std + 0.01*|top_vs_front_dL|` (shading_check); deshade.py on the chosen sheet.
    Views that fail geo checks are dropped (front is always kept).
-2. **Mesh** hyper3d lowpoly ($0.20) -> ortho_paint + tone_to_ref -> **shape_fit** against the chosen sheet.
-3. **Carve**: see-through cells in the drawing (<35% drawn pixels inside the ground-closed outline, >=2 tall),
+3. **Mesh** hyper3d lowpoly ($0.20) -> ortho_paint + tone_to_ref -> **shape_fit** against the chosen sheet.
+4. **Carve**: see-through cells in the drawing (<35% drawn pixels inside the ground-closed outline, >=2 tall),
    front and back must agree; removed through the full depth (`carve_axes` in the parts list).
-4. **Colour**: palette_generic -> feature_detect (Haiku) -> features filtered by the hand parts list
+5. **Colour**: palette_generic -> feature_detect (Haiku) -> features filtered by the parts list
    (`feature_kinds` with max counts, highest evidence first) -> colour_albedo `--dark-rules` -> noise_measure.
-5. **Map**: mc_map albedo mode (creaking_heart banned, role-family tiebreak) -> `.schem` / `.litematic`.
-6. **Check**: depth counter (`blueprint.count_openings`) vs the parts list (`art/final/meta/<n>_parts.json`).
+6. **Map**: mc_map albedo mode (creaking_heart banned, role-family tiebreak) -> `.schem` / `.litematic`.
+7. **Check**: depth counter (`blueprint.count_openings`) vs the parts list (`art/final/meta/<n>_parts.json`).
 
 ## Results
 | subject | chosen sheet | shadow_share | grad std | top-front dL | colour dE mean / p90 / EMD | shape IoU F/R/T (mean) | depth count (found / listed) |

@@ -1,0 +1,192 @@
+{
+ "subject": "house",
+ "organic": false,
+ "summary": "A two-storey frame house with a steep roof that has a gable end on its short left side, two dormers that rise out of the front roof slope, a brick chimney, and a wide open verandah running along the ground floor of the front. The walls are cream clapboard with brown trim, the roof is brick-red shingle with brown eaves and bargeboards, the verandah roof is carried on square brown posts, and the verandah has brick at its right end with a short run of brick steps. The finished building must still read as this: a gabled two-storey house with a dormered roof and a deep open porch across the front, with the windows set into flat walls. The garage at the left of the full photo is a separate building and is not part of this house. The dark marks at the right end of the verandah in house_fal_in.png are cut-out artifacts, not parts.",
+ "parts": {
+  "main_block": {
+   "kind": "mass",
+   "count": 1,
+   "where": "The whole two-storey body of the house. Its front runs long and low to the right, and its short side on the left rises into a tall gable end.",
+   "notes": "A two-storey box with cream clapboard walls made of narrow horizontal boards, finished at the corners and under the eaves with brown trim. On the left the wall rises into a steep triangular gable, with a brown edge board running up both raking edges. The front wall runs to the right and carries two storeys of windows, with the open verandah along its ground storey. The walls are flat; the parts that project from the building (verandah, dormers, chimney) come out of the roof or stand in front of the wall, and the windows and door are set into the wall.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  },
+  "main_roof": {
+   "kind": "mass",
+   "count": 1,
+   "where": "Covers the main block above the walls, from the gable apex on the left down over the front to the eave line above the verandah roof.",
+   "notes": "A steep pitched roof with its ridge running left to right and a gable at the left end, with brown fascia and bargeboard along the edges. The covering is brick-red shingle in courses. The eaves overhang with a deep brown trim line. Two dormers rise out of the front slope, and a brick chimney rises from the main slope left of the dormers. Over the front the roof runs down to a lower verandah roof below.",
+   "built_as": [
+    "outline"
+   ],
+   "face": "all"
+  },
+  "verandah": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "front",
+   "where": "Across the full front ground storey, from the left corner of the front wall out to the right end, sitting below the upper-storey windows and above the brick base at the right end.",
+   "notes": "A single-storey open verandah along the front, continuing round the right end. Its roof is a separate, lower slope that projects forward from the front wall, edged with a brown fascia, and it is carried on square brown posts standing on the verandah floor. Behind the posts the front wall is set back, with the front door and a large window in it. The verandah floor is at ground level and rests on brick at the right end. Between the posts the verandah is open to the air.",
+   "built_as": [
+    "open",
+    "outline"
+   ]
+  },
+  "verandah_posts": {
+   "kind": "feature",
+   "count": 8,
+   "parent": "main_block",
+   "face": "front",
+   "where": "Standing across the verandah floor in front of the front wall, holding up the verandah roof, from the left corner to the right end; the front wall is behind them.",
+   "notes": "Square brown columns, plain and unmoulded, with a plain square section. Five stand along the front from the left corner past the door bay, and three more stand on the returning right end under the verandah roof. They are spaced at intervals across the verandah, with the bay around the front door a little wider than the others. The count of eight comes from the full photo; the outer columns at the right end are partly hidden by the shrub and the cut-out edge in house_fal_in.png.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "verandah_brick_base": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "front",
+   "where": "At the right end of the verandah, at ground level, beside the right-hand verandah post and under the verandah floor edge.",
+   "notes": "A low brick block at the right end of the verandah, the same brick as the chimney. It stands out from the wall line and carries the foot of the verandah steps, and its top reaches the verandah floor.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "front_steps": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "front",
+   "where": "At ground level at the right end of the verandah, rising up to the verandah floor beside the brick base.",
+   "notes": "A short run of brick-coloured steps, stepping up from the ground to the verandah floor, with a brick side wall on the right. The steps stand out in front of the verandah, and they are the only way up onto the verandah.",
+   "built_as": [
+    "proud"
+   ]
+  },
+  "front_door": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "front",
+   "where": "In the front wall at ground level, behind the verandah, between the posts at the middle-right of the verandah front and the large window beside it.",
+   "notes": "A panelled door set back in the front wall, inside the verandah bay, with a plain flat surround. It sits recessed back from the verandah posts and is partly hidden by the posts and the planting in front of it.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "verandah_window": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "front",
+   "where": "At ground level in the front wall, to the right of the front door, inside the verandah bay and below the upper-storey windows.",
+   "notes": "A large multi-pane window with a dark frame, set back into the front wall, with a flat trim surround. Its panes are divided into a grid, and it is taller than the door's panel area. Plants stand on the verandah in front of it.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "window_front_upper": {
+   "kind": "feature",
+   "count": 4,
+   "parent": "main_block",
+   "face": "front",
+   "where": "On the upper storey of the front wall, in two pairs, one pair left of the centre under the left dormer and one pair at the right end under the right dormer, above the verandah roof and below the main roof eave.",
+   "notes": "Tall double-hung sash windows, each pair set side by side with a shared brown surround. Each sash is divided by a horizontal bar, and pale curtains show through the glass. The windows are set flat into the cream wall with a trim surround, not on a projecting sill or hood.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "window_left_upper": {
+   "kind": "feature",
+   "count": 4,
+   "parent": "main_block",
+   "face": "left",
+   "where": "On the upper storey of the left gable-end wall, above the two ground-floor windows, set in a loose line along the wall below the gable window.",
+   "notes": "Tall, narrow double-hung windows with brown trim surrounds, set into the clapboard wall. Two are taller windows set nearer the middle of the wall, and two are narrower windows set nearer the wall edges. Spacing across the wall is irregular, and the upper windows sit slightly higher than the ground-floor ones.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "window_left_gable": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "left",
+   "where": "In the upper part of the left gable triangle, under the apex and directly under the roof edge, above the row of upper windows on the same wall.",
+   "notes": "A tall double-hung window with a brown surround, set flat into the clapboard of the gable triangle. Its sash has a horizontal divider, and pale curtains show through the glass. It sits higher than the row below it and is framed by the gable's brown edge boards.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "window_left_ground": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "main_block",
+   "face": "left",
+   "where": "On the ground storey of the left wall, below the upper windows and beside the lower end of the verandah.",
+   "notes": "Tall double-hung windows with brown surrounds, set flat into the clapboard wall. They are lower than the upper-storey windows on the same wall and stand near the foot of the wall, with a plain sill under each.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "dormer": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "main_roof",
+   "face": "front",
+   "where": "Two dormers rising out of the front roof slope: one left of the centre above the left pair of upper windows, and one toward the right end above the right pair of upper windows.",
+   "notes": "Two small dormers with different roof shapes. The left dormer has its own small gable roof with a steep pitch and brown edge trim; its cheeks are clad in cream clapboard. The right dormer has a lower-pitched, hipped roof with a brown edge, clad in the same clapboard. Each dormer front is a flat cream wall with its window set in it, and both project up out of the main roof.",
+   "built_as": [
+    "outline",
+    "proud"
+   ]
+  },
+  "window_dormer": {
+   "kind": "feature",
+   "count": 2,
+   "parent": "main_roof",
+   "face": "front",
+   "where": "One window in the front face of each dormer, set under the dormer's roof edge and above the upper-storey windows below.",
+   "notes": "A tall double-hung window in each dormer front, with a brown surround and a horizontal sash divider. Each window is set back into the cream dormer wall, and the dormer roof overhangs it. Curtains show through the glass.",
+   "built_as": [
+    "set_back"
+   ]
+  },
+  "chimney": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_roof",
+   "face": "top",
+   "where": "Rising from the main roof slope on the left side of the ridge, between the gable end and the left dormer, and standing clear above the roof surface.",
+   "notes": "A brick stack with the brick courses left exposed and a plain top with no cap. It rises through the roof and stands clear above the shingles, which butt against its base.",
+   "built_as": [
+    "outline",
+    "proud"
+   ]
+  },
+  "downpipe": {
+   "kind": "feature",
+   "count": 1,
+   "parent": "main_block",
+   "face": "front",
+   "where": "On the front of the verandah on its left part, running from the verandah roof edge down to the verandah floor level, beside one of the front posts.",
+   "notes": "A thin straight rainwater downpipe fixed to the wall and verandah front with metal clips. It runs vertically from the verandah gutter down to ground level and stands a few centimetres out from the wall. It is a separate narrow run, not a structural member.",
+   "built_as": [
+    "proud"
+   ]
+  }
+ },
+ "open": [
+  "verandah"
+ ],
+ "verified": true,
+ "verify_notes": "Three fixes. (1) The gable end has a fifth window (in the peak of the left gable, above the four-window row), which the list lacked, so I added window_left_gable. (2) The verandah has eight posts in the full photo (five along the front from the left corner past the door, then three on the returning right end), not seven, so verandah_posts count is now 8. (3) A thin rainwater downpipe runs down the front of the verandah, visible in both pictures, so I added it as downpipe.",
+ "source": "parts_list.py (auto, claude-haiku-5-5)",
+ "model": "claude-haiku-5-5",
+ "cost_usd": 0.0224
+}

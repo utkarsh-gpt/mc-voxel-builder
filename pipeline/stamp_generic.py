@@ -137,9 +137,11 @@ KEYWORDS = [("rose", "rose_window"), ("round", "round_window"), ("window", "wind
             ("cap", "outline")]
 
 def part_kind(p):
-    """the feature kind a parts-list entry is about: explicit 'kind', else a keyword in its id"""
-    if p.get("kind"): return p["kind"]
-    pid = p["id"].lower()
+    """the feature kind a parts-list entry is about: explicit stamp kind, else a keyword in its id.
+    Blueprint kind 'mass' / 'feature' (specs/detailed-parts.md) is not a stamp kind, so it falls through."""
+    k = p.get("kind")
+    if k and k not in ("mass", "feature"): return k
+    pid = (p.get("id") or "").lower()
     for kw, k in KEYWORDS:
         if kw in pid: return k
     return None
@@ -197,13 +199,16 @@ def is_organic(occ, features=None, parts=None):
 def stamp(occ, features, parts=None, log=print):
     occ = occ.copy(); W, H, D = occ.shape
     faces = {nm: Face(occ, nm) for nm in ("front", "back", "right", "left")}
-    P = parts or {}; plist = P.get("parts", [])
+    import parts_list as PL
+    P = parts or {}; plist = list(PL.iter_parts(P))
     over = {}                       # feature kind -> built_as from the parts list
+    listed_open = set()
     for p in plist:
-        k = part_kind(p)
-        if k and p.get("built_as"): over.setdefault(k, p["built_as"])
+        k = part_kind(p); op = PL.stamp_op(p)
+        if k and op: over.setdefault(k, op)
+        if k and PL.has_built(p, "open"): listed_open.add(k)
     if "arch" in over and "arcade" not in over: over["arcade"] = over["arch"]
-    listed_open = {k for k, b in over.items() if b == "open"}
+    if "arch" in listed_open: listed_open.add("arcade")
     rep = collections.Counter(); feats2 = []
     # opposite-face confirmation for open arches: a box on the opposite face covering the same (u, y)
     def seen_opposite(f):
@@ -252,7 +257,7 @@ def stamp(occ, features, parts=None, log=print):
     for p in plist:
         for view, boxes in (p.get("boxes") or {}).items():
             if view not in faces: continue
-            F = faces[view]; k = part_kind(p); op = p.get("built_as") or BUILT_AS.get(k)
+            F = faces[view]; k = part_kind(p); op = PL.stamp_op(p) or BUILT_AS.get(k)
             for box in boxes:
                 a0, a1, b0, b1 = norm_box(F, box); m = mask_for(F, k, a0, a1, b0, b1)
                 ref = F.ref_local(m)
@@ -265,8 +270,8 @@ def stamp(occ, features, parts=None, log=print):
                 extra.append({"part": p["id"], "view": view, "op": op, "removed": len(R), "added": len(A),
                               "removed_cells": [list(map(int, F.xyz(*c))) for c in R], "added_cells": [list(map(int, F.xyz(*c))) for c in A]})
                 rep[f"part:{p['id']}:{op}"] += 1
-        if not p.get("boxes") and p.get("built_as") in ("proud", "outline") and part_kind(p) not in ("spire", "chimney"):
-            rep[f"part:{p['id']}:{p['built_as']}:no_boxes"] += 1
+        if not p.get("boxes") and PL.has_built(p, "proud", "outline") and part_kind(p) not in ("spire", "chimney"):
+            rep[f"part:{p['id']}:{PL.stamp_op(p)}:no_boxes"] += 1
     log("stamp", dict(rep))
     return occ, {"counts": dict(rep), "parts": extra}, feats2
 

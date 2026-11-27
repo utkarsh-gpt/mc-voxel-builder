@@ -29,7 +29,11 @@ N_voxels_textured + labels + noise        (from run_v2: sheets -> mesh -> shape_
    orient.facade_flip ............ verdict logged; --orient-apply turns a raw mesh (features are then re-detected)
         |
    meta/N_features.json .......... cached, else feature_detect.detect(N, llm=False) (image-only, $0)
-   meta/N_parts.json ............. optional: built_as overrides, open parts, normalised boxes, "organic"
+   meta/N_parts.json ............. optional: built_as overrides, open parts, normalised boxes, "organic".
+                                  Written automatically by parts_list.py (steps 1-2 of specs/detailed-parts.md)
+                                  from the reference photo, BEFORE the ortho sheet is requested; hand-written
+                                  files (windmill_v2, cottage_v2, gate) are left untouched. Accepts both the
+                                  legacy list-of-parts schema and the new dict-of-parts blueprint schema.
         |
    organic? ---- yes ------------------------------------------------------------.
         | no                                                                     |
@@ -67,6 +71,34 @@ Face mapping for a feature_detect rect (`axis`, `plane`, `u`, `y`):
 | -z | back | W-1-u | D-1-plane |
 | +x | right | D-1-u | plane |
 | -x | left | u | W-1-plane |
+
+## Parts list (steps 1-2, before the ortho sheet)
+
+`parts_list.py` implements "Look and list" and "Check the list" from `specs/detailed-parts.md`, so a new subject
+gets a verified parts list + detailed architectural notes from its reference photo(s) before nano-banana draws
+the orthographic sheet.
+
+```
+python parts_list.py house            # Haiku, ~two calls (list + check), cached by image hash
+python parts_list.py turtle --force   # re-generate; organic subjects write {"organic": true, "parts": {}}
+python run_v2.py house parts          # same step, also the first stage of `run_v2.py house all`
+```
+
+- **Step 1 (`generate`)** reads `refs/<n>_fal_in.png` and/or `refs/<n>.jpg`, classifies organic vs structure, and
+  writes a blueprint: `subject`, `summary`, `organic`, and `parts` as `{id: {kind, count, parent, face, where, notes, built_as}}`.
+- **Step 2 (`verify`)** is a programmatic schema check (valid `kind`, `count >= 1`, non-empty `where` / `notes` /
+  `built_as` in `{set_back, open, proud, outline}`) plus a second Haiku read of the pictures. One revision is
+  allowed; the file records `verified`, `verify_notes`, and `cost_usd`.
+- **`prompt_block`** formats the verified list in the same per-part style as `blueprint.prompt_parts` (run A) and
+  is injected into the sheet prompt by `run_v2.gen_sheet`, `ortho_verify.gen`, and `ortho_gen.py` (auto-load;
+  `--no-parts` to skip; empty for organic subjects).
+- **`ensure`** is merge-safe: if `meta/<n>_parts.json` already exists it is returned at $0 and hand-written keys
+  (`grad`, `zones`, `rebuild_sails`, `squash_z`, `feature_kinds`, `boxes`, ...) are never clobbered. `--force`
+  regenerates the blueprint but still keeps those operational keys.
+- `stamp_generic.py` and `run_v2.py` read both schemas through `parts_list.iter_parts` / `has_built` (legacy
+  `built_as: "open"` and the new `built_as: ["open"]` list; `"organic": true` still wins in `is_organic`).
+
+This stage is *upstream* of `run_combined.py`. The combined runner itself stays $0: it only reads the file.
 
 ## Organic models (turtle, bonsai, creatures, trees)
 

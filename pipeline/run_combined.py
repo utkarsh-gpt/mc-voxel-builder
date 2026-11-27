@@ -8,7 +8,7 @@ per subject N (writes the variant N_combined; N's own files are never touched):
   1. load art/final/N_voxels_textured.json + meta/N_texture_labels.json + meta/N_noise.json
   2. orient (William's orient.facade_flip): verdict logged; applied only with --orient-apply (a raw blueprint/hyper3d mesh;
      models built by shape_fit from the sheets are already facade-on-+z and their cached features are in that frame)
-  3. features: cached meta/N_features.json, else feature_detect.detect(N, llm=False) (image-only, $0); parts: meta/N_parts.json
+  3. features: cached meta/N_features.json, else feature_detect.detect(N, llm=False) (image-only, $0); parts: meta/N_parts.json (legacy list or parts_list.py dict schema; organic / built_as / open read through parts_list.iter_parts)
   4. organic? (--organic, parts "organic", or auto: no wall openings + non-planar sides) -> no stamping
   5. stamp_generic.stamp -> new occupancy + per-feature recess masks (rect.plane moved to the recess back)
   6. alias files art/final/N_combined_voxels_textured.json, meta/N_combined_{texture_labels,noise,features}.json
