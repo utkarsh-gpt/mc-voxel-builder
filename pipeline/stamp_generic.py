@@ -269,3 +269,41 @@ def stamp(occ, features, parts=None, log=print):
             rep[f"part:{p['id']}:{p['built_as']}:no_boxes"] += 1
     log("stamp", dict(rep))
     return occ, {"counts": dict(rep), "parts": extra}, feats2
+
+
+def stamp_peaks(occ, peaks, log=print):
+    """above-mesh peaks (feature_detect.above_mesh_peaks): rebuild each tower cap / turret / spire / chimney from its drawn
+    profile. Inside the peak's box (its x range, the supporting z run, rows above its base) every voxel outside the profile is
+    removed (the clipped, ragged mesh stub) and every profile cell is filled. Returns occ2, report, {cell: peak index}."""
+    occ = occ.copy(); W, H, D = occ.shape; owner = {}; rep = []; shapes = {}
+    for k, p in enumerate(peaks):
+        prof = {tuple(c) for c in p["cells"] if 0 <= c[0] < W and 0 <= c[2] < D}
+        if not prof: continue
+        top = max(c[1] for c in prof)
+        if top >= H:   # grow the grid upward for a peak taller than the mesh
+            occ = np.concatenate([occ, np.zeros((W, top - H + 1, D), bool)], 1); H = occ.shape[1]
+        x0, x1 = p["x"]; z0, z1 = p["z"]; removed = added = 0
+        for x in range(x0, x1 + 1):
+            for y in range(p["base_y"] + 1, H):
+                for z in range(z0, z1 + 1):
+                    if occ[x, y, z] and (x, y, z) not in prof: occ[x, y, z] = False; removed += 1
+        for c in prof:
+            if not occ[c]: occ[c] = True; added += 1
+            owner[c] = k
+        # slope shapes: a cell with nothing of the peak above it steps down outward (stairs facing inward = the tall back
+        # toward the peak's axis), like a builder's slate cap; the 1x1 apex column stays full blocks (the finial)
+        if p["built_as"] == "outline":
+            xc, zc = (x0 + x1)/2, (min(c[2] for c in prof) + max(c[2] for c in prof))/2
+            for (x, y, z) in prof:
+                if (x, y + 1, z) in prof: continue
+                if sum((x + a, y, z + b) in prof for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))) == 0: continue   # apex
+                dx, dz = x - xc, z - zc
+                if abs(dx) >= abs(dz) and dx != 0: f = "east" if dx < 0 else "west"
+                elif dz != 0: f = "south" if dz < 0 else "north"
+                else: continue
+                shapes[(x, y, z)] = {"type": "stairs", "facing": f, "half": "bottom", "shape": "straight"}
+        rep.append({"kind": p["kind"], "built_as": p["built_as"], "x": p["x"], "z": p["z"], "base_y": p["base_y"], "top_y": top,
+                    "widths": [r[2] - r[1] + 1 for r in p["rows"]], "colour": p.get("colour"), "removed": removed, "added": added,
+                    "cells": len(prof)})
+        log(f"  peak {k}: {p['kind']} x {x0}..{x1} y {p['base_y'] + 1}..{top} z {z0}..{z1}: -{removed} stub +{added} -> {len(prof)} cells")
+    return occ, rep, owner, shapes

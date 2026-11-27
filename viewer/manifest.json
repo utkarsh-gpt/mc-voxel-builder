@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T19:17:45",
+  "generated_at": "2026-11-26T19:44:01",
   "default_id": "windmill_mc_blocks",
   "models": [
     {
@@ -849,16 +849,16 @@
         51,
         15
       ],
-      "voxelCount": 9917,
+      "voxelCount": 10007,
       "hasShapes": false,
-      "subCount": 1372,
-      "subPct": 13.8,
-      "paletteSize": 150,
+      "subCount": 1403,
+      "subPct": 14.0,
+      "paletteSize": 153,
       "highlight": true,
       "featured": false,
       "ref": null,
-      "mtime": 1795738157,
-      "bytes": 538431
+      "mtime": 1795740239,
+      "bytes": 544242
     },
     {
       "id": "gate_grad_mc_blocks",

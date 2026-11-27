@@ -143,3 +143,55 @@ door panel picker didn't exclude it.
 
 **Result.** Neutral-dark exterior blocks went from 147 to **0**, with 0 backing exposed to air, 142 window-only glass
 panes (0 stray) and 0 creaking_heart. dE mean 12.61 → 12.54 and p90 28.29 → 28.22.
+
+## Above-mesh peaks: tower caps, turrets, spires and chimneys the mesh clipped (Nov 26, 2026)
+
+**Flaw.** `feature_detect.align()` stretches each drawing onto the mesh's bounding box. When the mesh clipped a peak
+that the drawing shows, the drawing is squashed to fit, so the missing part never shows up as a difference. The
+gate's two central tower caps are taller than the gable in the drawing, but in the mesh they were ragged 1-2 wide
+stubs ending below it. The parts list had no boxes for them, so `tower_cap: outline` was skipped.
+
+**Detector: `feature_detect.above_mesh_peaks(n, tag, occ)`** ($0, no LLM). It runs on the front and back views.
+
+1. **Registration.** The drawing is scaled by the mesh **width** and anchored at the ground. The vertical scale is
+   fitted within ±25%, by IoU over the rows the mesh has. Anything drawn above the mesh then lands in rows it lacks.
+2. **Seeds.** A seed is a 4-connected group of drawing cells above the mesh's column top, at least 4 cells.
+3. **Profile.** Each peak is rebuilt **whole**. Starting from the drawn tip, it walks down the run that contains the
+   tip until the outline widens by 3 or more in one row (the shoulder where it meets the roof, gable or wider body).
+   - It is shifted -1, 0 or +1 column to sit on the mesh stub it replaces.
+   - Widths never grow going up, and every row is centred on the peak's median axis.
+   - Tapering peaks (top width ≤ 0.6 × the base, or ≤ 2) become `tower_cap`, built as `outline`, with a linear taper
+     to a 1×1 apex. Others become `chimney`, built as `proud`.
+4. **Depth.** It takes the supporting voxels' z-run on that facade. Depth = min(the run's length, the peak's width),
+   and each row's depth scales with its width, so a square cap stays square instead of stretching across the
+   building.
+5. **Colour and material.** The drawn colour is sampled per row, and the nearest subject material is used: a slate cap
+   gets `roof_slate`, a stone turret body under it gets `gate_stone`.
+
+**No stray poles (guards):**
+- **Support.** At least 60% of the peak's base row must have mesh solid in the 3 rows directly under it (±1 column).
+  A strip drawn beside a wing with nothing under it is dropped.
+- **No shoulder means no peak.** A run that reaches the ground is a wall, not a peak.
+- **Registration quality.** The view's drawing-to-mesh IoU must be at least 0.65.
+- **Size.** At least 2 wide somewhere and 3 rows tall.
+- **Two-view confirmation.** When front and back drawings both exist, both must show the peak (x overlap within 1).
+  The front view's peak is the one built.
+
+**Stamping: `stamp_generic.stamp_peaks`.** Inside each peak's box (its x range, the support z-run, the rows above its
+base), mesh voxels outside the profile are removed (the ragged stub) and profile cells are filled. Cells with nothing
+of the peak above them get stairs stepping down outward; the 1×1 apex column stays full blocks as the finial.
+`run_combined` re-materials the cells per row and records them in `meta/N_combined_features.json` under `stamp.peaks`
+and `stamp.peaks_cells`. `--no-peaks` turns it off; organic subjects skip it.
+
+**Results.**
+- **Gate:** 2 `tower_cap`s at x 15..19 and 38..42, base y 39, top y 48, z-run 3..11 with depth 5.
+  - Widths from the base up: 5, 3, 3, 2, 2, 2, 2, 1, 1. Rows 40-41 are stone, rows 42-48 slate.
+  - Each cap: 49 voxels added, 5 stub voxels removed, 61 cells.
+  - Occupancy changes only inside the two cap boxes. The model is one connected piece, all 3 arches are open,
+    there is 0 stray glass and 0 creaking_heart.
+- **Sanity checks (0 peaks):**
+  - house: 0 above-mesh regions survive.
+  - windmill_v2 and cottage_v2: 0.
+  - windmill v1: 3 sail and lattice slivers dropped (front IoU 0.63, back not confirmed).
+  - turtle: organic, so it is skipped. Run directly, its head would be dropped as too short or thin.
+  - cathedral: 0.

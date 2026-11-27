@@ -47,26 +47,43 @@ def pick_tag(n, occ):
         if s and (best is None or np.mean(s) > best[0]): best = (float(np.mean(s)), t)
     print(f"  sheet tag by IoU: {best}"); return best[1] if best else "_v1"
 
-def write_alias(n, a, T, L, N, occ2, feats2, fj, rep, organic):
+def peak_material(L, T, hexc):
+    """the subject material whose base colour is nearest the peak's drawn colour (slate cap -> roof slate, stone pinnacle -> stone)"""
+    import mc_map as MM
+    bases = L.get("bases") or {}
+    cand = {m: h for m, h in bases.items() if m not in ("window_dark", "window_lit", "glass", "door", "frame")}
+    if not cand or not hexc: return None
+    t = MM.hex2lab(hexc); return min(cand, key=lambda m: MM.dE(t, MM.hex2lab(cand[m])))
+
+def write_alias(n, a, T, L, N, occ2, feats2, fj, rep, organic, override=None, shapes=None):
     o_xyz = np.array([[v["x"], v["y"], v["z"]] for v in T["voxels"]]); tree = cKDTree(o_xyz)
     idx = {(v["x"], v["y"], v["z"]): i for i, v in enumerate(T["voxels"])}
     W, H, D = occ2.shape; cells = list(zip(*np.nonzero(occ2)))
     pad = np.pad(occ2, 1); surf = lambda x, y, z: not all(pad[x + 1 + dx, y + 1 + dy, z + 1 + dz] for dx, dy, dz in ((1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)))
     tv, lv, nv = [], [], []; Lidx = {(v["x"], v["y"], v["z"]): v for v in L["voxels"]}; Nidx = {(v["x"], v["y"], v["z"]): v for v in N["voxels"]}
-    new = 0
+    new = 0; override = override or {}
+    tmpl = {}   # material -> its most common (colour key) surface voxel, the template for re-materialised peak cells
+    for m in set(override.values()):
+        vs = [v for v in L["voxels"] if v["m"] == m and v.get("surf")]
+        if vs:
+            cc = collections.Counter(T["voxels"][idx[(v["x"], v["y"], v["z"])]]["c"] for v in vs).most_common(1)[0][0]
+            tmpl[m] = next((v["x"], v["y"], v["z"]) for v in vs if T["voxels"][idx[(v["x"], v["y"], v["z"])]]["c"] == cc)
     for (x, y, z) in cells:
         k = (int(x), int(y), int(z))
-        if k in idx: src = k
+        if k in override and override[k] in tmpl: src = tmpl[override[k]]; new += k not in idx
+        elif k in idx: src = k
         else:
             _, j = tree.query(k); src = tuple(int(c) for c in o_xyz[j]); new += 1
         t = dict(T["voxels"][idx[src]], x=k[0], y=k[1], z=k[2])
         if src != k: t.pop("s", None)                          # a new (backing) cell is a full block
+        if shapes and k in shapes: t["s"] = shapes[k]         # peak slope (stairs)
+        elif k in override: t.pop("s", None)
         l = dict(Lidx[src], x=k[0], y=k[1], z=k[2]); l["surf"] = bool(surf(*k))
         nz = dict(Nidx[src], x=k[0], y=k[1], z=k[2])
         tv.append(t); lv.append(l); nv.append(nz)
-    T2 = dict(T, name=a, voxels=tv); T2["stamp"] = {"source": n, "organic": organic, "counts": rep.get("counts", {}), "new_cells": new}
+    T2 = dict(T, name=a, voxels=tv, size=list(occ2.shape)); T2["stamp"] = {"source": n, "organic": organic, "counts": rep.get("counts", {}), "new_cells": new}
     json.dump(T2, open(f"art/final/{a}_voxels_textured.json", "w"))
-    json.dump(dict(L, subject=a, voxels=lv), open(f"art/final/meta/{a}_texture_labels.json", "w"))
+    json.dump(dict(L, subject=a, voxels=lv, size=list(occ2.shape)), open(f"art/final/meta/{a}_texture_labels.json", "w"))
     json.dump(dict(N, subject=a, voxels=nv), open(f"art/final/meta/{a}_noise.json", "w"))
     if fj is not None:
         json.dump(dict(fj, subject=a, features=feats2, stamp={k: v for k, v in rep.items() if k != "parts"}), open(f"art/final/meta/{a}_features.json", "w"))
@@ -104,7 +121,7 @@ def audit(a, feats2):
     return {"blocks": len(d["voxels"]), "glass": len(glass), "glass_ids": {k: c for k, c in ids.items() if "pane" in k or "glass" in k},
             "stray_glass": len(stray), "creaking_heart": ids.get("creaking_heart", 0), "shroomlight": ids.get("shroomlight", 0)}
 
-def run(n, organic_flag=False, orient_apply=False, detect=False):
+def run(n, organic_flag=False, orient_apply=False, detect=False, no_peaks=False):
     a = f"{n}_combined"; print(f"== {n} -> {a}")
     T, L, N = load(n); occ = occ_of(T)
     fp = f"art/final/meta/{n}_features.json"; pp = f"art/final/meta/{n}_parts.json"
@@ -132,7 +149,18 @@ def run(n, organic_flag=False, orient_apply=False, detect=False):
         occ2, rep, feats2 = occ, {"counts": {"organic_bypass": 1}}, feats
     else:
         occ2, rep, feats2 = SG.stamp(occ, feats, P)
-    new = write_alias(n, a, T, L, N, occ2, feats2, fj, rep, organic)
+    override = {}
+    if not organic and not no_peaks:   # tower caps / turrets / spires / chimneys the mesh clipped (drawn above the mesh top)
+        import feature_detect as fd
+        peaks = fd.above_mesh_peaks(n, tag, occ)
+        occ2, prep, owner, pshapes = SG.stamp_peaks(occ2, peaks)
+        mats = [peak_material(L, T, p.get("colour")) for p in peaks]
+        rowm = [{int(y): peak_material(L, T, h) for y, h in (p.get("row_colours") or {}).items()} for p in peaks]
+        override = {c: (rowm[k].get(c[1]) or mats[k]) for c, k in owner.items() if (rowm[k].get(c[1]) or mats[k])}
+        for pr, m, rm in zip(prep, mats, rowm): pr["material"] = m; pr["row_materials"] = {str(y): v for y, v in sorted(rm.items())}
+        rep["peaks"] = prep; rep["counts"]["peaks"] = len(prep)
+        rep["peaks_cells"] = {f"{c[0]},{c[1]},{c[2]}": k for c, k in owner.items()}
+    new = write_alias(n, a, T, L, N, occ2, feats2, fj, rep, organic, override, pshapes if not organic and not no_peaks else None)
     print(f"  occupancy {int(occ.sum())} -> {int(occ2.sum())} (new cells {new})")
     os.makedirs("out/combined", exist_ok=True); mapped = f"out/combined/{a}_mapped.json"
     e = dict(os.environ, MC_GLASS="windows", MC_MAP_OUT=mapped)
@@ -145,12 +173,12 @@ def run(n, organic_flag=False, orient_apply=False, detect=False):
     shade_gradient.run(a, a, w[0], w[1], model=mapped, sheet_subject=n, sheet_tag=tag, auto=True)
     au = audit(a, feats2 if not organic else None)
     info = {"subject": n, "alias": a, "sheet_tag": tag, "orient_flip_verdict": bool(flip), "orient_applied": bool(flip and orient_apply),
-            "organic": organic, "organic_why": why, "stamp": rep.get("counts"), "occupancy": [int(occ.sum()), int(occ2.sum())], "audit": au}
+            "organic": organic, "organic_why": why, "stamp": rep.get("counts"), "peaks": rep.get("peaks", []), "occupancy": [int(occ.sum()), int(occ2.sum())], "audit": au}
     json.dump(info, open(f"out/combined/{a}_report.json", "w"), indent=1); print("  audit", au)
     return info
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("names", nargs="+"); ap.add_argument("--organic", action="store_true")
-    ap.add_argument("--orient-apply", action="store_true"); ap.add_argument("--detect", action="store_true", help="re-detect features (image-only, llm=False)")
+    ap.add_argument("--orient-apply", action="store_true"); ap.add_argument("--no-peaks", action="store_true", help="skip the above-mesh peak rebuild"); ap.add_argument("--detect", action="store_true", help="re-detect features (image-only, llm=False)")
     x = ap.parse_args()
-    for n in x.names: run(n, x.organic, x.orient_apply, x.detect)
+    for n in x.names: run(n, x.organic, x.orient_apply, x.detect, x.no_peaks)
